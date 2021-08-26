@@ -1,4 +1,16 @@
-platform:ios, '7.0'
+workspace 'TeamTalk'
+
+project 'TeamTalk.xcodeproj'
+
+#use_frameworks!
+use_modular_headers!
+inhibit_all_warnings!
+
+platform:ios, '10.0'
+
+target 'TeamTalk' do
+
+pod 'Reveal-SDK' , '~> 24' , :configurations => ['Debug']
 
 pod 'FMDB', '~> 2.3'
 pod 'SDWebImage', '~> 3.6'
@@ -24,3 +36,19 @@ pod 'SVProgressHUD'
 pod 'LCActionSheet'
 pod 'BaiduMapKit'
 pod 'SSKeychain'
+
+#pod 'SDAutoLayout'
+
+end
+
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+#    puts "===================>target name #{target.name}"
+    target.build_configurations.each do |config|
+      config.build_settings['MACOSX_DEPLOYMENT_TARGET']       = '10.10'
+      config.build_settings['TVOS_DEPLOYMENT_TARGET']         = '10.0'
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET']     = '10.0'
+      config.build_settings['WATCHOS_DEPLOYMENT_TARGET']      = '4.3'
+      end
+  end
+end

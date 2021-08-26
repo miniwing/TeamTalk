@@ -63,7 +63,6 @@
 		462CF9201CA0EAC7003883F7 /* pic_pin_serach_MapModel@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 462CF9151CA0EAC7003883F7 /* pic_pin_serach_MapModel@3x.png */; };
 		462CF9211CA0EAC7003883F7 /* Place.m in Sources */ = {isa = PBXBuildFile; fileRef = 462CF9171CA0EAC7003883F7 /* Place.m */; };
 		462CF9221CA0EAC7003883F7 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 462CF9191CA0EAC7003883F7 /* ViewController.m */; };
-		4640CA891CEACF080039BA4C /* libsecurity.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4640CA881CEACF080039BA4C /* libsecurity.a */; };
 		468BBCB41CDC8EEA00D5307A /* libGeTuiSdk-1.4.2-noidfa.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 468BBCB31CDC8EEA00D5307A /* libGeTuiSdk-1.4.2-noidfa.a */; };
 		468BBCB61CDC8F4000D5307A /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 468BBCB51CDC8F4000D5307A /* libz.tbd */; };
 		468BBCB81CDC8F4800D5307A /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 468BBCB71CDC8F4800D5307A /* libsqlite3.tbd */; };
@@ -87,7 +86,9 @@
 		46C53DA91CDADD8700034CF5 /* IMSwitchService.pb.m in Sources */ = {isa = PBXBuildFile; fileRef = 46C53DA01CDADD8700034CF5 /* IMSwitchService.pb.m */; };
 		46C53DAC1CDAF74C00034CF5 /* DDAllFriendAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 46C53DAB1CDAF74C00034CF5 /* DDAllFriendAPI.m */; };
 		46C53DB01CDB2AB700034CF5 /* FriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46C53DAF1CDB2AB700034CF5 /* FriendsViewController.m */; };
-		6802F6EF490DEE71C0552E98 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC7C945FDB2D00B8D439C777 /* libPods.a */; };
+		4A400E1E26D7782D00B28B59 /* libstdc++.6.0.9.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A400E1D26D7782D00B28B59 /* libstdc++.6.0.9.tbd */; };
+		4A400E2D26D7892900B28B59 /* libsecurity.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A400E2C26D7892000B28B59 /* libsecurity.a */; };
+		4ACEF0B626D777BC004BF91E /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ACEF0B526D777BC004BF91E /* libc++.tbd */; };
 		810D52611B523E42004DF7B4 /* search_back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 810D52601B523E42004DF7B4 /* search_back@2x.png */; };
 		810D52641B52592A004DF7B4 /* MTTSearchDetailViewControll.m in Sources */ = {isa = PBXBuildFile; fileRef = 810D52631B52592A004DF7B4 /* MTTSearchDetailViewControll.m */; };
 		810D874F1B456BE10089CEA1 /* MTTBubbleModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 810D874E1B456BE10089CEA1 /* MTTBubbleModule.m */; };
@@ -467,9 +468,24 @@
 		C0AE3A111B32C68200B67232 /* EditGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0AE39FC1B32C68200B67232 /* EditGroupViewController.m */; };
 		C0AE3A121B32C68200B67232 /* EditGroupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0AE39FD1B32C68200B67232 /* EditGroupViewController.xib */; };
 		C0AE3A1B1B32C95A00B67232 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C0AE3A1A1B32C95A00B67232 /* libz.dylib */; };
+		EB4A702FBD507313AF9F66E6 /* libPods-TeamTalk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D457E056E7B19717E2C98931 /* libPods-TeamTalk.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		4A400E2B26D7892000B28B59 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4A400E2726D7892000B28B59 /* security.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = FDBEA6FD1A7B6D8D006B6517;
+			remoteInfo = security;
+		};
+		4A400E2E26D7893000B28B59 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4A400E2726D7892000B28B59 /* security.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = FDBEA6FC1A7B6D8D006B6517;
+			remoteInfo = security;
+		};
 		C054EC491B3270D900078809 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C054EC271B3270D900078809 /* Project object */;
@@ -480,7 +496,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		03A854D4EB4F75C40944178C /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		4611EA6E1CAB6A8B00D4DB63 /* DDSendVoiceMessageAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDSendVoiceMessageAPI.h; sourceTree = "<group>"; };
 		4611EA6F1CAB6A8B00D4DB63 /* DDSendVoiceMessageAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDSendVoiceMessageAPI.m; sourceTree = "<group>"; };
 		4626142A1CB8F306005BDCAA /* ModifyPassAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModifyPassAPI.h; sourceTree = "<group>"; };
@@ -492,7 +507,7 @@
 		462CF86C1C9FAA52003883F7 /* bubble.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = bubble.bundle; sourceTree = "<group>"; };
 		462CF86E1CA02936003883F7 /* DDChatLocationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDChatLocationCell.h; sourceTree = "<group>"; };
 		462CF86F1CA02936003883F7 /* DDChatLocationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDChatLocationCell.m; sourceTree = "<group>"; };
-		462CF8711CA03039003883F7 /* districtsdatabase.db */ = {isa = PBXFileReference; lastKnownFileType = file; name = districtsdatabase.db; path = ../../../Documents/1500meter/happychat4ios/happychat4ios/districtsdatabase.db; sourceTree = "<group>"; };
+		462CF8711CA03039003883F7 /* districtsdatabase.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = districtsdatabase.db; sourceTree = "<group>"; };
 		462CF8731CA03039003883F7 /* UIView+JHExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+JHExtension.h"; sourceTree = "<group>"; };
 		462CF8741CA03039003883F7 /* UIView+JHExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+JHExtension.m"; sourceTree = "<group>"; };
 		462CF8751CA03039003883F7 /* UIView+JHFollowKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+JHFollowKeyboard.h"; sourceTree = "<group>"; };
@@ -624,6 +639,11 @@
 		46C53DAB1CDAF74C00034CF5 /* DDAllFriendAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDAllFriendAPI.m; sourceTree = "<group>"; };
 		46C53DAE1CDB2AB700034CF5 /* FriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendsViewController.h; sourceTree = "<group>"; };
 		46C53DAF1CDB2AB700034CF5 /* FriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendsViewController.m; sourceTree = "<group>"; };
+		4A400E1D26D7782D00B28B59 /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.0.9.tbd"; path = "usr/lib/libstdc++.6.0.9.tbd"; sourceTree = SDKROOT; };
+		4A400E2426D7870C00B28B59 /* security.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = security.h; sourceTree = "<group>"; };
+		4A400E2526D7870C00B28B59 /* libsecurity.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libsecurity.a; sourceTree = "<group>"; };
+		4A400E2726D7892000B28B59 /* security.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = security.xcodeproj; path = libsecurity/ios/security.xcodeproj; sourceTree = "<group>"; };
+		4ACEF0B526D777BC004BF91E /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		810D52601B523E42004DF7B4 /* search_back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search_back@2x.png"; sourceTree = "<group>"; };
 		810D52621B52592A004DF7B4 /* MTTSearchDetailViewControll.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTTSearchDetailViewControll.h; sourceTree = "<group>"; };
 		810D52631B52592A004DF7B4 /* MTTSearchDetailViewControll.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTTSearchDetailViewControll.m; sourceTree = "<group>"; };
@@ -717,7 +737,8 @@
 		81F8502B1B58BD300004F6DE /* mac_logined@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mac_logined@2x.png"; sourceTree = "<group>"; };
 		81F8502D1B58E3110004F6DE /* MTTPCLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTTPCLoginViewController.h; sourceTree = "<group>"; };
 		81F8502E1B58E3110004F6DE /* MTTPCLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTTPCLoginViewController.m; sourceTree = "<group>"; };
-		B5814BD6A45D3ECB20653BEA /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		8E55DB7B5F6DEEA86E4EDE7D /* Pods-TeamTalk.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TeamTalk.debug.xcconfig"; path = "Target Support Files/Pods-TeamTalk/Pods-TeamTalk.debug.xcconfig"; sourceTree = "<group>"; };
+		90F639D21BBD7ED9C1D9FB43 /* Pods-TeamTalk.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TeamTalk.release.xcconfig"; path = "Target Support Files/Pods-TeamTalk/Pods-TeamTalk.release.xcconfig"; sourceTree = "<group>"; };
 		C00078401B3A466700E7E5B8 /* UIView+PointBadge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+PointBadge.h"; sourceTree = "<group>"; };
 		C00078411B3A466700E7E5B8 /* UIView+PointBadge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+PointBadge.m"; sourceTree = "<group>"; };
 		C00078431B3A552200E7E5B8 /* UITabBar+SubView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITabBar+SubView.h"; sourceTree = "<group>"; };
@@ -1262,7 +1283,7 @@
 		C0AE39FC1B32C68200B67232 /* EditGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditGroupViewController.m; sourceTree = "<group>"; };
 		C0AE39FD1B32C68200B67232 /* EditGroupViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditGroupViewController.xib; sourceTree = "<group>"; };
 		C0AE3A1A1B32C95A00B67232 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
-		FC7C945FDB2D00B8D439C777 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		D457E056E7B19717E2C98931 /* libPods-TeamTalk.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TeamTalk.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1270,7 +1291,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4640CA891CEACF080039BA4C /* libsecurity.a in Frameworks */,
+				4A400E2D26D7892900B28B59 /* libsecurity.a in Frameworks */,
+				468BBCBA1CDC8F4E00D5307A /* Security.framework in Frameworks */,
+				4A400E1E26D7782D00B28B59 /* libstdc++.6.0.9.tbd in Frameworks */,
+				468BBCB61CDC8F4000D5307A /* libz.tbd in Frameworks */,
+				4ACEF0B626D777BC004BF91E /* libc++.tbd in Frameworks */,
 				468BBCC81CDC8F6F00D5307A /* CoreBluetooth.framework in Frameworks */,
 				468BBCC61CDC8F6A00D5307A /* CoreLocation.framework in Frameworks */,
 				468BBCC41CDC8F6600D5307A /* JavaScriptCore.framework in Frameworks */,
@@ -1278,13 +1303,11 @@
 				468BBCC01CDC8F5D00D5307A /* CoreTelephony.framework in Frameworks */,
 				468BBCBE1CDC8F5800D5307A /* SystemConfiguration.framework in Frameworks */,
 				468BBCBC1CDC8F5400D5307A /* MobileCoreServices.framework in Frameworks */,
-				468BBCBA1CDC8F4E00D5307A /* Security.framework in Frameworks */,
 				468BBCB81CDC8F4800D5307A /* libsqlite3.tbd in Frameworks */,
-				468BBCB61CDC8F4000D5307A /* libz.tbd in Frameworks */,
 				C0AE3A1B1B32C95A00B67232 /* libz.dylib in Frameworks */,
 				468BBCB41CDC8EEA00D5307A /* libGeTuiSdk-1.4.2-noidfa.a in Frameworks */,
 				817CB3B01B3BC6E80004AFEA /* Fabric.framework in Frameworks */,
-				6802F6EF490DEE71C0552E98 /* libPods.a in Frameworks */,
+				EB4A702FBD507313AF9F66E6 /* libPods-TeamTalk.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1298,15 +1321,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		280D4A8559822D5ACF2BC274 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				03A854D4EB4F75C40944178C /* Pods.debug.xcconfig */,
-				B5814BD6A45D3ECB20653BEA /* Pods.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		462614291CB8F2DE005BDCAA /* Business */ = {
 			isa = PBXGroup;
 			children = (
@@ -1333,8 +1347,7 @@
 				462CF8751CA03039003883F7 /* UIView+JHFollowKeyboard.h */,
 				462CF8761CA03039003883F7 /* UIView+JHFollowKeyboard.m */,
 			);
-			name = JHFollowKeyboard;
-			path = ../../../Documents/1500meter/happychat4ios/happychat4ios/JHFollowKeyboard;
+			path = JHFollowKeyboard;
 			sourceTree = "<group>";
 		};
 		462CF8821CA03039003883F7 /* emoj */ = {
@@ -1351,8 +1364,7 @@
 				462CF8801CA03039003883F7 /* WBStatusHelper.h */,
 				462CF8811CA03039003883F7 /* WBStatusHelper.m */,
 			);
-			name = emoj;
-			path = ../../../Documents/1500meter/happychat4ios/happychat4ios/emoj;
+			path = emoj;
 			sourceTree = "<group>";
 		};
 		462CF88B1CA03039003883F7 /* PageControl */ = {
@@ -1418,12 +1430,12 @@
 		462CF8A61CA03039003883F7 /* Vender */ = {
 			isa = PBXGroup;
 			children = (
+				4A400E2226D786D700B28B59 /* security */,
 				462CF8921CA03039003883F7 /* SDCycleScrollView */,
 				462CF89A1CA03039003883F7 /* SDPhotoBrowser */,
 				462CF8A51CA03039003883F7 /* SDRefeshView */,
 			);
-			name = Vender;
-			path = ../../../Documents/1500meter/happychat4ios/happychat4ios/Vender;
+			path = Vender;
 			sourceTree = "<group>";
 		};
 		462CF8B31CA03039003883F7 /* MessageInputView */ = {
@@ -1442,8 +1454,7 @@
 				462CF8B11CA03039003883F7 /* XHVoiceRecordHUD.h */,
 				462CF8B21CA03039003883F7 /* XHVoiceRecordHUD.m */,
 			);
-			name = MessageInputView;
-			path = ../../../Documents/1500meter/happychat4ios/happychat4ios/MessageInputView;
+			path = MessageInputView;
 			sourceTree = "<group>";
 		};
 		462CF8B81CA03039003883F7 /* SDAutoLayout */ = {
@@ -1454,8 +1465,7 @@
 				462CF8B61CA03039003883F7 /* UIView+SDAutoLayout.h */,
 				462CF8B71CA03039003883F7 /* UIView+SDAutoLayout.m */,
 			);
-			name = SDAutoLayout;
-			path = ../../../Documents/1500meter/happychat4ios/happychat4ios/SDAutoLayout;
+			path = SDAutoLayout;
 			sourceTree = "<group>";
 		};
 		462CF8DA1CA0D248003883F7 /* DLFramework */ = {
@@ -1556,9 +1566,37 @@
 			path = Friend;
 			sourceTree = "<group>";
 		};
+		4A400E2226D786D700B28B59 /* security */ = {
+			isa = PBXGroup;
+			children = (
+				4A400E2326D7870C00B28B59 /* Security */,
+			);
+			path = security;
+			sourceTree = "<group>";
+		};
+		4A400E2326D7870C00B28B59 /* Security */ = {
+			isa = PBXGroup;
+			children = (
+				4A400E2426D7870C00B28B59 /* security.h */,
+				4A400E2526D7870C00B28B59 /* libsecurity.a */,
+			);
+			name = Security;
+			path = TeamTalk/Exist/Security;
+			sourceTree = SOURCE_ROOT;
+		};
+		4A400E2826D7892000B28B59 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4A400E2C26D7892000B28B59 /* libsecurity.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		527B2E51021DC51A46265D31 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4A400E1D26D7782D00B28B59 /* libstdc++.6.0.9.tbd */,
+				4ACEF0B526D777BC004BF91E /* libc++.tbd */,
 				468BBCC71CDC8F6F00D5307A /* CoreBluetooth.framework */,
 				468BBCC51CDC8F6A00D5307A /* CoreLocation.framework */,
 				468BBCC31CDC8F6600D5307A /* JavaScriptCore.framework */,
@@ -1571,7 +1609,7 @@
 				468BBCB51CDC8F4000D5307A /* libz.tbd */,
 				817CB3AE1B3BC6E80004AFEA /* Fabric.framework */,
 				C0AE3A1A1B32C95A00B67232 /* libz.dylib */,
-				FC7C945FDB2D00B8D439C777 /* libPods.a */,
+				D457E056E7B19717E2C98931 /* libPods-TeamTalk.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1626,6 +1664,7 @@
 		C054EC261B3270D900078809 = {
 			isa = PBXGroup;
 			children = (
+				4A400E2726D7892000B28B59 /* security.xcodeproj */,
 				468BBCB11CDC8EEA00D5307A /* GtSdkLib-noidfa */,
 				462CF90C1CA0EAC7003883F7 /* LocationMap */,
 				462CF8DA1CA0D248003883F7 /* DLFramework */,
@@ -1638,8 +1677,8 @@
 				C054EC311B3270D900078809 /* TeamTalk */,
 				C054EC4B1B3270D900078809 /* TeamTalkTests */,
 				C054EC301B3270D900078809 /* Products */,
-				280D4A8559822D5ACF2BC274 /* Pods */,
 				527B2E51021DC51A46265D31 /* Frameworks */,
+				FAE6CEBA00DC7935FB7A3A9D /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -2964,6 +3003,15 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		FAE6CEBA00DC7935FB7A3A9D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8E55DB7B5F6DEEA86E4EDE7D /* Pods-TeamTalk.debug.xcconfig */,
+				90F639D21BBD7ED9C1D9FB43 /* Pods-TeamTalk.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -2971,18 +3019,19 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C054EC521B3270D900078809 /* Build configuration list for PBXNativeTarget "TeamTalk" */;
 			buildPhases = (
-				C737AEAC57352C980D83E347 /* Check Pods Manifest.lock */,
+				8E7DF775531D15EF122CA041 /* [CP] Check Pods Manifest.lock */,
 				468A16201B3937150093C314 /* ShellScript */,
 				C054EC2B1B3270D900078809 /* Sources */,
 				C054EC2C1B3270D900078809 /* Frameworks */,
 				C054EC2D1B3270D900078809 /* Resources */,
-				D9431D98FDF906055AA1F60D /* Copy Pods Resources */,
 				817CB3AD1B3BC68D0004AFEA /* Run Script */,
-				79DEF1D0168B36302EC7175A /* Embed Pods Frameworks */,
+				A1922929C0E99B56327C846E /* [CP] Embed Pods Frameworks */,
+				0CF85D79144F1AB0A1ACD444 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				4A400E2F26D7893000B28B59 /* PBXTargetDependency */,
 			);
 			name = TeamTalk;
 			productName = TeamTalk;
@@ -3018,11 +3067,13 @@
 				TargetAttributes = {
 					C054EC2E1B3270D900078809 = {
 						CreatedOnToolsVersion = 6.3;
-						DevelopmentTeam = 9EYFJRDJNQ;
+						DevelopmentTeam = G8G9TAP4UN;
+						ProvisioningStyle = Manual;
 					};
 					C054EC471B3270D900078809 = {
 						CreatedOnToolsVersion = 6.3;
-						DevelopmentTeam = MEU26PKGC2;
+						DevelopmentTeam = G8G9TAP4UN;
+						ProvisioningStyle = Manual;
 						TestTargetID = C054EC2E1B3270D900078809;
 					};
 				};
@@ -3032,12 +3083,19 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
 			mainGroup = C054EC261B3270D900078809;
 			productRefGroup = C054EC301B3270D900078809 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 4A400E2826D7892000B28B59 /* Products */;
+					ProjectRef = 4A400E2726D7892000B28B59 /* security.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				C054EC2E1B3270D900078809 /* TeamTalk */,
@@ -3045,6 +3103,16 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		4A400E2C26D7892000B28B59 /* libsecurity.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libsecurity.a;
+			remoteRef = 4A400E2B26D7892000B28B59 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		C054EC2D1B3270D900078809 /* Resources */ = {
@@ -3225,6 +3293,96 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0CF85D79144F1AB0A1ACD444 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TeamTalk/Pods-TeamTalk-resources.sh",
+				"${PODS_ROOT}/BaiduMapKit/BaiduMapKit/BaiduMapAPI_Map.framework/Resources/mapapi.bundle",
+				"${PODS_ROOT}/LCActionSheet/LCActionSheet/LCActionSheet.bundle",
+				"${PODS_ROOT}/MWPhotoBrowser/MWPhotoBrowser/MWPhotoBrowser.bundle",
+				"${PODS_ROOT}/SSKeychain/Support/en.lproj",
+				"${PODS_ROOT}/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle",
+				"${PODS_ROOT}/SVWebViewController/SVWebViewController/SVWebViewController.bundle/SVWebViewControllerBack.png",
+				"${PODS_ROOT}/SVWebViewController/SVWebViewController/SVWebViewController.bundle/SVWebViewControllerBack@2x.png",
+				"${PODS_ROOT}/SVWebViewController/SVWebViewController/SVWebViewController.bundle/SVWebViewControllerNext.png",
+				"${PODS_ROOT}/SVWebViewController/SVWebViewController/SVWebViewController.bundle/SVWebViewControllerNext@2x.png",
+				"${PODS_ROOT}/SVWebViewController/SVWebViewController/UIActivities/Chrome/SVWebViewControllerActivityChrome-iPad.png",
+				"${PODS_ROOT}/SVWebViewController/SVWebViewController/UIActivities/Chrome/SVWebViewControllerActivityChrome-iPad@2x.png",
+				"${PODS_ROOT}/SVWebViewController/SVWebViewController/UIActivities/Chrome/SVWebViewControllerActivityChrome@2x.png",
+				"${PODS_ROOT}/SVWebViewController/SVWebViewController/UIActivities/Safari/SVWebViewControllerActivitySafari-iPad.png",
+				"${PODS_ROOT}/SVWebViewController/SVWebViewController/UIActivities/Safari/SVWebViewControllerActivitySafari-iPad@2x.png",
+				"${PODS_ROOT}/SVWebViewController/SVWebViewController/UIActivities/Safari/SVWebViewControllerActivitySafari@2x.png",
+				"${PODS_ROOT}/SVWebViewController/SVWebViewController/SVWebViewController.bundle",
+				"${PODS_ROOT}/TZImagePickerController/TZImagePickerController/TZImagePickerController/Resource/MMVideoPreviewPlay@2x.png",
+				"${PODS_ROOT}/TZImagePickerController/TZImagePickerController/TZImagePickerController/Resource/MMVideoPreviewPlayHL@2x.png",
+				"${PODS_ROOT}/TZImagePickerController/TZImagePickerController/TZImagePickerController/Resource/navi_back@2x.png",
+				"${PODS_ROOT}/TZImagePickerController/TZImagePickerController/TZImagePickerController/Resource/photo_def_photoPickerVc@2x.png",
+				"${PODS_ROOT}/TZImagePickerController/TZImagePickerController/TZImagePickerController/Resource/photo_def_previewVc@2x.png",
+				"${PODS_ROOT}/TZImagePickerController/TZImagePickerController/TZImagePickerController/Resource/photo_number_icon@2x.png",
+				"${PODS_ROOT}/TZImagePickerController/TZImagePickerController/TZImagePickerController/Resource/photo_original_def@2x.png",
+				"${PODS_ROOT}/TZImagePickerController/TZImagePickerController/TZImagePickerController/Resource/photo_original_sel@2x.png",
+				"${PODS_ROOT}/TZImagePickerController/TZImagePickerController/TZImagePickerController/Resource/photo_sel_photoPickerVc@2x.png",
+				"${PODS_ROOT}/TZImagePickerController/TZImagePickerController/TZImagePickerController/Resource/photo_sel_previewVc@2x.png",
+				"${PODS_ROOT}/TZImagePickerController/TZImagePickerController/TZImagePickerController/Resource/preview_number_icon@2x.png",
+				"${PODS_ROOT}/TZImagePickerController/TZImagePickerController/TZImagePickerController/Resource/preview_original_def@2x.png",
+				"${PODS_ROOT}/TZImagePickerController/TZImagePickerController/TZImagePickerController/Resource/TableViewArrow@2x.png",
+				"${PODS_ROOT}/TZImagePickerController/TZImagePickerController/TZImagePickerController/Resource/TZAlbumCell.xib",
+				"${PODS_ROOT}/TZImagePickerController/TZImagePickerController/TZImagePickerController/Resource/TZAssetCell.xib",
+				"${PODS_ROOT}/TZImagePickerController/TZImagePickerController/TZImagePickerController/Resource/VideoSendIcon@2x.png",
+				"${PODS_ROOT}/XHImageViewer/Source/Resources/1_1280x800-1.jpeg",
+				"${PODS_ROOT}/XHImageViewer/Source/Resources/1_1280x800.jpeg",
+				"${PODS_ROOT}/XHImageViewer/Source/Resources/4_1366x768.jpeg",
+				"${PODS_ROOT}/XHImageViewer/Source/Resources/5_1280x800.jpeg",
+				"${PODS_ROOT}/XHImageViewer/Source/Resources/placeholder.jpeg",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/mapapi.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/LCActionSheet.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MWPhotoBrowser.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/en.lproj",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SVProgressHUD.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SVWebViewControllerBack.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SVWebViewControllerBack@2x.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SVWebViewControllerNext.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SVWebViewControllerNext@2x.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SVWebViewControllerActivityChrome-iPad.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SVWebViewControllerActivityChrome-iPad@2x.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SVWebViewControllerActivityChrome@2x.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SVWebViewControllerActivitySafari-iPad.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SVWebViewControllerActivitySafari-iPad@2x.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SVWebViewControllerActivitySafari@2x.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SVWebViewController.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MMVideoPreviewPlay@2x.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MMVideoPreviewPlayHL@2x.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/navi_back@2x.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/photo_def_photoPickerVc@2x.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/photo_def_previewVc@2x.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/photo_number_icon@2x.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/photo_original_def@2x.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/photo_original_sel@2x.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/photo_sel_photoPickerVc@2x.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/photo_sel_previewVc@2x.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/preview_number_icon@2x.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/preview_original_def@2x.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TableViewArrow@2x.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TZAlbumCell.nib",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TZAssetCell.nib",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/VideoSendIcon@2x.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/1_1280x800-1.jpeg",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/1_1280x800.jpeg",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/4_1366x768.jpeg",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/5_1280x800.jpeg",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/placeholder.jpeg",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TeamTalk/Pods-TeamTalk-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		468A16201B3937150093C314 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -3237,21 +3395,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if [ \"${CONFIGURATION}\" = \"Release\" ] || [ \"${CONFIGURATION}\" = \"CI\" ]; then\n\nBUILD_NUMBER=`curl http://www.mogujie.com/mobile/build/increase -F \"identifier=im.teamtalk.tt\" -F \"sign=f41b3c980d33d9d51a0a0df685b20bb9\"`\n\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $BUILD_NUMBER\" \"${INFOPLIST_FILE}\"\nfi";
-		};
-		79DEF1D0168B36302EC7175A /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
 		};
 		817CB3AD1B3BC68D0004AFEA /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -3267,34 +3410,44 @@
 			shellPath = /bin/sh;
 			shellScript = "./Fabric.framework/run c85ad901eb0173a488b631e90f5913415f7424d1 bcd847cf6b15b2605cfff9400a4da335ce5ea3a0ac481dd143db404b55a09e73";
 		};
-		C737AEAC57352C980D83E347 /* Check Pods Manifest.lock */ = {
+		8E7DF775531D15EF122CA041 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
+			inputFileListPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TeamTalk-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		D9431D98FDF906055AA1F60D /* Copy Pods Resources */ = {
+		A1922929C0E99B56327C846E /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TeamTalk/Pods-TeamTalk-frameworks.sh",
+				"${PODS_ROOT}/Reveal-SDK/RevealServer/iOS/RevealServer.framework",
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RevealServer.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TeamTalk/Pods-TeamTalk-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -3601,6 +3754,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		4A400E2F26D7893000B28B59 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = security;
+			targetProxy = 4A400E2E26D7893000B28B59 /* PBXContainerItemProxy */;
+		};
 		C054EC4A1B3270D900078809 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = C054EC2E1B3270D900078809 /* TeamTalk */;
@@ -3637,8 +3795,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Development: Cai Lu (PHD24T76XW)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -3685,8 +3842,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Development: Cai Lu (PHD24T76XW)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -3711,12 +3867,13 @@
 		};
 		C054EC531B3270D900078809 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 03A854D4EB4F75C40944178C /* Pods.debug.xcconfig */;
+			baseConfigurationReference = 8E55DB7B5F6DEEA86E4EDE7D /* Pods-TeamTalk.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CLANG_CXX_LIBRARY = "libstdc++";
 				CODE_SIGN_RESOURCE_RULES_PATH = "$(SDKROOT)/ResourceRules.plist";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = G8G9TAP4UN;
 				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = NO;
@@ -3727,7 +3884,7 @@
 				);
 				GCC_PREFIX_HEADER = "TeamTalk/TeamTalk-Prefix.pch";
 				INFOPLIST_FILE = TeamTalk/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3735,20 +3892,22 @@
 					"$(PROJECT_DIR)/TeamTalk/Exist/MobClick",
 					"$(PROJECT_DIR)/GtSdkLib-noidfa",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = im.dl.tt;
+				PRODUCT_BUNDLE_IDENTIFIER = com.idea.im.dl.tt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = Idea.TEST;
 			};
 			name = Debug;
 		};
 		C054EC541B3270D900078809 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B5814BD6A45D3ECB20653BEA /* Pods.release.xcconfig */;
+			baseConfigurationReference = 90F639D21BBD7ED9C1D9FB43 /* Pods-TeamTalk.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CLANG_CXX_LIBRARY = "libstdc++";
 				CODE_SIGN_RESOURCE_RULES_PATH = "$(SDKROOT)/ResourceRules.plist";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = G8G9TAP4UN;
 				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3758,7 +3917,7 @@
 				);
 				GCC_PREFIX_HEADER = "TeamTalk/TeamTalk-Prefix.pch";
 				INFOPLIST_FILE = TeamTalk/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3766,9 +3925,10 @@
 					"$(PROJECT_DIR)/TeamTalk/Exist/MobClick",
 					"$(PROJECT_DIR)/GtSdkLib-noidfa",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = im.dl.tt;
+				PRODUCT_BUNDLE_IDENTIFIER = com.idea.im.dl.tt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = Idea.TEST;
 			};
 			name = Release;
 		};
@@ -3776,8 +3936,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = G8G9TAP4UN;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -3788,8 +3950,11 @@
 				);
 				INFOPLIST_FILE = TeamTalkTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				"PRODUCT_BUNDLE_IDENTIFIER[sdk=macosx*]" = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TeamTalk.app/TeamTalk";
 			};
 			name = Debug;
@@ -3798,16 +3963,21 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = G8G9TAP4UN;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = TeamTalkTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				"PRODUCT_BUNDLE_IDENTIFIER[sdk=macosx*]" = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TeamTalk.app/TeamTalk";
 			};
 			name = Release;

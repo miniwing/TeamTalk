@@ -7,7 +7,7 @@
 //
 
 #import "DDChatImageCell.h"
-#import "UIImageView+WebCache.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 #import "UIView+Addition.h"
 #import "NSDictionary+JSON.h"
 #import "MTTPhotosCache.h"

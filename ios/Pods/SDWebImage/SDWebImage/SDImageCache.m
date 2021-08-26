@@ -647,4 +647,38 @@ FOUNDATION_STATIC_INLINE NSUInteger SDCacheCostForImage(UIImage *image) {
     });
 }
 
+
+- (void)clearWithCacheType:(SDImageCacheType)cacheType completion:(SDWebImageNoParamsBlock)completionBlock {
+    switch (cacheType) {
+        case SDImageCacheTypeNone: {
+            if (completionBlock) {
+                completionBlock();
+            }
+        }
+            break;
+        case SDImageCacheTypeMemory: {
+            [self clearMemory];
+            if (completionBlock) {
+                completionBlock();
+            }
+        }
+            break;
+        case SDImageCacheTypeDisk: {
+            [self clearDiskOnCompletion:completionBlock];
+        }
+            break;
+//        case SDImageCacheTypeAll: {
+//            [self clearMemory];
+//            [self clearDiskOnCompletion:completionBlock];
+//        }
+//            break;
+        default: {
+            if (completionBlock) {
+                completionBlock();
+            }
+        }
+            break;
+    }
+}
+
 @end

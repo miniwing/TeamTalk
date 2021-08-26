@@ -12,34 +12,35 @@
 
 //-------------------打印--------------------
 #ifdef DEBUG
-#define NEED_OUTPUT_LOG             0
-#define Is_CanSwitchServer          1
+#define NEED_OUTPUT_LOG                         0
+#define Is_CanSwitchServer                      1
 #else
-#define NEED_OUTPUT_LOG             0
-#define Is_CanSwitchServer          0
+#define NEED_OUTPUT_LOG                         0
+#define Is_CanSwitchServer                      0
 #endif
 
 #if NEED_OUTPUT_LOG
-#define DDLog(xx, ...)                      NSLog(@"%s(%d): " xx, __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
+#define DDLog(xx, ...)                          NSLog(@"%s(%d): " xx, __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
 #else
-#define DDLog(xx, ...)                 nil
+#define DDLog(xx, ...)                          nil
 #endif
 
-#define IM_PDU_HEADER_LEN   16
-#define IM_PDU_VERSION      13
+#define IM_PDU_HEADER_LEN                       16
+#define IM_PDU_VERSION                          13
 
-#define SERVER_ADDR                             @"http://115.159.211.199:8080/msg_server"
+//#define SERVER_ADDR                             @"http://115.159.211.199:8080/msg_server"
+#define SERVER_ADDR                             @"http://10.211.55.13:8080/msg_server"
 
-#define _(x)                                NSLocalizedString(x,@"")
+#define _(x)                                    NSLocalizedString(x,@"")
 
 #ifdef DEBUG
-
-#define APIURL     @"http://115.159.211.199"
+//#  define APIURL                                @"http://115.159.211.199"
+#  define APIURL                                @"http://10.211.55.13"
 #else
-
-#define APIURL     @"http://115.159.211.199"
+//#  define APIURL                                @"http://115.159.211.199"
+#  define APIURL                                @"http://10.211.55.13"
 #endif
 
-#define kGtAppId           @"JF5g0qW7Xd9VpX9Zd3SXi9"
-#define kGtAppKey          @"bStLfBKQ1Y6IK54ebUvMMA"
-#define kGtAppSecret       @"8ur1p4ZX8H6b1GzNhLQ4Y9"
+#define kGtAppId                                @"JF5g0qW7Xd9VpX9Zd3SXi9"
+#define kGtAppKey                               @"bStLfBKQ1Y6IK54ebUvMMA"
+#define kGtAppSecret                            @"8ur1p4ZX8H6b1GzNhLQ4Y9"

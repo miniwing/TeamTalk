@@ -108,6 +108,9 @@ int main(int argc, char* argv[])
 		return -1;
 	}
 
+   log("ip_addr1 : %s", ip_addr1);
+   log("ip_addr2 : %s", ip_addr2);
+
 	// 没有IP2，就用第一个IP
 	if (!ip_addr2) {
 		ip_addr2 = ip_addr1;
@@ -118,21 +121,23 @@ int main(int argc, char* argv[])
 
 	int ret = netlib_init();
 
-	if (ret == NETLIB_ERROR)
+	if (ret == NETLIB_ERROR) {
 		return ret;
+   }
 
 	CStrExplode listen_ip_list(listen_ip, ';');
 	for (uint32_t i = 0; i < listen_ip_list.GetItemCnt(); i++) {
 		ret = netlib_listen(listen_ip_list.GetItem(i), listen_port, msg_serv_callback, NULL);
-		if (ret == NETLIB_ERROR)
+		if (ret == NETLIB_ERROR) {
 			return ret;
+      }
 	}
 
 	printf("server start listen on: %s:%d\n", listen_ip, listen_port);
 
 	init_msg_conn();
 
-    init_file_serv_conn(file_server_list, file_server_count);
+   init_file_serv_conn(file_server_list, file_server_count);
 
 	init_db_serv_conn(db_server_list2, db_server_count2, concurrent_db_conn_cnt);
 
@@ -140,10 +145,10 @@ int main(int argc, char* argv[])
 
 	init_route_serv_conn(route_server_list, route_server_count);
 
-    init_push_serv_conn(push_server_list, push_server_count);
+   init_push_serv_conn(push_server_list, push_server_count);
 	printf("now enter the event loop...\n");
     
-    writePid();
+   writePid();
 
 	netlib_eventloop();
 

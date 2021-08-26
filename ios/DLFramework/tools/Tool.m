@@ -12,7 +12,7 @@
 #import <sys/sysctl.h>
 #import "NSString+Wrapper.h"
 #import "RegexUtil.h"
-#import "SSKeychain.h"
+#import <SSKeychain/SSKeychain.h>
 #define TextWidth 290
 #define ImageFilePathName @"ImageFile"
 
