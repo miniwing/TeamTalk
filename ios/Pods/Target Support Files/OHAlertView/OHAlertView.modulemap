@@ -1,0 +1,6 @@
+module OHAlertView {
+  umbrella header "OHAlertView-umbrella.h"
+
+  export *
+  module * { export * }
+}

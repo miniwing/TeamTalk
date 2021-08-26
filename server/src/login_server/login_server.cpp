@@ -120,8 +120,8 @@ int main(int argc, char* argv[])
     }
     
 
-			printf("server start listen on:\nFor client %s:%d\nFor MsgServer: %s:%d\nFor http:%s:%d\n",
-			client_listen_ip, client_port, msg_server_listen_ip, msg_server_port, http_listen_ip, http_port);
+	printf("server start listen on:\nFor client %s:%d\nFor MsgServer: %s:%d\nFor http:%s:%d\n",
+	client_listen_ip, client_port, msg_server_listen_ip, msg_server_port, http_listen_ip, http_port);
 	init_login_conn();
     init_http_conn();
 
