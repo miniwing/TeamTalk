@@ -6,6 +6,9 @@ auto_setup/im_server/
 
 ##################################################
 ### Server
+#server/im-server-*.tar.gz
+#server/**/CMakeFiles/**
+#server/**/CMakeCache.txt
 server/src/log4cxx/
 
 ##################################################
