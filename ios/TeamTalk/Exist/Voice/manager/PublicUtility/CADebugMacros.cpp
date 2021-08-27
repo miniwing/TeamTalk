@@ -64,16 +64,16 @@ void	DebugPrint(const char *fmt, ...)
 #endif // DEBUG
 
 #if TARGET_API_MAC_OSX
-void	LogError(const char *fmt, ...)
-{
-	va_list args;
-	va_start(args, fmt);
-#if DEBUG
-	vprintf(fmt, args);
-#endif
-	vsyslog(LOG_ERR, fmt, args);
-	va_end(args);
-}
+//void	LogError(const char *fmt, ...)
+//{
+//	va_list args;
+//	va_start(args, fmt);
+//#if DEBUG
+//	vprintf(fmt, args);
+//#endif
+//	vsyslog(LOG_ERR, fmt, args);
+//	va_end(args);
+//}
 
 void	LogWarning(const char *fmt, ...)
 {

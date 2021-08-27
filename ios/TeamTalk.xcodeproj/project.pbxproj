@@ -67,7 +67,6 @@
 		468BBCB61CDC8F4000D5307A /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 468BBCB51CDC8F4000D5307A /* libz.tbd */; };
 		468BBCB81CDC8F4800D5307A /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 468BBCB71CDC8F4800D5307A /* libsqlite3.tbd */; };
 		468BBCBA1CDC8F4E00D5307A /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 468BBCB91CDC8F4E00D5307A /* Security.framework */; };
-		468BBCBC1CDC8F5400D5307A /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 468BBCBB1CDC8F5400D5307A /* MobileCoreServices.framework */; };
 		468BBCBE1CDC8F5800D5307A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 468BBCBD1CDC8F5800D5307A /* SystemConfiguration.framework */; };
 		468BBCC01CDC8F5D00D5307A /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 468BBCBF1CDC8F5D00D5307A /* CoreTelephony.framework */; };
 		468BBCC21CDC8F6200D5307A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 468BBCC11CDC8F6200D5307A /* AVFoundation.framework */; };
@@ -88,6 +87,7 @@
 		46C53DB01CDB2AB700034CF5 /* FriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46C53DAF1CDB2AB700034CF5 /* FriendsViewController.m */; };
 		4A400E1E26D7782D00B28B59 /* libstdc++.6.0.9.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A400E1D26D7782D00B28B59 /* libstdc++.6.0.9.tbd */; };
 		4A400E2D26D7892900B28B59 /* libsecurity.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A400E2C26D7892000B28B59 /* libsecurity.a */; };
+		4AA8956826D880CD0092BA3B /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AA8956726D880CD0092BA3B /* CoreServices.framework */; };
 		4ACEF0B626D777BC004BF91E /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ACEF0B526D777BC004BF91E /* libc++.tbd */; };
 		810D52611B523E42004DF7B4 /* search_back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 810D52601B523E42004DF7B4 /* search_back@2x.png */; };
 		810D52641B52592A004DF7B4 /* MTTSearchDetailViewControll.m in Sources */ = {isa = PBXBuildFile; fileRef = 810D52631B52592A004DF7B4 /* MTTSearchDetailViewControll.m */; };
@@ -479,7 +479,7 @@
 			remoteGlobalIDString = FDBEA6FD1A7B6D8D006B6517;
 			remoteInfo = security;
 		};
-		4A400E2E26D7893000B28B59 /* PBXContainerItemProxy */ = {
+		4AA8956A26D881780092BA3B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4A400E2726D7892000B28B59 /* security.xcodeproj */;
 			proxyType = 1;
@@ -643,6 +643,7 @@
 		4A400E2426D7870C00B28B59 /* security.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = security.h; sourceTree = "<group>"; };
 		4A400E2526D7870C00B28B59 /* libsecurity.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libsecurity.a; sourceTree = "<group>"; };
 		4A400E2726D7892000B28B59 /* security.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = security.xcodeproj; path = libsecurity/ios/security.xcodeproj; sourceTree = "<group>"; };
+		4AA8956726D880CD0092BA3B /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
 		4ACEF0B526D777BC004BF91E /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		810D52601B523E42004DF7B4 /* search_back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search_back@2x.png"; sourceTree = "<group>"; };
 		810D52621B52592A004DF7B4 /* MTTSearchDetailViewControll.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTTSearchDetailViewControll.h; sourceTree = "<group>"; };
@@ -1300,9 +1301,9 @@
 				468BBCC61CDC8F6A00D5307A /* CoreLocation.framework in Frameworks */,
 				468BBCC41CDC8F6600D5307A /* JavaScriptCore.framework in Frameworks */,
 				468BBCC21CDC8F6200D5307A /* AVFoundation.framework in Frameworks */,
+				4AA8956826D880CD0092BA3B /* CoreServices.framework in Frameworks */,
 				468BBCC01CDC8F5D00D5307A /* CoreTelephony.framework in Frameworks */,
 				468BBCBE1CDC8F5800D5307A /* SystemConfiguration.framework in Frameworks */,
-				468BBCBC1CDC8F5400D5307A /* MobileCoreServices.framework in Frameworks */,
 				468BBCB81CDC8F4800D5307A /* libsqlite3.tbd in Frameworks */,
 				C0AE3A1B1B32C95A00B67232 /* libz.dylib in Frameworks */,
 				468BBCB41CDC8EEA00D5307A /* libGeTuiSdk-1.4.2-noidfa.a in Frameworks */,
@@ -1595,6 +1596,7 @@
 		527B2E51021DC51A46265D31 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4AA8956726D880CD0092BA3B /* CoreServices.framework */,
 				4A400E1D26D7782D00B28B59 /* libstdc++.6.0.9.tbd */,
 				4ACEF0B526D777BC004BF91E /* libc++.tbd */,
 				468BBCC71CDC8F6F00D5307A /* CoreBluetooth.framework */,
@@ -3031,7 +3033,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				4A400E2F26D7893000B28B59 /* PBXTargetDependency */,
+				4AA8956B26D881780092BA3B /* PBXTargetDependency */,
 			);
 			name = TeamTalk;
 			productName = TeamTalk;
@@ -3080,10 +3082,9 @@
 			};
 			buildConfigurationList = C054EC2A1B3270D900078809 /* Build configuration list for PBXProject "TeamTalk" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
 				Base,
 			);
@@ -3754,10 +3755,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		4A400E2F26D7893000B28B59 /* PBXTargetDependency */ = {
+		4AA8956B26D881780092BA3B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = security;
-			targetProxy = 4A400E2E26D7893000B28B59 /* PBXContainerItemProxy */;
+			targetProxy = 4AA8956A26D881780092BA3B /* PBXContainerItemProxy */;
 		};
 		C054EC4A1B3270D900078809 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

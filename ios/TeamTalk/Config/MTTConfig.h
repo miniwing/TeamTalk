@@ -30,18 +30,18 @@
 
 //#define SERVER_ADDR                             @"http://115.159.211.199:8080/msg_server"
 //#define SERVER_ADDR                             @"http://10.211.55.13:8080/msg_server"
-#define SERVER_ADDR                             @"http://192.168.3.10:8080/msg_server"
+#define SERVER_ADDR                             @"http://192.168.11.161:8080/msg_server"
 
 #define _(x)                                    NSLocalizedString(x,@"")
 
 #ifdef DEBUG
 //#  define APIURL                                @"http://115.159.211.199"
 //#  define APIURL                                @"http://10.211.55.13"
-#  define APIURL                                @"http://192.168.3.10"
+#  define APIURL                                @"http://192.168.11.161"
 #else
 //#  define APIURL                                @"http://115.159.211.199"
 //#  define APIURL                                @"http://10.211.55.13"
-#  define APIURL                                @"http://192.168.3.10"
+#  define APIURL                                @"http://192.168.11.161"
 #endif
 
 #define kGtAppId                                @"JF5g0qW7Xd9VpX9Zd3SXi9"
