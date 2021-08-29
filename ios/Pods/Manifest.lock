@@ -78,7 +78,7 @@ DEPENDENCIES:
   - SCLAlertView-Objective-C (~> 0.7.3)
   - SDWebImage (~> 3.6)
   - SSKeychain
-  - SVProgressHUD
+  - SVProgressHUD (~> 2.2.5)
   - SVWebViewController
   - TTTAttributedLabel
   - TZImagePickerController
@@ -141,6 +141,6 @@ SPEC CHECKSUMS:
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
   ZXingObjC: fdbb269f25dd2032da343e06f10224d62f537bdb
 
-PODFILE CHECKSUM: cbb0421ee0b08a74481bd76c19399c68778fbe4d
+PODFILE CHECKSUM: 2ca67be1eaf98679725201711fa32c2ae2d914ce
 
 COCOAPODS: 1.10.2
