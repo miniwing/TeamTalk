@@ -123,7 +123,7 @@ int main(int argc, char* argv[]) {
 #if __Debug__
 	for (int  H = 0; H < argc; H++) {
 
-		TTIMLog(("msfs::main : %s", argv[H]));
+		TTIM_PRINTF(("msfs::main : %s\n", argv[H]));
 		
 	} /* End for () */
 #endif /* __Debug__ */

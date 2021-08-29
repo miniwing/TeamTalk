@@ -12,6 +12,10 @@
 #include "IM.Server.pb.h"
 #include "IM.Other.pb.h"
 #include "ImPduBase.h"
+
+// HARRY
+#include "TTIMLog.h"
+
 namespace HTTP {
 
 static ConnMap_t g_route_server_conn_map;
@@ -21,8 +25,8 @@ static uint32_t g_route_server_count;
 static CRouteServConn* g_master_rs_conn = NULL;
 
 
-void route_server_conn_timer_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pParam)
-{
+void route_server_conn_timer_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pParam){
+	
 	ConnMap_t::iterator it_old;
 	CRouteServConn* pConn = NULL;
 	uint64_t cur_time = get_tick_count();

@@ -61,8 +61,10 @@ extern CSLog g_pushlog;
 
 #if __Debug__
 #	define TTIMLog(x)                              	PUSH_SERVER_DEBUG x
+#	define TTIM_PRINTF(x)									printf x
 #else
 #	define TTIMLog(x)
+#	define TTIM_PRINTF(x)
 #endif
 
 #endif

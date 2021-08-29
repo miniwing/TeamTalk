@@ -9,24 +9,29 @@
 #include "HttpParserWrapper.h"
 #include "HttpQuery.h"
 
+// HARRY
+#include "TTIMLog.h"
+
 static HttpConnMap_t g_http_conn_map;
 
 // conn_handle 从0开始递增，可以防止因socket handle重用引起的一些冲突
 static uint32_t g_conn_handle_generator = 0;
 
-CHttpConn* FindHttpConnByHandle(uint32_t conn_handle)
-{
-    CHttpConn* pConn = NULL;
-    HttpConnMap_t::iterator it = g_http_conn_map.find(conn_handle);
+CHttpConn* FindHttpConnByHandle(uint32_t conn_handle) {
+
+    CHttpConn				*pConn	= NULL;
+    HttpConnMap_t::iterator	 it		= g_http_conn_map.find(conn_handle);
+
     if (it != g_http_conn_map.end()) {
+
         pConn = it->second;
     }
 
     return pConn;
 }
 
-void httpconn_callback(void* callback_data, uint8_t msg, uint32_t handle, uint32_t uParam, void* pParam)
-{
+void httpconn_callback(void* callback_data, uint8_t msg, uint32_t handle, uint32_t uParam, void* pParam) {
+
 	NOTUSED_ARG(uParam);
 	NOTUSED_ARG(pParam);
 
@@ -138,6 +143,8 @@ void CHttpConn::Close()
 void CHttpConn::OnConnect(net_handle_t handle)
 {
     printf("OnConnect, handle=%d\n", handle);
+	TTIM_PRINTF(("http_msg_server::CHttpConn::OnConnect, handle=%d\n", handle));
+
     m_sock_handle = handle;
     m_state = CONN_STATE_CONNECTED;
     g_http_conn_map.insert(make_pair(m_conn_handle, this));

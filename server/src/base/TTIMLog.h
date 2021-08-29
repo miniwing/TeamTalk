@@ -42,9 +42,11 @@
 #endif
 
 #if __Debug__
-#	define TTIMLog(x)                              	log x
+// #	define TTIMLog(x)                              	log x
+#	define TTIM_PRINTF(x)									printf x
 #else
-#	define TTIMLog(x)
+// #	define TTIMLog(x)
+#	define TTIM_PRINTF(x)
 #endif
 
 #endif

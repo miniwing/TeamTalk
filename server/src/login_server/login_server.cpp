@@ -72,7 +72,7 @@ int main(int argc, char* argv[]) {
 #if __Debug__
 	for (int  H = 0; H < argc; H++) {
 
-		TTIMLog(("login_server::main : %s", argv[H]));
+		TTIM_PRINTF(("login_server::main : %s\n", argv[H]));
 		
 	} /* End for () */
 #endif /* __Debug__ */
@@ -87,61 +87,71 @@ int main(int argc, char* argv[]) {
 
 	CConfigFileReader config_file("loginserver.conf");
 
-    char* client_listen_ip = config_file.GetConfigName("ClientListenIP");
-    char* str_client_port = config_file.GetConfigName("ClientPort");
-    char* http_listen_ip = config_file.GetConfigName("HttpListenIP");
-    char* str_http_port = config_file.GetConfigName("HttpPort");
-	char* msg_server_listen_ip = config_file.GetConfigName("MsgServerListenIP");
-	char* str_msg_server_port = config_file.GetConfigName("MsgServerPort");
-    char* str_msfs_url = config_file.GetConfigName("msfs");
-    char* str_discovery = config_file.GetConfigName("discovery");
+	char	* client_listen_ip		= config_file.GetConfigName("ClientListenIP");
+	char	* str_client_port 		= config_file.GetConfigName("ClientPort");
+	char	* http_listen_ip 			= config_file.GetConfigName("HttpListenIP");
+	char	* str_http_port 			= config_file.GetConfigName("HttpPort");
+	char	* msg_server_listen_ip 	= config_file.GetConfigName("MsgServerListenIP");
+	char	* str_msg_server_port 	= config_file.GetConfigName("MsgServerPort");
+	char	* str_msfs_url 			= config_file.GetConfigName("msfs");
+	char	* str_discovery 			= config_file.GetConfigName("discovery");
 
-	if (!msg_server_listen_ip || !str_msg_server_port || !http_listen_ip
-        || !str_http_port || !str_msfs_url || !str_discovery) {
+	if (!msg_server_listen_ip || !str_msg_server_port || !http_listen_ip || !str_http_port || !str_msfs_url || !str_discovery) {
+
 		log("config item missing, exit... ");
+
+		TTIM_PRINTF(("config item missing, exit... \n"));
+
 		return -1;
 	}
 
-	uint16_t client_port = atoi(str_client_port);
-	uint16_t msg_server_port = atoi(str_msg_server_port);
-    uint16_t http_port = atoi(str_http_port);
-    strMsfsUrl = str_msfs_url;
-    strDiscovery = str_discovery;
+	uint16_t	 client_port 		= atoi(str_client_port);
+	uint16_t	 msg_server_port 	= atoi(str_msg_server_port);
+    uint16_t	 http_port 			= atoi(str_http_port);
+
+    strMsfsUrl 		= str_msfs_url;
+    strDiscovery 	= str_discovery;
     
-    pIpParser = new IpParser();
+    pIpParser 		= new IpParser();
     
 	int ret = netlib_init();
 
-	if (ret == NETLIB_ERROR)
+	if (ret == NETLIB_ERROR) {
+
 		return ret;
+	}
+
 	CStrExplode client_listen_ip_list(client_listen_ip, ';');
 	for (uint32_t i = 0; i < client_listen_ip_list.GetItemCnt(); i++) {
 		ret = netlib_listen(client_listen_ip_list.GetItem(i), client_port, client_callback, NULL);
-		if (ret == NETLIB_ERROR)
+		if (ret == NETLIB_ERROR) {
 			return ret;
+		}
 	}
 
 	CStrExplode msg_server_listen_ip_list(msg_server_listen_ip, ';');
 	for (uint32_t i = 0; i < msg_server_listen_ip_list.GetItemCnt(); i++) {
 		ret = netlib_listen(msg_server_listen_ip_list.GetItem(i), msg_server_port, msg_serv_callback, NULL);
-		if (ret == NETLIB_ERROR)
+		if (ret == NETLIB_ERROR) {
 			return ret;
+		}
 	}
     
     CStrExplode http_listen_ip_list(http_listen_ip, ';');
     for (uint32_t i = 0; i < http_listen_ip_list.GetItemCnt(); i++) {
         ret = netlib_listen(http_listen_ip_list.GetItem(i), http_port, http_callback, NULL);
-        if (ret == NETLIB_ERROR)
+        if (ret == NETLIB_ERROR) {
             return ret;
+		}
     }
     
+	TTIM_PRINTF(("server start listen on:\nFor client %s:%d\nFor MsgServer: %s:%d\nFor http:%s:%d\n",
+	client_listen_ip, client_port, msg_server_listen_ip, msg_server_port, http_listen_ip, http_port));
 
-	printf("server start listen on:\nFor client %s:%d\nFor MsgServer: %s:%d\nFor http:%s:%d\n",
-	client_listen_ip, client_port, msg_server_listen_ip, msg_server_port, http_listen_ip, http_port);
 	init_login_conn();
     init_http_conn();
 
-	printf("now enter the event loop...\n");
+	TTIM_PRINTF(("now enter the event loop...\n"));
     
     writePid();
 

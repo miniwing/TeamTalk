@@ -1,0 +1,57 @@
+2021-08-29 22:51:35,881 [INFO  IM] - <login_server.cpp>|<75>|<main>,login_server::main : ./login_server
+2021-08-29 22:51:35,883 [INFO  IM] - <BaseSocket.cpp>|<81>|<Listen>,CBaseSocket::Listen on 0.0.0.0:8008
+2021-08-29 22:51:35,883 [INFO  IM] - <BaseSocket.cpp>|<81>|<Listen>,CBaseSocket::Listen on 0.0.0.0:8100
+2021-08-29 22:51:35,883 [INFO  IM] - <BaseSocket.cpp>|<81>|<Listen>,CBaseSocket::Listen on 0.0.0.0:8080
+2021-08-29 22:57:25,422 [INFO  IM] - <login_server.cpp>|<75>|<main>,login_server::main : ./login_server
+2021-08-29 22:57:25,424 [INFO  IM] - <BaseSocket.cpp>|<81>|<Listen>,CBaseSocket::Listen on 0.0.0.0:8008
+2021-08-29 22:57:25,424 [INFO  IM] - <BaseSocket.cpp>|<81>|<Listen>,CBaseSocket::Listen on 0.0.0.0:8100
+2021-08-29 22:57:25,424 [INFO  IM] - <BaseSocket.cpp>|<81>|<Listen>,CBaseSocket::Listen on 0.0.0.0:8080
+2021-08-29 22:58:19,175 [INFO  IM] - <login_server.cpp>|<75>|<main>,login_server::main : ./login_server
+2021-08-29 22:58:19,176 [INFO  IM] - <login_server.cpp>|<102>|<main>,config item missing, exit... 
+2021-08-29 22:58:25,960 [INFO  IM] - <login_server.cpp>|<75>|<main>,login_server::main : ./login_server
+2021-08-29 22:58:25,961 [INFO  IM] - <login_server.cpp>|<102>|<main>,config item missing, exit... 
+2021-08-29 22:59:09,117 [INFO  IM] - <login_server.cpp>|<75>|<main>,login_server::main : ./login_server
+2021-08-29 22:59:09,117 [INFO  IM] - <login_server.cpp>|<102>|<main>,config item missing, exit... 
+2021-08-29 22:59:54,803 [INFO  IM] - <login_server.cpp>|<75>|<main>,login_server::main : ./login_server
+2021-08-29 22:59:54,804 [INFO  IM] - <login_server.cpp>|<102>|<main>,config item missing, exit... 
+2021-08-29 23:24:30,622 [INFO  IM] - <login_server.cpp>|<101>|<main>,config item missing, exit... 
+2021-08-29 23:25:27,801 [INFO  IM] - <login_server.cpp>|<101>|<main>,config item missing, exit... 
+2021-08-29 23:26:25,982 [INFO  IM] - <BaseSocket.cpp>|<81>|<Listen>,CBaseSocket::Listen on 10.211.55.13:8008
+2021-08-29 23:26:25,982 [INFO  IM] - <BaseSocket.cpp>|<81>|<Listen>,CBaseSocket::Listen on 10.211.55.13:8100
+2021-08-29 23:26:25,982 [INFO  IM] - <BaseSocket.cpp>|<81>|<Listen>,CBaseSocket::Listen on 10.211.55.13:8080
+2021-08-29 23:26:33,485 [INFO  IM] - <BaseSocket.cpp>|<329>|<_AcceptNewSocket>,AcceptNewSocket, socket=9 from 10.211.55.13:33808
+
+2021-08-29 23:26:33,485 [INFO  IM] - <login_server.cpp>|<39>|<msg_serv_callback>,msg_server come in
+2021-08-29 23:26:33,487 [INFO  IM] - <LoginConn.cpp>|<161>|<_HandleMsgServInfo>,MsgServInfo, ip_addr1=10.211.55.13, ip_addr2=10.211.55.13, port=8000, max_conn_cnt=100000, cur_conn_cnt=0, hostname: centos7. 
+2021-08-29 23:29:36,200 [INFO  IM] - <BaseSocket.cpp>|<329>|<_AcceptNewSocket>,AcceptNewSocket, socket=10 from 192.168.3.7:52387
+
+2021-08-29 23:29:36,202 [INFO  IM] - <HttpConn.cpp>|<314>|<OnWriteComlete>,write complete 
+2021-08-29 23:29:37,049 [INFO  IM] - <LoginConn.cpp>|<182>|<_HandleUserCntUpdate>,centos7:8000, cur_cnt=1, total_cnt=1 
+2021-08-29 23:29:44,964 [INFO  IM] - <LoginConn.cpp>|<182>|<_HandleUserCntUpdate>,centos7:8000, cur_cnt=0, total_cnt=0 
+2021-08-29 23:29:46,418 [INFO  IM] - <BaseSocket.cpp>|<329>|<_AcceptNewSocket>,AcceptNewSocket, socket=10 from 192.168.3.7:52394
+
+2021-08-29 23:29:46,421 [INFO  IM] - <HttpConn.cpp>|<314>|<OnWriteComlete>,write complete 
+2021-08-29 23:29:46,471 [INFO  IM] - <LoginConn.cpp>|<182>|<_HandleUserCntUpdate>,centos7:8000, cur_cnt=1, total_cnt=1 
+2021-08-29 23:29:46,492 [INFO  IM] - <BaseSocket.cpp>|<329>|<_AcceptNewSocket>,AcceptNewSocket, socket=10 from 192.168.3.7:52396
+
+2021-08-29 23:29:46,496 [INFO  IM] - <HttpConn.cpp>|<314>|<OnWriteComlete>,write complete 
+2021-08-29 23:29:46,511 [INFO  IM] - <LoginConn.cpp>|<182>|<_HandleUserCntUpdate>,centos7:8000, cur_cnt=0, total_cnt=0 
+2021-08-29 23:29:46,533 [INFO  IM] - <LoginConn.cpp>|<182>|<_HandleUserCntUpdate>,centos7:8000, cur_cnt=1, total_cnt=1 
+2021-08-29 23:29:51,781 [INFO  IM] - <LoginConn.cpp>|<182>|<_HandleUserCntUpdate>,centos7:8000, cur_cnt=0, total_cnt=0 
+2021-08-29 23:30:18,364 [INFO  IM] - <BaseSocket.cpp>|<329>|<_AcceptNewSocket>,AcceptNewSocket, socket=10 from 192.168.3.7:52473
+
+2021-08-29 23:30:18,366 [INFO  IM] - <HttpConn.cpp>|<314>|<OnWriteComlete>,write complete 
+2021-08-29 23:30:18,418 [INFO  IM] - <LoginConn.cpp>|<182>|<_HandleUserCntUpdate>,centos7:8000, cur_cnt=1, total_cnt=1 
+2021-08-29 23:30:18,588 [INFO  IM] - <BaseSocket.cpp>|<329>|<_AcceptNewSocket>,AcceptNewSocket, socket=10 from 192.168.3.7:52475
+
+2021-08-29 23:30:18,591 [INFO  IM] - <HttpConn.cpp>|<314>|<OnWriteComlete>,write complete 
+2021-08-29 23:30:18,964 [INFO  IM] - <LoginConn.cpp>|<182>|<_HandleUserCntUpdate>,centos7:8000, cur_cnt=0, total_cnt=0 
+2021-08-29 23:30:19,031 [INFO  IM] - <LoginConn.cpp>|<182>|<_HandleUserCntUpdate>,centos7:8000, cur_cnt=1, total_cnt=1 
+2021-08-29 23:34:33,851 [INFO  IM] - <LoginConn.cpp>|<182>|<_HandleUserCntUpdate>,centos7:8000, cur_cnt=0, total_cnt=0 
+2021-08-29 23:44:13,579 [INFO  IM] - <BaseSocket.cpp>|<81>|<Listen>,CBaseSocket::Listen on 10.211.55.13:8008
+2021-08-29 23:44:13,579 [INFO  IM] - <BaseSocket.cpp>|<81>|<Listen>,CBaseSocket::Listen on 10.211.55.13:8100
+2021-08-29 23:44:13,580 [INFO  IM] - <BaseSocket.cpp>|<81>|<Listen>,CBaseSocket::Listen on 10.211.55.13:8080
+2021-08-29 23:44:37,455 [INFO  IM] - <BaseSocket.cpp>|<329>|<_AcceptNewSocket>,AcceptNewSocket, socket=9 from 10.211.55.13:33906
+
+2021-08-29 23:44:37,455 [INFO  IM] - <login_server.cpp>|<39>|<msg_serv_callback>,msg_server come in
+2021-08-29 23:44:37,455 [INFO  IM] - <LoginConn.cpp>|<187>|<_HandleMsgServInfo>,MsgServInfo, ip_addr1=10.211.55.13, ip_addr2=10.211.55.13, port=8000, max_conn_cnt=100000, cur_conn_cnt=0, hostname: centos7. 

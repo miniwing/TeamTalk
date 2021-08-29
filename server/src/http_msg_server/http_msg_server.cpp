@@ -24,6 +24,8 @@
 // for client connect in
 void http_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pParam) {
 
+	TTIM_PRINTF(("http_msg_server::http_callback\n"));
+
 	if (msg == NETLIB_MSG_CONNECT) {
 
 		CHttpConn* pConn = new CHttpConn();
@@ -37,20 +39,21 @@ void http_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pPar
 	return;
 }
 
-
 int main(int argc, char* argv[]) {
 
 #if __Debug__
 	for (int  H = 0; H < argc; H++) {
 
-		TTIMLog(("http_msg_server::main : %s", argv[H]));
+		TTIM_PRINTF(("http_msg_server::main : %s\n", argv[H]));
 		
 	} /* End for () */
 #endif /* __Debug__ */
 
 	if ((argc == 2) && (strcmp(argv[1], "-v") == 0)) {
+
 		printf("Server Version: HttpMsgServer/%s\n", VERSION);
 		printf("Server Build: %s %s\n", __DATE__, __TIME__);
+
 		return 0;
 	}
     
@@ -58,7 +61,8 @@ int main(int argc, char* argv[]) {
 	srand(time(NULL));
     
 	log("MsgServer max files can open: %d ", getdtablesize());
-    
+	TTIM_PRINTF((("MsgServer max files can open: %d \n", getdtablesize())));
+
 	CConfigFileReader config_file("httpmsgserver.conf");
     
 	char* listen_ip = config_file.GetConfigName("ListenIP");
@@ -101,14 +105,19 @@ int main(int argc, char* argv[]) {
 		return ret;
     
 	CStrExplode listen_ip_list(listen_ip, ';');
+
 	for (uint32_t i = 0; i < listen_ip_list.GetItemCnt(); i++) {
+
 		ret = netlib_listen(listen_ip_list.GetItem(i), listen_port, http_callback, NULL);
-		if (ret == NETLIB_ERROR)
+
+		if (ret == NETLIB_ERROR) {
 			return ret;
+		}
 	}
 
 	printf("server start listen on: %s:%d\n", listen_ip, listen_port);
-    
+	TTIM_PRINTF(("server start listen on: %s:%d\n", listen_ip, listen_port));
+
 	init_http_conn();
     
 	if (db_server_count > 0) {
@@ -120,6 +129,7 @@ int main(int argc, char* argv[]) {
 	}
 
 	printf("now enter the event loop...\n");
+	TTIM_PRINTF(("now enter the event loop...\n"));
     
     writePid();
 

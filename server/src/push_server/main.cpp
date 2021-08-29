@@ -36,7 +36,7 @@ int main(int argc, const char * argv[]) {
 #if __Debug__
 	for (int  H = 0; H < argc; H++) {
 
-		TTIMLog(("push_server::main : %s", argv[H]));
+		TTIM_PRINTF(("push_server::main : %s\n", argv[H]));
 		
 	} /* End for () */
 #endif /* __Debug__ */

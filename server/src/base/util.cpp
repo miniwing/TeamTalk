@@ -173,8 +173,8 @@ void replace_mark(string& str, string& new_value, uint32_t& begin_pos)
     begin_pos = pos + prime_new_value.size();
 }
 
-void replace_mark(string& str, uint32_t new_value, uint32_t& begin_pos)
-{
+void replace_mark(string& str, uint32_t new_value, uint32_t& begin_pos) {
+
     stringstream ss;
     ss << new_value;
     
@@ -189,24 +189,27 @@ void replace_mark(string& str, uint32_t new_value, uint32_t& begin_pos)
 }
 
 
-void writePid()
-{
+void writePid() {
+
 	uint32_t curPid;
 #ifdef _WIN32
 	curPid = (uint32_t) GetCurrentProcess();
 #else
 	curPid = (uint32_t) getpid();
 #endif
+
     FILE* f = fopen("server.pid", "w");
     assert(f);
     char szPid[32];
     snprintf(szPid, sizeof(szPid), "%d", curPid);
     fwrite(szPid, strlen(szPid), 1, f);
     fclose(f);
+
+	return;
 }
 
-inline unsigned char toHex(const unsigned char &x)
-{
+inline unsigned char toHex(const unsigned char &x) {
+	
     return x > 9 ? x -10 + 'A': x + '0';
 }
 

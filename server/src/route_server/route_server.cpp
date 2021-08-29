@@ -14,17 +14,19 @@
 #include "TTIMLog.h"
 
 // this callback will be replaced by imconn_callback() in OnConnect()
-void route_serv_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pParam)
-{
-	if (msg == NETLIB_MSG_CONNECT)
-	{
+void route_serv_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pParam) {
+
+	if (msg == NETLIB_MSG_CONNECT) {
+
 		CRouteConn* pConn = new CRouteConn();
 		pConn->OnConnect(handle);
 	}
-	else
-	{
+	else {
+
 		log("!!!error msg: %d ", msg);
 	}
+
+	return;
 }
 
 int main(int argc, char* argv[]) {
@@ -32,7 +34,7 @@ int main(int argc, char* argv[]) {
 #if __Debug__
 	for (int  H = 0; H < argc; H++) {
 
-		TTIMLog(("push_server::main : %s", argv[H]));
+		TTIM_PRINTF(("push_server::main : %s\n", argv[H]));
 		
 	} /* End for () */
 #endif /* __Debug__ */
@@ -64,10 +66,14 @@ int main(int argc, char* argv[]) {
 		return ret;
 
 	CStrExplode listen_ip_list(listen_ip, ';');
+
 	for (uint32_t i = 0; i < listen_ip_list.GetItemCnt(); i++) {
+
 		ret = netlib_listen(listen_ip_list.GetItem(i), listen_msg_port, route_serv_callback, NULL);
-		if (ret == NETLIB_ERROR)
+		
+		if (ret == NETLIB_ERROR) {
 			return ret;
+		}
 	}
 
 	printf("server start listen on: %s:%d\n", listen_ip,  listen_msg_port);
