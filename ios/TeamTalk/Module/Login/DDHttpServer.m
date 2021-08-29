@@ -34,7 +34,7 @@
    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
    
    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-   [manager GET:SERVER_ADDR parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+   [manager GET:SERVER_ADDR() parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
       
       //       {
       //           backupIP = "10.211.55.13";

@@ -103,7 +103,13 @@
     .heightIs(44)
     .topSpaceToView(self.userLoginBtn, 60)
     ;
-    
+   
+#if __Debug__
+   [_userNameTextField setText:@"TEST"];
+   [_userPassTextField setText:@"TEST"];
+#endif /* __Debug__ */
+   
+   return;
 }
 
 -(void)registerUser:(id)sender

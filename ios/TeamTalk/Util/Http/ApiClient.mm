@@ -18,7 +18,7 @@
     static ApiClient *_sharedInstance;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        _sharedInstance = [[ApiClient alloc] initWithBaseURL:[NSURL URLWithString:APIURL]];
+        _sharedInstance = [[ApiClient alloc] initWithBaseURL:[NSURL URLWithString:API_URL()]];
     });
     return _sharedInstance;
 }
