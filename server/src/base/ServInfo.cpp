@@ -7,9 +7,8 @@
 
 #include "ServInfo.h"
 
-serv_info_t* read_server_config(CConfigFileReader* config_file, const char* server_ip_format,
-		const char* server_port_format, uint32_t& server_count)
-{
+serv_info_t* read_server_config(CConfigFileReader* config_file, const char* server_ip_format, const char* server_port_format, uint32_t& server_count) {
+   
 	char server_ip_key[64];
 	char server_port_key[64];
 
@@ -29,6 +28,7 @@ serv_info_t* read_server_config(CConfigFileReader* config_file, const char* serv
 	}
 
 	if (server_count == 0) {
+      
 		return NULL;
 	}
 

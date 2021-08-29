@@ -16,6 +16,9 @@
 #include "FileServConn.h"
 //#include "version.h"
 
+// HARRY
+#include "TTIMLog.h"
+
 #define DEFAULT_CONCURRENT_DB_CONN_CNT  10
 
 CAes *pAes;
@@ -35,8 +38,16 @@ void msg_serv_callback(void* callback_data, uint8_t msg, uint32_t handle, void* 
 }
 
 
-int main(int argc, char* argv[])
-{
+int main(int argc, char* argv[]){
+	
+#if __Debug__
+	for (int  H = 0; H < argc; H++) {
+
+		TTIMLog(("msg_server::main : %s", argv[H]));
+		
+	} /* End for () */
+#endif /* __Debug__ */
+
 	if ((argc == 2) && (strcmp(argv[1], "-v") == 0)) {
 //		printf("Server Version: MsgServer/%s\n", VERSION);
 		printf("Server Build: %s %s\n", __DATE__, __TIME__);

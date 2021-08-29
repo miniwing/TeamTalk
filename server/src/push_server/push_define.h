@@ -51,5 +51,18 @@ extern CSLog g_pushlog;
 }
 
 
+#if (defined(DEBUG_CLIENT) && (DEBUG_CLIENT==1))
+#  define __AUTO__                                 (1)
+#  define __Debug__                                (1)
+#else
+#  define __AUTO__                                 (0)
+#  define __Debug__                                (0)
+#endif
+
+#if __Debug__
+#	define TTIMLog(x)                              	PUSH_SERVER_DEBUG x
+#else
+#	define TTIMLog(x)
+#endif
 
 #endif

@@ -18,6 +18,9 @@
 #include "FileManager.h"
 #include "ThreadPool.h"
 
+// HARRY
+#include "TTIMLog.h"
+
 using namespace std;
 using namespace msfs;
 
@@ -114,8 +117,17 @@ void Stop(int signo)
         _exit(0);
     }
 }
-int main(int argc, char* argv[])
-{
+
+int main(int argc, char* argv[]) {
+
+#if __Debug__
+	for (int  H = 0; H < argc; H++) {
+
+		TTIMLog(("msfs::main : %s", argv[H]));
+		
+	} /* End for () */
+#endif /* __Debug__ */
+
     for(int i=0; i < argc; ++i)
        {
            if(strncmp(argv[i], "-d", 2) == 0)

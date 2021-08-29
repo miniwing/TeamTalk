@@ -24,8 +24,8 @@ typedef struct {
 } serv_info_t;
 
 template <class T>
-void serv_init(serv_info_t* server_list, uint32_t server_count)
-{
+void serv_init(serv_info_t* server_list, uint32_t server_count) {
+
 	for (uint32_t i = 0; i < server_count; i++) {
 		T* pConn = new T();
 		pConn->Connect(server_list[i].server_ip.c_str(), server_list[i].server_port, i);
@@ -36,8 +36,8 @@ void serv_init(serv_info_t* server_list, uint32_t server_count)
 }
 
 template <class T>
-void serv_check_reconnect(serv_info_t* server_list, uint32_t server_count)
-{
+void serv_check_reconnect(serv_info_t* server_list, uint32_t server_count) {
+
 	T* pConn;
 	for (uint32_t i = 0; i < server_count; i++) {
 		pConn = (T*)server_list[i].serv_conn;
@@ -53,8 +53,8 @@ void serv_check_reconnect(serv_info_t* server_list, uint32_t server_count)
 }
 
 template <class T>
-void serv_reset(serv_info_t* server_list, uint32_t server_count, uint32_t serv_idx)
-{
+void serv_reset(serv_info_t* server_list, uint32_t server_count, uint32_t serv_idx) {
+   
 	if (serv_idx >= server_count) {
 		return;
 	}

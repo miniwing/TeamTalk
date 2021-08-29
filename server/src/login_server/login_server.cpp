@@ -12,54 +12,71 @@
 #include "HttpConn.h"
 #include "ipparser.h"
 
+// HARRY
+#include "TTIMLog.h"
+
 IpParser* pIpParser = NULL;
 string strMsfsUrl;
 string strDiscovery;//发现获取地址
-void client_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pParam)
-{
-	if (msg == NETLIB_MSG_CONNECT)
-	{
+void client_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pParam) {
+
+	if (msg == NETLIB_MSG_CONNECT) {
+
 		CLoginConn* pConn = new CLoginConn();
 		pConn->OnConnect2(handle, LOGIN_CONN_TYPE_CLIENT);
 	}
-	else
-	{
+	else {
+
 		log("!!!error msg: %d ", msg);
 	}
+
+	return;
 }
 
 // this callback will be replaced by imconn_callback() in OnConnect()
-void msg_serv_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pParam)
-{
+void msg_serv_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pParam) {
+	
     log("msg_server come in");
 
-	if (msg == NETLIB_MSG_CONNECT)
-	{
+	if (msg == NETLIB_MSG_CONNECT) {
+
 		CLoginConn* pConn = new CLoginConn();
 		pConn->OnConnect2(handle, LOGIN_CONN_TYPE_MSG_SERV);
 	}
-	else
-	{
+	else {
+
 		log("!!!error msg: %d ", msg);
 	}
+
+	return;
 }
 
 
-void http_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pParam)
-{
-    if (msg == NETLIB_MSG_CONNECT)
-    {
+void http_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pParam) {
+
+    if (msg == NETLIB_MSG_CONNECT) {
+		
         CHttpConn* pConn = new CHttpConn();
         pConn->OnConnect(handle);
     }
-    else
-    {
+    else {
+
         log("!!!error msg: %d ", msg);
     }
+
+	return;
 }
 
-int main(int argc, char* argv[])
-{
+int main(int argc, char* argv[]) {
+
+#if __Debug__
+	for (int  H = 0; H < argc; H++) {
+
+		TTIMLog(("login_server::main : %s", argv[H]));
+		
+	} /* End for () */
+#endif /* __Debug__ */
+
 	if ((argc == 2) && (strcmp(argv[1], "-v") == 0)) {
 		printf("Server Version: LoginServer/%s\n", VERSION);
 		printf("Server Build: %s %s\n", __DATE__, __TIME__);
@@ -90,7 +107,6 @@ int main(int argc, char* argv[])
     uint16_t http_port = atoi(str_http_port);
     strMsfsUrl = str_msfs_url;
     strDiscovery = str_discovery;
-    
     
     pIpParser = new IpParser();
     

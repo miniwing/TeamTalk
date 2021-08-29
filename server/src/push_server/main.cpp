@@ -11,6 +11,9 @@
 #include "timer/Timer.hpp"
 #include <sys/signal.h>
 
+// HARRY
+// #include "TTIMLog.h"
+
 void writePid()
 {
     uint32_t curPid;
@@ -29,6 +32,15 @@ void writePid()
 
 
 int main(int argc, const char * argv[]) {
+
+#if __Debug__
+	for (int  H = 0; H < argc; H++) {
+
+		TTIMLog(("push_server::main : %s", argv[H]));
+		
+	} /* End for () */
+#endif /* __Debug__ */
+
     // insert code here...
     printf("start push server...\n");
     signal(SIGPIPE, SIG_IGN);

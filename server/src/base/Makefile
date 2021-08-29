@@ -378,6 +378,30 @@ ServInfo.cpp.s:
 	$(MAKE) -f CMakeFiles/base.dir/build.make CMakeFiles/base.dir/ServInfo.cpp.s
 .PHONY : ServInfo.cpp.s
 
+TTIMLog.o: TTIMLog.cpp.o
+.PHONY : TTIMLog.o
+
+# target to build an object file
+TTIMLog.cpp.o:
+	$(MAKE) -f CMakeFiles/base.dir/build.make CMakeFiles/base.dir/TTIMLog.cpp.o
+.PHONY : TTIMLog.cpp.o
+
+TTIMLog.i: TTIMLog.cpp.i
+.PHONY : TTIMLog.i
+
+# target to preprocess a source file
+TTIMLog.cpp.i:
+	$(MAKE) -f CMakeFiles/base.dir/build.make CMakeFiles/base.dir/TTIMLog.cpp.i
+.PHONY : TTIMLog.cpp.i
+
+TTIMLog.s: TTIMLog.cpp.s
+.PHONY : TTIMLog.s
+
+# target to generate assembly for a file
+TTIMLog.cpp.s:
+	$(MAKE) -f CMakeFiles/base.dir/build.make CMakeFiles/base.dir/TTIMLog.cpp.s
+.PHONY : TTIMLog.cpp.s
+
 Thread.o: Thread.cpp.o
 .PHONY : Thread.o
 
@@ -948,6 +972,9 @@ help:
 	@echo "... ServInfo.o"
 	@echo "... ServInfo.i"
 	@echo "... ServInfo.s"
+	@echo "... TTIMLog.o"
+	@echo "... TTIMLog.i"
+	@echo "... TTIMLog.s"
 	@echo "... Thread.o"
 	@echo "... Thread.i"
 	@echo "... Thread.s"

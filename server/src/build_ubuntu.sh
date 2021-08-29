@@ -37,9 +37,6 @@ CURPWD=$PWD
        		 echo "make msfs failed";
        		 exit;
     		fi
-		
-
-
 	done
 	
 	cd $CURPWD
@@ -58,8 +55,6 @@ CURPWD=$PWD
     mkdir -p ../run/push_server
     mkdir -p ../run/http_msg_server
     mkdir -p ../run/db_proxy_server
-
-
 
 	#copy executables to run/ dir
 	cp login_server/login_server ../run/login_server/
