@@ -203,8 +203,8 @@ void CMsgConn::Close(bool kick_user)
     ReleaseRef();
 }
 
-void CMsgConn::OnConnect(net_handle_t handle)
-{
+void CMsgConn::OnConnect(net_handle_t handle) {
+
 	m_handle = handle;
 	m_login_time = get_tick_count();
 
@@ -214,12 +214,16 @@ void CMsgConn::OnConnect(net_handle_t handle)
 	netlib_option(handle, NETLIB_OPT_SET_CALLBACK_DATA, (void*)&g_msg_conn_map);
 	netlib_option(handle, NETLIB_OPT_GET_REMOTE_IP, (void*)&m_peer_ip);
 	netlib_option(handle, NETLIB_OPT_GET_REMOTE_PORT, (void*)&m_peer_port);
+
+	return;
 }
 
-void CMsgConn::OnClose()
-{
+void CMsgConn::OnClose() {
+
     log("Warning: peer closed. ");
 	Close();
+
+	return;
 }
 
 void CMsgConn::OnTimer(uint64_t curr_tick)
