@@ -11,6 +11,17 @@ server/**/CMakeFiles/**
 server/**/CMakeCache.txt
 server/src/log4cxx/
 
+server/src/lib/libbase.a
+
+server/src/base/libbase.a
+server/src/db_proxy_server/db_proxy_server
+server/src/file_server/file_server
+server/src/http_msg_server/http_msg_server
+server/src/login_server/login_server
+server/src/msg_server/msg_server
+server/src/push_server/push_server
+server/src/route_server/route_server
+
 ##################################################
 ### iOS
 ios/Pods/

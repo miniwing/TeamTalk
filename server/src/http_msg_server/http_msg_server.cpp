@@ -61,7 +61,7 @@ int main(int argc, char* argv[]) {
 	srand(time(NULL));
     
 	log("MsgServer max files can open: %d ", getdtablesize());
-	TTIM_PRINTF((("MsgServer max files can open: %d \n", getdtablesize())));
+	TTIM_PRINTF(("MsgServer max files can open: %d \n", getdtablesize()));
 
 	CConfigFileReader config_file("httpmsgserver.conf");
     
