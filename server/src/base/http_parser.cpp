@@ -584,11 +584,14 @@ size_t http_parser_execute (http_parser *parser,
 
   /* We're in an error state. Don't bother doing anything. */
   if (HTTP_PARSER_ERRNO(parser) != HPE_OK) {
+    
     return 0;
   }
 
   if (len == 0) {
+
     switch (parser->state) {
+
       case s_body_identity_eof:
         /* Use of CALLBACK_NOTIFY() here would erroneously return 1 byte read if
          * we got paused.
@@ -607,7 +610,6 @@ size_t http_parser_execute (http_parser *parser,
         return 1;
     }
   }
-
 
   if (parser->state == s_header_field)
     header_field_mark = data;

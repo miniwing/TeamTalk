@@ -37,31 +37,39 @@ CHttpConn* FindHttpConnByHandle(uint32_t conn_handle){
     return pConn;
 }
 
-void httpconn_callback(void* callback_data, uint8_t msg, uint32_t handle, uint32_t uParam, void* pParam)
-{
+void httpconn_callback(void* callback_data, uint8_t msg, uint32_t handle, uint32_t uParam, void* pParam) {
+
+    TTIM_PRINTF(("login_server::HttpConn::httpconn_callback"));
+
 	NOTUSED_ARG(uParam);
 	NOTUSED_ARG(pParam);
 
 	// convert void* to uint32_t, oops
-	uint32_t conn_handle = *((uint32_t*)(&callback_data));
-    CHttpConn* pConn = FindHttpConnByHandle(conn_handle);
+	uint32_t     conn_handle    = *((uint32_t*)(&callback_data));
+    CHttpConn   *pConn          = FindHttpConnByHandle(conn_handle);
+
     if (!pConn) {
+
         return;
     }
 
 	switch (msg)
 	{
 	case NETLIB_MSG_READ:
+        TTIM_PRINTF(("login_server::HttpConn::httpconn_callback : NETLIB_MSG_READ(%d)", NETLIB_MSG_READ));
 		pConn->OnRead();
 		break;
 	case NETLIB_MSG_WRITE:
+        TTIM_PRINTF(("login_server::HttpConn::httpconn_callback : NETLIB_MSG_WRITE(%d)", NETLIB_MSG_WRITE));
 		pConn->OnWrite();
 		break;
 	case NETLIB_MSG_CLOSE:
+        TTIM_PRINTF(("login_server::HttpConn::httpconn_callback : NETLIB_MSG_CLOSE(%d)", NETLIB_MSG_CLOSE));
 		pConn->OnClose();
 		break;
 	default:
 		log("!!!httpconn_callback error msg: %d ", msg);
+        TTIM_PRINTF(("!!!httpconn_callback error msg: %d ", msg));
 		break;
 	}
 }
@@ -185,31 +193,36 @@ void CHttpConn::OnRead() {
 		}
 
 		int ret = netlib_recv(m_sock_handle, m_in_buf.GetBuffer() + m_in_buf.GetWriteOffset(), READ_BUF_SIZE);
+
 		if (ret <= 0) {
+
 			break;
-		}
+
+		} /* End if () */
 
 		m_in_buf.IncWriteOffset(ret);
 
-		m_last_recv_tick = get_tick_count();
-	}
+		m_last_recv_tick    = get_tick_count();
+
+	} /* End for () */
 
 	// 每次请求对应一个HTTP连接，所以读完数据后，不用在同一个连接里面准备读取下个请求
-	char* in_buf = (char*)m_in_buf.GetBuffer();
-	uint32_t buf_len = m_in_buf.GetWriteOffset();
-	in_buf[buf_len] = '\0';
+	char    *in_buf     = (char*)m_in_buf.GetBuffer();
+	uint32_t buf_len    = m_in_buf.GetWriteOffset();
+	in_buf[buf_len]     = '\0';
     
     // 如果buf_len 过长可能是受到攻击，则断开连接
     // 正常的url最大长度为2048，我们接受的所有数据长度不得大于1K
-    if(buf_len > 1024)
-    {
+    if(buf_len > 1024) {
+
         log("get too much data:%s ", in_buf);
+        TTIM_PRINTF(("get too much data:%s ", in_buf));
         Close();
+
         return;
     }
 
 	//log("OnRead, buf_len=%u, conn_handle=%u\n", buf_len, m_conn_handle); // for debug
-
 	
 	m_cHttpParser.ParseHttpContent(in_buf, buf_len);
 

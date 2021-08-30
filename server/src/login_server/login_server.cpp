@@ -37,6 +37,7 @@ void client_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pP
 void msg_serv_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pParam) {
 	
     log("msg_server come in");
+    TTIM_PRINTF(("msg_server come in"));
 
 	if (msg == NETLIB_MSG_CONNECT) {
 
@@ -46,11 +47,11 @@ void msg_serv_callback(void* callback_data, uint8_t msg, uint32_t handle, void* 
 	else {
 
 		log("!!!error msg: %d ", msg);
+        TTIM_PRINTF(("!!!error msg: %d ", msg));
 	}
 
 	return;
 }
-
 
 void http_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pParam) {
 
@@ -58,11 +59,14 @@ void http_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pPar
 		
         CHttpConn* pConn = new CHttpConn();
         pConn->OnConnect(handle);
-    }
+
+    } /* End if () */
     else {
 
         log("!!!error msg: %d ", msg);
-    }
+        TTIM_PRINTF(("!!!error msg: %d ", msg));
+        
+    } /* End else */
 
 	return;
 }
