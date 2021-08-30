@@ -76,3 +76,33 @@
 2021-08-30 10:16:45,999 [INFO  IM] - <LoginConn.cpp>|<222>|<_HandleUserCntUpdate>,centos7:8000, cur_cnt=1, total_cnt=1 
 2021-08-30 10:16:50,049 [INFO  IM] - <LoginConn.cpp>|<222>|<_HandleUserCntUpdate>,centos7:8000, cur_cnt=0, total_cnt=0 
 2021-08-30 10:21:14,572 [INFO  IM] - <LoginConn.cpp>|<85>|<Close>,onclose from MsgServer: centos7:8000 
+2021-08-30 21:06:20,206 [INFO  IM] - <BaseSocket.cpp>|<81>|<Listen>,CBaseSocket::Listen on 10.211.55.13:8008
+2021-08-30 21:06:20,207 [INFO  IM] - <BaseSocket.cpp>|<81>|<Listen>,CBaseSocket::Listen on 10.211.55.13:8100
+2021-08-30 21:06:20,207 [INFO  IM] - <BaseSocket.cpp>|<81>|<Listen>,CBaseSocket::Listen on 10.211.55.13:8080
+2021-08-30 21:06:43,699 [INFO  IM] - <BaseSocket.cpp>|<329>|<_AcceptNewSocket>,AcceptNewSocket, socket=9 from 10.211.55.13:35498
+
+2021-08-30 21:06:43,699 [INFO  IM] - <login_server.cpp>|<39>|<msg_serv_callback>,msg_server come in
+2021-08-30 21:06:43,704 [INFO  IM] - <LoginConn.cpp>|<196>|<_HandleMsgServInfo>,MsgServInfo, ip_addr1=10.211.55.13, ip_addr2=10.211.55.13, port=8000, max_conn_cnt=100000, cur_conn_cnt=0, hostname: centos7. 
+2021-08-30 21:24:28,556 [INFO  IM] - <BaseSocket.cpp>|<329>|<_AcceptNewSocket>,AcceptNewSocket, socket=10 from 192.168.3.23:54754
+
+2021-08-30 21:24:28,561 [INFO  IM] - <HttpConn.cpp>|<394>|<OnWriteComlete>,write complete 
+2021-08-30 21:24:28,892 [INFO  IM] - <LoginConn.cpp>|<225>|<_HandleUserCntUpdate>,centos7:8000, cur_cnt=1, total_cnt=1 
+2021-08-30 21:24:29,357 [INFO  IM] - <BaseSocket.cpp>|<329>|<_AcceptNewSocket>,AcceptNewSocket, socket=10 from 192.168.3.23:54756
+
+2021-08-30 21:24:29,361 [INFO  IM] - <HttpConn.cpp>|<394>|<OnWriteComlete>,write complete 
+2021-08-30 21:24:29,541 [INFO  IM] - <LoginConn.cpp>|<225>|<_HandleUserCntUpdate>,centos7:8000, cur_cnt=0, total_cnt=0 
+2021-08-30 21:25:48,901 [INFO  IM] - <BaseSocket.cpp>|<329>|<_AcceptNewSocket>,AcceptNewSocket, socket=10 from 192.168.3.23:54763
+
+2021-08-30 21:25:48,906 [INFO  IM] - <HttpConn.cpp>|<394>|<OnWriteComlete>,write complete 
+2021-08-30 21:25:48,985 [INFO  IM] - <LoginConn.cpp>|<225>|<_HandleUserCntUpdate>,centos7:8000, cur_cnt=1, total_cnt=1 
+2021-08-30 21:26:09,504 [INFO  IM] - <LoginConn.cpp>|<225>|<_HandleUserCntUpdate>,centos7:8000, cur_cnt=0, total_cnt=0 
+2021-08-30 21:26:47,187 [INFO  IM] - <BaseSocket.cpp>|<329>|<_AcceptNewSocket>,AcceptNewSocket, socket=10 from 192.168.3.23:54849
+
+2021-08-30 21:26:47,192 [INFO  IM] - <HttpConn.cpp>|<394>|<OnWriteComlete>,write complete 
+2021-08-30 21:27:27,990 [INFO  IM] - <BaseSocket.cpp>|<81>|<Listen>,CBaseSocket::Listen on 10.211.55.13:8008
+2021-08-30 21:27:27,991 [INFO  IM] - <BaseSocket.cpp>|<81>|<Listen>,CBaseSocket::Listen on 10.211.55.13:8100
+2021-08-30 21:27:27,991 [INFO  IM] - <BaseSocket.cpp>|<81>|<Listen>,CBaseSocket::Listen on 10.211.55.13:8080
+2021-08-30 21:27:40,685 [INFO  IM] - <BaseSocket.cpp>|<329>|<_AcceptNewSocket>,AcceptNewSocket, socket=9 from 10.211.55.13:35622
+
+2021-08-30 21:27:40,686 [INFO  IM] - <login_server.cpp>|<39>|<msg_serv_callback>,msg_server come in
+2021-08-30 21:27:40,690 [INFO  IM] - <LoginConn.cpp>|<196>|<_HandleMsgServInfo>,MsgServInfo, ip_addr1=10.211.55.13, ip_addr2=10.211.55.13, port=8000, max_conn_cnt=100000, cur_conn_cnt=0, hostname: centos7. 

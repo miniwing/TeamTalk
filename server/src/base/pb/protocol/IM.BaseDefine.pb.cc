@@ -103,6 +103,7 @@ bool ServiceID_IsValid(int value) {
     case 6:
     case 7:
     case 8:
+    case 9:
       return true;
     default:
       return false;
@@ -132,6 +133,20 @@ bool LoginCmdID_IsValid(int value) {
   }
 }
 
+bool RegistCmdID_IsValid(int value) {
+  switch(value) {
+    case 4097:
+    case 4098:
+    case 4099:
+    case 4100:
+    case 4101:
+    case 4102:
+      return true;
+    default:
+      return false;
+  }
+}
+
 bool BuddyListCmdID_IsValid(int value) {
   switch(value) {
     case 513:
@@ -155,6 +170,7 @@ bool BuddyListCmdID_IsValid(int value) {
     case 531:
     case 532:
     case 533:
+    case 534:
       return true;
     default:
       return false;
@@ -216,6 +232,8 @@ bool FileCmdID_IsValid(int value) {
     case 1290:
     case 1291:
     case 1292:
+    case 1293:
+    case 1294:
       return true;
     default:
       return false;
@@ -254,6 +272,7 @@ bool OtherCmdID_IsValid(int value) {
     case 1842:
     case 1843:
     case 1844:
+    case 1845:
       return true;
     default:
       return false;
@@ -270,6 +289,7 @@ bool ResultType_IsValid(int value) {
     case 5:
     case 6:
     case 7:
+    case 8:
       return true;
     default:
       return false;
@@ -421,6 +441,7 @@ bool FileServerError_IsValid(int value) {
     case 10:
     case 11:
     case 12:
+    case 13:
       return true;
     default:
       return false;

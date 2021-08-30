@@ -31,211 +31,238 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(handleWillShowKeyboard)
-                                                     name:UIKeyboardWillShowNotification
-                                                   object:nil];
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(handleWillHideKeyboard)
-                                                     name:UIKeyboardWillHideNotification
-                                                   object:nil];
-    }
-    return self;
+   self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+   if (self) {
+      // Custom initialization
+      
+      [[NSNotificationCenter defaultCenter] addObserver:self
+                                               selector:@selector(handleWillShowKeyboard)
+                                                   name:UIKeyboardWillShowNotification
+                                                 object:nil];
+      
+      [[NSNotificationCenter defaultCenter] addObserver:self
+                                               selector:@selector(handleWillHideKeyboard)
+                                                   name:UIKeyboardWillHideNotification
+                                                 object:nil];
+   }
+   return self;
 }
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-  
-    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"username"]!=nil) {
-        _userNameTextField.text =[[NSUserDefaults standardUserDefaults] objectForKey:@"username"];
-    }
-    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"password"]!=nil) {
-        _userPassTextField.text=[[NSUserDefaults standardUserDefaults] objectForKey:@"password"];
-    }
-    if(!self.isRelogin)
-    {
-        if ([[NSUserDefaults standardUserDefaults] objectForKey:@"username"] && [[NSUserDefaults standardUserDefaults] objectForKey:@"password"])
-        {
-            if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"autologin"] boolValue] == YES) {
-//                [self loginButtonPressed:nil];
-            }
-        }
-    }
-    
-    self.defaultCenter=self.view.center;
-    self.userNameTextField.leftViewMode=UITextFieldViewModeAlways;
-    self.userPassTextField.leftViewMode=UITextFieldViewModeAlways;
-    
-    UIImageView *usernameLeftView = [[UIImageView alloc] init];
-    usernameLeftView.contentMode = UIViewContentModeCenter;
-    usernameLeftView.frame=CGRectMake(0, 0, 18, 22.5);
-    UIImageView *pwdLeftView = [[UIImageView alloc] init];
-    pwdLeftView.contentMode = UIViewContentModeCenter;
-    pwdLeftView.frame=CGRectMake(0, 0,18, 22.5);
-    self.userNameTextField.leftView=usernameLeftView;
-    self.userPassTextField.leftView=pwdLeftView;
-    [self.userNameTextField.layer setBorderColor:RGB(211, 211, 211).CGColor];
-    [self.userNameTextField.layer setBorderWidth:0.5];
-    [self.userNameTextField.layer setCornerRadius:4];
-    [self.userPassTextField.layer setBorderColor:RGB(211, 211, 211).CGColor];
-    [self.userPassTextField.layer setBorderWidth:0.5];
-    [self.userPassTextField.layer setCornerRadius:4];
-    
-    [self.userLoginBtn.layer setCornerRadius:4];
-    
-    // 设置用户名
-    [self.view setBackgroundColor:[UIColor whiteColor]];
-    
-    _registerButton = [ UIButton new];
-    [_registerButton setBackgroundColor:UIColorFromRGB(0x00abee, 1.0)];
-    [_registerButton setTitle:@"注册" forState:UIControlStateNormal];
-    [_registerButton addTarget:self action:@selector(registerUser:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:_registerButton];
-    _registerButton.sd_layout
-    .rightSpaceToView(self.view, 20)
-    .widthIs(60)
-    .heightIs(44)
-    .topSpaceToView(self.userLoginBtn, 60)
-    ;
+- (void)viewDidLoad {
+   
+   int                            nErr                                     = EFAULT;
+      
+   __TRY;
+
+   [super viewDidLoad];
+   
+   if ([[NSUserDefaults standardUserDefaults] objectForKey:@"username"]!=nil) {
+      _userNameTextField.text =[[NSUserDefaults standardUserDefaults] objectForKey:@"username"];
+   }
+   
+   if ([[NSUserDefaults standardUserDefaults] objectForKey:@"password"]!=nil) {
+      _userPassTextField.text=[[NSUserDefaults standardUserDefaults] objectForKey:@"password"];
+   }
+   
+   if(!self.isRelogin) {
+      
+      if ([[NSUserDefaults standardUserDefaults] objectForKey:@"username"] && [[NSUserDefaults standardUserDefaults] objectForKey:@"password"]) {
+         
+         if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"autologin"] boolValue] == YES) {
+            //                [self loginButtonPressed:nil];
+         }
+      }
+   }
+   
+   self.defaultCenter=self.view.center;
+   self.userNameTextField.leftViewMode=UITextFieldViewModeAlways;
+   self.userPassTextField.leftViewMode=UITextFieldViewModeAlways;
+   
+   UIImageView *usernameLeftView = [[UIImageView alloc] init];
+   usernameLeftView.contentMode = UIViewContentModeCenter;
+   usernameLeftView.frame=CGRectMake(0, 0, 18, 22.5);
+   UIImageView *pwdLeftView = [[UIImageView alloc] init];
+   pwdLeftView.contentMode = UIViewContentModeCenter;
+   pwdLeftView.frame=CGRectMake(0, 0,18, 22.5);
+   self.userNameTextField.leftView=usernameLeftView;
+   self.userPassTextField.leftView=pwdLeftView;
+   [self.userNameTextField.layer setBorderColor:RGB(211, 211, 211).CGColor];
+   [self.userNameTextField.layer setBorderWidth:0.5];
+   [self.userNameTextField.layer setCornerRadius:4];
+   [self.userPassTextField.layer setBorderColor:RGB(211, 211, 211).CGColor];
+   [self.userPassTextField.layer setBorderWidth:0.5];
+   [self.userPassTextField.layer setCornerRadius:4];
+   
+   [self.userLoginBtn.layer setCornerRadius:4];
+   
+   // 设置用户名
+   [self.view setBackgroundColor:[UIColor whiteColor]];
+   
+   _registerButton = [ UIButton new];
+   [_registerButton setBackgroundColor:UIColorFromRGB(0x00abee, 1.0)];
+   [_registerButton setTitle:@"注册" forState:UIControlStateNormal];
+   [_registerButton addTarget:self action:@selector(registerUser:) forControlEvents:UIControlEventTouchUpInside];
+   [self.view addSubview:_registerButton];
+   _registerButton.sd_layout
+   .rightSpaceToView(self.view, 20)
+   .widthIs(60)
+   .heightIs(44)
+   .topSpaceToView(self.userLoginBtn, 60);
    
 #if __Debug__
    [_userNameTextField setText:@"TEST"];
    [_userPassTextField setText:@"TEST"];
 #endif /* __Debug__ */
    
-   return;
-}
-
--(void)registerUser:(id)sender {
-   
-    MTTRegisterViewController *vc = [MTTRegisterViewController new];
-    [self.navigationController pushViewController:vc animated:YES];
+   __CATCH(nErr);
    
    return;
 }
 
--(void)viewWillAppear:(BOOL)animated{
-    
-    [super viewWillAppear:animated];
-    
-    self.navigationController.navigationBarHidden =YES;
+- (void)registerUser:(id)sender {
+   
+   MTTRegisterViewController *vc = [MTTRegisterViewController new];
+   [self.navigationController pushViewController:vc animated:YES];
+   
+   return;
 }
 
--(void)viewDidAppear:(BOOL)animated{
+- (void)viewWillAppear:(BOOL)animated{
+   
+   [super viewWillAppear:animated];
+   
+   self.navigationController.navigationBarHidden =YES;
+}
 
-    [super viewDidAppear:animated];
-    self.navigationController.navigationBarHidden =NO;
-    self.defaultCenter=self.view.center;
+- (void)viewDidAppear:(BOOL)animated{
+   
+   [super viewDidAppear:animated];
+   self.navigationController.navigationBarHidden =NO;
+   self.defaultCenter=self.view.center;
 }
 
 #pragma mark - keyboard hide and show notification
 
--(void)handleWillShowKeyboard
-{
-    [UIView animateWithDuration:0.2 animations:^{
-        self.view.center=CGPointMake(self.view.center.x, self.defaultCenter.y-(IPHONE4?120:40));
-    }];
-}
--(void)handleWillHideKeyboard
-{
-    [UIView animateWithDuration:0.2 animations:^{
-        self.view.center=self.defaultCenter;
-    }];
+- (void)handleWillShowKeyboard {
+   
+   [UIView animateWithDuration:0.2 animations:^{
+      self.view.center=CGPointMake(self.view.center.x, self.defaultCenter.y- (IPHONE4?120:40));
+   }];
+   
+   return;
 }
 
+- (void)handleWillHideKeyboard {
+   
+   [UIView animateWithDuration:0.2 animations:^{
+      self.view.center=self.defaultCenter;
+   }];
+   
+   return;
+}
 
 #pragma mark - button pressed
 
--(IBAction)hiddenKeyboard:(id)sender
-{
-    [_userNameTextField resignFirstResponder];
-    [_userPassTextField resignFirstResponder];
+- (IBAction)hiddenKeyboard:(id)sender {
+   
+   [_userNameTextField resignFirstResponder];
+   [_userPassTextField resignFirstResponder];
+   
+   return;
 }
 
-
 - (IBAction)loginButtonPressed:(UIButton*)button {
-    
-    [self.userLoginBtn setEnabled:NO];
-    NSString* userName = _userNameTextField.text ;
-    NSString* password = _userPassTextField.text ;
-    if (userName.length ==0 || password.length == 0) {
-        [self.userLoginBtn setEnabled:YES];
-        return;
-    }
-    MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.view];
-    [self.view addSubview:HUD];
-    [HUD show:YES];
-    HUD.dimBackground = YES;
-    HUD.labelText = @"正在登录";
-    
-    [[LoginModule instance] loginWithUsername:userName password:password success:^(MTTUserEntity *user) {
-        
-        [HUD removeFromSuperview];
-        
-        [self.userLoginBtn setEnabled:YES];
-        if (user) {
-            TheRuntime.user=user ;
-            [TheRuntime updateData];
+   
+   int                            nErr                                     = EFAULT;
+      
+   __TRY;
+
+   [self.userLoginBtn setEnabled:NO];
+   NSString* userName = _userNameTextField.text;
+   NSString* password = _userPassTextField.text;
+   if (userName.length ==0 || password.length == 0) {
+      [self.userLoginBtn setEnabled:YES];
+      return;
+   }
+   MBProgressHUD *HUD   = [[MBProgressHUD alloc] initWithView:self.view];
+   [self.view addSubview:HUD];
+   [HUD show:YES];
+   HUD.dimBackground    = YES;
+   HUD.labelText = @"正在登录";
+   
+   [[LoginModule instance] loginWithUsername:userName password:password success:^(MTTUserEntity *user) {
+      
+      [HUD removeFromSuperview];
+      
+      [self.userLoginBtn setEnabled:YES];
+      
+      if (user) {
+         
+         TheRuntime.user   = user;
+         
+         [TheRuntime updateData];
+         
+         if (TheRuntime.pushToken) {
             
-            if (TheRuntime.pushToken) {
 //                SendPushTokenAPI *pushToken = [[SendPushTokenAPI alloc] init];
 //                [pushToken requestWithObject:TheRuntime.pushToken Completion:^(id response, NSError *error) {
 //                    debugLog(@"%@", error.description);
 //                }];
-                TheRuntime.clientId_gettui = getUserCode;
-                if (TheRuntime.clientId_gettui) {
-                    [[ApiClient sharedInstance] updateUserPush:TheRuntime.clientId_gettui Success:^(id model) {
-                    
-                    } failure:^(NSString *message) {
-                        
-                    }];
-                }
-            }
-            setUserID(user.objID);
-            setUserNickname(user.nick);
-            setUserAvatar(user.avatar);
-            setUserPhone(userName);
-            setUserPassword(password)
-            setIsLogin;
-            [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIFICATION_LOGINCHANGE object:@YES];
-        }
-    } failure:^(NSString *error) {
-        [self.userLoginBtn setEnabled:YES];
 
-        [HUD removeFromSuperview];
-        
-        [OHAlertView showAlertWithTitle:@"提示" message:error dismissButton:@"好的"];
-        
-        
-//        if([error isEqualToString:@"版本过低"])
-//        {
+            TheRuntime.clientId_gettui = getUserCode;
+            
+            if (TheRuntime.clientId_gettui) {
+               [[ApiClient sharedInstance] updateUserPush:TheRuntime.clientId_gettui Success:^(id model) {
+                  
+               }
+                                                  failure:^(NSString *message) {
+                  
+               }];
+            }
+         }
+         setUserID(user.objID);
+         setUserNickname(user.nick);
+         setUserAvatar(user.avatar);
+         setUserPhone(userName);
+         setUserPassword(password)
+         setIsLogin;
+         [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIFICATION_LOGINCHANGE object:@YES];
+      }
+   }
+                                     failure:^(NSString *error) {
+      [self.userLoginBtn setEnabled:YES];
+      
+      [HUD removeFromSuperview];
+      
+      [OHAlertView showAlertWithTitle:@"提示" message:error dismissButton:@"好的"];
+      
+      
+//        if([error isEqualToString:@"版本过低"]) {
+//
 //            DDLog(@"强制更新");
 //            SCLAlertView *alert = [SCLAlertView new];
 //            [alert addButton:@"确定" actionBlock:^{
 //                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://tt.mogu.io"]];
 //            }];
 //            [alert showError:self title:@"升级提示" subTitle:@"版本过低，需要强制更新" closeButtonTitle:nil duration:0];
-//            
-//        }else{
+//
+//        }
+//        else {
 //            [self.userLoginBtn setEnabled:YES];
-//            
+//
 //            [alert showError:self title:@"错误" subTitle:error closeButtonTitle:@"确定" duration:0];
 //        }
-    }];
-
-    return;
+   }];
+   
+   __CATCH(nErr);
+   
+   return;
 }
 
 #pragma mark - UITextFieldDelegate
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField
-{
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+   
     [textField resignFirstResponder];
     [self loginButtonPressed:nil];
     

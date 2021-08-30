@@ -6,40 +6,40 @@ option optimize_for = LITE_RUNTIME;
 
 //service id   0x0002
 
-message IMRecentContactSessionReq{
+message IMRecentContactSessionReq {
 	//cmd id:		0x0201
 	required uint32 user_id = 1;
 	required uint32 latest_update_time = 2;
 	optional bytes attach_data = 20;
 }
 
-message IMRecentContactSessionRsp{
+message IMRecentContactSessionRsp {
 	//cmd id:		0x0202
 	required uint32 user_id = 1;
 	repeated IM.BaseDefine.ContactSessionInfo contact_session_list = 2;
 	optional bytes attach_data = 20;
 }
 
-message IMUserStatNotify{
+message IMUserStatNotify {
 	//cmd id:		0x0203
 	required IM.BaseDefine.UserStat user_stat = 1;
 }
 
-message IMUsersInfoReq{
+message IMUsersInfoReq {
 	//cmd id:		0x0204
 	required uint32 user_id = 1;
 	repeated uint32 user_id_list = 2;
 	optional bytes attach_data = 20;
 }
 
-message IMUsersInfoRsp{
+message IMUsersInfoRsp {
 	//cmd id:		0x0205
 	required uint32 user_id = 1;
 	repeated IM.BaseDefine.UserInfo user_info_list = 2;
 	optional bytes attach_data = 20;
 }
 
-message IMRemoveSessionReq{
+message IMRemoveSessionReq {
 	//cmd id:		0x0206
 	required uint32 user_id = 1;
 	required IM.BaseDefine.SessionType session_type = 2;
@@ -47,7 +47,7 @@ message IMRemoveSessionReq{
 	optional bytes attach_data = 20;
 }
 
-message IMRemoveSessionRsp{
+message IMRemoveSessionRsp {
 	//cmd id:		0x0207
 	required uint32 user_id = 1;
 	required uint32 result_code = 2;
@@ -56,14 +56,14 @@ message IMRemoveSessionRsp{
 	optional bytes attach_data = 20;
 }
 
-message IMAllUserReq{
+message IMAllUserReq {
 	//cmd id:		0x0208
 	required uint32 user_id = 1;
 	required uint32 latest_update_time = 2;
 	optional bytes attach_data = 20;
 }
 
-message IMAllUserRsp{
+message IMAllUserRsp {
 	//cmd id:		0x0209
 	required uint32 user_id = 1;
 	required uint32 latest_update_time = 2;
@@ -71,56 +71,64 @@ message IMAllUserRsp{
 	optional bytes attach_data = 20;
 }
 
-message IMUsersStatReq{
+message IMUsersStatReq {
 	//cmd id:		0x020a
 	required uint32 user_id = 1;
 	repeated uint32 user_id_list = 2;
 	optional bytes attach_data = 20;
 }
 
-message IMUsersStatRsp{
+message IMUsersStatRsp {
 	//cmd id:		0x020b
 	required uint32 user_id = 1;
 	repeated IM.BaseDefine.UserStat user_stat_list = 2;
 	optional bytes attach_data = 20;
 }
 
-message IMChangeAvatarReq{
+message IMChangeAvatarReq {
 	//cmd id:		0x020c
 	required uint32 user_id = 1;
 	required string avatar_url = 2;
 	optional bytes attach_data = 20;
 }
 
-message IMChangeAvatarRsp{
+message IMChangeAvatarRsp {
 	//cmd id:		0x020d
 	required uint32 user_id = 1;
 	required uint32 result_code = 2;
 	optional bytes attach_data = 20;
 }
 
-//只给移动端通知
-message IMPCLoginStatusNotify{
+// 只给移动端通知
+message IMPCLoginStatusNotify {
 	//cmd id:		0x020e
 	required uint32 user_id = 1;
 	required IM.BaseDefine.UserStatType login_stat = 2;
 }
 
- message IMRemoveSessionNotify{
+// // __TEAMTALK_REGIST__
+// // 只给移动端通知
+// message IMPCRegistStatusNotify {
+// 	//cmd id:		0x0216
+// 	required uint32 user_id = 1;
+// 	required IM.BaseDefine.UserStatType regist_stat	= 2;
+// }
+
+message IMRemoveSessionNotify {
  	//cmd id:		0x020f
  	required uint32 user_id = 1;
 	required IM.BaseDefine.SessionType session_type = 2;
 	required uint32 session_id = 3;
  }
 
-message IMDepartmentReq{
+message IMDepartmentReq {
 	//cmd id:		0x0210
 	required uint32 user_id = 1;
 	required uint32 latest_update_time = 2;
 	optional bytes attach_data = 20;
 }
 
-message IMDepartmentRsp{
+message IMDepartmentRsp {
 	//cmd id:		0x0211
 	required uint32 user_id = 1;
 	required uint32 latest_update_time = 2;
@@ -135,7 +143,7 @@ message IMAvatarChangedNotify {
     required string avatar_url = 2;           //
 }
 
-message IMChangeSignInfoReq{
+message IMChangeSignInfoReq {
    //cmd id:		0x0213
 
     required uint32 user_id = 1;
@@ -143,7 +151,7 @@ message IMChangeSignInfoReq{
     optional bytes attach_data = 20;
 }
 
-message IMChangeSignInfoRsp{
+message IMChangeSignInfoRsp {
     //cmd id:		0x0214
     required uint32 user_id = 1;
     required uint32 result_code = 2;

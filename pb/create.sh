@@ -6,6 +6,10 @@ DST_DIR=./gen
 mkdir -p $DST_DIR/cpp
 protoc -I=$SRC_DIR --cpp_out=$DST_DIR/cpp/ $SRC_DIR/*.proto
 
+# #OC
+# mkdir -p $DST_DIR/objc_out
+# protoc -I=$SRC_DIR --objc_out=$DST_DIR/objc_out/ $SRC_DIR/*.proto
+
 #JAVA
 mkdir -p $DST_DIR/java
 protoc -I=$SRC_DIR --java_out=$DST_DIR/java/ $SRC_DIR/*.proto

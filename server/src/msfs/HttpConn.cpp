@@ -13,6 +13,9 @@
 #include "HttpParserWrapper.h"
 #include "atomic.h"
 
+// HARRY
+#include "TTIMLog.h"
+
 static HttpConnMap_t g_http_conn_map;
 
 // conn_handle 从0开始递增，可以防止因socket handle重用引起的一些冲突

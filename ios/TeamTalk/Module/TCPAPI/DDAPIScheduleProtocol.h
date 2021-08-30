@@ -61,4 +61,5 @@ typedef NSMutableData*(^Package)(id object,uint16_t seqNO);
  *  @return 打包数据的block
  */
 - (Package)packageRequestObject;
+
 @end

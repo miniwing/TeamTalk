@@ -37,7 +37,7 @@ void client_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pP
 void msg_serv_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pParam) {
 	
     log("msg_server come in");
-    TTIM_PRINTF(("msg_server come in"));
+    TTIM_PRINTF(("msg_server come in\n"));
 
 	if (msg == NETLIB_MSG_CONNECT) {
 

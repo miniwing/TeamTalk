@@ -66,12 +66,12 @@ message IMDeviceTokenRsp {
 }
 
 //只给移动端请求
-message IMKickPCClientReq{
+message IMKickPCClientReq {
 	//cmd id:		0x010a
 	required uint32 user_id = 1;
 }
 
-message IMKickPCClientRsp{
+message IMKickPCClientRsp {
 	//cmd id: 		0x010b
 	required uint32 user_id = 1;
 	required uint32 result_code = 2;

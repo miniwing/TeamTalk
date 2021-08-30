@@ -6,34 +6,34 @@ option optimize_for = LITE_RUNTIME;
 
 //service id:0x0004
 
-message IMNormalGroupListReq{
+message IMNormalGroupListReq {
 	//cmd id:			0x0401
 	required uint32 user_id = 1;
 	optional bytes attach_data = 20;
 }
 
-message IMNormalGroupListRsp{
+message IMNormalGroupListRsp {
 	//cmd id:			0x0402
 	required uint32 user_id = 1;
 	repeated IM.BaseDefine.GroupVersionInfo group_version_list = 2;
 	optional bytes attach_data = 20;
 }
 
-message IMGroupInfoListReq{
+message IMGroupInfoListReq {
 	//cmd id:			0x0403
 	required uint32 user_id = 1;
 	repeated IM.BaseDefine.GroupVersionInfo group_version_list = 2;
 	optional bytes attach_data = 20;
 }
 
-message IMGroupInfoListRsp{
+message IMGroupInfoListRsp {
 	//cmd id:			0x0404
 	required uint32 user_id = 1;
 	repeated IM.BaseDefine.GroupInfo group_info_list = 2;
 	optional bytes attach_data = 20;
 }
 
-message IMGroupCreateReq{
+message IMGroupCreateReq {
 	//cmd id:			0x0405
 	required uint32 user_id = 1;
 	required IM.BaseDefine.GroupType group_type = 2 [default = GROUP_TYPE_TMP];		//默认是创建临时群，且客户端只能创建临时群
@@ -43,7 +43,7 @@ message IMGroupCreateReq{
 	optional bytes attach_data = 20;
 }
 
-message IMGroupCreateRsp{
+message IMGroupCreateRsp {
 	//cmd id:			0x0406
 	required uint32 user_id = 1;
 	required uint32 result_code = 2;
@@ -53,7 +53,7 @@ message IMGroupCreateRsp{
 	optional bytes attach_data = 20;
 }
 
-message IMGroupChangeMemberReq{
+message IMGroupChangeMemberReq {
 	//cmd id:			0x0407
 	required uint32 user_id = 1;
 	required IM.BaseDefine.GroupModifyType change_type = 2;
@@ -62,7 +62,7 @@ message IMGroupChangeMemberReq{
 	optional bytes attach_data = 20;
 }
 
-message IMGroupChangeMemberRsp{
+message IMGroupChangeMemberRsp {
 	//cmd id:			0x0408
 	required uint32 user_id = 1;
 	required IM.BaseDefine.GroupModifyType change_type = 2;
@@ -73,7 +73,7 @@ message IMGroupChangeMemberRsp{
 	optional bytes attach_data = 20;
 }
 
-message IMGroupShieldReq{
+message IMGroupShieldReq {
 	//cmd id:			0x0409
 	required uint32 user_id = 1;
 	required uint32 group_id = 2;
@@ -81,7 +81,7 @@ message IMGroupShieldReq{
 	optional bytes attach_data = 20;
 }
 
-message IMGroupShieldRsp{
+message IMGroupShieldRsp {
 	//cmd id:			0x040a
 	required uint32 user_id = 1;
 	required uint32 group_id = 2;
@@ -89,7 +89,7 @@ message IMGroupShieldRsp{
 	optional bytes attach_data = 20;
 }
 
-message IMGroupChangeMemberNotify{
+message IMGroupChangeMemberNotify {
 	//cmd id: 			0x040b
 	required uint32 user_id = 1;
 	required IM.BaseDefine.GroupModifyType change_type = 2;
