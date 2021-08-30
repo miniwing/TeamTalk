@@ -161,22 +161,25 @@ void CHttpConn::OnRead()
 	for (;;)
 	{
 		uint32_t free_buf_len = m_in_buf.GetAllocSize() - m_in_buf.GetWriteOffset();
-		if (free_buf_len < READ_BUF_SIZE + 1)
+		if (free_buf_len < READ_BUF_SIZE + 1) {
 			m_in_buf.Extend(READ_BUF_SIZE + 1);
+        }
 
 		int ret = netlib_recv(m_sock_handle, m_in_buf.GetBuffer() + m_in_buf.GetWriteOffset(), READ_BUF_SIZE);
-		if (ret <= 0)
+		if (ret <= 0) {
 			break;
+        }
 
 		m_in_buf.IncWriteOffset(ret);
 
 		m_last_recv_tick = get_tick_count();
-	}
+
+	} /* End for () */
 
 	// 每次请求对应一个HTTP连接，所以读完数据后，不用在同一个连接里面准备读取下个请求
-	char* in_buf = (char*)m_in_buf.GetBuffer();
-	uint32_t buf_len = m_in_buf.GetWriteOffset();
-	in_buf[buf_len] = '\0';
+	char    *in_buf     = (char*)m_in_buf.GetBuffer();
+	uint32_t buf_len    = m_in_buf.GetWriteOffset();
+	in_buf[buf_len]     = '\0';
 
 	//log("OnRead, buf_len=%u, conn_handle=%u\n", buf_len, m_conn_handle); // for debug
 
