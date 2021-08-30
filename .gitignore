@@ -15,4 +15,5 @@ server/src/log4cxx/
 ### iOS
 ios/Pods/
 ios/libsecurity/
-ios/**/xcuserdata/
+ios/**/xcuserdata/**
+ios/*/xcuserdata/**
