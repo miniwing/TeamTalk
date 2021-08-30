@@ -61,12 +61,12 @@
                 ].join('\n');
                 Discovery.compiledTpl = juicer(tpl);
             },
-            addDiscoveryAlert : function(){
+            addDiscoveryAlert : function() {
                 Discovery.addTpl();
                 $.fn.SimpleModal({
                     btn_ok: '添加',
                     model: 'confirm',
-                    callback: function(node){
+                    callback: function(node) {
                         Discovery.addDiscovery();
                     },
                     overlayClick: false,
@@ -82,7 +82,7 @@
                     itemUrl: $(".itemUrl").val(),
                     itemPriority: $(".itemPriority").val()
                 }, function(data) {
-                    if($.trim(data) == 'success'){
+                    if($.trim(data) == 'success') {
                         $.fn.hideModal();
                         $(".table").before('<div class="alert alert-success alert-dismissable"><i class="fa fa-check"></i><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>编辑成功</div>')
                         setTimeout(function(){
@@ -100,13 +100,14 @@
                     itemUrl: $(".itemUrl").val(),
                     itemPriority: $(".itemPriority").val()
                 }, function(data) {
-                    if($.trim(data) == 'success'){
+                    if($.trim(data) == 'success') {
                         $.fn.hideModal();
                         $(".table").before('<div class="alert alert-success alert-dismissable"><i class="fa fa-check"></i><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>添加成功</div>')
                         setTimeout(function(){
                             $(".alert").remove();
                         },3000);
-                    }else{
+                    }
+                    else {
                         $(".btn-margin").text('添加失败');
                     }
                 });

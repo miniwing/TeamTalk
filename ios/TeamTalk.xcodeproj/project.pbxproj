@@ -85,6 +85,10 @@
 		46C53DA91CDADD8700034CF5 /* IMSwitchService.pb.m in Sources */ = {isa = PBXBuildFile; fileRef = 46C53DA01CDADD8700034CF5 /* IMSwitchService.pb.m */; };
 		46C53DAC1CDAF74C00034CF5 /* DDAllFriendAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 46C53DAB1CDAF74C00034CF5 /* DDAllFriendAPI.m */; };
 		46C53DB01CDB2AB700034CF5 /* FriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46C53DAF1CDB2AB700034CF5 /* FriendsViewController.m */; };
+		4A0FA22A26DCB37B0096F60A /* RegistModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A0FA22226DCB37A0096F60A /* RegistModule.m */; };
+		4A0FA22B26DCB37B0096F60A /* RegistTcpServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A0FA22526DCB37A0096F60A /* RegistTcpServer.m */; };
+		4A0FA22C26DCB37B0096F60A /* RegistHttpServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A0FA22726DCB37A0096F60A /* RegistHttpServer.m */; };
+		4A0FA22D26DCB37B0096F60A /* RegistMsgServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A0FA22826DCB37A0096F60A /* RegistMsgServer.m */; };
 		4A400E1E26D7782D00B28B59 /* libstdc++.6.0.9.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A400E1D26D7782D00B28B59 /* libstdc++.6.0.9.tbd */; };
 		4A400E2D26D7892900B28B59 /* libsecurity.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A400E2C26D7892000B28B59 /* libsecurity.a */; };
 		4AA8956826D880CD0092BA3B /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AA8956726D880CD0092BA3B /* CoreServices.framework */; };
@@ -639,6 +643,14 @@
 		46C53DAB1CDAF74C00034CF5 /* DDAllFriendAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDAllFriendAPI.m; sourceTree = "<group>"; };
 		46C53DAE1CDB2AB700034CF5 /* FriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendsViewController.h; sourceTree = "<group>"; };
 		46C53DAF1CDB2AB700034CF5 /* FriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendsViewController.m; sourceTree = "<group>"; };
+		4A0FA22226DCB37A0096F60A /* RegistModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegistModule.m; sourceTree = "<group>"; };
+		4A0FA22326DCB37A0096F60A /* RegistHttpServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegistHttpServer.h; sourceTree = "<group>"; };
+		4A0FA22426DCB37A0096F60A /* RegistTcpServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegistTcpServer.h; sourceTree = "<group>"; };
+		4A0FA22526DCB37A0096F60A /* RegistTcpServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegistTcpServer.m; sourceTree = "<group>"; };
+		4A0FA22626DCB37A0096F60A /* RegistMsgServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegistMsgServer.h; sourceTree = "<group>"; };
+		4A0FA22726DCB37A0096F60A /* RegistHttpServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegistHttpServer.m; sourceTree = "<group>"; };
+		4A0FA22826DCB37A0096F60A /* RegistMsgServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegistMsgServer.m; sourceTree = "<group>"; };
+		4A0FA22926DCB37B0096F60A /* RegistModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegistModule.h; sourceTree = "<group>"; };
 		4A400E1D26D7782D00B28B59 /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.0.9.tbd"; path = "usr/lib/libstdc++.6.0.9.tbd"; sourceTree = SDKROOT; };
 		4A400E2426D7870C00B28B59 /* security.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = security.h; sourceTree = "<group>"; };
 		4A400E2526D7870C00B28B59 /* libsecurity.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libsecurity.a; sourceTree = "<group>"; };
@@ -1567,6 +1579,21 @@
 			path = Friend;
 			sourceTree = "<group>";
 		};
+		4A0FA21526DCB3430096F60A /* Regist */ = {
+			isa = PBXGroup;
+			children = (
+				4A0FA22326DCB37A0096F60A /* RegistHttpServer.h */,
+				4A0FA22726DCB37A0096F60A /* RegistHttpServer.m */,
+				4A0FA22626DCB37A0096F60A /* RegistMsgServer.h */,
+				4A0FA22826DCB37A0096F60A /* RegistMsgServer.m */,
+				4A0FA22426DCB37A0096F60A /* RegistTcpServer.h */,
+				4A0FA22526DCB37A0096F60A /* RegistTcpServer.m */,
+				4A0FA22926DCB37B0096F60A /* RegistModule.h */,
+				4A0FA22226DCB37A0096F60A /* RegistModule.m */,
+			);
+			path = Regist;
+			sourceTree = "<group>";
+		};
 		4A400E2226D786D700B28B59 /* security */ = {
 			isa = PBXGroup;
 			children = (
@@ -1762,6 +1789,7 @@
 				C07E65D81B328F1A00A5102C /* TCPAPI */,
 				C07E65AB1B32890300A5102C /* Search */,
 				C07E64A71B3281F200A5102C /* Login */,
+				4A0FA21526DCB3430096F60A /* Regist */,
 				C07E64AE1B3281F200A5102C /* Messages */,
 				C07E64B51B3281F200A5102C /* Users */,
 				C07E64BF1B32823D00A5102C /* Group */,
@@ -3064,7 +3092,7 @@
 		C054EC271B3270D900078809 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0630;
+				LastUpgradeCheck = 1250;
 				ORGANIZATIONNAME = DL;
 				TargetAttributes = {
 					C054EC2E1B3270D900078809 = {
@@ -3541,6 +3569,7 @@
 				C07E65C01B32894800A5102C /* MTTGroupEntity.m in Sources */,
 				462CF8C81CA03039003883F7 /* SDCycleScrollView.m in Sources */,
 				C0AE3A0A1B32C68200B67232 /* DDChatImagePreviewViewController.m in Sources */,
+				4A0FA22B26DCB37B0096F60A /* RegistTcpServer.m in Sources */,
 				C054ED471B3276DE00078809 /* RecorderManager.mm in Sources */,
 				C054ED441B3276DE00078809 /* CAStreamBasicDescription.cpp in Sources */,
 				8157DB791B46C2B800043E0F /* MTTBubbleShowViewControll.m in Sources */,
@@ -3578,6 +3607,7 @@
 				C054ED1B1B3276DE00078809 /* exc_5_64_table.c in Sources */,
 				C07E66361B328F1A00A5102C /* DDAddMemberToGroupAPI.m in Sources */,
 				C07E67141B32AE6700A5102C /* TouchDownGestureRecognizer.m in Sources */,
+				4A0FA22A26DCB37B0096F60A /* RegistModule.m in Sources */,
 				C07E67401B32B3F400A5102C /* SearchContentViewController.m in Sources */,
 				C054ED381B3276DE00078809 /* speex_callbacks.c in Sources */,
 				C07E65C11B32894800A5102C /* MTTSessionEntity.m in Sources */,
@@ -3638,6 +3668,7 @@
 				C07E649C1B3280E700A5102C /* UIButton+JSMessagesView.m in Sources */,
 				462CF8D41CA03039003883F7 /* XHConfigurationHelper.m in Sources */,
 				C054ED351B3276DE00078809 /* smallft.c in Sources */,
+				4A0FA22D26DCB37B0096F60A /* RegistMsgServer.m in Sources */,
 				C07E64BB1B3281F200A5102C /* DDMessageModule.m in Sources */,
 				C07E649B1B3280E700A5102C /* NSString+JSMessagesView.m in Sources */,
 				810D52641B52592A004DF7B4 /* MTTSearchDetailViewControll.m in Sources */,
@@ -3706,6 +3737,7 @@
 				462CF8FA1CA0D248003883F7 /* Tool.m in Sources */,
 				C054ED321B3276DE00078809 /* resample.c in Sources */,
 				C07E649F1B3280E700A5102C /* UIImage+JSMessagesView.m in Sources */,
+				4A0FA22C26DCB37B0096F60A /* RegistHttpServer.m in Sources */,
 				C07E66491B328F1A00A5102C /* GetLatestMsgId.m in Sources */,
 				C07E64661B32791D00A5102C /* AQGridViewAnimatorItem.m in Sources */,
 				81F8502A1B58B4F60004F6DE /* MTTPCStatusCell.m in Sources */,

@@ -97,21 +97,29 @@
     [_switchIcon addTarget:self action:@selector(changeNightMode:) forControlEvents:UIControlEventValueChanged];
 }
 
-- (void)setDetail:(NSString *)detail{
+- (void)setDetail:(NSString *)detail {
+    
     [_detail setText:detail];
+    
+    return;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    
     [super setSelected:selected animated:animated];
     // Configure the view for the selected state
+    
+    return;
 }
 
-- (void)changeNightMode:(UISwitch*)sender
-{
-    if (self.changeSwitch)
-    {
+- (void)changeNightMode:(UISwitch*)sender {
+    
+    if (self.changeSwitch) {
+        
         self.changeSwitch(sender.on);
     }
+    
+    return;
 }
 
 @end

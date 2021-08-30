@@ -21,40 +21,51 @@ class Depart extends TT_Controller {
 
 	public function all()
 	{
-		$perpage = 10000;
-		$departs = $this->depart_model->getList(array('status'=>0), '*', 0, $perpage);
-		$data = array();
+		$perpage    = 10000;
+		$departs    = $this->depart_model->getList(array('status'=>0), '*', 0, $perpage);
+		$data       = array();
+
 		foreach ($departs as $key => $value) {
+
 			$data[$value['id']] = $value;
 		}
+
 		foreach ($departs as $key => $value) {
-			if($value['parentId']){
+			if($value['parentId']) {
+
 				$departs[$key]['parentId_value'] = $data[$value['parentId']]['departName'];
-			}else{
+			}
+            else {
 				$departs[$key]['parentId_value'] = '当前部门是父部门';
 			}
 		}
 		$result = array(
 			'departs'=>$departs,
 		);
+
 		echo json_encode($result);
 	}
 
 	public function del()
 	{
 		$id = $this->input->post('id');
-		$departCount = $this->depart_model->getCount(array('status'=>0,'parentId'=>$id));
-		if($departCount){
+		$departCount    = $this->depart_model->getCount(array('status'=>0,'parentId'=>$id));
+        
+		if($departCount) {
+
 			echo "has departs";
 			exit();
 		}
+
 		$userCount = $this->user_model->getCount(array('status'=>0,'departId'=>$id));
-		if($userCount){
+
+		if($userCount) {
 			echo "has users";
 			exit();
 		}
+
 		$result = $this->depart_model->update(array('status'=>1), $id);
-		if($result){
+		if($result) {
 			echo 'success';
 		}
 	}

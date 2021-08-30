@@ -2,7 +2,7 @@
     <section class="content-header">
         <h1>
             组织架构管理
-            <small>欢迎来到TeamTalk</small>
+            <small>欢迎来到TeamTalk+</small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="/"><i class="fa fa-dashboard"></i> 首页</a></li>

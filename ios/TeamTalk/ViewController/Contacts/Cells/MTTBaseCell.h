@@ -10,11 +10,12 @@
 typedef void(^ChangeSwitch)(BOOL on);
 
 @interface MTTBaseCell : UITableViewCell
-@property(nonatomic,strong)UILabel *desc;
-@property(nonatomic,strong)UILabel *detail;
-@property(nonatomic,strong)UIView *topBorder;
-@property(nonatomic,strong)UIView *bottomBorder;
-@property(nonatomic,strong)UISwitch *switchIcon;
+
+@property   (nonatomic, strong) UILabel     * desc;
+@property   (nonatomic, strong) UILabel     * detail;
+@property   (nonatomic, strong) UIView      * topBorder;
+@property   (nonatomic, strong) UIView      * bottomBorder;
+@property   (nonatomic, strong) UISwitch    * switchIcon;
 
 @property(nonatomic,copy)ChangeSwitch changeSwitch;
 
@@ -23,4 +24,5 @@ typedef void(^ChangeSwitch)(BOOL on);
 -(void)showTopBorder;
 -(void)showBottomBorder;
 -(void)setDetail:(NSString *)detail;
+
 @end

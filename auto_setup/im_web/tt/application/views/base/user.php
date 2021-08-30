@@ -59,12 +59,14 @@
                     $("tbody").html(_tpl);
                     if(data.page == 0){
                         $(".pagination .prev_page").addClass("disabled");   
-                    }else{
+                    }
+                    else{
                         $(".pagination .prev_page").removeClass("disabled").data('page',data.page-0-1);   
                     }
                     if(data.page == (data.count-1)){
                         $(".pagination .next_page").addClass("disabled");   
-                    }else{
+                    }
+                    else{
                         $(".pagination .next_page").removeClass("disabled").data('page',data.page-0+1);   
                     }
                     $(".pagination .show_page a").text('共'+data.count+'页');
@@ -93,7 +95,7 @@
                     if($.trim(data) == 'success'){
                         $.fn.hideModal();
                         $(".add_user").before('<div class="alert alert-success alert-dismissable"><i class="fa fa-check"></i><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>编辑成功</div>')
-                        setTimeout(function(){
+                        setTimeout(function() {
                             $(".alert").remove();
                         },3000);
                         User.getUser();

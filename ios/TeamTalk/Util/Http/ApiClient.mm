@@ -24,7 +24,9 @@
 }
 
 - (id)initWithBaseURL:(NSURL *)url {
+    
     self = [super initWithBaseURL:url];
+    
     if (self) {
         NSMutableSet *contentTypes = [[NSMutableSet alloc] initWithSet:self.responseSerializer.acceptableContentTypes];
         [contentTypes addObject:@"text/html"];
@@ -37,11 +39,12 @@
         [self setRequestSerializer:request];
         [self setResponseSerializer:responseSerializer];
     }
+    
     return self;
 }
 
--(NSString *)encrypt:(NSString *)content
-{
+-(NSString *)encrypt:(NSString *)content {
+    
     char* pOut;
     uint32_t nOutLen;
     const char *test =[content cStringUsingEncoding:NSUTF8StringEncoding];
@@ -52,8 +55,8 @@
     return data;
 }
 
--(NSString *)decrypt:(NSString *)content
-{
+-(NSString *)decrypt:(NSString *)content {
+    
     char* pOut;
     uint32_t nOutLen;
     uint32_t nInLen = strlen([content cStringUsingEncoding:NSUTF8StringEncoding]);
@@ -63,8 +66,8 @@
     return data;
 }
 
--(NSDictionary *)decryptToDic:(NSString *)content
-{
+-(NSDictionary *)decryptToDic:(NSString *)content {
+    
     char* pOut;
     uint32_t nOutLen;
     uint32_t nInLen = strlen([content cStringUsingEncoding:NSUTF8StringEncoding]);
@@ -78,17 +81,17 @@
     return jsonObject;
 }
 
-- (NSMutableDictionary *)defaultGetParameters{
+- (NSMutableDictionary *)defaultGetParameters {
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     return parameters;
 }
 
-
+// http://192.168.3.7/Home/User/registerUser
 -(void)registerUser:(NSString *)name
            password:(NSString *)password
             Success:(void (^)(id model) )success
-            failure:(void (^)(NSString *message) )failure
-{
+            failure:(void (^)(NSString *message) )failure {
+    
     NSMutableDictionary *parameters = [self defaultGetParameters];
     [parameters setValue:name forKey:@"name"];
     [parameters setValue:name forKey:@"nickname"];

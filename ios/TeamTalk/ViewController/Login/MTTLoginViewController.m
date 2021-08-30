@@ -112,10 +112,12 @@
    return;
 }
 
--(void)registerUser:(id)sender
-{
+-(void)registerUser:(id)sender {
+   
     MTTRegisterViewController *vc = [MTTRegisterViewController new];
     [self.navigationController pushViewController:vc animated:YES];
+   
+   return;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -157,7 +159,7 @@
 }
 
 
-- (IBAction)loginButtonPressed:(UIButton*)button{
+- (IBAction)loginButtonPressed:(UIButton*)button {
     
     [self.userLoginBtn setEnabled:NO];
     NSString* userName = _userNameTextField.text ;
@@ -226,7 +228,8 @@
 //            [alert showError:self title:@"错误" subTitle:error closeButtonTitle:@"确定" duration:0];
 //        }
     }];
-    
+
+    return;
 }
 
 #pragma mark - UITextFieldDelegate

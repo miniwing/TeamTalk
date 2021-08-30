@@ -28,19 +28,19 @@ string strAudioEnc;
 // this callback will be replaced by imconn_callback() in OnConnect()
 void proxy_serv_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pParam)
 {
-	if (msg == NETLIB_MSG_CONNECT)
-	{
+	if (msg == NETLIB_MSG_CONNECT) {
+
 		CProxyConn* pConn = new CProxyConn();
 		pConn->OnConnect(handle);
 	}
-	else
-	{
+	else {
+
 		log("!!!error msg: %d", msg);
 	}
 }
 
-int main(int argc, char* argv[])
-{
+int main(int argc, char* argv[]) {
+	
 	if ((argc == 2) && (strcmp(argv[1], "-v") == 0)) {
 		printf("Server Version: DBProxyServer/%s\n", VERSION);
 		printf("Server Build: %s %s\n", __DATE__, __TIME__);

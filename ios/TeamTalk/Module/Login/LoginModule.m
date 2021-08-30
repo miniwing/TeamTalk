@@ -25,7 +25,7 @@
 #import "DDGroupModule.h"
 #import "MTTUtil.h"
 
-@interface LoginModule(privateAPI)
+@interface LoginModule (privateAPI)
 
 - (void)p_loadAfterHttpServerWithToken:(NSString*)token userID:(NSString*)userID dao:(NSString*)dao password:(NSString*)password uname:(NSString*)uname success:(void(^)(MTTUserEntity* loginedUser))success failure:(void(^)(NSString* error))failure;
 - (void)reloginAllFlowSuccess:(void(^)())success failure:(void(^)())failure;
@@ -71,104 +71,114 @@
                  password:(NSString*)password
                   success:(void(^)(MTTUserEntity* loginedUser))success
                   failure:(void(^)(NSString* error))failure {
-   
-   [_httpServer getMsgIp:^(NSDictionary *dic) {
-      NSInteger code  = [[dic objectForKey:@"code"] integerValue];
-      if (code == 0) {
-         _priorIP = [dic objectForKey:@"priorIP"];
-         
+    
+    [_httpServer getMsgIp:^(NSDictionary *dic) {
+        
+        LogDebug((@"-[LoginModule loginWithUsername:password:success:failure:] : getMsgIp : %@", dic));
+        
+        NSInteger code  = [[dic objectForKey:@"code"] integerValue];
+        
+        if (code == 0) {
+            _priorIP = [dic objectForKey:@"priorIP"];
+            
 #if __TEAMTALK_HARRY__
-         if ([_priorIP isEqualToString:@"10.211.55.13"]) {
-            
-            _priorIP = __TEAMTALK_HOST__;
-            
-         } /* End if () */
+            if ([_priorIP isEqualToString:@"10.211.55.13"]) {
+                
+                _priorIP = __TEAMTALK_HOST__;
+                
+            } /* End if () */
 #endif /* __TEAMTALK_HARRY__ */
-         
-         _port    =  [[dic objectForKey:@"port"] integerValue];
-         
-         [MTTUtil setMsfsUrl:[dic objectForKey:@"msfsPrior"]];
-         [_tcpServer loginTcpServerIP:_priorIP port:_port Success:^{
-            [_msgServer checkUserID:name Pwd:password token:@"" success:^(id object) {
-               [[NSUserDefaults standardUserDefaults] setObject:password forKey:@"password"];
-               [[NSUserDefaults standardUserDefaults] setObject:name forKey:@"username"];
-               [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"autologin"];
-               [[NSUserDefaults standardUserDefaults] synchronize];
-               
-               _lastLoginPassword=password;
-               _lastLoginUserName=name;
-               DDClientState* clientState = [DDClientState shareInstance];
-               clientState.userState=DDUserOnline;
-               _relogining=YES;
-               MTTUserEntity* user = object[@"user"];
-               TheRuntime.user=user;
-               setUserID(user.objID);
-               [[MTTDatabaseUtil instance] openCurrentUserDB];
-               
-               //加载所有人信息，创建检索拼音
-               [self p_loadAllUsersCompletion:^{
-                  
-                  if ([[SpellLibrary instance] isEmpty]) {
-                     
-                     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                        [[[DDUserModule shareInstance] getAllMaintanceUser] enumerateObjectsUsingBlock:^(MTTUserEntity *obj, NSUInteger idx, BOOL *stop) {
-                           [[SpellLibrary instance] addSpellForObject:obj];
-                           [[SpellLibrary instance] addDeparmentSpellForObject:obj];
-                           
-                        }];
-                        NSArray *array =  [[DDGroupModule instance] getAllGroups];
-                        [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                           [[SpellLibrary instance] addSpellForObject:obj];
-                        }];
-                     });
-                  }
-               }];
-               
-               [self p_loadAllFriendsCompletion:^{
-                  
-                  if ([[SpellLibrary instance] isEmpty]) {
-                     
-                     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                        [[[DDUserModule shareInstance] getAllFriendUser] enumerateObjectsUsingBlock:^(MTTUserEntity *obj, NSUInteger idx, BOOL *stop) {
-                           [[SpellLibrary instance] addSpellForObject:obj];
-                           [[SpellLibrary instance] addDeparmentSpellForObject:obj];
-                           
-                        }];
-                        NSArray *array =  [[DDGroupModule instance] getAllGroups];
-                        [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                           [[SpellLibrary instance] addSpellForObject:obj];
-                        }];
-                     });
-                  }
-               }];
-               
-               //
-               [[SessionModule instance] loadLocalSession:^(bool isok) {}];
-               
-               [MTTNotification postNotification:DDNotificationUserLoginSuccess userInfo:nil object:user];
-               success(user);
-               
-            } failure:^(NSError *object) {
-               debugLog(@"%@", object.description);
-               debugLog(@"login#登录验证失败");
-               
-               failure(object.domain);
-            }];
             
-         } failure:^{
-            debugLog(@"连接消息服务器失败");
-            failure(@"连接消息服务器失败");
-         }];
-      }
-   } failure:^(NSString *error) {
-      debugLog(@"%@", error.description);
-      failure(@"连接消息服务器失败");
-   }];
-   
+            _port    =  [[dic objectForKey:@"port"] integerValue];
+            
+            [MTTUtil setMsfsUrl:[dic objectForKey:@"msfsPrior"]];
+            
+            [_tcpServer loginTcpServerIP:_priorIP port:_port Success:^{
+                
+                [_msgServer checkUserID:name Pwd:password token:@"" success:^(id object) {
+                    
+                    [[NSUserDefaults standardUserDefaults] setObject:password forKey:@"password"];
+                    [[NSUserDefaults standardUserDefaults] setObject:name forKey:@"username"];
+                    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"autologin"];
+                    [[NSUserDefaults standardUserDefaults] synchronize];
+                    
+                    _lastLoginPassword  = password;
+                    _lastLoginUserName  = name;
+                    DDClientState   * clientState = [DDClientState shareInstance];
+                    
+                    clientState.userState   = DDUserOnline;
+                    _relogining             = YES;
+                    MTTUserEntity   *user   = object[@"user"];
+                    TheRuntime.user=user;
+                    setUserID(user.objID);
+                    [[MTTDatabaseUtil instance] openCurrentUserDB];
+                    
+                    //加载所有人信息，创建检索拼音
+                    [self p_loadAllUsersCompletion:^{
+                        
+                        if ([[SpellLibrary instance] isEmpty]) {
+                            
+                            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                                [[[DDUserModule shareInstance] getAllMaintanceUser] enumerateObjectsUsingBlock:^(MTTUserEntity *obj, NSUInteger idx, BOOL *stop) {
+                                    [[SpellLibrary instance] addSpellForObject:obj];
+                                    [[SpellLibrary instance] addDeparmentSpellForObject:obj];
+                                    
+                                }];
+                                NSArray *array =  [[DDGroupModule instance] getAllGroups];
+                                [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                                    [[SpellLibrary instance] addSpellForObject:obj];
+                                }];
+                            });
+                        }
+                    }];
+                    
+                    [self p_loadAllFriendsCompletion:^{
+                        
+                        if ([[SpellLibrary instance] isEmpty]) {
+                            
+                            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                                [[[DDUserModule shareInstance] getAllFriendUser] enumerateObjectsUsingBlock:^(MTTUserEntity *obj, NSUInteger idx, BOOL *stop) {
+                                    [[SpellLibrary instance] addSpellForObject:obj];
+                                    [[SpellLibrary instance] addDeparmentSpellForObject:obj];
+                                    
+                                }];
+                                NSArray *array =  [[DDGroupModule instance] getAllGroups];
+                                [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                                    [[SpellLibrary instance] addSpellForObject:obj];
+                                }];
+                            });
+                        }
+                    }];
+                    
+                    //
+                    [[SessionModule instance] loadLocalSession:^(bool isok) {}];
+                    
+                    [MTTNotification postNotification:DDNotificationUserLoginSuccess userInfo:nil object:user];
+                    success(user);
+                    
+                }
+                                failure:^(NSError *object) {
+                    debugLog(@"%@", object.description);
+                    debugLog(@"login#登录验证失败");
+                    
+                    failure(object.domain);
+                }];
+            }
+                                 failure:^{
+                debugLog(@"连接消息服务器失败");
+                failure(@"连接消息服务器失败");
+            }];
+        }
+    }
+                  failure:^(NSString *error) {
+        debugLog(@"%@", error.description);
+        failure(@"连接消息服务器失败");
+    }];
+    
 }
 
-- (void)autologinWithUsername:(NSString*)name password:(NSString*)password success:(void(^)(MTTUserEntity* loginedUser))success failure:(void(^)(NSString* error))failure
-{
+- (void)autologinWithUsername:(NSString*)name password:(NSString*)password success:(void(^)(MTTUserEntity* loginedUser))success failure:(void(^)(NSString* error))failure {
+    
     [[MTTDatabaseUtil instance] openCurrentUserDB];
     
     //加载所有人信息，创建检索拼音
@@ -521,4 +531,5 @@
         }
     }];
 }
+
 @end

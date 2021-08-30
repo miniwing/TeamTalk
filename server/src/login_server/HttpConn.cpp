@@ -162,16 +162,17 @@ void CHttpConn::Close()
 void CHttpConn::OnConnect(net_handle_t handle){
 
     printf("OnConnect, handle=%d\n", handle);
-
 	TTIM_PRINTF(("login_server::CHttpConn::OnConnect, handle=%d\n", handle));
 
-    m_sock_handle = handle;
-    m_state = CONN_STATE_CONNECTED;
+    m_sock_handle   = handle;
+    m_state         = CONN_STATE_CONNECTED;
     g_http_conn_map.insert(make_pair(m_conn_handle, this));
     
     netlib_option(handle, NETLIB_OPT_SET_CALLBACK, (void*)httpconn_callback);
     netlib_option(handle, NETLIB_OPT_SET_CALLBACK_DATA, reinterpret_cast<void *>(m_conn_handle) );
     netlib_option(handle, NETLIB_OPT_GET_REMOTE_IP, (void*)&m_peer_ip);
+
+    return;
 }
 
 void CHttpConn::OnRead() {

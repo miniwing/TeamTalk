@@ -9,11 +9,12 @@ class Auth extends CI_Controller {
 		$this->load->model('admin_model');
 	}
 
-	public function index(){
+	public function index() {
+        
 		$this->login();
 	}
 
-	public function login(){
+	public function login() {
 		if(isset($this->session->userdata['account'])){
 			redirect('/home');
 			exit();
@@ -29,7 +30,8 @@ class Auth extends CI_Controller {
 				);
 				$this->session->set_userdata($session);
 				echo "right";
-			}else{
+			}
+            else {
 				echo "wrong";
 			}
 			exit();

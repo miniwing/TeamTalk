@@ -4,48 +4,55 @@ include_once(APPPATH."core/TT_Controller.php");
 
 class User extends TT_Controller {
 
-	public function __construct()
-	{
+	public function __construct() {
+
 		parent::__construct();
 		$this->load->helper('url');
 		$this->load->model('user_model');
 		$this->load->model('depart_model');
 	}
 
-	public function index()
-	{
+	public function index() {
+
 		$this->config->site_url();
 		$this->load->view('base/header');
 		$this->load->view('base/user');
 		$this->load->view('base/footer');
 	}
 
-	public function all()
-	{
+	public function all() {
+
 		$perpage = 10000;
 		$departs = $this->depart_model->getList(array('status'=>0), '*', 0, $perpage);
 		$_departs = array();
+
 		foreach ($departs as $key => $value) {
 			$_departs[$value['id']] = $value;
 		}
+
 		$start = $this->input->get('start');
-		if(!$start){
+		if (!$start) {
 			$start =  0;
 		}
+
 		$perpage = 10;
 		$users = $this->user_model->getList(array('status'=>0), '*', $start*$perpage, $perpage);
+
 		foreach ($users as $key => $value) {
-			if($value['sex'] == 0){
+
+			if ($value['sex'] == 0) {
 				$users[$key]['sex'] = '女';
-			}else{
+			}
+            else {
 				$users[$key]['sex'] = '男';
 			}
-			if(isset($_departs[$value['departId']])){
+			if (isset($_departs[$value['departId']])) {
 				$users[$key]['depart_value'] = $_departs[$value['departId']]['departName'];
-			}else{
+			}
+            else {
 				$users[$key]['depart_value'] = '数据错误';
 			}
-			if($users[$key]['avatar']){
+			if ($users[$key]['avatar']) {
 				$users[$key]['avatar_value'] = $users[$key]['avatar'];
 			}
 		}
@@ -63,7 +70,7 @@ class User extends TT_Controller {
 	{
 		$id = $this->input->post('id');
 		$result = $this->user_model->update(array('status'=>3), $id);
-		if($result){
+		if ($result) {
 			echo 'success';
 		}
 	}
@@ -87,7 +94,7 @@ class User extends TT_Controller {
 			'updated'=>time()
 		);
 		$result = $this->user_model->insert($params);
-		if($result){
+		if ($result) {
 			echo 'success';
 		}
 	}
@@ -95,7 +102,7 @@ class User extends TT_Controller {
 	public function edit()
 	{
 		$avatar = $this->input->post('avatar');
-		if(strpos($avatar, $this->config->config['msfs_url']) === false){
+		if (strpos($avatar, $this->config->config['msfs_url']) === false) {
 			$avatar = $this->config->config['msfs_url'].$this->input->post('avatar');
 		}
 		$params = array(
@@ -113,11 +120,11 @@ class User extends TT_Controller {
 		$id = $this->input->post('id');
 		$result = $this->user_model->getOne(array('id'=>$id));
 		$pwd = $this->input->post('password');
-		if($pwd){
+		if ($pwd) {
 			$params['password'] = md5(md5($this->input->post('password')).$result["salt"]);
 		}
 		$result = $this->user_model->update($params,$id);
-		if($result){
+		if ($result) {
 			echo 'success';
 		}
 	}
@@ -126,7 +133,7 @@ class User extends TT_Controller {
 	{
 		$id = $this->input->post('id');
 		$result = $this->user_model->getOne(array('id'=>$id));
-		if($result){
+		if ($result) {
 			echo json_encode($result);
 		}
 	}
@@ -162,7 +169,7 @@ class User extends TT_Controller {
 
 
 		    $res = $this->_upload('./download/'.$filename);
-		    if($res['error_code'] == 0){	    	
+		    if ($res['error_code'] == 0) {
 			    $array = array(
 			    	'status' =>'success',
 			    	'file' =>$res['path'],

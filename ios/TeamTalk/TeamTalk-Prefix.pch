@@ -32,6 +32,7 @@
 #  pragma clang diagnostic ignored                 "-Wunreachable-code"
 #  pragma clang diagnostic ignored                 "-Wshorten-64-to-32"
 #  pragma clang diagnostic ignored                 "-Wwritable-strings"
+#  pragma clang diagnostic ignored                 "-Wsuspicious-bzero"
 #  pragma clang diagnostic ignored                 "-Wstrict-prototypes"
 #  pragma clang diagnostic ignored                 "-Wobjc-method-access"
 #  pragma clang diagnostic ignored                 "-Wdocumentation-html"
@@ -42,13 +43,16 @@
 #  pragma clang diagnostic ignored                 "-Wunguarded-availability"
 #  pragma clang diagnostic ignored                 "-Wunknown-warning-option"
 #  pragma clang diagnostic ignored                 "-Wlogical-op-parentheses"
+#  pragma clang diagnostic ignored                 "-Wobjc-property-synthesis"
 #  pragma clang diagnostic ignored                 "-Wlogical-not-parentheses"
 #  pragma clang diagnostic ignored                 "-Wdeprecated-declarations"
 #  pragma clang diagnostic ignored                 "-Wnullability-completeness"
 #  pragma clang diagnostic ignored                 "-Wobjc-missing-super-calls"
 #  pragma clang diagnostic ignored                 "-Wnonportable-include-path"
+#  pragma clang diagnostic ignored                 "-Wincomplete-implementation"
 #  pragma clang diagnostic ignored                 "-Warc-performSelector-leaks"
 #  pragma clang diagnostic ignored                 "-Wconditional-uninitialized"
+#  pragma clang diagnostic ignored                 "-Wproperty-access-dot-syntax"
 #  pragma clang diagnostic ignored                 "-Wincompatible-property-type"
 #  pragma clang diagnostic ignored                 "-Wincompatible-pointer-types"
 #  pragma clang diagnostic ignored                 "-Wunguarded-availability-new"
@@ -61,14 +65,15 @@
 #  pragma clang diagnostic ignored                 "-Wimplicit-function-declaration"
 #  pragma clang diagnostic ignored                 "-Wquoted-include-in-framework-header"
 #  pragma clang diagnostic ignored                 "-Wnullability-completeness-on-arrays"
+#  pragma clang diagnostic ignored                 "-Watomic-property-with-user-defined-accessor"
 #endif /* DEBUG */
 
 /******************************************************************************************************/
 
 #import <Availability.h>
 
-#ifndef __IPHONE_3_0
-#warning "This project uses features only available in iOS SDK 3.0 and later."
+#ifndef __IPHONE_10_0
+#   warning "This project uses features only available in iOS SDK 10.0 and later."
 #endif
 
 #import <objc/message.h>
@@ -137,6 +142,11 @@
 #else
 #  define __AUTO__                                 (0)
 #  define __Debug__                                (0)
+#endif
+
+#ifdef __OBJC__
+#  define NS_STR(key, comment)                     NSLocalizedString((key), (comment))
+#  define APP_STR(key)                             NS_STR((key), nil)
 #endif
 
 /******************************************************************************************************/
@@ -506,7 +516,11 @@ __END_DECLS
 /******************************************************************************************************/
 
 #define __TEAMTALK_HARRY__                         (1)
-#define __TEAMTALK_HOST__                          (@"192.168.3.7")
+#define __TEAMTALK_HOST__                          (@"192.168.11.161")
+
+/******************************************************************************************************/
+
+#define __TEAMTALK_REGIST__                        (__ON__)
 
 /******************************************************************************************************/
 

@@ -2,10 +2,12 @@
 
 class TT_Controller extends CI_Controller {
 
-	function __construct()
-	{
+	function __construct() {
+
 		parent::__construct();
-		if(!isset($this->session->userdata['account'])){
+
+		if(!isset($this->session->userdata['account'])) {
+            
 			$this->load->helper('url');
 			redirect('/auth/login');
 		}

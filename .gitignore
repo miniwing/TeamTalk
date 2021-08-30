@@ -13,5 +13,5 @@ server/src/log4cxx/
 
 ##################################################
 ### iOS
-#ios/Pods/
+ios/Pods/
 ios/libsecurity/

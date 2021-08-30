@@ -30,6 +30,15 @@ PODS:
   - FMDB/standard (2.7.5)
   - HPGrowingTextView (1.1)
   - LCActionSheet (1.2.3)
+  - libwebp (1.2.0):
+    - libwebp/demux (= 1.2.0)
+    - libwebp/mux (= 1.2.0)
+    - libwebp/webp (= 1.2.0)
+  - libwebp/demux (1.2.0):
+    - libwebp/webp
+  - libwebp/mux (1.2.0):
+    - libwebp/demux
+  - libwebp/webp (1.2.0)
   - Masonry (1.1.0)
   - MBProgressHUD (0.9.2)
   - MWPhotoBrowser (1.4.1):
@@ -53,8 +62,10 @@ PODS:
   - TZImagePickerController (3.6.4)
   - XHImageViewer (0.1.2)
   - YYKit (1.0.9):
+    - libwebp
     - YYKit/no-arc (= 1.0.9)
-  - YYKit/no-arc (1.0.9)
+  - YYKit/no-arc (1.0.9):
+    - libwebp
   - ZXingObjC (3.6.5):
     - ZXingObjC/All (= 3.6.5)
   - ZXingObjC/All (3.6.5)
@@ -83,7 +94,7 @@ DEPENDENCIES:
   - TTTAttributedLabel
   - TZImagePickerController
   - XHImageViewer
-  - YYKit
+  - "YYKit (from `git@github.com:miniwing/YYKit.git`, branch `develop`)"
   - ZXingObjC
 
 SPEC REPOS:
@@ -95,6 +106,7 @@ SPEC REPOS:
     - FMDB
     - HPGrowingTextView
     - LCActionSheet
+    - libwebp
     - Masonry
     - MBProgressHUD
     - MWPhotoBrowser
@@ -111,8 +123,17 @@ SPEC REPOS:
     - TTTAttributedLabel
     - TZImagePickerController
     - XHImageViewer
-    - YYKit
     - ZXingObjC
+
+EXTERNAL SOURCES:
+  YYKit:
+    :branch: develop
+    :git: "git@github.com:miniwing/YYKit.git"
+
+CHECKOUT OPTIONS:
+  YYKit:
+    :commit: 195135f91de61522e4db22999f02e8279cd160ae
+    :git: "git@github.com:miniwing/YYKit.git"
 
 SPEC CHECKSUMS:
   AFNetworking: 05b9f6e3aa5ac45bc383b4bb108ef338080a26c7
@@ -122,6 +143,7 @@ SPEC CHECKSUMS:
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   HPGrowingTextView: 88a716d97fb853bcb08a4a08e4727da17efc9b19
   LCActionSheet: 690882cd8b9a6713f1b2881c3bb2c7f11954d034
+  libwebp: e90b9c01d99205d03b6bb8f2c8c415e5a4ef66f0
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
   MWPhotoBrowser: 2531e682860d62b8a7ba8659de02eb9040e431e5
@@ -138,9 +160,9 @@ SPEC CHECKSUMS:
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   TZImagePickerController: 1cc39ec0454d6e94d0397418953164d7aa631719
   XHImageViewer: 7b275d2aa829e56761c30303b9d51cae086a90b9
-  YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
+  YYKit: 1d94acd69278ff67c65289499d0ab06949188ad4
   ZXingObjC: fdbb269f25dd2032da343e06f10224d62f537bdb
 
-PODFILE CHECKSUM: 2ca67be1eaf98679725201711fa32c2ae2d914ce
+PODFILE CHECKSUM: 83ee54585af617792c5ada3158c6b2271a12f6e9
 
 COCOAPODS: 1.10.2

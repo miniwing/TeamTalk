@@ -28,13 +28,14 @@
     </section>
 
     <script type="text/javascript">
-        $(function(){
-            $(".cname,.value").blur(function(){
+
+        $(function() {
+            $(".cname,.value").blur(function() {
                 $.post('/config/edit', {
                     cname: $(".cname").val(),
                     value: $(".value").val()
                 }, function(data) {
-                    if($.trim(data) == 'success'){
+                    if($.trim(data) == 'success') {
                         $(".table").before('<div class="alert alert-success alert-dismissable"><i class="fa fa-check"></i><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>编辑成功</div>')
                     }
                 });

@@ -21,18 +21,20 @@ static NSInteger timeoutInterval = 10;
 
 @end
 
-@implementation DDTcpServer
-{
+@implementation DDTcpServer {
+    
     ClientSuccess _success;
     ClientFailure _failure;
     BOOL _connecting;
     NSUInteger _connectTimes;
 }
-- (id)init
-{
+
+- (id)init {
+    
     self = [super init];
-    if (self)
-    {
+    
+    if (self) {
+        
         _connecting = NO;
         _connectTimes = 0;
         [[NSNotificationCenter defaultCenter] addObserver:self
@@ -46,13 +48,14 @@ static NSInteger timeoutInterval = 10;
                                                    object:nil];
         
     }
+    
     return self;
 }
 
-- (void)loginTcpServerIP:(NSString*)ip port:(NSInteger)point Success:(void(^)())success failure:(void(^)())failure
-{
-    if (!_connecting)
-    {
+- (void)loginTcpServerIP:(NSString*)ip port:(NSInteger)point Success:(void(^)())success failure:(void(^)())failure {
+    
+    if (!_connecting) {
+        
         _connectTimes ++;
         _connecting = YES;
         _success = [success copy];
@@ -73,29 +76,32 @@ static NSInteger timeoutInterval = 10;
     }
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
+    
     [[NSNotificationCenter defaultCenter] removeObserver:self name:DDNotificationTcpLinkConnectComplete object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:DDNotificationTcpLinkConnectFailure object:nil];
+    
+    return;
 }
 
 #pragma mark - notification
-- (void)n_receiveTcpLinkConnectCompleteNotification:(NSNotification*)notification
-{
-    if(_connecting)
-    {
+- (void)n_receiveTcpLinkConnectCompleteNotification:(NSNotification*)notification {
+    
+    if(_connecting) {
+        
         _connecting = NO;
         dispatch_async(dispatch_get_main_queue(), ^{
             _success();
         });
     }
-
+    
+    return;
 }
 
-- (void)n_receiveTcpLinkConnectFailureNotification:(NSNotification*)notification
-{
-    if (_connecting)
-    {
+- (void)n_receiveTcpLinkConnectFailureNotification:(NSNotification*)notification {
+    
+    if (_connecting) {
+        
         _connecting = NO;
         dispatch_async(dispatch_get_main_queue(), ^{
             _failure(nil);

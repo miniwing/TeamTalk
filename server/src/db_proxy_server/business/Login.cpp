@@ -30,8 +30,7 @@ CLock g_cLimitLock;
 namespace DB_PROXY {
     
     
-void doLogin(CImPdu* pPdu, uint32_t conn_uuid)
-{
+void doLogin(CImPdu* pPdu, uint32_t conn_uuid) {
     
     CImPdu* pPduResp = new CImPdu;
     
@@ -46,8 +45,8 @@ void doLogin(CImPdu* pPdu, uint32_t conn_uuid)
         msgResp.set_user_name(strDomain);
         msgResp.set_attach_data(msg.attach_data());
         
-        do
-        {
+        do {
+            
             CAutoLock cAutoLock(&g_cLimitLock);
             list<uint32_t>& lsErrorTime = g_hmLimits[strDomain];
             uint32_t tmNow = time(NULL);

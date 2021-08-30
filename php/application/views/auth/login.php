@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>TT开源php管理后台 | 登陆</title>
+        <title>TeamTalk+ 开源php管理后台 | 登陆</title>
         <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
         <script src="/ui/js/jquery-1.11.1.min.js"></script>
         <link href="/ui/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
@@ -17,18 +17,20 @@
     </head>
     <body>
         <script type="text/javascript">
-            $(function(){
-                $("form").submit(function(){                
+            $(function() {
+                $("form").submit(function() {
                     $.post('/auth/login', {
                         admin    : $(".admin").val(),
                         password : $(".password").val(),
                         submit   : 1
                     }, function(data) {
                         data = $.trim(data);
-                        if(data == 'right'){
+                        if (data == 'right') {
+
                             $(".login_mes").text('登陆成功,正在跳转...').removeClass("hide");
                             window.location.href="/";
-                        }else{
+                        }
+                        else {
                             $(".login_mes").text('密码错误').removeClass("hide");
                         }
                     });

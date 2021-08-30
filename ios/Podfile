@@ -1,3 +1,4 @@
+
 workspace 'TeamTalk'
 
 project 'TeamTalk.xcodeproj'
@@ -27,7 +28,7 @@ pod 'TTTAttributedLabel'
 pod 'SVWebViewController'
 pod 'XHImageViewer'
 pod 'ZXingObjC'
-pod 'YYKit'
+pod 'YYKit'                   , :git => "git@github.com:miniwing/YYKit.git" , :branch => 'develop'
 pod 'TZImagePickerController'
 pod 'APAddressBook'
 pod 'OHAlertView'

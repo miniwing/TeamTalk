@@ -8,14 +8,15 @@
 
 #import <Foundation/Foundation.h>
 @class DDHttpServer,DDMsgServer,DDTcpServer,MTTUserEntity;
-@interface LoginModule : NSObject
-{
+@interface LoginModule : NSObject {
+    
     DDHttpServer* _httpServer;
     DDMsgServer* _msgServer;
     DDTcpServer* _tcpServer;
 }
 
 @property (nonatomic,readonly)NSString* token;
+
 + (instancetype)instance;
 
 /**
@@ -24,12 +25,19 @@
  *  @param name     用户名
  *  @param password 密码
  */
-- (void)loginWithUsername:(NSString*)name password:(NSString*)password success:(void(^)(MTTUserEntity* user))success failure:(void(^)(NSString* error))failure;
+- (void)loginWithUsername:(NSString*)name
+                 password:(NSString*)password
+                  success:(void(^)(MTTUserEntity* user))success
+                  failure:(void(^)(NSString* error))failure;
 
-- (void)autologinWithUsername:(NSString*)name password:(NSString*)password success:(void(^)(MTTUserEntity* loginedUser))success failure:(void(^)(NSString* error))failure;
+- (void)autologinWithUsername:(NSString*)name
+                     password:(NSString*)password
+                      success:(void(^)(MTTUserEntity* loginedUser))success
+                      failure:(void(^)(NSString* error))failure;
 /**
  *  离线
  */
 - (void)offlineCompletion:(void(^)())completion;
 - (void)reloginSuccess:(void(^)())success failure:(void(^)(NSString* error))failure;
+
 @end

@@ -65,14 +65,14 @@ int main(int argc, char* argv[]) {
 
 	CConfigFileReader config_file("httpmsgserver.conf");
     
-	char* listen_ip = config_file.GetConfigName("ListenIP");
-	char* str_listen_port = config_file.GetConfigName("ListenPort");
+	char    * listen_ip         = config_file.GetConfigName("ListenIP");
+	char    * str_listen_port   = config_file.GetConfigName("ListenPort");
     
-	uint32_t db_server_count = 0;
+	uint32_t db_server_count    = 0;
 	serv_info_t* db_server_list = read_server_config(&config_file, "DBServerIP", "DBServerPort", db_server_count);
     
-	uint32_t route_server_count = 0;
-	serv_info_t* route_server_list = read_server_config(&config_file, "RouteServerIP", "RouteServerPort", route_server_count);
+	uint32_t route_server_count     = 0;
+	serv_info_t* route_server_list  = read_server_config(&config_file, "RouteServerIP", "RouteServerPort", route_server_count);
 
 	// 到BusinessServer的开多个并发的连接
 	uint32_t concurrent_db_conn_cnt = DEFAULT_CONCURRENT_DB_CONN_CNT;
@@ -101,8 +101,10 @@ int main(int argc, char* argv[]) {
     
 	int ret = netlib_init();
     
-	if (ret == NETLIB_ERROR)
+	if (ret == NETLIB_ERROR) {
+        
 		return ret;
+    }
     
 	CStrExplode listen_ip_list(listen_ip, ';');
 
