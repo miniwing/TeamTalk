@@ -48,7 +48,7 @@ PODS:
     - SDWebImage (~> 3.7)
   - OHAlertView (3.0.1)
   - ProtocolBuffers (1.9.11)
-  - PSTCollectionView (1.2.3)
+  - PSTCollectionView (1.2.3-IDEA)
   - RegexKitLite (4.0)
   - Reveal-SDK (24)
   - SCLAlertView-Objective-C (0.7.9)
@@ -134,7 +134,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   PSTCollectionView:
-    :commit: 07fcb002a4033504f36fa5eb46e8761bdaa7c478
+    :commit: e52e2a9b21c149ab380ac947ec16899fef550bd1
     :git: "git@github.com:miniwing/PSTCollectionView.git"
   YYKit:
     :commit: 0ff751e35ad1a353687d607ec5dd4b4ade43203d
@@ -154,7 +154,7 @@ SPEC CHECKSUMS:
   MWPhotoBrowser: 2531e682860d62b8a7ba8659de02eb9040e431e5
   OHAlertView: 8be643171f973214045e734bf937f5fe70dfdc2b
   ProtocolBuffers: d509225eb2ea43d9582a59e94348fcf86e2abd65
-  PSTCollectionView: 6749df92885353521f55279a7ce2b293762e2be4
+  PSTCollectionView: 8650c556e7f1fa247888989783419f1aea8d00ed
   RegexKitLite: c0e4c12e6e7de0769f3a3ed679f0f61604170661
   Reveal-SDK: 5d7e56b8f018c0a88b3a2c10bf68d598bbd3b071
   SCLAlertView-Objective-C: e36ab12dc1ec4ff6f932888083b21d71a3a1ad23

@@ -378,6 +378,30 @@ root/TeamTalk/server/src/base/pb/protocol/IM.Other.pb.cc.s:
 	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/root/TeamTalk/server/src/base/pb/protocol/IM.Other.pb.cc.s
 .PHONY : root/TeamTalk/server/src/base/pb/protocol/IM.Other.pb.cc.s
 
+root/TeamTalk/server/src/base/pb/protocol/IM.Regist.pb.o: root/TeamTalk/server/src/base/pb/protocol/IM.Regist.pb.cc.o
+.PHONY : root/TeamTalk/server/src/base/pb/protocol/IM.Regist.pb.o
+
+# target to build an object file
+root/TeamTalk/server/src/base/pb/protocol/IM.Regist.pb.cc.o:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/root/TeamTalk/server/src/base/pb/protocol/IM.Regist.pb.cc.o
+.PHONY : root/TeamTalk/server/src/base/pb/protocol/IM.Regist.pb.cc.o
+
+root/TeamTalk/server/src/base/pb/protocol/IM.Regist.pb.i: root/TeamTalk/server/src/base/pb/protocol/IM.Regist.pb.cc.i
+.PHONY : root/TeamTalk/server/src/base/pb/protocol/IM.Regist.pb.i
+
+# target to preprocess a source file
+root/TeamTalk/server/src/base/pb/protocol/IM.Regist.pb.cc.i:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/root/TeamTalk/server/src/base/pb/protocol/IM.Regist.pb.cc.i
+.PHONY : root/TeamTalk/server/src/base/pb/protocol/IM.Regist.pb.cc.i
+
+root/TeamTalk/server/src/base/pb/protocol/IM.Regist.pb.s: root/TeamTalk/server/src/base/pb/protocol/IM.Regist.pb.cc.s
+.PHONY : root/TeamTalk/server/src/base/pb/protocol/IM.Regist.pb.s
+
+# target to generate assembly for a file
+root/TeamTalk/server/src/base/pb/protocol/IM.Regist.pb.cc.s:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/root/TeamTalk/server/src/base/pb/protocol/IM.Regist.pb.cc.s
+.PHONY : root/TeamTalk/server/src/base/pb/protocol/IM.Regist.pb.cc.s
+
 root/TeamTalk/server/src/base/pb/protocol/IM.Server.pb.o: root/TeamTalk/server/src/base/pb/protocol/IM.Server.pb.cc.o
 .PHONY : root/TeamTalk/server/src/base/pb/protocol/IM.Server.pb.o
 
@@ -516,6 +540,9 @@ help:
 	@echo "... root/TeamTalk/server/src/base/pb/protocol/IM.Other.pb.o"
 	@echo "... root/TeamTalk/server/src/base/pb/protocol/IM.Other.pb.i"
 	@echo "... root/TeamTalk/server/src/base/pb/protocol/IM.Other.pb.s"
+	@echo "... root/TeamTalk/server/src/base/pb/protocol/IM.Regist.pb.o"
+	@echo "... root/TeamTalk/server/src/base/pb/protocol/IM.Regist.pb.i"
+	@echo "... root/TeamTalk/server/src/base/pb/protocol/IM.Regist.pb.s"
 	@echo "... root/TeamTalk/server/src/base/pb/protocol/IM.Server.pb.o"
 	@echo "... root/TeamTalk/server/src/base/pb/protocol/IM.Server.pb.i"
 	@echo "... root/TeamTalk/server/src/base/pb/protocol/IM.Server.pb.s"

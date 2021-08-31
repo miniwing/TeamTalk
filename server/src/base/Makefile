@@ -858,6 +858,30 @@ pb/protocol/IM.Other.pb.cc.s:
 	$(MAKE) -f CMakeFiles/base.dir/build.make CMakeFiles/base.dir/pb/protocol/IM.Other.pb.cc.s
 .PHONY : pb/protocol/IM.Other.pb.cc.s
 
+pb/protocol/IM.Regist.pb.o: pb/protocol/IM.Regist.pb.cc.o
+.PHONY : pb/protocol/IM.Regist.pb.o
+
+# target to build an object file
+pb/protocol/IM.Regist.pb.cc.o:
+	$(MAKE) -f CMakeFiles/base.dir/build.make CMakeFiles/base.dir/pb/protocol/IM.Regist.pb.cc.o
+.PHONY : pb/protocol/IM.Regist.pb.cc.o
+
+pb/protocol/IM.Regist.pb.i: pb/protocol/IM.Regist.pb.cc.i
+.PHONY : pb/protocol/IM.Regist.pb.i
+
+# target to preprocess a source file
+pb/protocol/IM.Regist.pb.cc.i:
+	$(MAKE) -f CMakeFiles/base.dir/build.make CMakeFiles/base.dir/pb/protocol/IM.Regist.pb.cc.i
+.PHONY : pb/protocol/IM.Regist.pb.cc.i
+
+pb/protocol/IM.Regist.pb.s: pb/protocol/IM.Regist.pb.cc.s
+.PHONY : pb/protocol/IM.Regist.pb.s
+
+# target to generate assembly for a file
+pb/protocol/IM.Regist.pb.cc.s:
+	$(MAKE) -f CMakeFiles/base.dir/build.make CMakeFiles/base.dir/pb/protocol/IM.Regist.pb.cc.s
+.PHONY : pb/protocol/IM.Regist.pb.cc.s
+
 pb/protocol/IM.Server.pb.o: pb/protocol/IM.Server.pb.cc.o
 .PHONY : pb/protocol/IM.Server.pb.o
 
@@ -1032,6 +1056,9 @@ help:
 	@echo "... pb/protocol/IM.Other.pb.o"
 	@echo "... pb/protocol/IM.Other.pb.i"
 	@echo "... pb/protocol/IM.Other.pb.s"
+	@echo "... pb/protocol/IM.Regist.pb.o"
+	@echo "... pb/protocol/IM.Regist.pb.i"
+	@echo "... pb/protocol/IM.Regist.pb.s"
 	@echo "... pb/protocol/IM.Server.pb.o"
 	@echo "... pb/protocol/IM.Server.pb.i"
 	@echo "... pb/protocol/IM.Server.pb.s"
