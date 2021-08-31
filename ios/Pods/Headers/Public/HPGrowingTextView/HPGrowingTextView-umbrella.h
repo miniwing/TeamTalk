@@ -1,1 +1,0 @@
-../../../Target Support Files/HPGrowingTextView/HPGrowingTextView-umbrella.h

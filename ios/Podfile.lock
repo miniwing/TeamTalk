@@ -61,10 +61,10 @@ PODS:
   - TTTAttributedLabel (2.0.0)
   - TZImagePickerController (3.6.4)
   - XHImageViewer (0.1.2)
-  - YYKit (1.0.9):
+  - YYKit (1.0.9-IDEA):
     - libwebp
-    - YYKit/no-arc (= 1.0.9)
-  - YYKit/no-arc (1.0.9):
+    - YYKit/no-arc (= 1.0.9-IDEA)
+  - YYKit/no-arc (1.0.9-IDEA):
     - libwebp
   - ZXingObjC (3.6.5):
     - ZXingObjC/All (= 3.6.5)
@@ -132,7 +132,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   YYKit:
-    :commit: 195135f91de61522e4db22999f02e8279cd160ae
+    :commit: 0ff751e35ad1a353687d607ec5dd4b4ade43203d
     :git: "git@github.com:miniwing/YYKit.git"
 
 SPEC CHECKSUMS:
@@ -160,7 +160,7 @@ SPEC CHECKSUMS:
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   TZImagePickerController: 1cc39ec0454d6e94d0397418953164d7aa631719
   XHImageViewer: 7b275d2aa829e56761c30303b9d51cae086a90b9
-  YYKit: 1d94acd69278ff67c65289499d0ab06949188ad4
+  YYKit: ac05bcfde7368d81f6232daf332702dd10535a68
   ZXingObjC: fdbb269f25dd2032da343e06f10224d62f537bdb
 
 PODFILE CHECKSUM: 83ee54585af617792c5ada3158c6b2271a12f6e9
