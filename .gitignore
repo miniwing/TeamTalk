@@ -1,5 +1,10 @@
 .DS_Store
 
+
+##################################################
+### pb
+pb/gen
+
 ##################################################
 ### Server
 auto_setup/im_server/
@@ -34,6 +39,8 @@ server/src/msg_server/msg_server
 server/src/push_server/push_server
 server/src/route_server/route_server
 server/src/msfs/msfs
+
+server/src/base/pb/
 
 ##################################################
 ### iOS
