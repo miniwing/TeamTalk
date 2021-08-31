@@ -83,7 +83,7 @@ DEPENDENCIES:
   - MWPhotoBrowser
   - OHAlertView
   - ProtocolBuffers (~> 1.9.4)
-  - PSTCollectionView
+  - "PSTCollectionView (from `git@github.com:miniwing/PSTCollectionView.git`, branch `develop`)"
   - RegexKitLite
   - Reveal-SDK (~> 24)
   - SCLAlertView-Objective-C (~> 0.7.3)
@@ -112,7 +112,6 @@ SPEC REPOS:
     - MWPhotoBrowser
     - OHAlertView
     - ProtocolBuffers
-    - PSTCollectionView
     - RegexKitLite
     - Reveal-SDK
     - SCLAlertView-Objective-C
@@ -126,11 +125,17 @@ SPEC REPOS:
     - ZXingObjC
 
 EXTERNAL SOURCES:
+  PSTCollectionView:
+    :branch: develop
+    :git: "git@github.com:miniwing/PSTCollectionView.git"
   YYKit:
     :branch: develop
     :git: "git@github.com:miniwing/YYKit.git"
 
 CHECKOUT OPTIONS:
+  PSTCollectionView:
+    :commit: 07fcb002a4033504f36fa5eb46e8761bdaa7c478
+    :git: "git@github.com:miniwing/PSTCollectionView.git"
   YYKit:
     :commit: 0ff751e35ad1a353687d607ec5dd4b4ade43203d
     :git: "git@github.com:miniwing/YYKit.git"
@@ -163,6 +168,6 @@ SPEC CHECKSUMS:
   YYKit: ac05bcfde7368d81f6232daf332702dd10535a68
   ZXingObjC: fdbb269f25dd2032da343e06f10224d62f537bdb
 
-PODFILE CHECKSUM: 83ee54585af617792c5ada3158c6b2271a12f6e9
+PODFILE CHECKSUM: 30098ab211df3545289e014affd075eda9fd8316
 
 COCOAPODS: 1.10.2
