@@ -27,9 +27,10 @@ server/src/route_server/route_server
 
 ##################################################
 ### iOS
-ios/Pods/
-
 ios/libsecurity/
+
+ios/Pods/
+ios/Pods/**
 
 ios/**/xcuserdata/**
 
