@@ -18,6 +18,7 @@
 #include "jsonxx.h"
 #include "IM.Other.pb.h"
 #include "IM.Buddy.pb.h"
+#include "IM.Regist.pb.h"
 #include "IM.Login.pb.h"
 #include "IM.Group.pb.h"
 #include "IM.Message.pb.h"
@@ -106,10 +107,11 @@ static CDBServConn* get_db_server_conn_in_range(uint32_t start_pos, uint32_t sto
 	return pDbConn;
 }
 
-CDBServConn* get_db_serv_conn_for_login()
-{
+CDBServConn* get_db_serv_conn_for_login() {
+
 	// 先获取login业务的实例，没有就去获取其他业务流程的实例
 	CDBServConn* pDBConn = get_db_server_conn_in_range(0, g_db_server_login_count);
+
 	if (!pDBConn) {
 		pDBConn = get_db_server_conn_in_range(g_db_server_login_count, g_db_server_count);
 	}
@@ -117,8 +119,8 @@ CDBServConn* get_db_serv_conn_for_login()
 	return pDBConn;
 }
 
-CDBServConn* get_db_serv_conn()
-{
+CDBServConn* get_db_serv_conn() {
+    
 	// 先获取其他业务流程的实例，没有就去获取login业务的实例
 	CDBServConn* pDBConn = get_db_server_conn_in_range(g_db_server_login_count, g_db_server_count);
 	if (!pDBConn) {
@@ -197,6 +199,12 @@ void CDBServConn::OnTimer(uint64_t curr_tick)
 void CDBServConn::HandlePdu(CImPdu* pPdu)
 {
 	switch (pPdu->GetCommandId()) {
+
+#if __TEAMTALK_REGIST__
+        case CID_LOGIN_RES_REGIST:
+            _HandleRegistResponse(pPdu );
+            break;
+#endif /* __TEAMTALK_REGIST__ */
         case CID_OTHER_HEARTBEAT:
             break;
         case CID_OTHER_VALIDATE_RSP:
@@ -281,6 +289,20 @@ void CDBServConn::HandlePdu(CImPdu* pPdu)
             log("db server, wrong cmd id=%d ", pPdu->GetCommandId());
 	}
 }
+
+#if __TEAMTALK_REGIST__
+void CDBServConn::_HandleRegistResponse(CImPdu* pPdu) {
+
+    log("msg_server::DBServConn::_HandleRegistResponse");
+    TTIM_PRINTF(("msg_server::DBServConn::_HandleRegistResponse\n"));
+
+    IM::Login::IMRegistRes cRegistRes;
+    CHECK_PB_PARSE_MSG(cRegistRes.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()));
+
+    return;
+}
+#endif /* __TEAMTALK_REGIST__ */
+
 
 void CDBServConn::_HandleValidateResponse(CImPdu* pPdu)
 {

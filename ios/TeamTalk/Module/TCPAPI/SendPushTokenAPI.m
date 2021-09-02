@@ -14,7 +14,7 @@
 @implementation SendPushTokenAPI
 - (int)requestTimeOutTimeInterval
 {
-    return TimeOutTimeInterval;
+   return TimeOutTimeInterval;
 }
 
 /**
@@ -24,7 +24,8 @@
  */
 - (int)requestServiceID
 {
-    return SID_LOGIN;
+//   return SID_LOGIN;
+   return ServiceIDSidLogin;
 }
 
 /**
@@ -34,7 +35,8 @@
  */
 - (int)responseServiceID
 {
-    return SID_LOGIN;
+//   return SID_LOGIN;
+   return ServiceIDSidLogin;
 }
 
 /**
@@ -44,7 +46,8 @@
  */
 - (int)requestCommendID
 {
-    return IM_DEVICE_TOKEN_REQ;
+//   return IM_DEVICE_TOKEN_REQ;
+   return LoginCmdIDCidLoginReqDevicetoken;
 }
 
 /**
@@ -54,7 +57,8 @@
  */
 - (int)responseCommendID
 {
-    return IM_DEVICE_TOKEN_RES;
+//   return IM_DEVICE_TOKEN_RES;
+   return LoginCmdIDCidLoginResDevicetoken;
 }
 
 /**
@@ -64,12 +68,12 @@
  */
 - (Analysis)analysisReturnData
 {
-    
-    Analysis analysis = (id)^(NSData* data)
-    {
+   
+   Analysis analysis = (id)^(NSData* data)
+   {
       
-    };
-    return analysis;
+   };
+   return analysis;
 }
 
 /**
@@ -79,23 +83,23 @@
  */
 - (Package)packageRequestObject
 {
-    Package package = (id)^(id object,uint32_t seqNo)
-    {
-        NSString *token = (NSString *)object;
-        IMDeviceTokenReqBuilder *deviceToken = [IMDeviceTokenReq builder];
-        [deviceToken setUserId:[MTTUserEntity localIDTopb:TheRuntime.user.objID]];
-        [deviceToken setDeviceToken:token];
-        DDDataOutputStream *dataout = [[DDDataOutputStream alloc] init];
-        [dataout writeInt:0];
-        [dataout writeTcpProtocolHeader:SID_LOGIN
-                                    cId:IM_DEVICE_TOKEN_REQ
-                                  seqNo:seqNo];
-        [dataout writeDataCount];
-        [dataout directWriteBytes:[deviceToken build].data];
-        [dataout writeDataCount];
-        return [dataout toByteArray];
-    };
-    return package;
+   Package package = (id)^(id object,uint32_t seqNo)
+   {
+      NSString *token = (NSString *)object;
+      IMDeviceTokenReqBuilder *deviceToken = [IMDeviceTokenReq builder];
+      [deviceToken setUserId:[MTTUserEntity localIDTopb:TheRuntime.user.objID]];
+      [deviceToken setDeviceToken:token];
+      DDDataOutputStream *dataout = [[DDDataOutputStream alloc] init];
+      [dataout writeInt:0];
+      [dataout writeTcpProtocolHeader:[self requestServiceID]
+                                  cId:[self requestCommendID]
+                                seqNo:seqNo];
+      [dataout writeDataCount];
+      [dataout directWriteBytes:[deviceToken build].data];
+      [dataout writeDataCount];
+      return [dataout toByteArray];
+   };
+   return package;
 }
 
 @end

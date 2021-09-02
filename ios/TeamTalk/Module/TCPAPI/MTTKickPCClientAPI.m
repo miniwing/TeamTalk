@@ -17,7 +17,7 @@
  */
 - (int)requestTimeOutTimeInterval
 {
-    return TimeOutTimeInterval;
+   return TimeOutTimeInterval;
 }
 
 /**
@@ -27,7 +27,7 @@
  */
 - (int)requestServiceID
 {
-    return SID_LOGIN;
+   return ServiceIDSidLogin;
 }
 
 /**
@@ -37,7 +37,7 @@
  */
 - (int)responseServiceID
 {
-    return SID_LOGIN;
+   return ServiceIDSidLogin;
 }
 
 /**
@@ -47,7 +47,7 @@
  */
 - (int)requestCommendID
 {
-    return IM_KICK_PC_CLIENT_REQ;
+   return LoginCmdIDCidLoginReqKickpcclient;
 }
 
 /**
@@ -57,7 +57,7 @@
  */
 - (int)responseCommendID
 {
-    return IM_KICK_PC_CLIENT_RES;
+   return LoginCmdIDCidLoginResKickpcclient;
 }
 
 /**
@@ -67,14 +67,14 @@
  */
 - (Analysis)analysisReturnData
 {
-    Analysis analysis = (id)^(NSData* data)
-    {
-        IMKickPCClientRsp *kickRsp = [IMKickPCClientRsp parseFromData:data];
-        NSMutableArray *array = [NSMutableArray new];
-        [array addObject:@(kickRsp.resultCode)];
-        return array;
-    };
-    return analysis;
+   Analysis analysis = (id)^(NSData* data)
+   {
+      IMKickPCClientRsp *kickRsp = [IMKickPCClientRsp parseFromData:data];
+      NSMutableArray *array = [NSMutableArray new];
+      [array addObject:@(kickRsp.resultCode)];
+      return array;
+   };
+   return analysis;
 }
 
 /**
@@ -84,21 +84,21 @@
  */
 - (Package)packageRequestObject
 {
-    Package package = (id)^(id object,uint16_t seqNo)
-    {
-        IMKickPCClientReqBuilder *queryPush = [IMKickPCClientReq builder];
-        [queryPush setUserId:0];
-        
-        DDDataOutputStream *dataout = [[DDDataOutputStream alloc] init];
-        [dataout writeInt:0];
-        [dataout writeTcpProtocolHeader:SID_LOGIN
-                                    cId:IM_KICK_PC_CLIENT_REQ
-                                  seqNo:seqNo];
-        [dataout directWriteBytes:[queryPush build].data];
-        [dataout writeDataCount];
-        return [dataout toByteArray];
-    };
-    return package;
+   Package package = (id)^(id object,uint16_t seqNo)
+   {
+      IMKickPCClientReqBuilder *queryPush = [IMKickPCClientReq builder];
+      [queryPush setUserId:0];
+      
+      DDDataOutputStream *dataout = [[DDDataOutputStream alloc] init];
+      [dataout writeInt:0];
+      [dataout writeTcpProtocolHeader:[self responseServiceID]
+                                  cId:[self requestCommendID]
+                                seqNo:seqNo];
+      [dataout directWriteBytes:[queryPush build].data];
+      [dataout writeDataCount];
+      return [dataout toByteArray];
+   };
+   return package;
 }
 
 @end

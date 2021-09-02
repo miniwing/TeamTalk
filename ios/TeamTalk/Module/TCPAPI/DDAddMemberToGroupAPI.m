@@ -10,7 +10,10 @@
 #import "DDGroupModule.h"
 #import "MTTGroupEntity.h"
 #import "RuntimeStatus.h"
+
+#import "IMBaseDefine.pb.h"
 #import "IMGroup.pb.h"
+
 @implementation DDAddMemberToGroupAPI
 /**
  *  请求超时时间
@@ -19,7 +22,7 @@
  */
 - (int)requestTimeOutTimeInterval
 {
-    return TimeOutTimeInterval;
+   return TimeOutTimeInterval;
 }
 
 /**
@@ -29,7 +32,7 @@
  */
 - (int)requestServiceID
 {
-    return SID_GROUP;
+   return ServiceIDSidGroup;
 }
 
 /**
@@ -39,7 +42,7 @@
  */
 - (int)responseServiceID
 {
-    return SID_GROUP;
+   return ServiceIDSidGroup;
 }
 
 /**
@@ -49,7 +52,7 @@
  */
 - (int)requestCommendID
 {
-    return IM_GROUP_CHANGE_MEMBER_REQ;
+   return GroupCmdIDCidGroupChangeMemberRequest;
 }
 
 /**
@@ -59,7 +62,7 @@
  */
 - (int)responseCommendID
 {
-    return IM_GROUP_CHANGE_MEMBER_RES;
+   return GroupCmdIDCidGroupChangeMemberResponse;
 }
 
 /**
@@ -69,29 +72,29 @@
  */
 - (Analysis)analysisReturnData
 {
-    Analysis analysis = (id)^(NSData* data)
-    {
-        
-        IMGroupChangeMemberRsp *rsp = [IMGroupChangeMemberRsp parseFromData:data];
-
-        uint32_t result =rsp.resultCode;
-    NSMutableArray *array = [NSMutableArray new];
-        if (result != 0)
-        {
-            return array;
-        }
-    
-
-        NSUInteger userCnt = [[rsp curUserIdList] count];
-
-        for (NSUInteger i = 0; i < userCnt; i++) {
-                NSString* userId = [MTTUtil changeOriginalToLocalID:[[rsp curUserIdList][i] integerValue] SessionType:SessionTypeSessionTypeSingle];
-                [array addObject:userId];
-            }
-        return array;
-        
-    };
-    return analysis;
+   Analysis analysis = (id)^(NSData* data)
+   {
+      
+      IMGroupChangeMemberRsp *rsp = [IMGroupChangeMemberRsp parseFromData:data];
+      
+      uint32_t result =rsp.resultCode;
+      NSMutableArray *array = [NSMutableArray new];
+      if (result != 0)
+      {
+         return array;
+      }
+      
+      
+      NSUInteger userCnt = [[rsp curUserIdList] count];
+      
+      for (NSUInteger i = 0; i < userCnt; i++) {
+         NSString* userId = [MTTUtil changeOriginalToLocalID:[[rsp curUserIdList][i] integerValue] SessionType:SessionTypeSessionTypeSingle];
+         [array addObject:userId];
+      }
+      return array;
+      
+   };
+   return analysis;
 }
 
 /**
@@ -101,27 +104,29 @@
  */
 - (Package)packageRequestObject
 {
-    Package package = (id)^(id object,uint16_t seqNo)
-    {
-        NSArray* array = (NSArray*)object;
-        NSString* groupId = array[0];
-        NSArray* userList = array[1];
-        NSMutableArray *users = [NSMutableArray new];
-        for (NSString *user in userList) {
-            [users addObject:@([MTTUtil changeIDToOriginal:user])];
-        }
-        IMGroupChangeMemberReqBuilder *memberChange = [IMGroupChangeMemberReq builder];
-        [memberChange setUserId:0];
-        [memberChange setChangeType:GroupModifyTypeGroupModifyTypeAdd];
-        [memberChange setGroupId:[MTTUtil changeIDToOriginal:groupId]];
-        [memberChange setMemberIdListArray:users];
-        DDDataOutputStream *dataout = [[DDDataOutputStream alloc] init];
-        [dataout writeInt:0];
-        [dataout writeTcpProtocolHeader:SID_GROUP cId:IM_GROUP_CHANGE_MEMBER_REQ seqNo:seqNo];
-        [dataout directWriteBytes:[memberChange build].data];
-        [dataout writeDataCount];
-        return [dataout toByteArray];
-    };
-    return package;
+   Package package = (id)^(id object,uint16_t seqNo)
+   {
+      NSArray* array = (NSArray*)object;
+      NSString* groupId = array[0];
+      NSArray* userList = array[1];
+      NSMutableArray *users = [NSMutableArray new];
+      for (NSString *user in userList) {
+         [users addObject:@([MTTUtil changeIDToOriginal:user])];
+      }
+      IMGroupChangeMemberReqBuilder *memberChange = [IMGroupChangeMemberReq builder];
+      [memberChange setUserId:0];
+      [memberChange setChangeType:GroupModifyTypeGroupModifyTypeAdd];
+      [memberChange setGroupId:[MTTUtil changeIDToOriginal:groupId]];
+      [memberChange setMemberIdListArray:users];
+      DDDataOutputStream *dataout = [[DDDataOutputStream alloc] init];
+      [dataout writeInt:0];
+      [dataout writeTcpProtocolHeader:[self requestServiceID]
+                                  cId:[self requestCommendID]
+                                seqNo:seqNo];
+      [dataout directWriteBytes:[memberChange build].data];
+      [dataout writeDataCount];
+      return [dataout toByteArray];
+   };
+   return package;
 }
 @end

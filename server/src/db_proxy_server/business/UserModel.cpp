@@ -13,26 +13,27 @@
 #include "../CachePool.h"
 #include "Common.h"
 #include "SyncCenter.h"
-
+#include "EncDec.h"
 
 CUserModel* CUserModel::m_pInstance = NULL;
 
-CUserModel::CUserModel()
-{
+CUserModel::CUserModel() {
 
+    return;
 }
 
-CUserModel::~CUserModel()
-{
+CUserModel::~CUserModel() {
     
+    return;
 }
 
-CUserModel* CUserModel::getInstance()
-{
-    if(m_pInstance == NULL)
-    {
+CUserModel* CUserModel::getInstance() {
+
+    if(m_pInstance == NULL) {
+
         m_pInstance = new CUserModel();
     }
+    
     return m_pInstance;
 }
 
@@ -178,6 +179,40 @@ bool CUserModel::getUser(uint32_t nUserId, DBUserInfo_t &cUser)
     return bRet;
 }
 
+bool CUserModel::getUser(const std::string &aUserName) {
+
+    TTIM_PRINTF(("db_proxy_server::UserModel::getUser user_name: %s\n", aUserName.c_str()));
+
+    bool             bRet       = false;
+    CDBManager      *pDBManager = CDBManager::getInstance();
+    CDBConn         *pDBConn    = pDBManager->GetDBConn("teamtalk_slave");
+
+    if (pDBConn) {
+
+        string       cSQL       = "select * from IMUser where name=" + aUserName;
+        CResultSet  *pResultSet = pDBConn->ExecuteQuery(cSQL.c_str());
+
+        if(pResultSet) {
+
+            delete pResultSet;
+            bRet    = true;
+        }
+        else {
+
+            log("no result set for sql:%s", cSQL.c_str());
+            TTIM_PRINTF(("no result set for sql:%s\n", cSQL.c_str()));
+        }
+
+        pDBManager->RelDBConn(pDBConn);
+    }
+    else {
+
+        log("no db connection for teamtalk_slave");
+        TTIM_PRINTF(("no db connection for teamtalk_slave\n"));
+    }
+
+    return bRet;
+}
 
 bool CUserModel::updateUser(DBUserInfo_t &cUser)
 {
@@ -434,3 +469,58 @@ bool CUserModel::getPushShield(uint32_t user_id, uint32_t* shield_status) {
     return rv;
 }
 
+uint32_t CUserModel::modifyUserPass(uint32_t nUserId, const string &strOldPass, const string &strNewPass)
+{
+    uint32_t nRet = 0;
+
+    CDBManager* pDBManager = CDBManager::getInstance();
+    CDBConn* pDBConn = pDBManager->GetDBConn("teamtalk_master");
+    if (pDBConn)
+    {
+        string strPass, strSalt;
+        string strSql = "select password, salt from IMUser where id="+int2string(nUserId);
+        CResultSet* pResultSet = pDBConn->ExecuteQuery(strSql.c_str());
+        if(pResultSet)
+        {
+            while (pResultSet->Next()) 
+            {
+                strPass = pResultSet->GetString("password");
+                strSalt = pResultSet->GetString("salt");
+            }
+            delete pResultSet;
+        
+            string strInPassOld = strOldPass + strSalt;
+            char szMd5Old[33];
+            CMd5::MD5_Calculate(strInPassOld.c_str(), strInPassOld.length(), szMd5Old);
+            string strOutPassOld(szMd5Old);
+            if(strOutPassOld == strPass)
+            {
+                string strInPass = strNewPass + strSalt;
+                char szMd5[33];
+                CMd5::MD5_Calculate(strInPass.c_str(), strInPass.length(), szMd5);
+                string strOutPass(szMd5);
+                strSql = "update IMUser set password='" + strOutPass + "' where id=" + int2string(nUserId);
+                if(!pDBConn->ExecuteUpdate(strSql.c_str()))
+                {
+                    nRet = -4;
+                }
+            }
+            else
+            {
+                nRet = -3;
+            }
+        }
+        else
+        {
+            log("no result for sql:%s.", strSql.c_str());
+            nRet = -2;
+        }
+    
+        pDBManager->RelDBConn(pDBConn);
+    }
+    else {
+        log("no db connection for teamtalk_master");
+        nRet = -1;
+    }
+    return nRet;
+}

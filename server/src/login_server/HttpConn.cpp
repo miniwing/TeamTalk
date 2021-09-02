@@ -39,7 +39,7 @@ CHttpConn* FindHttpConnByHandle(uint32_t conn_handle) {
 
 void httpconn_callback(void* callback_data, uint8_t msg, uint32_t handle, uint32_t uParam, void* pParam) {
 
-    TTIM_PRINTF(("login_server::HttpConn::httpconn_callback\n"));
+    TTIM_PRINTF(("login_server::HttpConn::httpconn_callback : (0x%08x)\n", (size_t)callback_data));
 
 	NOTUSED_ARG(uParam);
 	NOTUSED_ARG(pParam);
@@ -56,20 +56,20 @@ void httpconn_callback(void* callback_data, uint8_t msg, uint32_t handle, uint32
 	switch (msg)
 	{
 	case NETLIB_MSG_READ:
-        TTIM_PRINTF(("login_server::HttpConn::httpconn_callback : NETLIB_MSG_READ(%d)", NETLIB_MSG_READ));
+        TTIM_PRINTF(("login_server::HttpConn::httpconn_callback : NETLIB_MSG_READ(%d)\n", NETLIB_MSG_READ));
 		pConn->OnRead();
 		break;
 	case NETLIB_MSG_WRITE:
-        TTIM_PRINTF(("login_server::HttpConn::httpconn_callback : NETLIB_MSG_WRITE(%d)", NETLIB_MSG_WRITE));
+        TTIM_PRINTF(("login_server::HttpConn::httpconn_callback : NETLIB_MSG_WRITE(%d)\n", NETLIB_MSG_WRITE));
 		pConn->OnWrite();
 		break;
 	case NETLIB_MSG_CLOSE:
-        TTIM_PRINTF(("login_server::HttpConn::httpconn_callback : NETLIB_MSG_CLOSE(%d)", NETLIB_MSG_CLOSE));
+        TTIM_PRINTF(("login_server::HttpConn::httpconn_callback : NETLIB_MSG_CLOSE(%d)\n", NETLIB_MSG_CLOSE));
 		pConn->OnClose();
 		break;
 	default:
 		log("!!!httpconn_callback error msg: %d ", msg);
-        TTIM_PRINTF(("!!!httpconn_callback error msg: %d ", msg));
+        TTIM_PRINTF(("!!!httpconn_callback error msg: %d \n", msg));
 		break;
 	}
 }
@@ -221,7 +221,7 @@ void CHttpConn::OnRead() {
     if (buf_len > 1024) {
 
         log("get too much data:%s ", in_buf);
-        TTIM_PRINTF(("get too much data:%s ", in_buf));
+        TTIM_PRINTF(("get too much data:%s \n", in_buf));
         Close();
 
         return;
@@ -235,7 +235,7 @@ void CHttpConn::OnRead() {
 
 		string url =  m_cHttpParser.GetUrl();
 
-        TTIM_PRINTF(("login_server::HttpConn::OnRead : URL : %s", url.c_str()));
+        TTIM_PRINTF(("login_server::HttpConn::OnRead : URL : %s\n", url.c_str()));
         
 		if (strncmp(url.c_str(), "/msg_server", 11) == 0) {
             string content = m_cHttpParser.GetBodyContent();
@@ -269,7 +269,7 @@ void CHttpConn::OnWrite() {
 
 		m_busy = true;
 		log("not send all, remain=%d ", m_out_buf.GetWriteOffset());
-        TTIM_PRINTF(("not send all, remain=%d ", m_out_buf.GetWriteOffset()));
+        TTIM_PRINTF(("not send all, remain=%d \n", m_out_buf.GetWriteOffset()));
 	}
 	else {
 
@@ -290,7 +290,7 @@ void CHttpConn::OnTimer(uint64_t curr_tick) {
 	if (curr_tick > m_last_recv_tick + HTTP_CONN_TIMEOUT) {
 
 		log("HttpConn timeout, handle=%d ", m_conn_handle);
-        TTIM_PRINTF(("HttpConn timeout, handle=%d ", m_conn_handle));
+        TTIM_PRINTF(("HttpConn timeout, handle=%d \n", m_conn_handle));
 
 		Close();
 	}

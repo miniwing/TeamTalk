@@ -15,23 +15,23 @@
 @implementation DDReceiveMessageAPI
 - (int)responseServiceID
 {
-    return SID_MSG;
+   return ServiceIDSidMsg;
 }
 
 - (int)responseCommandID
 {
-    return IM_MSG_DATA;
+   return MessageCmdIDCidMsgData;
 }
 
 - (UnrequestAPIAnalysis)unrequestAnalysis
 {
-    UnrequestAPIAnalysis analysis = (id)^(NSData *data)
-    {
-        IMMsgData *msgdata = [IMMsgData parseFromData:data];
-        MTTMessageEntity *msg = [MTTMessageEntity makeMessageFromPBData:msgdata];
-        msg.state=DDmessageSendSuccess;
-        return msg;
-    };
-    return analysis;
+   UnrequestAPIAnalysis analysis = (id)^(NSData *data)
+   {
+      IMMsgData *msgdata = [IMMsgData parseFromData:data];
+      MTTMessageEntity *msg = [MTTMessageEntity makeMessageFromPBData:msgdata];
+      msg.state=DDmessageSendSuccess;
+      return msg;
+   };
+   return analysis;
 }
 @end

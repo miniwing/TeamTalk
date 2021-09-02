@@ -66,10 +66,10 @@ typedef NS_ENUM(SInt32, LoginCmdID) {
   LoginCmdIDCidLoginResPushShield = 269,
   LoginCmdIDCidLoginReqQueryPushShield = 270,
   LoginCmdIDCidLoginResQueryPushShield = 271,
-  LoginCmdIDCidLoginReqModifyPass = 272,
-  LoginCmdIDCidLoginResModifyPass = 273,
-  LoginCmdIDCidLoginReqRegist = 274,
-  LoginCmdIDCidLoginResRegist = 275,
+  LoginCmdIDCidLoginReqModifyPass = 273,
+  LoginCmdIDCidLoginResModifyPass = 274,
+  LoginCmdIDCidLoginReqRegist = 275,
+  LoginCmdIDCidLoginResRegist = 276,
 };
 
 BOOL LoginCmdIDIsValidValue(LoginCmdID value);

@@ -15,6 +15,10 @@
 #include "IM.BaseDefine.pb.h"
 #include "ImPduBase.h"
 #include "public_define.h"
+
+#include "TTIMConfig.h"
+#include "TTIMLog.h"
+
 class CUserModel
 {
 public:
@@ -23,6 +27,8 @@ public:
     void getChangedId(uint32_t& nLastTime, list<uint32_t>& lsIds);
     void getUsers(list<uint32_t> lsIds, list<IM::BaseDefine::UserInfo>& lsUsers);
     bool getUser(uint32_t nUserId, DBUserInfo_t& cUser);
+
+    bool getUser(const std::string &aUserName);
 
     bool updateUser(DBUserInfo_t& cUser);
     bool insertUser(DBUserInfo_t& cUser);
@@ -34,6 +40,8 @@ public:
     bool getUserSingInfo(uint32_t user_id, string* sign_info);
     bool updatePushShield(uint32_t user_id, uint32_t shield_status);
     bool getPushShield(uint32_t user_id, uint32_t* shield_status);
+
+    uint32_t modifyUserPass(uint32_t nUserId, const string& strOldPass, const string& strNewPass);
 
 private:
     CUserModel();

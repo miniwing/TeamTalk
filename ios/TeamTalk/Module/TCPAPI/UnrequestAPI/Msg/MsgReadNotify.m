@@ -8,31 +8,34 @@
 
 #import "MsgReadNotify.h"
 #import "IMMessage.pb.h"
+
 @implementation MsgReadNotify
-- (int)responseServiceID
-{
-    return SID_MSG;
+
+- (int)responseServiceID {
+   
+   return ServiceIDSidMsg;
 }
 
-- (int)responseCommandID
-{
-    return IM_MSG_DATA_READ_NOTIFY;
+- (int)responseCommandID {
+   
+//   return IM_MSG_DATA_READ_NOTIFY;
+   return MessageCmdIDCidMsgReadNotify;
 }
 
-- (UnrequestAPIAnalysis)unrequestAnalysis
-{
-    UnrequestAPIAnalysis analysis = (id)^(NSData *data)
-    {
-        IMMsgDataReadNotify *notify = [IMMsgDataReadNotify parseFromData:data];
-        NSMutableDictionary *dic = [NSMutableDictionary new];
-        UInt32   sessionType =notify.sessionType;
-        NSString *from_id = [MTTUtil changeOriginalToLocalID:notify.sessionId SessionType:sessionType];
-        UInt32   msgId    = notify.msgId;
-        [dic setObject:from_id forKey:@"from_id"];
-        [dic setObject:@(msgId) forKey:@"msgId"];
-        [dic setObject:@(sessionType) forKey:@"type"];
-        return dic;
-    };
-    return analysis;
+- (UnrequestAPIAnalysis)unrequestAnalysis {
+   
+   UnrequestAPIAnalysis analysis = (id)^(NSData *data) {
+      
+      IMMsgDataReadNotify *notify = [IMMsgDataReadNotify parseFromData:data];
+      NSMutableDictionary *dic = [NSMutableDictionary new];
+      UInt32   sessionType =notify.sessionType;
+      NSString *from_id = [MTTUtil changeOriginalToLocalID:notify.sessionId SessionType:sessionType];
+      UInt32   msgId    = notify.msgId;
+      [dic setObject:from_id forKey:@"from_id"];
+      [dic setObject:@(msgId) forKey:@"msgId"];
+      [dic setObject:@(sessionType) forKey:@"type"];
+      return dic;
+   };
+   return analysis;
 }
 @end

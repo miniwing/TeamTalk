@@ -7,7 +7,10 @@
 //
 
 #import "HeartbeatAPI.h"
+
+#import "IMBaseDefine.pb.h"
 #import "IMOther.pb.h"
+
 @implementation HeartbeatAPI
 /**
  *  请求超时时间
@@ -16,7 +19,7 @@
  */
 - (int)requestTimeOutTimeInterval
 {
-    return 0;
+   return 0;
 }
 
 /**
@@ -26,7 +29,7 @@
  */
 - (int)requestServiceID
 {
-    return SID_OTHER;
+   return ServiceIDSidOther;
 }
 
 /**
@@ -36,7 +39,7 @@
  */
 - (int)responseServiceID
 {
-    return SID_OTHER;
+   return ServiceIDSidOther;
 }
 
 /**
@@ -46,7 +49,7 @@
  */
 - (int)requestCommendID
 {
-    return IM_HEART_BEAT;
+   return OtherCmdIDCidOtherHeartbeat;
 }
 
 /**
@@ -56,7 +59,7 @@
  */
 - (int)responseCommendID
 {
-    return IM_HEART_BEAT;
+   return OtherCmdIDCidOtherHeartbeat;
 }
 
 /**
@@ -66,14 +69,11 @@
  */
 - (Analysis)analysisReturnData
 {
-    Analysis analysis = (id)^(NSData* data)
-    {
-        
-        
-        
-    
-    };
-    return analysis;
+   Analysis analysis = (id)^(NSData* data)
+   {
+      
+   };
+   return analysis;
 }
 
 /**
@@ -83,18 +83,20 @@
  */
 - (Package)packageRequestObject
 {
-    Package package = (id)^(id object,UInt32 seqNo)
-    {
-        IMHeartBeatBuilder *builder = [IMHeartBeat builder];
-        
-        DDDataOutputStream *dataout = [[DDDataOutputStream alloc] init];
-
-        [dataout writeInt:0];
-        [dataout writeTcpProtocolHeader:SID_OTHER cId:IM_HEART_BEAT seqNo:seqNo];
-        [dataout directWriteBytes:[builder build].data];
-        [dataout writeDataCount];
-        return [dataout toByteArray];
-    };
-    return package;
+   Package package = (id)^(id object,UInt32 seqNo)
+   {
+      IMHeartBeatBuilder *builder = [IMHeartBeat builder];
+      
+      DDDataOutputStream *dataout = [[DDDataOutputStream alloc] init];
+      
+      [dataout writeInt:0];
+      [dataout writeTcpProtocolHeader:[self responseServiceID]
+                                  cId:[self requestCommendID]
+                                seqNo:seqNo];
+      [dataout directWriteBytes:[builder build].data];
+      [dataout writeDataCount];
+      return [dataout toByteArray];
+   };
+   return package;
 }
 @end

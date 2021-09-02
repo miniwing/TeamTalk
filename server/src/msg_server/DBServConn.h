@@ -12,6 +12,9 @@
 #include "ServInfo.h"
 #include "RouteServConn.h"
 
+#include "TTIMConfig.h"
+#include "TTIMLog.h"
+
 class CDBServConn : public CImConn
 {
 public:
@@ -29,6 +32,11 @@ public:
 
 	virtual void HandlePdu(CImPdu* pPdu);
 private:
+
+#if __TEAMTALK_REGIST__
+    void _HandleRegistResponse(CImPdu* pPdu);
+#endif /* __TEAMTALK_REGIST__ */
+
 	void _HandleValidateResponse(CImPdu* pPdu);
     void _HandleRecentSessionResponse(CImPdu* pPdu);
     void _HandleAllUserResponse(CImPdu* pPdu);

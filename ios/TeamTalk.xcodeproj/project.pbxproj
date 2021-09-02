@@ -96,6 +96,7 @@
 		4ACEF0B626D777BC004BF91E /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ACEF0B526D777BC004BF91E /* libc++.tbd */; };
 		4AE81A7C26E07FF900F12AAA /* ServerController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4AE81A7B26E07FF900F12AAA /* ServerController.xib */; };
 		4AE81A8F26E08A4F00F12AAA /* ServerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE81A8726E08A4F00F12AAA /* ServerController.m */; };
+		4AE81A9A26E0B5C300F12AAA /* RegistAPI.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4AE81A9626E0B5C300F12AAA /* RegistAPI.mm */; };
 		810D52611B523E42004DF7B4 /* search_back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 810D52601B523E42004DF7B4 /* search_back@2x.png */; };
 		810D52641B52592A004DF7B4 /* MTTSearchDetailViewControll.m in Sources */ = {isa = PBXBuildFile; fileRef = 810D52631B52592A004DF7B4 /* MTTSearchDetailViewControll.m */; };
 		810D874F1B456BE10089CEA1 /* MTTBubbleModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 810D874E1B456BE10089CEA1 /* MTTBubbleModule.m */; };
@@ -665,6 +666,8 @@
 		4AE81A7B26E07FF900F12AAA /* ServerController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ServerController.xib; sourceTree = "<group>"; };
 		4AE81A8126E08A4F00F12AAA /* ServerController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ServerController.h; sourceTree = "<group>"; };
 		4AE81A8726E08A4F00F12AAA /* ServerController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ServerController.m; sourceTree = "<group>"; };
+		4AE81A9626E0B5C300F12AAA /* RegistAPI.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RegistAPI.mm; sourceTree = "<group>"; };
+		4AE81A9826E0B5C300F12AAA /* RegistAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegistAPI.h; sourceTree = "<group>"; };
 		810D52601B523E42004DF7B4 /* search_back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search_back@2x.png"; sourceTree = "<group>"; };
 		810D52621B52592A004DF7B4 /* MTTSearchDetailViewControll.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTTSearchDetailViewControll.h; sourceTree = "<group>"; };
 		810D52631B52592A004DF7B4 /* MTTSearchDetailViewControll.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTTSearchDetailViewControll.m; sourceTree = "<group>"; };
@@ -1638,6 +1641,15 @@
 			path = Servers;
 			sourceTree = "<group>";
 		};
+		4AE81A9526E0B5C300F12AAA /* Regist */ = {
+			isa = PBXGroup;
+			children = (
+				4AE81A9826E0B5C300F12AAA /* RegistAPI.h */,
+				4AE81A9626E0B5C300F12AAA /* RegistAPI.mm */,
+			);
+			path = Regist;
+			sourceTree = "<group>";
+		};
 		527B2E51021DC51A46265D31 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1897,8 +1909,6 @@
 		C054EC691B3274AB00078809 /* ProtocolBuffers */ = {
 			isa = PBXGroup;
 			children = (
-				4A0AE88726DFF51B00F159BF /* IMRegist.pb.h */,
-				4A0AE88826DFF51B00F159BF /* IMRegist.pb.m */,
 				46C53D8F1CDADD8700034CF5 /* IMBaseDefine.pb.h */,
 				46C53D901CDADD8700034CF5 /* IMBaseDefine.pb.m */,
 				46C53D911CDADD8700034CF5 /* IMBuddy.pb.h */,
@@ -1909,6 +1919,8 @@
 				46C53D961CDADD8700034CF5 /* IMGroup.pb.m */,
 				46C53D971CDADD8700034CF5 /* IMLogin.pb.h */,
 				46C53D981CDADD8700034CF5 /* IMLogin.pb.m */,
+				4A0AE88726DFF51B00F159BF /* IMRegist.pb.h */,
+				4A0AE88826DFF51B00F159BF /* IMRegist.pb.m */,
 				46C53D991CDADD8700034CF5 /* IMMessage.pb.h */,
 				46C53D9A1CDADD8700034CF5 /* IMMessage.pb.m */,
 				46C53D9B1CDADD8700034CF5 /* IMOther.pb.h */,
@@ -2619,6 +2631,7 @@
 			children = (
 				462614291CB8F2DE005BDCAA /* Business */,
 				C07E66141B328F1A00A5102C /* Login */,
+				4AE81A9526E0B5C300F12AAA /* Regist */,
 				C07E66191B328F1A00A5102C /* Msg */,
 				C07E66221B328F1A00A5102C /* Users */,
 			);
@@ -3600,6 +3613,7 @@
 				4AE81A8F26E08A4F00F12AAA /* ServerController.m in Sources */,
 				81B6391B1B5CB7380026EF55 /* MTTUsersStatAPI.m in Sources */,
 				C054ED241B3276DE00078809 /* high_lsp_tables.c in Sources */,
+				4AE81A9A26E0B5C300F12AAA /* RegistAPI.mm in Sources */,
 				C0AE39CA1B32BD0200B67232 /* MTTWebViewController.m in Sources */,
 				462CF8C41CA03039003883F7 /* TAAnimatedDotView.m in Sources */,
 				C07E675A1B32BAA000A5102C /* ContactAvatarTools.m in Sources */,

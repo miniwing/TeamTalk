@@ -16,22 +16,22 @@
 
 - (int)requestServiceID
 {
-    return SID_LOGIN;
+    return ServiceIDSidLogin;
 }
 
 - (int)responseServiceID
 {
-    return SID_LOGIN;
+    return ServiceIDSidLogin;
 }
 
 - (int)requestCommendID
 {
-    return IM_LOGOUT_REQ;
+    return LoginCmdIDCidLoginReqLoginout;
 }
 
 - (int)responseCommendID
 {
-    return IM_LOGOUT_RES;
+    return LoginCmdIDCidLoginResLoginout;
 }
 
 - (Analysis)analysisReturnData
@@ -53,7 +53,9 @@
         IMLogoutReqBuilder *logoutbuilder = [IMLogoutReq builder];
         DDDataOutputStream *dataout = [[DDDataOutputStream alloc] init];
         [dataout writeInt:0];
-        [dataout writeTcpProtocolHeader:SID_LOGIN cId:IM_LOGOUT_REQ seqNo:seqNo];
+        [dataout writeTcpProtocolHeader:[self responseServiceID]
+                                    cId:[self requestCommendID]
+                                  seqNo:seqNo];
         [dataout directWriteBytes:[logoutbuilder build].data];
         [dataout writeDataCount];
         return [dataout toByteArray];

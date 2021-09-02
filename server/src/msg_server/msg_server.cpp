@@ -58,6 +58,7 @@ int main(int argc, char* argv[]){
 	srand(time(NULL));
 
 	log("MsgServer max files can open: %d ", getdtablesize());
+    TTIM_PRINTF(("MsgServer max files can open: %d \n", getdtablesize()));
 
 	CConfigFileReader config_file("msgserver.conf");
 
@@ -86,6 +87,7 @@ int main(int argc, char* argv[]){
     
     if (!str_aes_key || strlen(str_aes_key)!=32) {
         log("aes key is invalied");
+        TTIM_PRINTF(("aes key is invalied \n"));
         return -1;
     }
  
@@ -95,7 +97,10 @@ int main(int argc, char* argv[]){
 	// 这样当其他业务量非常繁忙时，也不会影响客服端的登录验证
 	// 建议配置4个实例，这样更新BusinessServer时，不会影响业务
 	if (db_server_count < 2) {
+
 		log("DBServerIP need 2 instance at lest ");
+        TTIM_PRINTF(("DBServerIP need 2 instance at lest \n"));
+
 		return 1;
 	}
 
@@ -115,12 +120,18 @@ int main(int argc, char* argv[]){
 	}
 
 	if (!listen_ip || !str_listen_port || !ip_addr1) {
+
 		log("config file miss, exit... ");
+        TTIM_PRINTF(("config file miss, exit... \n"));
+
 		return -1;
 	}
 
    log("ip_addr1 : %s", ip_addr1);
+   TTIM_PRINTF(("ip_addr1 : %s\n", ip_addr1));
+
    log("ip_addr2 : %s", ip_addr2);
+   TTIM_PRINTF(("ip_addr1 : %s\n", ip_addr1));
 
 	// 没有IP2，就用第一个IP
 	if (!ip_addr2) {
@@ -132,7 +143,10 @@ int main(int argc, char* argv[]){
 
 	int ret = netlib_init();
 
+    TTIM_PRINTF(("netlib_init : %d\n", ret));
+
 	if (ret == NETLIB_ERROR) {
+
 		return ret;
    }
 
@@ -144,11 +158,12 @@ int main(int argc, char* argv[]){
       }
 	}
 
-	printf("server start listen on: %s:%d\n", listen_ip, listen_port);
+	// printf("server start listen on: %s:%d\n", listen_ip, listen_port);
+    TTIM_PRINTF(("server start listen on: %s:%d\n", listen_ip, listen_port));
 
 	init_msg_conn();
 
-   init_file_serv_conn(file_server_list, file_server_count);
+    init_file_serv_conn(file_server_list, file_server_count);
 
 	init_db_serv_conn(db_server_list2, db_server_count2, concurrent_db_conn_cnt);
 
@@ -156,10 +171,12 @@ int main(int argc, char* argv[]){
 
 	init_route_serv_conn(route_server_list, route_server_count);
 
-   init_push_serv_conn(push_server_list, push_server_count);
-	printf("now enter the event loop...\n");
+    init_push_serv_conn(push_server_list, push_server_count);
+
+	// printf("now enter the event loop...\n");
+	TTIM_PRINTF(("now enter the event loop...\n"));
     
-   writePid();
+    writePid();
 
 	netlib_eventloop();
 

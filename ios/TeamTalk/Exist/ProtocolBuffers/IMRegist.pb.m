@@ -24,7 +24,6 @@ static PBExtensionRegistry* extensionRegistry = nil;
 @interface IMRegistReq ()
 @property (strong) NSString* userName;
 @property (strong) NSString* password;
-@property UserStatType onlineStatus;
 @property ClientType clientType;
 @property (strong) NSString* clientVersion;
 @end
@@ -45,13 +44,6 @@ static PBExtensionRegistry* extensionRegistry = nil;
   hasPassword_ = !!_value_;
 }
 @synthesize password;
-- (BOOL) hasOnlineStatus {
-  return !!hasOnlineStatus_;
-}
-- (void) setHasOnlineStatus:(BOOL) _value_ {
-  hasOnlineStatus_ = !!_value_;
-}
-@synthesize onlineStatus;
 - (BOOL) hasClientType {
   return !!hasClientType_;
 }
@@ -70,7 +62,6 @@ static PBExtensionRegistry* extensionRegistry = nil;
   if ((self = [super init])) {
     self.userName = @"";
     self.password = @"";
-    self.onlineStatus = UserStatTypeUserStatusOnline;
     self.clientType = ClientTypeClientTypeWindows;
     self.clientVersion = @"";
   }
@@ -95,9 +86,6 @@ static IMRegistReq* defaultIMRegistReqInstance = nil;
   if (!self.hasPassword) {
     return NO;
   }
-  if (!self.hasOnlineStatus) {
-    return NO;
-  }
   if (!self.hasClientType) {
     return NO;
   }
@@ -110,14 +98,11 @@ static IMRegistReq* defaultIMRegistReqInstance = nil;
   if (self.hasPassword) {
     [output writeString:2 value:self.password];
   }
-  if (self.hasOnlineStatus) {
-    [output writeEnum:3 value:self.onlineStatus];
-  }
   if (self.hasClientType) {
-    [output writeEnum:4 value:self.clientType];
+    [output writeEnum:3 value:self.clientType];
   }
   if (self.hasClientVersion) {
-    [output writeString:5 value:self.clientVersion];
+    [output writeString:4 value:self.clientVersion];
   }
   [self.unknownFields writeToCodedOutputStream:output];
 }
@@ -134,14 +119,11 @@ static IMRegistReq* defaultIMRegistReqInstance = nil;
   if (self.hasPassword) {
     size_ += computeStringSize(2, self.password);
   }
-  if (self.hasOnlineStatus) {
-    size_ += computeEnumSize(3, self.onlineStatus);
-  }
   if (self.hasClientType) {
-    size_ += computeEnumSize(4, self.clientType);
+    size_ += computeEnumSize(3, self.clientType);
   }
   if (self.hasClientVersion) {
-    size_ += computeStringSize(5, self.clientVersion);
+    size_ += computeStringSize(4, self.clientVersion);
   }
   size_ += self.unknownFields.serializedSize;
   memoizedSerializedSize = size_;
@@ -184,9 +166,6 @@ static IMRegistReq* defaultIMRegistReqInstance = nil;
   if (self.hasPassword) {
     [output appendFormat:@"%@%@: %@\n", indent, @"password", self.password];
   }
-  if (self.hasOnlineStatus) {
-    [output appendFormat:@"%@%@: %@\n", indent, @"onlineStatus", NSStringFromUserStatType(self.onlineStatus)];
-  }
   if (self.hasClientType) {
     [output appendFormat:@"%@%@: %@\n", indent, @"clientType", NSStringFromClientType(self.clientType)];
   }
@@ -201,9 +180,6 @@ static IMRegistReq* defaultIMRegistReqInstance = nil;
   }
   if (self.hasPassword) {
     [dictionary setObject: self.password forKey: @"password"];
-  }
-  if (self.hasOnlineStatus) {
-    [dictionary setObject: @(self.onlineStatus) forKey: @"onlineStatus"];
   }
   if (self.hasClientType) {
     [dictionary setObject: @(self.clientType) forKey: @"clientType"];
@@ -226,8 +202,6 @@ static IMRegistReq* defaultIMRegistReqInstance = nil;
       (!self.hasUserName || [self.userName isEqual:otherMessage.userName]) &&
       self.hasPassword == otherMessage.hasPassword &&
       (!self.hasPassword || [self.password isEqual:otherMessage.password]) &&
-      self.hasOnlineStatus == otherMessage.hasOnlineStatus &&
-      (!self.hasOnlineStatus || self.onlineStatus == otherMessage.onlineStatus) &&
       self.hasClientType == otherMessage.hasClientType &&
       (!self.hasClientType || self.clientType == otherMessage.clientType) &&
       self.hasClientVersion == otherMessage.hasClientVersion &&
@@ -241,9 +215,6 @@ static IMRegistReq* defaultIMRegistReqInstance = nil;
   }
   if (self.hasPassword) {
     hashCode = hashCode * 31 + [self.password hash];
-  }
-  if (self.hasOnlineStatus) {
-    hashCode = hashCode * 31 + self.onlineStatus;
   }
   if (self.hasClientType) {
     hashCode = hashCode * 31 + self.clientType;
@@ -300,9 +271,6 @@ static IMRegistReq* defaultIMRegistReqInstance = nil;
   if (other.hasPassword) {
     [self setPassword:other.password];
   }
-  if (other.hasOnlineStatus) {
-    [self setOnlineStatus:other.onlineStatus];
-  }
   if (other.hasClientType) {
     [self setClientType:other.clientType];
   }
@@ -339,24 +307,15 @@ static IMRegistReq* defaultIMRegistReqInstance = nil;
         break;
       }
       case 24: {
-        UserStatType value = (UserStatType)[input readEnum];
-        if (UserStatTypeIsValidValue(value)) {
-          [self setOnlineStatus:value];
+        ClientType value = (ClientType)[input readEnum];
+        if (ClientTypeIsValidValue(value)) {
+          [self setClientType:value];
         } else {
           [unknownFields mergeVarintField:3 value:value];
         }
         break;
       }
-      case 32: {
-        ClientType value = (ClientType)[input readEnum];
-        if (ClientTypeIsValidValue(value)) {
-          [self setClientType:value];
-        } else {
-          [unknownFields mergeVarintField:4 value:value];
-        }
-        break;
-      }
-      case 42: {
+      case 34: {
         [self setClientVersion:[input readString]];
         break;
       }
@@ -393,22 +352,6 @@ static IMRegistReq* defaultIMRegistReqInstance = nil;
 - (IMRegistReqBuilder*) clearPassword {
   resultImregistReq.hasPassword = NO;
   resultImregistReq.password = @"";
-  return self;
-}
-- (BOOL) hasOnlineStatus {
-  return resultImregistReq.hasOnlineStatus;
-}
-- (UserStatType) onlineStatus {
-  return resultImregistReq.onlineStatus;
-}
-- (IMRegistReqBuilder*) setOnlineStatus:(UserStatType) value {
-  resultImregistReq.hasOnlineStatus = YES;
-  resultImregistReq.onlineStatus = value;
-  return self;
-}
-- (IMRegistReqBuilder*) clearOnlineStatus {
-  resultImregistReq.hasOnlineStatus = NO;
-  resultImregistReq.onlineStatus = UserStatTypeUserStatusOnline;
   return self;
 }
 - (BOOL) hasClientType {
@@ -449,7 +392,6 @@ static IMRegistReq* defaultIMRegistReqInstance = nil;
 @property UInt32 serverTime;
 @property ResultType resultCode;
 @property (strong) NSString* resultString;
-@property UserStatType onlineStatus;
 @property (strong) UserInfo* userInfo;
 @end
 
@@ -476,13 +418,6 @@ static IMRegistReq* defaultIMRegistReqInstance = nil;
   hasResultString_ = !!_value_;
 }
 @synthesize resultString;
-- (BOOL) hasOnlineStatus {
-  return !!hasOnlineStatus_;
-}
-- (void) setHasOnlineStatus:(BOOL) _value_ {
-  hasOnlineStatus_ = !!_value_;
-}
-@synthesize onlineStatus;
 - (BOOL) hasUserInfo {
   return !!hasUserInfo_;
 }
@@ -495,7 +430,6 @@ static IMRegistReq* defaultIMRegistReqInstance = nil;
     self.serverTime = 0;
     self.resultCode = ResultTypeRefuseReasonNone;
     self.resultString = @"";
-    self.onlineStatus = UserStatTypeUserStatusOnline;
     self.userInfo = [UserInfo defaultInstance];
   }
   return self;
@@ -536,11 +470,8 @@ static IMRegistRes* defaultIMRegistResInstance = nil;
   if (self.hasResultString) {
     [output writeString:3 value:self.resultString];
   }
-  if (self.hasOnlineStatus) {
-    [output writeEnum:4 value:self.onlineStatus];
-  }
   if (self.hasUserInfo) {
-    [output writeMessage:5 value:self.userInfo];
+    [output writeMessage:4 value:self.userInfo];
   }
   [self.unknownFields writeToCodedOutputStream:output];
 }
@@ -560,11 +491,8 @@ static IMRegistRes* defaultIMRegistResInstance = nil;
   if (self.hasResultString) {
     size_ += computeStringSize(3, self.resultString);
   }
-  if (self.hasOnlineStatus) {
-    size_ += computeEnumSize(4, self.onlineStatus);
-  }
   if (self.hasUserInfo) {
-    size_ += computeMessageSize(5, self.userInfo);
+    size_ += computeMessageSize(4, self.userInfo);
   }
   size_ += self.unknownFields.serializedSize;
   memoizedSerializedSize = size_;
@@ -610,9 +538,6 @@ static IMRegistRes* defaultIMRegistResInstance = nil;
   if (self.hasResultString) {
     [output appendFormat:@"%@%@: %@\n", indent, @"resultString", self.resultString];
   }
-  if (self.hasOnlineStatus) {
-    [output appendFormat:@"%@%@: %@\n", indent, @"onlineStatus", NSStringFromUserStatType(self.onlineStatus)];
-  }
   if (self.hasUserInfo) {
     [output appendFormat:@"%@%@ {\n", indent, @"userInfo"];
     [self.userInfo writeDescriptionTo:output
@@ -630,9 +555,6 @@ static IMRegistRes* defaultIMRegistResInstance = nil;
   }
   if (self.hasResultString) {
     [dictionary setObject: self.resultString forKey: @"resultString"];
-  }
-  if (self.hasOnlineStatus) {
-    [dictionary setObject: @(self.onlineStatus) forKey: @"onlineStatus"];
   }
   if (self.hasUserInfo) {
    NSMutableDictionary *messageDictionary = [NSMutableDictionary dictionary]; 
@@ -656,8 +578,6 @@ static IMRegistRes* defaultIMRegistResInstance = nil;
       (!self.hasResultCode || self.resultCode == otherMessage.resultCode) &&
       self.hasResultString == otherMessage.hasResultString &&
       (!self.hasResultString || [self.resultString isEqual:otherMessage.resultString]) &&
-      self.hasOnlineStatus == otherMessage.hasOnlineStatus &&
-      (!self.hasOnlineStatus || self.onlineStatus == otherMessage.onlineStatus) &&
       self.hasUserInfo == otherMessage.hasUserInfo &&
       (!self.hasUserInfo || [self.userInfo isEqual:otherMessage.userInfo]) &&
       (self.unknownFields == otherMessage.unknownFields || (self.unknownFields != nil && [self.unknownFields isEqual:otherMessage.unknownFields]));
@@ -672,9 +592,6 @@ static IMRegistRes* defaultIMRegistResInstance = nil;
   }
   if (self.hasResultString) {
     hashCode = hashCode * 31 + [self.resultString hash];
-  }
-  if (self.hasOnlineStatus) {
-    hashCode = hashCode * 31 + self.onlineStatus;
   }
   if (self.hasUserInfo) {
     hashCode = hashCode * 31 + [self.userInfo hash];
@@ -731,9 +648,6 @@ static IMRegistRes* defaultIMRegistResInstance = nil;
   if (other.hasResultString) {
     [self setResultString:other.resultString];
   }
-  if (other.hasOnlineStatus) {
-    [self setOnlineStatus:other.onlineStatus];
-  }
   if (other.hasUserInfo) {
     [self mergeUserInfo:other.userInfo];
   }
@@ -775,16 +689,7 @@ static IMRegistRes* defaultIMRegistResInstance = nil;
         [self setResultString:[input readString]];
         break;
       }
-      case 32: {
-        UserStatType value = (UserStatType)[input readEnum];
-        if (UserStatTypeIsValidValue(value)) {
-          [self setOnlineStatus:value];
-        } else {
-          [unknownFields mergeVarintField:4 value:value];
-        }
-        break;
-      }
-      case 42: {
+      case 34: {
         UserInfoBuilder* subBuilder = [UserInfo builder];
         if (self.hasUserInfo) {
           [subBuilder mergeFrom:self.userInfo];
@@ -842,22 +747,6 @@ static IMRegistRes* defaultIMRegistResInstance = nil;
 - (IMRegistResBuilder*) clearResultString {
   resultImregistRes.hasResultString = NO;
   resultImregistRes.resultString = @"";
-  return self;
-}
-- (BOOL) hasOnlineStatus {
-  return resultImregistRes.hasOnlineStatus;
-}
-- (UserStatType) onlineStatus {
-  return resultImregistRes.onlineStatus;
-}
-- (IMRegistResBuilder*) setOnlineStatus:(UserStatType) value {
-  resultImregistRes.hasOnlineStatus = YES;
-  resultImregistRes.onlineStatus = value;
-  return self;
-}
-- (IMRegistResBuilder*) clearOnlineStatus {
-  resultImregistRes.hasOnlineStatus = NO;
-  resultImregistRes.onlineStatus = UserStatTypeUserStatusOnline;
   return self;
 }
 - (BOOL) hasUserInfo {

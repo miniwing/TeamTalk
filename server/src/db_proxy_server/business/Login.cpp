@@ -36,8 +36,8 @@ void doLogin(CImPdu* pPdu, uint32_t conn_uuid) {
     
     IM::Server::IMValidateReq msg;
     IM::Server::IMValidateRsp msgResp;
-    if(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()))
-    {
+    
+    if(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength())) {
         
         string strDomain = msg.user_name();
         string strPass = msg.password();

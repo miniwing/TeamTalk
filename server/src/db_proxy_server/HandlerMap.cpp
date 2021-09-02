@@ -11,6 +11,7 @@
 
 #include "HandlerMap.h"
 
+#include "business/Regist.h"
 #include "business/Login.h"
 #include "business/MessageContent.h"
 #include "business/RecentSession.h"
@@ -19,6 +20,7 @@
 #include "business/GroupAction.h"
 #include "business/DepartAction.h"
 #include "business/FileAction.h"
+
 #include "IM.BaseDefine.pb.h"
 
 using namespace IM::BaseDefine;
@@ -29,17 +31,17 @@ CHandlerMap* CHandlerMap::s_handler_instance = NULL;
 /**
  *  构造函数
  */
-CHandlerMap::CHandlerMap()
-{
+CHandlerMap::CHandlerMap() {
 
+    return;
 }
 
 /**
  *  析构函数
  */
-CHandlerMap::~CHandlerMap()
-{
+CHandlerMap::~CHandlerMap() {
 
+    return;
 }
 
 /**
@@ -47,8 +49,8 @@ CHandlerMap::~CHandlerMap()
  *
  *  @return 返回指向CHandlerMap的单例指针
  */
-CHandlerMap* CHandlerMap::getInstance()
-{
+CHandlerMap* CHandlerMap::getInstance() {
+
 	if (!s_handler_instance) {
 		s_handler_instance = new CHandlerMap();
 		s_handler_instance->Init();
@@ -60,13 +62,19 @@ CHandlerMap* CHandlerMap::getInstance()
 /**
  *  初始化函数,加载了各种commandId 对应的处理函数
  */
-void CHandlerMap::Init()
-{
+void CHandlerMap::Init() {
+
 	// Login validate
 	m_handler_map.insert(make_pair(uint32_t(CID_OTHER_VALIDATE_REQ), DB_PROXY::doLogin));
     m_handler_map.insert(make_pair(uint32_t(CID_LOGIN_REQ_PUSH_SHIELD), DB_PROXY::doPushShield));
     m_handler_map.insert(make_pair(uint32_t(CID_LOGIN_REQ_QUERY_PUSH_SHIELD), DB_PROXY::doQueryPushShield));
     
+    // Regist
+    m_handler_map.insert(make_pair(uint32_t(CID_LOGIN_REQ_REGIST), DB_PROXY::doRegist));
+
+    // 修改密码
+    m_handler_map.insert(make_pair(uint32_t(CID_LOGIN_REQ_MODIFY_PASS), DB_PROXY::modifyUserPass));
+
     // recent session
     m_handler_map.insert(make_pair(uint32_t(CID_BUDDY_LIST_RECENT_CONTACT_SESSION_REQUEST), DB_PROXY::getRecentSession));
     m_handler_map.insert(make_pair(uint32_t(CID_BUDDY_LIST_REMOVE_SESSION_REQ), DB_PROXY::deleteRecentSession));

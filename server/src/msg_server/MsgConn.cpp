@@ -16,12 +16,17 @@
 #include "IM.Buddy.pb.h"
 #include "IM.Message.pb.h"
 #include "IM.Login.pb.h"
+#include "IM.Regist.pb.h"
 #include "IM.Other.pb.h"
 #include "IM.Group.pb.h"
 #include "IM.Server.pb.h"
 #include "IM.SwitchService.pb.h"
 #include "public_define.h"
 #include "ImPduBase.h"
+
+#include "TTIMConfig.h"
+#include "TTIMLog.h"
+
 using namespace IM::BaseDefine;
 
 #define TIMEOUT_WATI_LOGIN_RESPONSE		15000	// 15 seconds
@@ -271,22 +276,29 @@ void CMsgConn::OnTimer(uint64_t curr_tick)
 	}
 }
 
-void CMsgConn::HandlePdu(CImPdu* pPdu)
-{
+void CMsgConn::HandlePdu(CImPdu* pPdu) {
+
+    // log("msg_server::MsgConn::HandlePdu");
+    // TTIM_PRINTF(("msg_server::MsgConn::HandlePdu\n"));
+
 	// request authorization check
 	if (pPdu->GetCommandId() != CID_LOGIN_REQ_USERLOGIN && !IsOpen() && IsKickOff()) {
         log("HandlePdu, wrong msg. ");
+        TTIM_PRINTF(("HandlePdu, wrong msg. \n"));
         throw CPduException(pPdu->GetServiceId(), pPdu->GetCommandId(), ERROR_CODE_WRONG_SERVICE_ID, "HandlePdu error, user not login. ");
 		return;
     }
+
 	switch (pPdu->GetCommandId()) {
         case CID_OTHER_HEARTBEAT:
             _HandleHeartBeat(pPdu);
             break;
         case CID_LOGIN_REQ_USERLOGIN:
+            TTIM_PRINTF(("msg_server::MsgConn::HandlePdu : CID_LOGIN_REQ_USERLOGIN\n"));
             _HandleLoginRequest(pPdu );
             break;
         case CID_LOGIN_REQ_LOGINOUT:
+            TTIM_PRINTF(("msg_server::MsgConn::HandlePdu : CID_LOGIN_REQ_LOGINOUT\n"));
             _HandleLoginOutRequest(pPdu);
             break;
         case CID_LOGIN_REQ_DEVICETOKEN:
@@ -299,6 +311,13 @@ void CMsgConn::HandlePdu(CImPdu* pPdu)
             _HandlePushShieldRequest(pPdu);
             break;
             
+#if __TEAMTALK_REGIST__
+        case CID_LOGIN_REQ_REGIST:
+            TTIM_PRINTF(("msg_server::MsgConn::HandlePdu : CID_LOGIN_REQ_REGIST\n"));
+            _HandleRegistRequest(pPdu);
+            break;
+#endif // __TEAMTALK_REGIST__
+
         case CID_LOGIN_REQ_QUERY_PUSH_SHIELD:
             _HandleQueryPushShieldRequest(pPdu);
             break;
@@ -383,6 +402,7 @@ void CMsgConn::HandlePdu(CImPdu* pPdu)
         case CID_FILE_DEL_OFFLINE_REQ:
             s_file_handler->HandleClientFileDelOfflineReq(this, pPdu);
             break;
+
         default:
             log("wrong msg, cmd id=%d, user id=%u. ", pPdu->GetCommandId(), GetUserId());
             break;
@@ -396,31 +416,42 @@ void CMsgConn::_HandleHeartBeat(CImPdu *pPdu)
 }
 
 // process: send validate request to db server
-void CMsgConn::_HandleLoginRequest(CImPdu* pPdu)
-{
+void CMsgConn::_HandleLoginRequest(CImPdu* pPdu) {
+
+    log("msg_server::MsgConn::_HandleLoginRequest");
+    TTIM_PRINTF(("msg_server::MsgConn::_HandleLoginRequest\n"));
+
     // refuse second validate request
     if (m_login_name.length() != 0) {
+
         log("duplicate LoginRequest in the same conn ");
+        TTIM_PRINTF(("duplicate LoginRequest in the same conn \n"));
+        
         return;
     }
     
     // check if all server connection are OK
-    uint32_t result = 0;
-    string result_string = "";
-    CDBServConn* pDbConn = get_db_serv_conn_for_login();
+    uint32_t     result         = 0;
+    string       result_string  = "";
+    CDBServConn * pDbConn       = get_db_serv_conn_for_login();
+
     if (!pDbConn) {
-        result = IM::BaseDefine::REFUSE_REASON_NO_DB_SERVER;
+
+        result  = IM::BaseDefine::REFUSE_REASON_NO_DB_SERVER;
         result_string = "服务端异常";
 	}
     else if (!is_login_server_available()) {
-        result = IM::BaseDefine::REFUSE_REASON_NO_LOGIN_SERVER;
+
+        result  = IM::BaseDefine::REFUSE_REASON_NO_LOGIN_SERVER;
         result_string = "服务端异常";
 	}
     else if (!is_route_server_available()) {
-        result = IM::BaseDefine::REFUSE_REASON_NO_ROUTE_SERVER;
+
+        result  = IM::BaseDefine::REFUSE_REASON_NO_ROUTE_SERVER;
         result_string = "服务端异常";
     
-}
+    }
+
     if (result) {
         IM::Login::IMLoginRes msg;
         msg.set_server_time(time(NULL));
@@ -435,22 +466,28 @@ void CMsgConn::_HandleLoginRequest(CImPdu* pPdu)
         Close();
         return;
     }
+
     IM::Login::IMLoginReq msg;
     CHECK_PB_PARSE_MSG(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()));
     //假如是汉字，则转成拼音
-    m_login_name = msg.user_name();
-    string password = msg.password();
-    uint32_t online_status = msg.online_status();
+    m_login_name    = msg.user_name();
+    string password         = msg.password();
+    uint32_t online_status  = msg.online_status();
+
     if (online_status < IM::BaseDefine::USER_STATUS_ONLINE || online_status > IM::BaseDefine::USER_STATUS_LEAVE) {
         log("HandleLoginReq, online status wrong: %u ", online_status);
         online_status = IM::BaseDefine::USER_STATUS_ONLINE;
     }
-    m_client_version = msg.client_version();
-    m_client_type = msg.client_type();
-    m_online_status = online_status;
+
+    m_client_version    = msg.client_version();
+    m_client_type       = msg.client_type();
+    m_online_status     = online_status;
+
     log("HandleLoginReq, user_name=%s, status=%u, client_type=%u, client=%s, ",
         m_login_name.c_str(), online_status, m_client_type, m_client_version.c_str());
+        
     CImUser* pImUser = CImUserManager::GetInstance()->GetImUserByLoginName(GetLoginName());
+
     if (!pImUser) {
         pImUser = new CImUser(GetLoginName());
         CImUserManager::GetInstance()->AddImUserByLoginName(GetLoginName(), pImUser);
@@ -470,6 +507,8 @@ void CMsgConn::_HandleLoginRequest(CImPdu* pPdu)
     pdu.SetCommandId(CID_OTHER_VALIDATE_REQ);
     pdu.SetSeqNum(pPdu->GetSeqNum());
     pDbConn->SendPdu(&pdu);
+
+    return;
 }
 
 void CMsgConn::_HandleLoginOutRequest(CImPdu *pPdu)
@@ -498,6 +537,69 @@ void CMsgConn::_HandleLoginOutRequest(CImPdu *pPdu)
     SendPdu(&pdu2);
     Close();
 }
+
+#if __TEAMTALK_REGIST__
+void CMsgConn::_HandleRegistRequest(CImPdu *pPdu) {
+    
+    log("msg_server::MsgConn::_HandleRegistRequest");
+    TTIM_PRINTF(("msg_server::MsgConn::_HandleRegistRequest\n"));
+
+    // check if all server connection are OK
+    IM::Login::RegistResult  result         = IM::Login::REGIST_RESULT_NO_ERROR;
+    string                   result_string  = "";
+    CDBServConn             *pDBConn        = get_db_serv_conn();
+
+    if (!pDBConn) {
+
+        result  = IM::Login::REGIST_RESULT_ERROR_NO_DB_SERVER;
+        result_string = "服务端异常";
+    }
+    else if (!is_login_server_available()) {
+
+        result  = IM::Login::REGIST_RESULT_ERROR_NO_LOGIN_SERVER;
+        result_string = "服务端异常";
+    }
+    else if (!is_route_server_available()) {
+
+        result  = IM::Login::REGIST_RESULT_ERROR_NO_ROUTE_SERVER;
+        result_string = "服务端异常";
+    }
+
+    if (IM::Login::REGIST_RESULT_NO_ERROR != result) {
+
+        IM::Login::IMRegistRes cRegistRes;
+        cRegistRes.set_server_time(time(NULL));
+        cRegistRes.set_result_code(result);
+        cRegistRes.set_result_string(result_string);
+
+        CImPdu pdu;
+        pdu.SetPBMsg(&cRegistRes);
+        pdu.SetServiceId(SID_LOGIN);
+        pdu.SetCommandId(CID_LOGIN_RES_USERLOGIN);
+        pdu.SetSeqNum(pPdu->GetSeqNum());
+        SendPdu(&pdu);
+        Close();
+
+        return;
+    }
+
+    IM::Login::IMRegistReq cMSG;
+    CHECK_PB_PARSE_MSG(cMSG.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()));
+
+    log("_HandleRegistRequest. user_name=%s", cMSG.user_name().c_str());
+    TTIM_PRINTF(("msg_server::MsgConn::_HandleRegistRequest user_name: %s\n", cMSG.user_name().c_str()));
+    TTIM_PRINTF(("msg_server::MsgConn::_HandleRegistRequest password : %s\n", cMSG.password().c_str()));
+
+    if (pDBConn) {
+
+        pPdu->SetPBMsg(&cMSG);
+        pDBConn->SendPdu(pPdu);
+
+    } /* End if () */
+
+    return;
+}
+#endif // __TEAMTALK_REGIST__
 
 void CMsgConn::_HandleKickPCClient(CImPdu *pPdu)
 {

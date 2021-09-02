@@ -17,7 +17,7 @@
  */
 - (int)requestTimeOutTimeInterval
 {
-    return 5;
+   return 5;
 }
 
 /**
@@ -27,7 +27,7 @@
  */
 - (int)requestServiceID
 {
-    return SID_BUDDY_LIST;
+   return ServiceIDSidBuddyList;
 }
 
 /**
@@ -37,7 +37,7 @@
  */
 - (int)responseServiceID
 {
-    return SID_BUDDY_LIST;
+   return ServiceIDSidBuddyList;
 }
 
 /**
@@ -47,7 +47,8 @@
  */
 - (int)requestCommendID
 {
-    return IM_CHANGE_SIGN_INFO_REQ;
+//   return IM_CHANGE_SIGN_INFO_REQ;
+   return BuddyListCmdIDCidBuddyListChangeSignInfoRequest;
 }
 
 /**
@@ -57,7 +58,8 @@
  */
 - (int)responseCommendID
 {
-    return IM_CHANGE_SIGN_INFO_RES;
+//   return IM_CHANGE_SIGN_INFO_RES;
+   return BuddyListCmdIDCidBuddyListChangeSignInfoResponse;
 }
 
 /**
@@ -67,12 +69,12 @@
  */
 - (Analysis)analysisReturnData
 {
-    Analysis analysis = (id)^(NSData* data)
-    {
-        IMChangeSignInfoRsp *changeSignRsp = [IMChangeSignInfoRsp parseFromData:data];
-        return changeSignRsp.resultCode;
-    };
-    return analysis;
+   Analysis analysis = (id)^(NSData* data)
+   {
+      IMChangeSignInfoRsp *changeSignRsp = [IMChangeSignInfoRsp parseFromData:data];
+      return changeSignRsp.resultCode;
+   };
+   return analysis;
 }
 
 /**
@@ -82,23 +84,23 @@
  */
 - (Package)packageRequestObject
 {
-    Package package = (id)^(id object,uint16_t seqNo)
-    {
-        NSArray* array = (NSArray*)object;
-        NSString* signInfo= array[0];
-        IMChangeSignInfoReqBuilder *changeSign = [IMChangeSignInfoReq builder];
-        [changeSign setUserId:[MTTUserEntity localIDTopb:TheRuntime.user.objID]];
-        [changeSign setSignInfo:signInfo];
-        
-        DDDataOutputStream *dataout = [[DDDataOutputStream alloc] init];
-        [dataout writeInt:0];
-        [dataout writeTcpProtocolHeader:SID_BUDDY_LIST
-                                    cId:IM_CHANGE_SIGN_INFO_REQ
-                                  seqNo:seqNo];
-        [dataout directWriteBytes:[changeSign build].data];
-        [dataout writeDataCount];
-        return [dataout toByteArray];
-    };
-    return package;
+   Package package = (id)^(id object,uint16_t seqNo)
+   {
+      NSArray* array = (NSArray*)object;
+      NSString* signInfo= array[0];
+      IMChangeSignInfoReqBuilder *changeSign = [IMChangeSignInfoReq builder];
+      [changeSign setUserId:[MTTUserEntity localIDTopb:TheRuntime.user.objID]];
+      [changeSign setSignInfo:signInfo];
+      
+      DDDataOutputStream *dataout = [[DDDataOutputStream alloc] init];
+      [dataout writeInt:0];
+      [dataout writeTcpProtocolHeader:[self requestServiceID]
+                                  cId:[self requestCommendID]
+                                seqNo:seqNo];
+      [dataout directWriteBytes:[changeSign build].data];
+      [dataout writeDataCount];
+      return [dataout toByteArray];
+   };
+   return package;
 }
 @end

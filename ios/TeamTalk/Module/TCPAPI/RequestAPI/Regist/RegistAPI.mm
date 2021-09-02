@@ -1,20 +1,22 @@
 //
-//  DDLoginAPI.m
+//  RegistAPI.m
 //  Duoduo
 //
 //  Created by 独嘉 on 14-5-6.
 //  Copyright (c) 2015年 MoguIM All rights reserved.
 //
 
-#import "LoginAPI.h"
+#import "RegistAPI.h"
 #import "MTTUserEntity.h"
-#import "IMLogin.pb.h"
-#import "IMBaseDefine.pb.h"
 #import "MTTUserEntity.h"
 #import "security.h"
 #import "NSString+Additions.h"
 
-@implementation LoginAPI
+#import "IMBaseDefine.pb.h"
+#import "IMLogin.pb.h"
+#import "IMRegist.pb.h"
+
+@implementation RegistAPI
 /**
  *  请求超时时间
  *
@@ -52,7 +54,7 @@
  */
 - (int)requestCommendID {
    
-   return LoginCmdIDCidLoginReqUserlogin;
+   return LoginCmdIDCidLoginReqRegist;
 }
 
 /**
@@ -62,7 +64,7 @@
  */
 - (int)responseCommendID {
    
-   return LoginCmdIDCidLoginResUserlogin;
+   return LoginCmdIDCidLoginResRegist;
 }
 
 /**
@@ -114,18 +116,18 @@
       NSString * strMsg = object[1];
       DDDataOutputStream *dataout = [[DDDataOutputStream alloc] init];
       [dataout writeInt:0];
-      [dataout writeTcpProtocolHeader:[self responseServiceID]
+      [dataout writeTcpProtocolHeader:[self requestServiceID]
                                   cId:[self requestCommendID]
                                 seqNo:seqNo];
       
-      IMLoginReqBuilder *login = [IMLoginReq builder];
-      [login setUserName:object[0]];
-      [login setPassword:[strMsg MD5]];
-      [login setClientType:ClientTypeClientTypeIos];
-      [login setClientVersion:clientVersion];
-      [login setOnlineStatus:UserStatTypeUserStatusOnline];
+      IMRegistReqBuilder   *stRegist   = [IMRegistReq builder];
+      [stRegist setUserName:object[0]];
+      [stRegist setPassword:[strMsg MD5]];
+      [stRegist setClientType:ClientTypeClientTypeIos];
+      [stRegist setClientVersion:clientVersion];
+//      [stRegist setOnlineStatus:UserStatTypeUserStatusOnline];
       
-      [dataout directWriteBytes:[login build].data];
+      [dataout directWriteBytes:[stRegist build].data];
       [dataout writeDataCount];
       
       return [dataout toByteArray];

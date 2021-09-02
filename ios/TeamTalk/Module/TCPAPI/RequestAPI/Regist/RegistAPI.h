@@ -1,5 +1,5 @@
 //
-//  DDLoginAPI.h
+//  RegistAPI.h
 //  Duoduo
 //
 //  Created by 独嘉 on 14-5-6.
@@ -8,6 +8,6 @@
 
 #import "DDSuperAPI.h"
 
-@interface LoginAPI : DDSuperAPI<DDAPIScheduleProtocol>
+@interface RegistAPI : DDSuperAPI<DDAPIScheduleProtocol>
 
 @end

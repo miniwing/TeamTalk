@@ -8,7 +8,10 @@
 
 #import "RegistMsgServer.h"
 #import "DDTcpClientManager.h"
-#import "LoginAPI.h"
+
+#import "RegistAPI.h"
+
+#import "IMBaseDefine.pb.h"
 
 #if __TEAMTALK_REGIST__
 
@@ -46,77 +49,88 @@ typedef void(^CheckFailure)(NSError* error);
     return self;
 }
 
--(void)checkUserID:(NSString*)userID Pwd:(NSString *)password token:(NSString*)token success:(void(^)(id object))success failure:(void(^)(id object))failure {
+- (void)registUserName:(NSString*)aUserName
+              password:(NSString *)password
+               success:(void(^)(id object))success
+               failure:(void(^)(id object))failure {
     
-    if (!_connecting) {
-        
-        NSNumber* clientType = @(17);
-        NSString *clientVersion = [NSString stringWithFormat:@"MAC/%@-%@",[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"],[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"]];
-        NSArray* parameter = @[userID,password,clientVersion,clientType];
-        
-        LoginAPI* api = [[LoginAPI alloc] init];
-        [api requestWithObject:parameter Completion:^(id response, NSError *error) {
-            debugLog(@"%@", response);
-            debugLog(@"%@", error.description);
-            if (!error) {
-                
-                if (response) {
-                    
-                    NSInteger code =[response[@"code"] integerValue];
-                    if (code !=0) {
-                        NSString *errString= @"";
-                        switch (code) {
-                        case 0:
-                            errString=@"登陆异常";
-                            break;
-                        case 1:
-                            errString=@"连接服务器失败";
-                            break;
-                        case 2:
-                            errString=@"连接服务器失败";
-                            break;
-                        case 3:
-                            errString=@"连接服务器失败";
-                            break;
-                        case 4:
-                            errString=@"连接服务器失败";
-                            break;
-                        case 5:
-                            errString=@"连接服务器失败";
-                            break;
-                        case 6:
-                            errString=@"用户名或密码错误";
-                            break;
-                        case 7:
-                            errString=@"版本过低";
-                            break;
-                            
-                        default:
-                            break;
-                        }
-                        debugLog(@"%@", errString);
-                        NSError *error1 = [NSError errorWithDomain:errString code:code userInfo:nil];
-                        failure(error1);
-                    }
-                    else {
-                        NSString *resultString =response[@"resultString"];
-                        if (resultString == nil) {
-                            success(response);
-                        }
-                    }
-                }
-                
-                
-                
+   int                            nErr                                     = EFAULT;
+   
+   __TRY;
+
+   if (!_connecting) {
+      
+      NSNumber    *clientType    = @(ClientTypeClientTypeIos);
+      NSString    *clientVersion = [NSString stringWithFormat:@"MAC/%@-%@",[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"],[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"]];
+      NSArray     *parameter     = @[aUserName, password, clientVersion, clientType];
+      
+      RegistAPI   *stRegistAPI   = [[RegistAPI alloc] init];
+      
+      [stRegistAPI requestWithObject:parameter Completion:^(id response, NSError *error) {
+         
+         LogDebug((@"%@", response));
+         LogDebug((@"%@", error.description));
+         
+         if (!error) {
+            
+            if (response) {
+               
+               NSInteger code =[response[@"code"] integerValue];
+               if (code !=0) {
+                  NSString *errString= @"";
+                  switch (code) {
+                     case 0:
+                        errString=@"登陆异常";
+                        break;
+                     case 1:
+                        errString=@"连接服务器失败";
+                        break;
+                     case 2:
+                        errString=@"连接服务器失败";
+                        break;
+                     case 3:
+                        errString=@"连接服务器失败";
+                        break;
+                     case 4:
+                        errString=@"连接服务器失败";
+                        break;
+                     case 5:
+                        errString=@"连接服务器失败";
+                        break;
+                     case 6:
+                        errString=@"用户名或密码错误";
+                        break;
+                     case 7:
+                        errString=@"版本过低";
+                        break;
+                        
+                     default:
+                        break;
+                  }
+                  debugLog(@"%@", errString);
+                  NSError *error1 = [NSError errorWithDomain:errString code:code userInfo:nil];
+                  failure(error1);
+               }
+               else {
+                  NSString *resultString =response[@"resultString"];
+                  if (resultString == nil) {
+                     success(response);
+                  }
+               }
             }
-            else {
-                
-                LogDebug((@"error:%@",[error domain]));
-                
-                failure(error);
-            }
-        }];
-    }
+         }
+         else {
+            
+            DDLog(@"error:%@",[error domain]);
+            
+            failure(error);
+         }
+      }];
+   }
+   
+   __CATCH(nErr);
+   
+   return;
 }
 
 @end

@@ -50,7 +50,6 @@
 
 #define IMRegistReq_user_name @"userName"
 #define IMRegistReq_password @"password"
-#define IMRegistReq_online_status @"onlineStatus"
 #define IMRegistReq_client_type @"clientType"
 #define IMRegistReq_client_version @"clientVersion"
 @interface IMRegistReq : PBGeneratedMessage<GeneratedMessageProtocol> {
@@ -58,22 +57,18 @@
   BOOL hasUserName_:1;
   BOOL hasPassword_:1;
   BOOL hasClientVersion_:1;
-  BOOL hasOnlineStatus_:1;
   BOOL hasClientType_:1;
   NSString* userName;
   NSString* password;
   NSString* clientVersion;
-  UserStatType onlineStatus;
   ClientType clientType;
 }
 - (BOOL) hasUserName;
 - (BOOL) hasPassword;
-- (BOOL) hasOnlineStatus;
 - (BOOL) hasClientType;
 - (BOOL) hasClientVersion;
 @property (readonly, strong) NSString* userName;
 @property (readonly, strong) NSString* password;
-@property (readonly) UserStatType onlineStatus;
 @property (readonly) ClientType clientType;
 @property (readonly, strong) NSString* clientVersion;
 
@@ -122,11 +117,6 @@
 - (IMRegistReqBuilder*) setPassword:(NSString*) value;
 - (IMRegistReqBuilder*) clearPassword;
 
-- (BOOL) hasOnlineStatus;
-- (UserStatType) onlineStatus;
-- (IMRegistReqBuilder*) setOnlineStatus:(UserStatType) value;
-- (IMRegistReqBuilder*) clearOnlineStatus;
-
 - (BOOL) hasClientType;
 - (ClientType) clientType;
 - (IMRegistReqBuilder*) setClientType:(ClientType) value;
@@ -141,7 +131,6 @@
 #define IMRegistRes_server_time @"serverTime"
 #define IMRegistRes_result_code @"resultCode"
 #define IMRegistRes_result_string @"resultString"
-#define IMRegistRes_online_status @"onlineStatus"
 #define IMRegistRes_user_info @"userInfo"
 @interface IMRegistRes : PBGeneratedMessage<GeneratedMessageProtocol> {
 @private
@@ -149,22 +138,18 @@
   BOOL hasUserInfo_:1;
   BOOL hasServerTime_:1;
   BOOL hasResultCode_:1;
-  BOOL hasOnlineStatus_:1;
   NSString* resultString;
   UserInfo* userInfo;
   UInt32 serverTime;
   ResultType resultCode;
-  UserStatType onlineStatus;
 }
 - (BOOL) hasServerTime;
 - (BOOL) hasResultCode;
 - (BOOL) hasResultString;
-- (BOOL) hasOnlineStatus;
 - (BOOL) hasUserInfo;
 @property (readonly) UInt32 serverTime;
 @property (readonly) ResultType resultCode;
 @property (readonly, strong) NSString* resultString;
-@property (readonly) UserStatType onlineStatus;
 @property (readonly, strong) UserInfo* userInfo;
 
 + (instancetype) defaultInstance;
@@ -216,11 +201,6 @@
 - (NSString*) resultString;
 - (IMRegistResBuilder*) setResultString:(NSString*) value;
 - (IMRegistResBuilder*) clearResultString;
-
-- (BOOL) hasOnlineStatus;
-- (UserStatType) onlineStatus;
-- (IMRegistResBuilder*) setOnlineStatus:(UserStatType) value;
-- (IMRegistResBuilder*) clearOnlineStatus;
 
 - (BOOL) hasUserInfo;
 - (UserInfo*) userInfo;

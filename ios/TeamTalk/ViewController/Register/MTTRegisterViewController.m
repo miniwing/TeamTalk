@@ -101,6 +101,11 @@
    .topSpaceToView(_passTextField, 60)
    .centerXEqualToView(self.view);
    
+#if __Debug__
+   [self.accountTextField setText:@"AAAAA"];
+   [self.passTextField setText:@"AAAAA"];
+#endif /* __Debug__ */
+   
    __CATCH(nErr);
    
    return;
@@ -130,14 +135,26 @@
       break;
    }
    
+   MBProgressHUD *HUD   = [[MBProgressHUD alloc] initWithView:self.view];
+   [self.view addSubview:HUD];
+   [HUD show:YES];
+   HUD.dimBackground    = YES;
+   HUD.labelText = @"正在注册";
+
    [[RegistModule instance] registWithUsername:szAccount
                                       password:szPassword
                                        success:^(MTTUserEntity *aUser) {
       
+      [HUD removeFromSuperview];
+
       LogDebug((@"-[MTTRegisterViewController ]regist"));
    }
                                        failure:^(NSString *aError) {
       
+      [HUD removeFromSuperview];
+      
+      [OHAlertView showAlertWithTitle:@"提示" message:aError dismissButton:@"好的"];
+
    }];
    
    __CATCH(nErr);

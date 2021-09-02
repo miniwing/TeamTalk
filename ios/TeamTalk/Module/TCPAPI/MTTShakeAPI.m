@@ -7,6 +7,8 @@
 //
 
 #import "MTTShakeAPI.h"
+
+#import "IMBaseDefine.pb.h"
 #import "IMSwitchService.pb.h"
 
 @implementation MTTShakeAPI
@@ -27,7 +29,7 @@
  */
 - (int)requestServiceID
 {
-    return SID_SWITCH_SERVICE;
+    return ServiceIDSidSwitchService;
 }
 
 /**
@@ -37,7 +39,7 @@
  */
 - (int)responseServiceID
 {
-    return SID_SWITCH_SERVICE;
+    return ServiceIDSidSwitchService;
 }
 
 /**
@@ -47,7 +49,7 @@
  */
 - (int)requestCommendID
 {
-    return IM_P2P_CMD_MSG;
+    return SwitchServiceCmdIDCidSwitchP2PCmd;
 }
 
 /**
@@ -57,7 +59,7 @@
  */
 - (int)responseCommendID
 {
-    return IM_P2P_CMD_MSG;
+    return SwitchServiceCmdIDCidSwitchP2PCmd;
 }
 
 /**
@@ -93,8 +95,8 @@
         
         DDDataOutputStream *dataout = [[DDDataOutputStream alloc] init];
         [dataout writeInt:0];
-        [dataout writeTcpProtocolHeader:SID_SWITCH_SERVICE
-                                    cId:IM_P2P_CMD_MSG
+        [dataout writeTcpProtocolHeader:[self requestServiceID]
+                                    cId:[self requestCommendID]
                                   seqNo:seqNo];
         [dataout directWriteBytes:[shakePC build].data];
         [dataout writeDataCount];

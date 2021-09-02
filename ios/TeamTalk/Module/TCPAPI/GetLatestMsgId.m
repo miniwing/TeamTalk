@@ -7,7 +7,10 @@
 //
 
 #import "GetLatestMsgId.h"
+
+#import "IMBaseDefine.pb.h"
 #import "IMMessage.pb.h"
+
 @implementation GetLatestMsgId
 - (int)requestTimeOutTimeInterval
 {
@@ -21,7 +24,7 @@
  */
 - (int)requestServiceID
 {
-    return SID_MSG;
+    return ServiceIDSidMsg;
 }
 
 /**
@@ -31,7 +34,7 @@
  */
 - (int)responseServiceID
 {
-    return SID_MSG;
+    return ServiceIDSidMsg;
 }
 
 /**
@@ -41,7 +44,7 @@
  */
 - (int)requestCommendID
 {
-    return IM_GET_LASTEST_MSGID_REQ;
+    return MessageCmdIDCidMsgGetLatestMsgIdReq;
 }
 
 /**
@@ -51,7 +54,7 @@
  */
 - (int)responseCommendID
 {
-    return IM_GET_LASTEST_MSGID_RES;
+    return MessageCmdIDCidMsgGetLatestMsgIdRsp;
 }
 
 /**
@@ -87,8 +90,8 @@
         
         DDDataOutputStream *dataout = [[DDDataOutputStream alloc] init];
         [dataout writeInt:0];
-        [dataout writeTcpProtocolHeader:SID_MSG
-                                    cId:IM_GET_LASTEST_MSGID_REQ
+        [dataout writeTcpProtocolHeader:[self responseServiceID]
+                                    cId:[self requestCommendID]
                                   seqNo:seqNo];
         [dataout directWriteBytes:[req build].data];
         [dataout writeDataCount];

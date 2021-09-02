@@ -8,8 +8,9 @@
 #ifndef MSGCONN_H_
 #define MSGCONN_H_
 
-#include "imconn.h"
+#include "TTIMConfig.h"
 
+#include "imconn.h"
 
 #define KICK_FROM_ROUTE_SERVER 		1
 #define MAX_ONLINE_FRIEND_CNT		100	//通知好友状态通知的最多个数
@@ -57,6 +58,11 @@ public:
 private:
     void _HandleHeartBeat(CImPdu* pPdu);
 	void _HandleLoginRequest(CImPdu* pPdu);
+
+#if __TEAMTALK_REGIST__
+	void _HandleRegistRequest(CImPdu* pPdu);
+#endif /* __TEAMTALK_REGIST__ */
+
     void _HandleLoginOutRequest(CImPdu* pPdu);
     void _HandleClientRecentContactSessionRequest(CImPdu* pPdu);
 	void _HandleClientMsgData(CImPdu* pPdu);

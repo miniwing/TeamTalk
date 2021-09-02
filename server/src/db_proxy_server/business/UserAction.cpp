@@ -25,12 +25,12 @@
 
 namespace DB_PROXY {
 
-    void getUserInfo(CImPdu* pPdu, uint32_t conn_uuid)
-    {
+    void getUserInfo(CImPdu* pPdu, uint32_t conn_uuid) {
+
         IM::Buddy::IMUsersInfoReq msg;
         IM::Buddy::IMUsersInfoRsp msgResp;
-        if(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()))
-        {
+        if(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength())) {
+
             CImPdu* pPduRes = new CImPdu;
             
             uint32_t from_user_id = msg.user_id();
@@ -39,22 +39,21 @@ namespace DB_PROXY {
             for(uint32_t i = 0; i < userCount;++i) {
     		idList.push_back(msg.user_id_list(i));
             }
-	std::list<IM::BaseDefine::UserInfo> lsUser;
+	        std::list<IM::BaseDefine::UserInfo> lsUser;
             CUserModel::getInstance()->getUsers(idList, lsUser);
-msgResp.set_user_id(from_user_id);
-            for(list<IM::BaseDefine::UserInfo>::iterator it=lsUser.begin();
-                it!=lsUser.end(); ++it)
-            {
+            msgResp.set_user_id(from_user_id);
+            for(list<IM::BaseDefine::UserInfo>::iterator it=lsUser.begin(); it!=lsUser.end(); ++it) {
+
                 IM::BaseDefine::UserInfo* pUser = msgResp.add_user_info_list();
     //            *pUser = *it;
              
-   pUser->set_user_id(it->user_id());
+                pUser->set_user_id(it->user_id());
                 pUser->set_user_gender(it->user_gender());
                 pUser->set_user_nick_name(it->user_nick_name());
                 pUser->set_avatar_url(it->avatar_url());
 
                 pUser->set_sign_info(it->sign_info());
-    pUser->set_department_id(it->department_id());
+                pUser->set_department_id(it->department_id());
                 pUser->set_email(it->email());
                 pUser->set_user_real_name(it->user_real_name());
                 pUser->set_user_tel(it->user_tel());
@@ -219,6 +218,35 @@ msgResp.set_user_id(from_user_id);
             CProxyConn::AddResponsePdu(conn_uuid, pdu_resp);
         } else {
             log("doQueryPushShield: IMQueryPushShieldReq ParseFromArray failed!!!");
+        }
+    }
+
+    void modifyUserPass(CImPdu* pPdu, uint32_t conn_uuid)
+    {
+        IM::Login::IMModifyPassReq msg;
+        IM::Login::IMModifyPassRes msgResp;
+        if(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()))
+        {
+            CImPdu* pPduRes = new CImPdu;
+            
+            uint32_t nUserId = msg.user_id();
+            string strOldPass = msg.old_pass();
+            string strNewPass = msg.new_pass();
+            uint32_t nRet = CUserModel::getInstance()->modifyUserPass(nUserId, strOldPass, strNewPass);
+            
+            log("modifyUserPass. userId=%u, result=%d.", nUserId, nRet);
+            msgResp.set_user_id(nUserId);
+            msgResp.set_status(nRet);
+            msgResp.set_attach_data(msg.attach_data());
+            pPduRes->SetPBMsg(&msgResp);
+            pPduRes->SetSeqNum(pPdu->GetSeqNum());
+            pPduRes->SetServiceId(IM::BaseDefine::SID_LOGIN);
+            pPduRes->SetCommandId(IM::BaseDefine::CID_LOGIN_RES_MODIFY_PASS);
+            CProxyConn::AddResponsePdu(conn_uuid, pPduRes);
+        }
+        else
+        {
+            log("parse pb failed");
         }
     }
 };

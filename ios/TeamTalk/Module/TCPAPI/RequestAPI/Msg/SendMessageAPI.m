@@ -26,7 +26,7 @@
  */
 - (int)requestServiceID
 {
-    return SID_MSG;
+    return ServiceIDSidMsg;
 }
 
 /**
@@ -36,7 +36,7 @@
  */
 - (int)responseServiceID
 {
-    return SID_MSG;
+    return ServiceIDSidMsg;
 }
 
 /**
@@ -46,7 +46,7 @@
  */
 - (int)requestCommendID
 {
-    return IM_MSG_DATA;
+    return MessageCmdIDCidMsgData;
 }
 
 /**
@@ -56,7 +56,7 @@
  */
 - (int)responseCommendID
 {
-    return IM_MSG_DATA_ACK;
+    return MessageCmdIDCidMsgDataAck;
 }
 
 /**
@@ -98,7 +98,7 @@
         [msgdata setCreateTime:0];
         DDDataOutputStream *dataout = [[DDDataOutputStream alloc] init];
         [dataout writeInt:0];
-        [dataout writeTcpProtocolHeader:SID_MSG cId:IM_MSG_DATA seqNo:seqNo];
+        [dataout writeTcpProtocolHeader:[self requestServiceID] cId:[self requestCommendID] seqNo:seqNo];
         [dataout directWriteBytes:[msgdata build].data];
         [dataout writeDataCount];
         return [dataout toByteArray];

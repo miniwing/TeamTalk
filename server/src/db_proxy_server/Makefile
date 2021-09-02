@@ -642,6 +642,30 @@ business/RecentSession.cpp.s:
 	$(MAKE) -f CMakeFiles/db_proxy_server.dir/build.make CMakeFiles/db_proxy_server.dir/business/RecentSession.cpp.s
 .PHONY : business/RecentSession.cpp.s
 
+business/Regist.o: business/Regist.cpp.o
+.PHONY : business/Regist.o
+
+# target to build an object file
+business/Regist.cpp.o:
+	$(MAKE) -f CMakeFiles/db_proxy_server.dir/build.make CMakeFiles/db_proxy_server.dir/business/Regist.cpp.o
+.PHONY : business/Regist.cpp.o
+
+business/Regist.i: business/Regist.cpp.i
+.PHONY : business/Regist.i
+
+# target to preprocess a source file
+business/Regist.cpp.i:
+	$(MAKE) -f CMakeFiles/db_proxy_server.dir/build.make CMakeFiles/db_proxy_server.dir/business/Regist.cpp.i
+.PHONY : business/Regist.cpp.i
+
+business/Regist.s: business/Regist.cpp.s
+.PHONY : business/Regist.s
+
+# target to generate assembly for a file
+business/Regist.cpp.s:
+	$(MAKE) -f CMakeFiles/db_proxy_server.dir/build.make CMakeFiles/db_proxy_server.dir/business/Regist.cpp.s
+.PHONY : business/Regist.cpp.s
+
 business/RelationModel.o: business/RelationModel.cpp.o
 .PHONY : business/RelationModel.o
 
@@ -837,6 +861,9 @@ help:
 	@echo "... business/RecentSession.o"
 	@echo "... business/RecentSession.i"
 	@echo "... business/RecentSession.s"
+	@echo "... business/Regist.o"
+	@echo "... business/Regist.i"
+	@echo "... business/Regist.s"
 	@echo "... business/RelationModel.o"
 	@echo "... business/RelationModel.i"
 	@echo "... business/RelationModel.s"

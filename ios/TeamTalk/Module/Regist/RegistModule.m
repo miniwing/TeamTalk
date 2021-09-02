@@ -1,5 +1,5 @@
 //
-//  DDLoginManager.m
+//  DDRegistManager.m
 //  TeamTalk
 //
 //  Created by Harry on 2020/6/24.
@@ -19,7 +19,6 @@
 #import "MTTDatabaseUtil.h"
 #import "DDAllUserAPI.h"
 #import "DDAllFriendAPI.h"
-#import "LoginAPI.h"
 #import "MTTNotification.h"
 #import "SessionModule.h"
 #import "DDGroupModule.h"
@@ -81,48 +80,72 @@
 /// @param password 密码
 /// @param success 成功回调
 /// @param failure 失败回调
-- (void)registWithUsername:(NSString*)name
-                  password:(NSString*)password
+- (void)registWithUsername:(NSString*)aName
+                  password:(NSString*)aPassword
                    success:(void(^)(MTTUserEntity* loginedUser))success
                    failure:(void(^)(NSString* error))failure {
-    
-    [_httpServer getMsgIp:^(NSDictionary *aDictionary) {
-        
-        LogDebug((@"-[RegistModule registWithUsername:password:success:failure:] : getMsgIp : %@", aDictionary));
-        
-        NSInteger code  = [[aDictionary objectForKey:@"code"] integerValue];
-        
-        if (code == 0) {
-            _priorIP = [aDictionary objectForKey:@"priorIP"];
-            
+   
+   [_httpServer getMsgIp:^(NSDictionary *aDictionary) {
+      
+      LogDebug((@"-[RegistModule registWithUsername:password:success:failure:] : getMsgIp : %@", aDictionary));
+      
+      NSInteger code  = [[aDictionary objectForKey:@"code"] integerValue];
+      
+      if (code == 0) {
+         _priorIP = [aDictionary objectForKey:@"priorIP"];
+         
 #if __TEAMTALK_HARRY__
-            if ([_priorIP isEqualToString:@"10.211.55.13"]) {
-                
-                _priorIP = __TEAMTALK_HOST__;
-                
-            } /* End if () */
+         if ([_priorIP isEqualToString:@"10.211.55.13"]) {
+            
+            _priorIP = __TEAMTALK_HOST__;
+            
+         } /* End if () */
 #endif /* __TEAMTALK_HARRY__ */
+         
+         _port    =  [[aDictionary objectForKey:@"port"] integerValue];
+         
+         [MTTUtil setMsfsUrl:[aDictionary objectForKey:@"msfsPrior"]];
+         
+         [_tcpServer registTcpServerIP:_priorIP
+                                  port:_port
+                               success:^{
             
-            _port    =  [[aDictionary objectForKey:@"port"] integerValue];
-            
-            [MTTUtil setMsfsUrl:[aDictionary objectForKey:@"msfsPrior"]];
-            
-            [_tcpServer registTcpServerIP:_priorIP
-                                     port:_port
-                                  success:^{
-                
+            [_msgServer registUserName:aName
+                              password:aPassword
+                               success:^(id aObject) {
+               
+               LogDebug((@"[RegistModule registWithUsername:password:success:failure:] : success : Object : %@", aObject));
+               
+               if (success) {
+                  
+                  success(aObject);
+                  
+               } /* End if () */
             }
-                                 failure:^{
-                debugLog(@"连接消息服务器失败");
-                failure(@"连接消息服务器失败");
+                               failure:^(NSError *aError) {
+               
+               LogDebug((@"[RegistModule registWithUsername:password:success:failure:] : failure : Error : %@", aError));
+               
+               if (failure) {
+                  
+                  failure(aError.domain);
+                  
+               } /* End if () */
+
             }];
-        }
-    }
-                  failure:^(NSString *error) {
-        debugLog(@"%@", error.description);
-        failure(@"连接消息服务器失败");
-    }];
-    
+         }
+                               failure:^{
+            debugLog(@"连接消息服务器失败");
+            failure(@"连接消息服务器失败");
+            
+         }];
+      }
+   }
+                 failure:^(NSString *error) {
+      debugLog(@"%@", error.description);
+      failure(@"连接消息服务器失败");
+   }];
+   
 }
 
 @end
