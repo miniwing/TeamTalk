@@ -333,7 +333,7 @@ static IMRecentContactSessionReq* defaultIMRecentContactSessionReqInstance = nil
 
 @interface IMRecentContactSessionRsp ()
 @property UInt32 userId;
-@property (strong) NSMutableArray * contactSessionListArray;
+@property (strong) NSMutableArray<ContactSessionInfo*> * contactSessionListArray;
 @property (strong) NSData* attachData;
 @end
 
@@ -374,7 +374,7 @@ static IMRecentContactSessionRsp* defaultIMRecentContactSessionRspInstance = nil
 - (instancetype) defaultInstance {
   return defaultIMRecentContactSessionRspInstance;
 }
-- (NSArray *)contactSessionList {
+- (NSArray<ContactSessionInfo*> *)contactSessionList {
   return contactSessionListArray;
 }
 - (ContactSessionInfo*)contactSessionListAtIndex:(NSUInteger)index {
@@ -622,7 +622,7 @@ static IMRecentContactSessionRsp* defaultIMRecentContactSessionRspInstance = nil
   resultImrecentContactSessionRsp.userId = 0;
   return self;
 }
-- (NSMutableArray *)contactSessionList {
+- (NSMutableArray<ContactSessionInfo*> *)contactSessionList {
   return resultImrecentContactSessionRsp.contactSessionListArray;
 }
 - (ContactSessionInfo*)contactSessionListAtIndex:(NSUInteger)index {
@@ -635,7 +635,7 @@ static IMRecentContactSessionRsp* defaultIMRecentContactSessionRspInstance = nil
   [resultImrecentContactSessionRsp.contactSessionListArray addObject:value];
   return self;
 }
-- (IMRecentContactSessionRspBuilder *)setContactSessionListArray:(NSArray *)array {
+- (IMRecentContactSessionRspBuilder *)setContactSessionListArray:(NSArray<ContactSessionInfo*> *)array {
   resultImrecentContactSessionRsp.contactSessionListArray = [[NSMutableArray alloc]initWithArray:array];
   return self;
 }
@@ -1232,7 +1232,7 @@ static IMUsersInfoReq* defaultIMUsersInfoReqInstance = nil;
 
 @interface IMUsersInfoRsp ()
 @property UInt32 userId;
-@property (strong) NSMutableArray * userInfoListArray;
+@property (strong) NSMutableArray<UserInfo*> * userInfoListArray;
 @property (strong) NSData* attachData;
 @end
 
@@ -1273,7 +1273,7 @@ static IMUsersInfoRsp* defaultIMUsersInfoRspInstance = nil;
 - (instancetype) defaultInstance {
   return defaultIMUsersInfoRspInstance;
 }
-- (NSArray *)userInfoList {
+- (NSArray<UserInfo*> *)userInfoList {
   return userInfoListArray;
 }
 - (UserInfo*)userInfoListAtIndex:(NSUInteger)index {
@@ -1521,7 +1521,7 @@ static IMUsersInfoRsp* defaultIMUsersInfoRspInstance = nil;
   resultImusersInfoRsp.userId = 0;
   return self;
 }
-- (NSMutableArray *)userInfoList {
+- (NSMutableArray<UserInfo*> *)userInfoList {
   return resultImusersInfoRsp.userInfoListArray;
 }
 - (UserInfo*)userInfoListAtIndex:(NSUInteger)index {
@@ -1534,7 +1534,7 @@ static IMUsersInfoRsp* defaultIMUsersInfoRspInstance = nil;
   [resultImusersInfoRsp.userInfoListArray addObject:value];
   return self;
 }
-- (IMUsersInfoRspBuilder *)setUserInfoListArray:(NSArray *)array {
+- (IMUsersInfoRspBuilder *)setUserInfoListArray:(NSArray<UserInfo*> *)array {
   resultImusersInfoRsp.userInfoListArray = [[NSMutableArray alloc]initWithArray:array];
   return self;
 }
@@ -2659,7 +2659,7 @@ static IMAllUserReq* defaultIMAllUserReqInstance = nil;
 @interface IMAllUserRsp ()
 @property UInt32 userId;
 @property UInt32 latestUpdateTime;
-@property (strong) NSMutableArray * userListArray;
+@property (strong) NSMutableArray<UserInfo*> * userListArray;
 @property (strong) NSData* attachData;
 @end
 
@@ -2708,7 +2708,7 @@ static IMAllUserRsp* defaultIMAllUserRspInstance = nil;
 - (instancetype) defaultInstance {
   return defaultIMAllUserRspInstance;
 }
-- (NSArray *)userList {
+- (NSArray<UserInfo*> *)userList {
   return userListArray;
 }
 - (UserInfo*)userListAtIndex:(NSUInteger)index {
@@ -2999,7 +2999,7 @@ static IMAllUserRsp* defaultIMAllUserRspInstance = nil;
   resultImallUserRsp.latestUpdateTime = 0;
   return self;
 }
-- (NSMutableArray *)userList {
+- (NSMutableArray<UserInfo*> *)userList {
   return resultImallUserRsp.userListArray;
 }
 - (UserInfo*)userListAtIndex:(NSUInteger)index {
@@ -3012,7 +3012,7 @@ static IMAllUserRsp* defaultIMAllUserRspInstance = nil;
   [resultImallUserRsp.userListArray addObject:value];
   return self;
 }
-- (IMAllUserRspBuilder *)setUserListArray:(NSArray *)array {
+- (IMAllUserRspBuilder *)setUserListArray:(NSArray<UserInfo*> *)array {
   resultImallUserRsp.userListArray = [[NSMutableArray alloc]initWithArray:array];
   return self;
 }
@@ -3034,698 +3034,6 @@ static IMAllUserRsp* defaultIMAllUserRspInstance = nil;
 - (IMAllUserRspBuilder*) clearAttachData {
   resultImallUserRsp.hasAttachData = NO;
   resultImallUserRsp.attachData = [NSData data];
-  return self;
-}
-@end
-
-@interface IMAllFriendReq ()
-@property UInt32 userId;
-@property UInt32 latestUpdateTime;
-@property (strong) NSData* attachData;
-@end
-
-@implementation IMAllFriendReq
-
-- (BOOL) hasUserId {
-  return !!hasUserId_;
-}
-- (void) setHasUserId:(BOOL) _value_ {
-  hasUserId_ = !!_value_;
-}
-@synthesize userId;
-- (BOOL) hasLatestUpdateTime {
-  return !!hasLatestUpdateTime_;
-}
-- (void) setHasLatestUpdateTime:(BOOL) _value_ {
-  hasLatestUpdateTime_ = !!_value_;
-}
-@synthesize latestUpdateTime;
-- (BOOL) hasAttachData {
-  return !!hasAttachData_;
-}
-- (void) setHasAttachData:(BOOL) _value_ {
-  hasAttachData_ = !!_value_;
-}
-@synthesize attachData;
-- (instancetype) init {
-  if ((self = [super init])) {
-    self.userId = 0;
-    self.latestUpdateTime = 0;
-    self.attachData = [NSData data];
-  }
-  return self;
-}
-static IMAllFriendReq* defaultIMAllFriendReqInstance = nil;
-+ (void) initialize {
-  if (self == [IMAllFriendReq class]) {
-    defaultIMAllFriendReqInstance = [[IMAllFriendReq alloc] init];
-  }
-}
-+ (instancetype) defaultInstance {
-  return defaultIMAllFriendReqInstance;
-}
-- (instancetype) defaultInstance {
-  return defaultIMAllFriendReqInstance;
-}
-- (BOOL) isInitialized {
-  if (!self.hasUserId) {
-    return NO;
-  }
-  if (!self.hasLatestUpdateTime) {
-    return NO;
-  }
-  return YES;
-}
-- (void) writeToCodedOutputStream:(PBCodedOutputStream*) output {
-  if (self.hasUserId) {
-    [output writeUInt32:1 value:self.userId];
-  }
-  if (self.hasLatestUpdateTime) {
-    [output writeUInt32:2 value:self.latestUpdateTime];
-  }
-  if (self.hasAttachData) {
-    [output writeData:20 value:self.attachData];
-  }
-  [self.unknownFields writeToCodedOutputStream:output];
-}
-- (SInt32) serializedSize {
-  __block SInt32 size_ = memoizedSerializedSize;
-  if (size_ != -1) {
-    return size_;
-  }
-
-  size_ = 0;
-  if (self.hasUserId) {
-    size_ += computeUInt32Size(1, self.userId);
-  }
-  if (self.hasLatestUpdateTime) {
-    size_ += computeUInt32Size(2, self.latestUpdateTime);
-  }
-  if (self.hasAttachData) {
-    size_ += computeDataSize(20, self.attachData);
-  }
-  size_ += self.unknownFields.serializedSize;
-  memoizedSerializedSize = size_;
-  return size_;
-}
-+ (IMAllFriendReq*) parseFromData:(NSData*) data {
-  return (IMAllFriendReq*)[[[IMAllFriendReq builder] mergeFromData:data] build];
-}
-+ (IMAllFriendReq*) parseFromData:(NSData*) data extensionRegistry:(PBExtensionRegistry*) extensionRegistry {
-  return (IMAllFriendReq*)[[[IMAllFriendReq builder] mergeFromData:data extensionRegistry:extensionRegistry] build];
-}
-+ (IMAllFriendReq*) parseFromInputStream:(NSInputStream*) input {
-  return (IMAllFriendReq*)[[[IMAllFriendReq builder] mergeFromInputStream:input] build];
-}
-+ (IMAllFriendReq*) parseFromInputStream:(NSInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry {
-  return (IMAllFriendReq*)[[[IMAllFriendReq builder] mergeFromInputStream:input extensionRegistry:extensionRegistry] build];
-}
-+ (IMAllFriendReq*) parseFromCodedInputStream:(PBCodedInputStream*) input {
-  return (IMAllFriendReq*)[[[IMAllFriendReq builder] mergeFromCodedInputStream:input] build];
-}
-+ (IMAllFriendReq*) parseFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry {
-  return (IMAllFriendReq*)[[[IMAllFriendReq builder] mergeFromCodedInputStream:input extensionRegistry:extensionRegistry] build];
-}
-+ (IMAllFriendReqBuilder*) builder {
-  return [[IMAllFriendReqBuilder alloc] init];
-}
-+ (IMAllFriendReqBuilder*) builderWithPrototype:(IMAllFriendReq*) prototype {
-  return [[IMAllFriendReq builder] mergeFrom:prototype];
-}
-- (IMAllFriendReqBuilder*) builder {
-  return [IMAllFriendReq builder];
-}
-- (IMAllFriendReqBuilder*) toBuilder {
-  return [IMAllFriendReq builderWithPrototype:self];
-}
-- (void) writeDescriptionTo:(NSMutableString*) output withIndent:(NSString*) indent {
-  if (self.hasUserId) {
-    [output appendFormat:@"%@%@: %@\n", indent, @"userId", [NSNumber numberWithInteger:self.userId]];
-  }
-  if (self.hasLatestUpdateTime) {
-    [output appendFormat:@"%@%@: %@\n", indent, @"latestUpdateTime", [NSNumber numberWithInteger:self.latestUpdateTime]];
-  }
-  if (self.hasAttachData) {
-    [output appendFormat:@"%@%@: %@\n", indent, @"attachData", self.attachData];
-  }
-  [self.unknownFields writeDescriptionTo:output withIndent:indent];
-}
-- (void) storeInDictionary:(NSMutableDictionary *)dictionary {
-  if (self.hasUserId) {
-    [dictionary setObject: [NSNumber numberWithInteger:self.userId] forKey: @"userId"];
-  }
-  if (self.hasLatestUpdateTime) {
-    [dictionary setObject: [NSNumber numberWithInteger:self.latestUpdateTime] forKey: @"latestUpdateTime"];
-  }
-  if (self.hasAttachData) {
-    [dictionary setObject: self.attachData forKey: @"attachData"];
-  }
-  [self.unknownFields storeInDictionary:dictionary];
-}
-- (BOOL) isEqual:(id)other {
-  if (other == self) {
-    return YES;
-  }
-  if (![other isKindOfClass:[IMAllFriendReq class]]) {
-    return NO;
-  }
-  IMAllFriendReq *otherMessage = other;
-  return
-      self.hasUserId == otherMessage.hasUserId &&
-      (!self.hasUserId || self.userId == otherMessage.userId) &&
-      self.hasLatestUpdateTime == otherMessage.hasLatestUpdateTime &&
-      (!self.hasLatestUpdateTime || self.latestUpdateTime == otherMessage.latestUpdateTime) &&
-      self.hasAttachData == otherMessage.hasAttachData &&
-      (!self.hasAttachData || [self.attachData isEqual:otherMessage.attachData]) &&
-      (self.unknownFields == otherMessage.unknownFields || (self.unknownFields != nil && [self.unknownFields isEqual:otherMessage.unknownFields]));
-}
-- (NSUInteger) hash {
-  __block NSUInteger hashCode = 7;
-  if (self.hasUserId) {
-    hashCode = hashCode * 31 + [[NSNumber numberWithInteger:self.userId] hash];
-  }
-  if (self.hasLatestUpdateTime) {
-    hashCode = hashCode * 31 + [[NSNumber numberWithInteger:self.latestUpdateTime] hash];
-  }
-  if (self.hasAttachData) {
-    hashCode = hashCode * 31 + [self.attachData hash];
-  }
-  hashCode = hashCode * 31 + [self.unknownFields hash];
-  return hashCode;
-}
-@end
-
-@interface IMAllFriendReqBuilder()
-@property (strong) IMAllFriendReq* resultImallFriendReq;
-@end
-
-@implementation IMAllFriendReqBuilder
-@synthesize resultImallFriendReq;
-- (instancetype) init {
-  if ((self = [super init])) {
-    self.resultImallFriendReq = [[IMAllFriendReq alloc] init];
-  }
-  return self;
-}
-- (PBGeneratedMessage*) internalGetResult {
-  return resultImallFriendReq;
-}
-- (IMAllFriendReqBuilder*) clear {
-  self.resultImallFriendReq = [[IMAllFriendReq alloc] init];
-  return self;
-}
-- (IMAllFriendReqBuilder*) clone {
-  return [IMAllFriendReq builderWithPrototype:resultImallFriendReq];
-}
-- (IMAllFriendReq*) defaultInstance {
-  return [IMAllFriendReq defaultInstance];
-}
-- (IMAllFriendReq*) build {
-  [self checkInitialized];
-  return [self buildPartial];
-}
-- (IMAllFriendReq*) buildPartial {
-  IMAllFriendReq* returnMe = resultImallFriendReq;
-  self.resultImallFriendReq = nil;
-  return returnMe;
-}
-- (IMAllFriendReqBuilder*) mergeFrom:(IMAllFriendReq*) other {
-  if (other == [IMAllFriendReq defaultInstance]) {
-    return self;
-  }
-  if (other.hasUserId) {
-    [self setUserId:other.userId];
-  }
-  if (other.hasLatestUpdateTime) {
-    [self setLatestUpdateTime:other.latestUpdateTime];
-  }
-  if (other.hasAttachData) {
-    [self setAttachData:other.attachData];
-  }
-  [self mergeUnknownFields:other.unknownFields];
-  return self;
-}
-- (IMAllFriendReqBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input {
-  return [self mergeFromCodedInputStream:input extensionRegistry:[PBExtensionRegistry emptyRegistry]];
-}
-- (IMAllFriendReqBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry {
-  PBUnknownFieldSetBuilder* unknownFields = [PBUnknownFieldSet builderWithUnknownFields:self.unknownFields];
-  while (YES) {
-    SInt32 tag = [input readTag];
-    switch (tag) {
-      case 0:
-        [self setUnknownFields:[unknownFields build]];
-        return self;
-      default: {
-        if (![self parseUnknownField:input unknownFields:unknownFields extensionRegistry:extensionRegistry tag:tag]) {
-          [self setUnknownFields:[unknownFields build]];
-          return self;
-        }
-        break;
-      }
-      case 8: {
-        [self setUserId:[input readUInt32]];
-        break;
-      }
-      case 16: {
-        [self setLatestUpdateTime:[input readUInt32]];
-        break;
-      }
-      case 162: {
-        [self setAttachData:[input readData]];
-        break;
-      }
-    }
-  }
-}
-- (BOOL) hasUserId {
-  return resultImallFriendReq.hasUserId;
-}
-- (UInt32) userId {
-  return resultImallFriendReq.userId;
-}
-- (IMAllFriendReqBuilder*) setUserId:(UInt32) value {
-  resultImallFriendReq.hasUserId = YES;
-  resultImallFriendReq.userId = value;
-  return self;
-}
-- (IMAllFriendReqBuilder*) clearUserId {
-  resultImallFriendReq.hasUserId = NO;
-  resultImallFriendReq.userId = 0;
-  return self;
-}
-- (BOOL) hasLatestUpdateTime {
-  return resultImallFriendReq.hasLatestUpdateTime;
-}
-- (UInt32) latestUpdateTime {
-  return resultImallFriendReq.latestUpdateTime;
-}
-- (IMAllFriendReqBuilder*) setLatestUpdateTime:(UInt32) value {
-  resultImallFriendReq.hasLatestUpdateTime = YES;
-  resultImallFriendReq.latestUpdateTime = value;
-  return self;
-}
-- (IMAllFriendReqBuilder*) clearLatestUpdateTime {
-  resultImallFriendReq.hasLatestUpdateTime = NO;
-  resultImallFriendReq.latestUpdateTime = 0;
-  return self;
-}
-- (BOOL) hasAttachData {
-  return resultImallFriendReq.hasAttachData;
-}
-- (NSData*) attachData {
-  return resultImallFriendReq.attachData;
-}
-- (IMAllFriendReqBuilder*) setAttachData:(NSData*) value {
-  resultImallFriendReq.hasAttachData = YES;
-  resultImallFriendReq.attachData = value;
-  return self;
-}
-- (IMAllFriendReqBuilder*) clearAttachData {
-  resultImallFriendReq.hasAttachData = NO;
-  resultImallFriendReq.attachData = [NSData data];
-  return self;
-}
-@end
-
-@interface IMAllFriendRsp ()
-@property UInt32 userId;
-@property UInt32 latestUpdateTime;
-@property (strong) NSMutableArray * userListArray;
-@property (strong) NSData* attachData;
-@end
-
-@implementation IMAllFriendRsp
-
-- (BOOL) hasUserId {
-  return !!hasUserId_;
-}
-- (void) setHasUserId:(BOOL) _value_ {
-  hasUserId_ = !!_value_;
-}
-@synthesize userId;
-- (BOOL) hasLatestUpdateTime {
-  return !!hasLatestUpdateTime_;
-}
-- (void) setHasLatestUpdateTime:(BOOL) _value_ {
-  hasLatestUpdateTime_ = !!_value_;
-}
-@synthesize latestUpdateTime;
-@synthesize userListArray;
-@dynamic userList;
-- (BOOL) hasAttachData {
-  return !!hasAttachData_;
-}
-- (void) setHasAttachData:(BOOL) _value_ {
-  hasAttachData_ = !!_value_;
-}
-@synthesize attachData;
-- (instancetype) init {
-  if ((self = [super init])) {
-    self.userId = 0;
-    self.latestUpdateTime = 0;
-    self.attachData = [NSData data];
-  }
-  return self;
-}
-static IMAllFriendRsp* defaultIMAllFriendRspInstance = nil;
-+ (void) initialize {
-  if (self == [IMAllFriendRsp class]) {
-    defaultIMAllFriendRspInstance = [[IMAllFriendRsp alloc] init];
-  }
-}
-+ (instancetype) defaultInstance {
-  return defaultIMAllFriendRspInstance;
-}
-- (instancetype) defaultInstance {
-  return defaultIMAllFriendRspInstance;
-}
-- (NSArray *)userList {
-  return userListArray;
-}
-- (UserInfo*)userListAtIndex:(NSUInteger)index {
-  return [userListArray objectAtIndex:index];
-}
-- (BOOL) isInitialized {
-  if (!self.hasUserId) {
-    return NO;
-  }
-  if (!self.hasLatestUpdateTime) {
-    return NO;
-  }
-  __block BOOL isInituserList = YES;
-   [self.userList enumerateObjectsUsingBlock:^(UserInfo *element, NSUInteger idx, BOOL *stop) {
-    if (!element.isInitialized) {
-      isInituserList = NO;
-      *stop = YES;
-    }
-  }];
-  if (!isInituserList) return isInituserList;
-  return YES;
-}
-- (void) writeToCodedOutputStream:(PBCodedOutputStream*) output {
-  if (self.hasUserId) {
-    [output writeUInt32:1 value:self.userId];
-  }
-  if (self.hasLatestUpdateTime) {
-    [output writeUInt32:2 value:self.latestUpdateTime];
-  }
-  [self.userListArray enumerateObjectsUsingBlock:^(UserInfo *element, NSUInteger idx, BOOL *stop) {
-    [output writeMessage:3 value:element];
-  }];
-  if (self.hasAttachData) {
-    [output writeData:20 value:self.attachData];
-  }
-  [self.unknownFields writeToCodedOutputStream:output];
-}
-- (SInt32) serializedSize {
-  __block SInt32 size_ = memoizedSerializedSize;
-  if (size_ != -1) {
-    return size_;
-  }
-
-  size_ = 0;
-  if (self.hasUserId) {
-    size_ += computeUInt32Size(1, self.userId);
-  }
-  if (self.hasLatestUpdateTime) {
-    size_ += computeUInt32Size(2, self.latestUpdateTime);
-  }
-  [self.userListArray enumerateObjectsUsingBlock:^(UserInfo *element, NSUInteger idx, BOOL *stop) {
-    size_ += computeMessageSize(3, element);
-  }];
-  if (self.hasAttachData) {
-    size_ += computeDataSize(20, self.attachData);
-  }
-  size_ += self.unknownFields.serializedSize;
-  memoizedSerializedSize = size_;
-  return size_;
-}
-+ (IMAllFriendRsp*) parseFromData:(NSData*) data {
-  return (IMAllFriendRsp*)[[[IMAllFriendRsp builder] mergeFromData:data] build];
-}
-+ (IMAllFriendRsp*) parseFromData:(NSData*) data extensionRegistry:(PBExtensionRegistry*) extensionRegistry {
-  return (IMAllFriendRsp*)[[[IMAllFriendRsp builder] mergeFromData:data extensionRegistry:extensionRegistry] build];
-}
-+ (IMAllFriendRsp*) parseFromInputStream:(NSInputStream*) input {
-  return (IMAllFriendRsp*)[[[IMAllFriendRsp builder] mergeFromInputStream:input] build];
-}
-+ (IMAllFriendRsp*) parseFromInputStream:(NSInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry {
-  return (IMAllFriendRsp*)[[[IMAllFriendRsp builder] mergeFromInputStream:input extensionRegistry:extensionRegistry] build];
-}
-+ (IMAllFriendRsp*) parseFromCodedInputStream:(PBCodedInputStream*) input {
-  return (IMAllFriendRsp*)[[[IMAllFriendRsp builder] mergeFromCodedInputStream:input] build];
-}
-+ (IMAllFriendRsp*) parseFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry {
-  return (IMAllFriendRsp*)[[[IMAllFriendRsp builder] mergeFromCodedInputStream:input extensionRegistry:extensionRegistry] build];
-}
-+ (IMAllFriendRspBuilder*) builder {
-  return [[IMAllFriendRspBuilder alloc] init];
-}
-+ (IMAllFriendRspBuilder*) builderWithPrototype:(IMAllFriendRsp*) prototype {
-  return [[IMAllFriendRsp builder] mergeFrom:prototype];
-}
-- (IMAllFriendRspBuilder*) builder {
-  return [IMAllFriendRsp builder];
-}
-- (IMAllFriendRspBuilder*) toBuilder {
-  return [IMAllFriendRsp builderWithPrototype:self];
-}
-- (void) writeDescriptionTo:(NSMutableString*) output withIndent:(NSString*) indent {
-  if (self.hasUserId) {
-    [output appendFormat:@"%@%@: %@\n", indent, @"userId", [NSNumber numberWithInteger:self.userId]];
-  }
-  if (self.hasLatestUpdateTime) {
-    [output appendFormat:@"%@%@: %@\n", indent, @"latestUpdateTime", [NSNumber numberWithInteger:self.latestUpdateTime]];
-  }
-  [self.userListArray enumerateObjectsUsingBlock:^(UserInfo *element, NSUInteger idx, BOOL *stop) {
-    [output appendFormat:@"%@%@ {\n", indent, @"userList"];
-    [element writeDescriptionTo:output
-                     withIndent:[NSString stringWithFormat:@"%@  ", indent]];
-    [output appendFormat:@"%@}\n", indent];
-  }];
-  if (self.hasAttachData) {
-    [output appendFormat:@"%@%@: %@\n", indent, @"attachData", self.attachData];
-  }
-  [self.unknownFields writeDescriptionTo:output withIndent:indent];
-}
-- (void) storeInDictionary:(NSMutableDictionary *)dictionary {
-  if (self.hasUserId) {
-    [dictionary setObject: [NSNumber numberWithInteger:self.userId] forKey: @"userId"];
-  }
-  if (self.hasLatestUpdateTime) {
-    [dictionary setObject: [NSNumber numberWithInteger:self.latestUpdateTime] forKey: @"latestUpdateTime"];
-  }
-  for (UserInfo* element in self.userListArray) {
-    NSMutableDictionary *elementDictionary = [NSMutableDictionary dictionary];
-    [element storeInDictionary:elementDictionary];
-    [dictionary setObject:[NSDictionary dictionaryWithDictionary:elementDictionary] forKey:@"userList"];
-  }
-  if (self.hasAttachData) {
-    [dictionary setObject: self.attachData forKey: @"attachData"];
-  }
-  [self.unknownFields storeInDictionary:dictionary];
-}
-- (BOOL) isEqual:(id)other {
-  if (other == self) {
-    return YES;
-  }
-  if (![other isKindOfClass:[IMAllFriendRsp class]]) {
-    return NO;
-  }
-  IMAllFriendRsp *otherMessage = other;
-  return
-      self.hasUserId == otherMessage.hasUserId &&
-      (!self.hasUserId || self.userId == otherMessage.userId) &&
-      self.hasLatestUpdateTime == otherMessage.hasLatestUpdateTime &&
-      (!self.hasLatestUpdateTime || self.latestUpdateTime == otherMessage.latestUpdateTime) &&
-      [self.userListArray isEqualToArray:otherMessage.userListArray] &&
-      self.hasAttachData == otherMessage.hasAttachData &&
-      (!self.hasAttachData || [self.attachData isEqual:otherMessage.attachData]) &&
-      (self.unknownFields == otherMessage.unknownFields || (self.unknownFields != nil && [self.unknownFields isEqual:otherMessage.unknownFields]));
-}
-- (NSUInteger) hash {
-  __block NSUInteger hashCode = 7;
-  if (self.hasUserId) {
-    hashCode = hashCode * 31 + [[NSNumber numberWithInteger:self.userId] hash];
-  }
-  if (self.hasLatestUpdateTime) {
-    hashCode = hashCode * 31 + [[NSNumber numberWithInteger:self.latestUpdateTime] hash];
-  }
-  [self.userListArray enumerateObjectsUsingBlock:^(UserInfo *element, NSUInteger idx, BOOL *stop) {
-    hashCode = hashCode * 31 + [element hash];
-  }];
-  if (self.hasAttachData) {
-    hashCode = hashCode * 31 + [self.attachData hash];
-  }
-  hashCode = hashCode * 31 + [self.unknownFields hash];
-  return hashCode;
-}
-@end
-
-@interface IMAllFriendRspBuilder()
-@property (strong) IMAllFriendRsp* resultImallFriendRsp;
-@end
-
-@implementation IMAllFriendRspBuilder
-@synthesize resultImallFriendRsp;
-- (instancetype) init {
-  if ((self = [super init])) {
-    self.resultImallFriendRsp = [[IMAllFriendRsp alloc] init];
-  }
-  return self;
-}
-- (PBGeneratedMessage*) internalGetResult {
-  return resultImallFriendRsp;
-}
-- (IMAllFriendRspBuilder*) clear {
-  self.resultImallFriendRsp = [[IMAllFriendRsp alloc] init];
-  return self;
-}
-- (IMAllFriendRspBuilder*) clone {
-  return [IMAllFriendRsp builderWithPrototype:resultImallFriendRsp];
-}
-- (IMAllFriendRsp*) defaultInstance {
-  return [IMAllFriendRsp defaultInstance];
-}
-- (IMAllFriendRsp*) build {
-  [self checkInitialized];
-  return [self buildPartial];
-}
-- (IMAllFriendRsp*) buildPartial {
-  IMAllFriendRsp* returnMe = resultImallFriendRsp;
-  self.resultImallFriendRsp = nil;
-  return returnMe;
-}
-- (IMAllFriendRspBuilder*) mergeFrom:(IMAllFriendRsp*) other {
-  if (other == [IMAllFriendRsp defaultInstance]) {
-    return self;
-  }
-  if (other.hasUserId) {
-    [self setUserId:other.userId];
-  }
-  if (other.hasLatestUpdateTime) {
-    [self setLatestUpdateTime:other.latestUpdateTime];
-  }
-  if (other.userListArray.count > 0) {
-    if (resultImallFriendRsp.userListArray == nil) {
-      resultImallFriendRsp.userListArray = [[NSMutableArray alloc] initWithArray:other.userListArray];
-    } else {
-      [resultImallFriendRsp.userListArray addObjectsFromArray:other.userListArray];
-    }
-  }
-  if (other.hasAttachData) {
-    [self setAttachData:other.attachData];
-  }
-  [self mergeUnknownFields:other.unknownFields];
-  return self;
-}
-- (IMAllFriendRspBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input {
-  return [self mergeFromCodedInputStream:input extensionRegistry:[PBExtensionRegistry emptyRegistry]];
-}
-- (IMAllFriendRspBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry {
-  PBUnknownFieldSetBuilder* unknownFields = [PBUnknownFieldSet builderWithUnknownFields:self.unknownFields];
-  while (YES) {
-    SInt32 tag = [input readTag];
-    switch (tag) {
-      case 0:
-        [self setUnknownFields:[unknownFields build]];
-        return self;
-      default: {
-        if (![self parseUnknownField:input unknownFields:unknownFields extensionRegistry:extensionRegistry tag:tag]) {
-          [self setUnknownFields:[unknownFields build]];
-          return self;
-        }
-        break;
-      }
-      case 8: {
-        [self setUserId:[input readUInt32]];
-        break;
-      }
-      case 16: {
-        [self setLatestUpdateTime:[input readUInt32]];
-        break;
-      }
-      case 26: {
-        UserInfoBuilder* subBuilder = [UserInfo builder];
-        [input readMessage:subBuilder extensionRegistry:extensionRegistry];
-        [self addUserList:[subBuilder buildPartial]];
-        break;
-      }
-      case 162: {
-        [self setAttachData:[input readData]];
-        break;
-      }
-    }
-  }
-}
-- (BOOL) hasUserId {
-  return resultImallFriendRsp.hasUserId;
-}
-- (UInt32) userId {
-  return resultImallFriendRsp.userId;
-}
-- (IMAllFriendRspBuilder*) setUserId:(UInt32) value {
-  resultImallFriendRsp.hasUserId = YES;
-  resultImallFriendRsp.userId = value;
-  return self;
-}
-- (IMAllFriendRspBuilder*) clearUserId {
-  resultImallFriendRsp.hasUserId = NO;
-  resultImallFriendRsp.userId = 0;
-  return self;
-}
-- (BOOL) hasLatestUpdateTime {
-  return resultImallFriendRsp.hasLatestUpdateTime;
-}
-- (UInt32) latestUpdateTime {
-  return resultImallFriendRsp.latestUpdateTime;
-}
-- (IMAllFriendRspBuilder*) setLatestUpdateTime:(UInt32) value {
-  resultImallFriendRsp.hasLatestUpdateTime = YES;
-  resultImallFriendRsp.latestUpdateTime = value;
-  return self;
-}
-- (IMAllFriendRspBuilder*) clearLatestUpdateTime {
-  resultImallFriendRsp.hasLatestUpdateTime = NO;
-  resultImallFriendRsp.latestUpdateTime = 0;
-  return self;
-}
-- (NSMutableArray *)userList {
-  return resultImallFriendRsp.userListArray;
-}
-- (UserInfo*)userListAtIndex:(NSUInteger)index {
-  return [resultImallFriendRsp userListAtIndex:index];
-}
-- (IMAllFriendRspBuilder *)addUserList:(UserInfo*)value {
-  if (resultImallFriendRsp.userListArray == nil) {
-    resultImallFriendRsp.userListArray = [[NSMutableArray alloc]init];
-  }
-  [resultImallFriendRsp.userListArray addObject:value];
-  return self;
-}
-- (IMAllFriendRspBuilder *)setUserListArray:(NSArray *)array {
-  resultImallFriendRsp.userListArray = [[NSMutableArray alloc]initWithArray:array];
-  return self;
-}
-- (IMAllFriendRspBuilder *)clearUserList {
-  resultImallFriendRsp.userListArray = nil;
-  return self;
-}
-- (BOOL) hasAttachData {
-  return resultImallFriendRsp.hasAttachData;
-}
-- (NSData*) attachData {
-  return resultImallFriendRsp.attachData;
-}
-- (IMAllFriendRspBuilder*) setAttachData:(NSData*) value {
-  resultImallFriendRsp.hasAttachData = YES;
-  resultImallFriendRsp.attachData = value;
-  return self;
-}
-- (IMAllFriendRspBuilder*) clearAttachData {
-  resultImallFriendRsp.hasAttachData = NO;
-  resultImallFriendRsp.attachData = [NSData data];
   return self;
 }
 @end
@@ -4065,7 +3373,7 @@ static IMUsersStatReq* defaultIMUsersStatReqInstance = nil;
 
 @interface IMUsersStatRsp ()
 @property UInt32 userId;
-@property (strong) NSMutableArray * userStatListArray;
+@property (strong) NSMutableArray<UserStat*> * userStatListArray;
 @property (strong) NSData* attachData;
 @end
 
@@ -4106,7 +3414,7 @@ static IMUsersStatRsp* defaultIMUsersStatRspInstance = nil;
 - (instancetype) defaultInstance {
   return defaultIMUsersStatRspInstance;
 }
-- (NSArray *)userStatList {
+- (NSArray<UserStat*> *)userStatList {
   return userStatListArray;
 }
 - (UserStat*)userStatListAtIndex:(NSUInteger)index {
@@ -4354,7 +3662,7 @@ static IMUsersStatRsp* defaultIMUsersStatRspInstance = nil;
   resultImusersStatRsp.userId = 0;
   return self;
 }
-- (NSMutableArray *)userStatList {
+- (NSMutableArray<UserStat*> *)userStatList {
   return resultImusersStatRsp.userStatListArray;
 }
 - (UserStat*)userStatListAtIndex:(NSUInteger)index {
@@ -4367,7 +3675,7 @@ static IMUsersStatRsp* defaultIMUsersStatRspInstance = nil;
   [resultImusersStatRsp.userStatListArray addObject:value];
   return self;
 }
-- (IMUsersStatRspBuilder *)setUserStatListArray:(NSArray *)array {
+- (IMUsersStatRspBuilder *)setUserStatListArray:(NSArray<UserStat*> *)array {
   resultImusersStatRsp.userStatListArray = [[NSMutableArray alloc]initWithArray:array];
   return self;
 }
@@ -5910,7 +5218,7 @@ static IMDepartmentReq* defaultIMDepartmentReqInstance = nil;
 @interface IMDepartmentRsp ()
 @property UInt32 userId;
 @property UInt32 latestUpdateTime;
-@property (strong) NSMutableArray * deptListArray;
+@property (strong) NSMutableArray<DepartInfo*> * deptListArray;
 @property (strong) NSData* attachData;
 @end
 
@@ -5959,7 +5267,7 @@ static IMDepartmentRsp* defaultIMDepartmentRspInstance = nil;
 - (instancetype) defaultInstance {
   return defaultIMDepartmentRspInstance;
 }
-- (NSArray *)deptList {
+- (NSArray<DepartInfo*> *)deptList {
   return deptListArray;
 }
 - (DepartInfo*)deptListAtIndex:(NSUInteger)index {
@@ -6250,7 +5558,7 @@ static IMDepartmentRsp* defaultIMDepartmentRspInstance = nil;
   resultImdepartmentRsp.latestUpdateTime = 0;
   return self;
 }
-- (NSMutableArray *)deptList {
+- (NSMutableArray<DepartInfo*> *)deptList {
   return resultImdepartmentRsp.deptListArray;
 }
 - (DepartInfo*)deptListAtIndex:(NSUInteger)index {
@@ -6263,7 +5571,7 @@ static IMDepartmentRsp* defaultIMDepartmentRspInstance = nil;
   [resultImdepartmentRsp.deptListArray addObject:value];
   return self;
 }
-- (IMDepartmentRspBuilder *)setDeptListArray:(NSArray *)array {
+- (IMDepartmentRspBuilder *)setDeptListArray:(NSArray<DepartInfo*> *)array {
   resultImdepartmentRsp.deptListArray = [[NSMutableArray alloc]initWithArray:array];
   return self;
 }
@@ -7480,15 +6788,13 @@ static IMSignInfoChangedNotify* defaultIMSignInfoChangedNotifyInstance = nil;
 }
 @end
 
-@interface IMGetuiTokenReq ()
+@interface IMAllFriendReq ()
 @property UInt32 userId;
-@property (strong) NSString* clientId;
-@property ClientType clientType;
-@property (strong) NSString* deviceToken;
+@property UInt32 latestUpdateTime;
 @property (strong) NSData* attachData;
 @end
 
-@implementation IMGetuiTokenReq
+@implementation IMAllFriendReq
 
 - (BOOL) hasUserId {
   return !!hasUserId_;
@@ -7497,27 +6803,13 @@ static IMSignInfoChangedNotify* defaultIMSignInfoChangedNotifyInstance = nil;
   hasUserId_ = !!_value_;
 }
 @synthesize userId;
-- (BOOL) hasClientId {
-  return !!hasClientId_;
+- (BOOL) hasLatestUpdateTime {
+  return !!hasLatestUpdateTime_;
 }
-- (void) setHasClientId:(BOOL) _value_ {
-  hasClientId_ = !!_value_;
+- (void) setHasLatestUpdateTime:(BOOL) _value_ {
+  hasLatestUpdateTime_ = !!_value_;
 }
-@synthesize clientId;
-- (BOOL) hasClientType {
-  return !!hasClientType_;
-}
-- (void) setHasClientType:(BOOL) _value_ {
-  hasClientType_ = !!_value_;
-}
-@synthesize clientType;
-- (BOOL) hasDeviceToken {
-  return !!hasDeviceToken_;
-}
-- (void) setHasDeviceToken:(BOOL) _value_ {
-  hasDeviceToken_ = !!_value_;
-}
-@synthesize deviceToken;
+@synthesize latestUpdateTime;
 - (BOOL) hasAttachData {
   return !!hasAttachData_;
 }
@@ -7528,36 +6820,28 @@ static IMSignInfoChangedNotify* defaultIMSignInfoChangedNotifyInstance = nil;
 - (instancetype) init {
   if ((self = [super init])) {
     self.userId = 0;
-    self.clientId = @"";
-    self.clientType = ClientTypeClientTypeWindows;
-    self.deviceToken = @"";
+    self.latestUpdateTime = 0;
     self.attachData = [NSData data];
   }
   return self;
 }
-static IMGetuiTokenReq* defaultIMGetuiTokenReqInstance = nil;
+static IMAllFriendReq* defaultIMAllFriendReqInstance = nil;
 + (void) initialize {
-  if (self == [IMGetuiTokenReq class]) {
-    defaultIMGetuiTokenReqInstance = [[IMGetuiTokenReq alloc] init];
+  if (self == [IMAllFriendReq class]) {
+    defaultIMAllFriendReqInstance = [[IMAllFriendReq alloc] init];
   }
 }
 + (instancetype) defaultInstance {
-  return defaultIMGetuiTokenReqInstance;
+  return defaultIMAllFriendReqInstance;
 }
 - (instancetype) defaultInstance {
-  return defaultIMGetuiTokenReqInstance;
+  return defaultIMAllFriendReqInstance;
 }
 - (BOOL) isInitialized {
   if (!self.hasUserId) {
     return NO;
   }
-  if (!self.hasClientId) {
-    return NO;
-  }
-  if (!self.hasClientType) {
-    return NO;
-  }
-  if (!self.hasDeviceToken) {
+  if (!self.hasLatestUpdateTime) {
     return NO;
   }
   return YES;
@@ -7566,14 +6850,8 @@ static IMGetuiTokenReq* defaultIMGetuiTokenReqInstance = nil;
   if (self.hasUserId) {
     [output writeUInt32:1 value:self.userId];
   }
-  if (self.hasClientId) {
-    [output writeString:2 value:self.clientId];
-  }
-  if (self.hasClientType) {
-    [output writeEnum:3 value:self.clientType];
-  }
-  if (self.hasDeviceToken) {
-    [output writeString:4 value:self.deviceToken];
+  if (self.hasLatestUpdateTime) {
+    [output writeUInt32:2 value:self.latestUpdateTime];
   }
   if (self.hasAttachData) {
     [output writeData:20 value:self.attachData];
@@ -7590,14 +6868,8 @@ static IMGetuiTokenReq* defaultIMGetuiTokenReqInstance = nil;
   if (self.hasUserId) {
     size_ += computeUInt32Size(1, self.userId);
   }
-  if (self.hasClientId) {
-    size_ += computeStringSize(2, self.clientId);
-  }
-  if (self.hasClientType) {
-    size_ += computeEnumSize(3, self.clientType);
-  }
-  if (self.hasDeviceToken) {
-    size_ += computeStringSize(4, self.deviceToken);
+  if (self.hasLatestUpdateTime) {
+    size_ += computeUInt32Size(2, self.latestUpdateTime);
   }
   if (self.hasAttachData) {
     size_ += computeDataSize(20, self.attachData);
@@ -7606,48 +6878,42 @@ static IMGetuiTokenReq* defaultIMGetuiTokenReqInstance = nil;
   memoizedSerializedSize = size_;
   return size_;
 }
-+ (IMGetuiTokenReq*) parseFromData:(NSData*) data {
-  return (IMGetuiTokenReq*)[[[IMGetuiTokenReq builder] mergeFromData:data] build];
++ (IMAllFriendReq*) parseFromData:(NSData*) data {
+  return (IMAllFriendReq*)[[[IMAllFriendReq builder] mergeFromData:data] build];
 }
-+ (IMGetuiTokenReq*) parseFromData:(NSData*) data extensionRegistry:(PBExtensionRegistry*) extensionRegistry {
-  return (IMGetuiTokenReq*)[[[IMGetuiTokenReq builder] mergeFromData:data extensionRegistry:extensionRegistry] build];
++ (IMAllFriendReq*) parseFromData:(NSData*) data extensionRegistry:(PBExtensionRegistry*) extensionRegistry {
+  return (IMAllFriendReq*)[[[IMAllFriendReq builder] mergeFromData:data extensionRegistry:extensionRegistry] build];
 }
-+ (IMGetuiTokenReq*) parseFromInputStream:(NSInputStream*) input {
-  return (IMGetuiTokenReq*)[[[IMGetuiTokenReq builder] mergeFromInputStream:input] build];
++ (IMAllFriendReq*) parseFromInputStream:(NSInputStream*) input {
+  return (IMAllFriendReq*)[[[IMAllFriendReq builder] mergeFromInputStream:input] build];
 }
-+ (IMGetuiTokenReq*) parseFromInputStream:(NSInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry {
-  return (IMGetuiTokenReq*)[[[IMGetuiTokenReq builder] mergeFromInputStream:input extensionRegistry:extensionRegistry] build];
++ (IMAllFriendReq*) parseFromInputStream:(NSInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry {
+  return (IMAllFriendReq*)[[[IMAllFriendReq builder] mergeFromInputStream:input extensionRegistry:extensionRegistry] build];
 }
-+ (IMGetuiTokenReq*) parseFromCodedInputStream:(PBCodedInputStream*) input {
-  return (IMGetuiTokenReq*)[[[IMGetuiTokenReq builder] mergeFromCodedInputStream:input] build];
++ (IMAllFriendReq*) parseFromCodedInputStream:(PBCodedInputStream*) input {
+  return (IMAllFriendReq*)[[[IMAllFriendReq builder] mergeFromCodedInputStream:input] build];
 }
-+ (IMGetuiTokenReq*) parseFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry {
-  return (IMGetuiTokenReq*)[[[IMGetuiTokenReq builder] mergeFromCodedInputStream:input extensionRegistry:extensionRegistry] build];
++ (IMAllFriendReq*) parseFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry {
+  return (IMAllFriendReq*)[[[IMAllFriendReq builder] mergeFromCodedInputStream:input extensionRegistry:extensionRegistry] build];
 }
-+ (IMGetuiTokenReqBuilder*) builder {
-  return [[IMGetuiTokenReqBuilder alloc] init];
++ (IMAllFriendReqBuilder*) builder {
+  return [[IMAllFriendReqBuilder alloc] init];
 }
-+ (IMGetuiTokenReqBuilder*) builderWithPrototype:(IMGetuiTokenReq*) prototype {
-  return [[IMGetuiTokenReq builder] mergeFrom:prototype];
++ (IMAllFriendReqBuilder*) builderWithPrototype:(IMAllFriendReq*) prototype {
+  return [[IMAllFriendReq builder] mergeFrom:prototype];
 }
-- (IMGetuiTokenReqBuilder*) builder {
-  return [IMGetuiTokenReq builder];
+- (IMAllFriendReqBuilder*) builder {
+  return [IMAllFriendReq builder];
 }
-- (IMGetuiTokenReqBuilder*) toBuilder {
-  return [IMGetuiTokenReq builderWithPrototype:self];
+- (IMAllFriendReqBuilder*) toBuilder {
+  return [IMAllFriendReq builderWithPrototype:self];
 }
 - (void) writeDescriptionTo:(NSMutableString*) output withIndent:(NSString*) indent {
   if (self.hasUserId) {
     [output appendFormat:@"%@%@: %@\n", indent, @"userId", [NSNumber numberWithInteger:self.userId]];
   }
-  if (self.hasClientId) {
-    [output appendFormat:@"%@%@: %@\n", indent, @"clientId", self.clientId];
-  }
-  if (self.hasClientType) {
-    [output appendFormat:@"%@%@: %@\n", indent, @"clientType", NSStringFromClientType(self.clientType)];
-  }
-  if (self.hasDeviceToken) {
-    [output appendFormat:@"%@%@: %@\n", indent, @"deviceToken", self.deviceToken];
+  if (self.hasLatestUpdateTime) {
+    [output appendFormat:@"%@%@: %@\n", indent, @"latestUpdateTime", [NSNumber numberWithInteger:self.latestUpdateTime]];
   }
   if (self.hasAttachData) {
     [output appendFormat:@"%@%@: %@\n", indent, @"attachData", self.attachData];
@@ -7658,14 +6924,8 @@ static IMGetuiTokenReq* defaultIMGetuiTokenReqInstance = nil;
   if (self.hasUserId) {
     [dictionary setObject: [NSNumber numberWithInteger:self.userId] forKey: @"userId"];
   }
-  if (self.hasClientId) {
-    [dictionary setObject: self.clientId forKey: @"clientId"];
-  }
-  if (self.hasClientType) {
-    [dictionary setObject: @(self.clientType) forKey: @"clientType"];
-  }
-  if (self.hasDeviceToken) {
-    [dictionary setObject: self.deviceToken forKey: @"deviceToken"];
+  if (self.hasLatestUpdateTime) {
+    [dictionary setObject: [NSNumber numberWithInteger:self.latestUpdateTime] forKey: @"latestUpdateTime"];
   }
   if (self.hasAttachData) {
     [dictionary setObject: self.attachData forKey: @"attachData"];
@@ -7676,19 +6936,15 @@ static IMGetuiTokenReq* defaultIMGetuiTokenReqInstance = nil;
   if (other == self) {
     return YES;
   }
-  if (![other isKindOfClass:[IMGetuiTokenReq class]]) {
+  if (![other isKindOfClass:[IMAllFriendReq class]]) {
     return NO;
   }
-  IMGetuiTokenReq *otherMessage = other;
+  IMAllFriendReq *otherMessage = other;
   return
       self.hasUserId == otherMessage.hasUserId &&
       (!self.hasUserId || self.userId == otherMessage.userId) &&
-      self.hasClientId == otherMessage.hasClientId &&
-      (!self.hasClientId || [self.clientId isEqual:otherMessage.clientId]) &&
-      self.hasClientType == otherMessage.hasClientType &&
-      (!self.hasClientType || self.clientType == otherMessage.clientType) &&
-      self.hasDeviceToken == otherMessage.hasDeviceToken &&
-      (!self.hasDeviceToken || [self.deviceToken isEqual:otherMessage.deviceToken]) &&
+      self.hasLatestUpdateTime == otherMessage.hasLatestUpdateTime &&
+      (!self.hasLatestUpdateTime || self.latestUpdateTime == otherMessage.latestUpdateTime) &&
       self.hasAttachData == otherMessage.hasAttachData &&
       (!self.hasAttachData || [self.attachData isEqual:otherMessage.attachData]) &&
       (self.unknownFields == otherMessage.unknownFields || (self.unknownFields != nil && [self.unknownFields isEqual:otherMessage.unknownFields]));
@@ -7698,14 +6954,8 @@ static IMGetuiTokenReq* defaultIMGetuiTokenReqInstance = nil;
   if (self.hasUserId) {
     hashCode = hashCode * 31 + [[NSNumber numberWithInteger:self.userId] hash];
   }
-  if (self.hasClientId) {
-    hashCode = hashCode * 31 + [self.clientId hash];
-  }
-  if (self.hasClientType) {
-    hashCode = hashCode * 31 + self.clientType;
-  }
-  if (self.hasDeviceToken) {
-    hashCode = hashCode * 31 + [self.deviceToken hash];
+  if (self.hasLatestUpdateTime) {
+    hashCode = hashCode * 31 + [[NSNumber numberWithInteger:self.latestUpdateTime] hash];
   }
   if (self.hasAttachData) {
     hashCode = hashCode * 31 + [self.attachData hash];
@@ -7715,55 +6965,49 @@ static IMGetuiTokenReq* defaultIMGetuiTokenReqInstance = nil;
 }
 @end
 
-@interface IMGetuiTokenReqBuilder()
-@property (strong) IMGetuiTokenReq* resultImgetuiTokenReq;
+@interface IMAllFriendReqBuilder()
+@property (strong) IMAllFriendReq* resultImallFriendReq;
 @end
 
-@implementation IMGetuiTokenReqBuilder
-@synthesize resultImgetuiTokenReq;
+@implementation IMAllFriendReqBuilder
+@synthesize resultImallFriendReq;
 - (instancetype) init {
   if ((self = [super init])) {
-    self.resultImgetuiTokenReq = [[IMGetuiTokenReq alloc] init];
+    self.resultImallFriendReq = [[IMAllFriendReq alloc] init];
   }
   return self;
 }
 - (PBGeneratedMessage*) internalGetResult {
-  return resultImgetuiTokenReq;
+  return resultImallFriendReq;
 }
-- (IMGetuiTokenReqBuilder*) clear {
-  self.resultImgetuiTokenReq = [[IMGetuiTokenReq alloc] init];
+- (IMAllFriendReqBuilder*) clear {
+  self.resultImallFriendReq = [[IMAllFriendReq alloc] init];
   return self;
 }
-- (IMGetuiTokenReqBuilder*) clone {
-  return [IMGetuiTokenReq builderWithPrototype:resultImgetuiTokenReq];
+- (IMAllFriendReqBuilder*) clone {
+  return [IMAllFriendReq builderWithPrototype:resultImallFriendReq];
 }
-- (IMGetuiTokenReq*) defaultInstance {
-  return [IMGetuiTokenReq defaultInstance];
+- (IMAllFriendReq*) defaultInstance {
+  return [IMAllFriendReq defaultInstance];
 }
-- (IMGetuiTokenReq*) build {
+- (IMAllFriendReq*) build {
   [self checkInitialized];
   return [self buildPartial];
 }
-- (IMGetuiTokenReq*) buildPartial {
-  IMGetuiTokenReq* returnMe = resultImgetuiTokenReq;
-  self.resultImgetuiTokenReq = nil;
+- (IMAllFriendReq*) buildPartial {
+  IMAllFriendReq* returnMe = resultImallFriendReq;
+  self.resultImallFriendReq = nil;
   return returnMe;
 }
-- (IMGetuiTokenReqBuilder*) mergeFrom:(IMGetuiTokenReq*) other {
-  if (other == [IMGetuiTokenReq defaultInstance]) {
+- (IMAllFriendReqBuilder*) mergeFrom:(IMAllFriendReq*) other {
+  if (other == [IMAllFriendReq defaultInstance]) {
     return self;
   }
   if (other.hasUserId) {
     [self setUserId:other.userId];
   }
-  if (other.hasClientId) {
-    [self setClientId:other.clientId];
-  }
-  if (other.hasClientType) {
-    [self setClientType:other.clientType];
-  }
-  if (other.hasDeviceToken) {
-    [self setDeviceToken:other.deviceToken];
+  if (other.hasLatestUpdateTime) {
+    [self setLatestUpdateTime:other.latestUpdateTime];
   }
   if (other.hasAttachData) {
     [self setAttachData:other.attachData];
@@ -7771,10 +7015,10 @@ static IMGetuiTokenReq* defaultIMGetuiTokenReqInstance = nil;
   [self mergeUnknownFields:other.unknownFields];
   return self;
 }
-- (IMGetuiTokenReqBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input {
+- (IMAllFriendReqBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input {
   return [self mergeFromCodedInputStream:input extensionRegistry:[PBExtensionRegistry emptyRegistry]];
 }
-- (IMGetuiTokenReqBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry {
+- (IMAllFriendReqBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry {
   PBUnknownFieldSetBuilder* unknownFields = [PBUnknownFieldSet builderWithUnknownFields:self.unknownFields];
   while (YES) {
     SInt32 tag = [input readTag];
@@ -7793,21 +7037,8 @@ static IMGetuiTokenReq* defaultIMGetuiTokenReqInstance = nil;
         [self setUserId:[input readUInt32]];
         break;
       }
-      case 18: {
-        [self setClientId:[input readString]];
-        break;
-      }
-      case 24: {
-        ClientType value = (ClientType)[input readEnum];
-        if (ClientTypeIsValidValue(value)) {
-          [self setClientType:value];
-        } else {
-          [unknownFields mergeVarintField:3 value:value];
-        }
-        break;
-      }
-      case 34: {
-        [self setDeviceToken:[input readString]];
+      case 16: {
+        [self setLatestUpdateTime:[input readUInt32]];
         break;
       }
       case 162: {
@@ -7818,93 +7049,63 @@ static IMGetuiTokenReq* defaultIMGetuiTokenReqInstance = nil;
   }
 }
 - (BOOL) hasUserId {
-  return resultImgetuiTokenReq.hasUserId;
+  return resultImallFriendReq.hasUserId;
 }
 - (UInt32) userId {
-  return resultImgetuiTokenReq.userId;
+  return resultImallFriendReq.userId;
 }
-- (IMGetuiTokenReqBuilder*) setUserId:(UInt32) value {
-  resultImgetuiTokenReq.hasUserId = YES;
-  resultImgetuiTokenReq.userId = value;
+- (IMAllFriendReqBuilder*) setUserId:(UInt32) value {
+  resultImallFriendReq.hasUserId = YES;
+  resultImallFriendReq.userId = value;
   return self;
 }
-- (IMGetuiTokenReqBuilder*) clearUserId {
-  resultImgetuiTokenReq.hasUserId = NO;
-  resultImgetuiTokenReq.userId = 0;
+- (IMAllFriendReqBuilder*) clearUserId {
+  resultImallFriendReq.hasUserId = NO;
+  resultImallFriendReq.userId = 0;
   return self;
 }
-- (BOOL) hasClientId {
-  return resultImgetuiTokenReq.hasClientId;
+- (BOOL) hasLatestUpdateTime {
+  return resultImallFriendReq.hasLatestUpdateTime;
 }
-- (NSString*) clientId {
-  return resultImgetuiTokenReq.clientId;
+- (UInt32) latestUpdateTime {
+  return resultImallFriendReq.latestUpdateTime;
 }
-- (IMGetuiTokenReqBuilder*) setClientId:(NSString*) value {
-  resultImgetuiTokenReq.hasClientId = YES;
-  resultImgetuiTokenReq.clientId = value;
+- (IMAllFriendReqBuilder*) setLatestUpdateTime:(UInt32) value {
+  resultImallFriendReq.hasLatestUpdateTime = YES;
+  resultImallFriendReq.latestUpdateTime = value;
   return self;
 }
-- (IMGetuiTokenReqBuilder*) clearClientId {
-  resultImgetuiTokenReq.hasClientId = NO;
-  resultImgetuiTokenReq.clientId = @"";
-  return self;
-}
-- (BOOL) hasClientType {
-  return resultImgetuiTokenReq.hasClientType;
-}
-- (ClientType) clientType {
-  return resultImgetuiTokenReq.clientType;
-}
-- (IMGetuiTokenReqBuilder*) setClientType:(ClientType) value {
-  resultImgetuiTokenReq.hasClientType = YES;
-  resultImgetuiTokenReq.clientType = value;
-  return self;
-}
-- (IMGetuiTokenReqBuilder*) clearClientType {
-  resultImgetuiTokenReq.hasClientType = NO;
-  resultImgetuiTokenReq.clientType = ClientTypeClientTypeWindows;
-  return self;
-}
-- (BOOL) hasDeviceToken {
-  return resultImgetuiTokenReq.hasDeviceToken;
-}
-- (NSString*) deviceToken {
-  return resultImgetuiTokenReq.deviceToken;
-}
-- (IMGetuiTokenReqBuilder*) setDeviceToken:(NSString*) value {
-  resultImgetuiTokenReq.hasDeviceToken = YES;
-  resultImgetuiTokenReq.deviceToken = value;
-  return self;
-}
-- (IMGetuiTokenReqBuilder*) clearDeviceToken {
-  resultImgetuiTokenReq.hasDeviceToken = NO;
-  resultImgetuiTokenReq.deviceToken = @"";
+- (IMAllFriendReqBuilder*) clearLatestUpdateTime {
+  resultImallFriendReq.hasLatestUpdateTime = NO;
+  resultImallFriendReq.latestUpdateTime = 0;
   return self;
 }
 - (BOOL) hasAttachData {
-  return resultImgetuiTokenReq.hasAttachData;
+  return resultImallFriendReq.hasAttachData;
 }
 - (NSData*) attachData {
-  return resultImgetuiTokenReq.attachData;
+  return resultImallFriendReq.attachData;
 }
-- (IMGetuiTokenReqBuilder*) setAttachData:(NSData*) value {
-  resultImgetuiTokenReq.hasAttachData = YES;
-  resultImgetuiTokenReq.attachData = value;
+- (IMAllFriendReqBuilder*) setAttachData:(NSData*) value {
+  resultImallFriendReq.hasAttachData = YES;
+  resultImallFriendReq.attachData = value;
   return self;
 }
-- (IMGetuiTokenReqBuilder*) clearAttachData {
-  resultImgetuiTokenReq.hasAttachData = NO;
-  resultImgetuiTokenReq.attachData = [NSData data];
+- (IMAllFriendReqBuilder*) clearAttachData {
+  resultImallFriendReq.hasAttachData = NO;
+  resultImallFriendReq.attachData = [NSData data];
   return self;
 }
 @end
 
-@interface IMGetuiTokenRsp ()
+@interface IMAllFriendRsp ()
 @property UInt32 userId;
+@property UInt32 latestUpdateTime;
+@property (strong) NSMutableArray<UserInfo*> * userListArray;
 @property (strong) NSData* attachData;
 @end
 
-@implementation IMGetuiTokenRsp
+@implementation IMAllFriendRsp
 
 - (BOOL) hasUserId {
   return !!hasUserId_;
@@ -7913,6 +7114,15 @@ static IMGetuiTokenReq* defaultIMGetuiTokenReqInstance = nil;
   hasUserId_ = !!_value_;
 }
 @synthesize userId;
+- (BOOL) hasLatestUpdateTime {
+  return !!hasLatestUpdateTime_;
+}
+- (void) setHasLatestUpdateTime:(BOOL) _value_ {
+  hasLatestUpdateTime_ = !!_value_;
+}
+@synthesize latestUpdateTime;
+@synthesize userListArray;
+@dynamic userList;
 - (BOOL) hasAttachData {
   return !!hasAttachData_;
 }
@@ -7923,32 +7133,56 @@ static IMGetuiTokenReq* defaultIMGetuiTokenReqInstance = nil;
 - (instancetype) init {
   if ((self = [super init])) {
     self.userId = 0;
+    self.latestUpdateTime = 0;
     self.attachData = [NSData data];
   }
   return self;
 }
-static IMGetuiTokenRsp* defaultIMGetuiTokenRspInstance = nil;
+static IMAllFriendRsp* defaultIMAllFriendRspInstance = nil;
 + (void) initialize {
-  if (self == [IMGetuiTokenRsp class]) {
-    defaultIMGetuiTokenRspInstance = [[IMGetuiTokenRsp alloc] init];
+  if (self == [IMAllFriendRsp class]) {
+    defaultIMAllFriendRspInstance = [[IMAllFriendRsp alloc] init];
   }
 }
 + (instancetype) defaultInstance {
-  return defaultIMGetuiTokenRspInstance;
+  return defaultIMAllFriendRspInstance;
 }
 - (instancetype) defaultInstance {
-  return defaultIMGetuiTokenRspInstance;
+  return defaultIMAllFriendRspInstance;
+}
+- (NSArray<UserInfo*> *)userList {
+  return userListArray;
+}
+- (UserInfo*)userListAtIndex:(NSUInteger)index {
+  return [userListArray objectAtIndex:index];
 }
 - (BOOL) isInitialized {
   if (!self.hasUserId) {
     return NO;
   }
+  if (!self.hasLatestUpdateTime) {
+    return NO;
+  }
+  __block BOOL isInituserList = YES;
+   [self.userList enumerateObjectsUsingBlock:^(UserInfo *element, NSUInteger idx, BOOL *stop) {
+    if (!element.isInitialized) {
+      isInituserList = NO;
+      *stop = YES;
+    }
+  }];
+  if (!isInituserList) return isInituserList;
   return YES;
 }
 - (void) writeToCodedOutputStream:(PBCodedOutputStream*) output {
   if (self.hasUserId) {
     [output writeUInt32:1 value:self.userId];
   }
+  if (self.hasLatestUpdateTime) {
+    [output writeUInt32:2 value:self.latestUpdateTime];
+  }
+  [self.userListArray enumerateObjectsUsingBlock:^(UserInfo *element, NSUInteger idx, BOOL *stop) {
+    [output writeMessage:3 value:element];
+  }];
   if (self.hasAttachData) {
     [output writeData:20 value:self.attachData];
   }
@@ -7964,6 +7198,12 @@ static IMGetuiTokenRsp* defaultIMGetuiTokenRspInstance = nil;
   if (self.hasUserId) {
     size_ += computeUInt32Size(1, self.userId);
   }
+  if (self.hasLatestUpdateTime) {
+    size_ += computeUInt32Size(2, self.latestUpdateTime);
+  }
+  [self.userListArray enumerateObjectsUsingBlock:^(UserInfo *element, NSUInteger idx, BOOL *stop) {
+    size_ += computeMessageSize(3, element);
+  }];
   if (self.hasAttachData) {
     size_ += computeDataSize(20, self.attachData);
   }
@@ -7971,40 +7211,49 @@ static IMGetuiTokenRsp* defaultIMGetuiTokenRspInstance = nil;
   memoizedSerializedSize = size_;
   return size_;
 }
-+ (IMGetuiTokenRsp*) parseFromData:(NSData*) data {
-  return (IMGetuiTokenRsp*)[[[IMGetuiTokenRsp builder] mergeFromData:data] build];
++ (IMAllFriendRsp*) parseFromData:(NSData*) data {
+  return (IMAllFriendRsp*)[[[IMAllFriendRsp builder] mergeFromData:data] build];
 }
-+ (IMGetuiTokenRsp*) parseFromData:(NSData*) data extensionRegistry:(PBExtensionRegistry*) extensionRegistry {
-  return (IMGetuiTokenRsp*)[[[IMGetuiTokenRsp builder] mergeFromData:data extensionRegistry:extensionRegistry] build];
++ (IMAllFriendRsp*) parseFromData:(NSData*) data extensionRegistry:(PBExtensionRegistry*) extensionRegistry {
+  return (IMAllFriendRsp*)[[[IMAllFriendRsp builder] mergeFromData:data extensionRegistry:extensionRegistry] build];
 }
-+ (IMGetuiTokenRsp*) parseFromInputStream:(NSInputStream*) input {
-  return (IMGetuiTokenRsp*)[[[IMGetuiTokenRsp builder] mergeFromInputStream:input] build];
++ (IMAllFriendRsp*) parseFromInputStream:(NSInputStream*) input {
+  return (IMAllFriendRsp*)[[[IMAllFriendRsp builder] mergeFromInputStream:input] build];
 }
-+ (IMGetuiTokenRsp*) parseFromInputStream:(NSInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry {
-  return (IMGetuiTokenRsp*)[[[IMGetuiTokenRsp builder] mergeFromInputStream:input extensionRegistry:extensionRegistry] build];
++ (IMAllFriendRsp*) parseFromInputStream:(NSInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry {
+  return (IMAllFriendRsp*)[[[IMAllFriendRsp builder] mergeFromInputStream:input extensionRegistry:extensionRegistry] build];
 }
-+ (IMGetuiTokenRsp*) parseFromCodedInputStream:(PBCodedInputStream*) input {
-  return (IMGetuiTokenRsp*)[[[IMGetuiTokenRsp builder] mergeFromCodedInputStream:input] build];
++ (IMAllFriendRsp*) parseFromCodedInputStream:(PBCodedInputStream*) input {
+  return (IMAllFriendRsp*)[[[IMAllFriendRsp builder] mergeFromCodedInputStream:input] build];
 }
-+ (IMGetuiTokenRsp*) parseFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry {
-  return (IMGetuiTokenRsp*)[[[IMGetuiTokenRsp builder] mergeFromCodedInputStream:input extensionRegistry:extensionRegistry] build];
++ (IMAllFriendRsp*) parseFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry {
+  return (IMAllFriendRsp*)[[[IMAllFriendRsp builder] mergeFromCodedInputStream:input extensionRegistry:extensionRegistry] build];
 }
-+ (IMGetuiTokenRspBuilder*) builder {
-  return [[IMGetuiTokenRspBuilder alloc] init];
++ (IMAllFriendRspBuilder*) builder {
+  return [[IMAllFriendRspBuilder alloc] init];
 }
-+ (IMGetuiTokenRspBuilder*) builderWithPrototype:(IMGetuiTokenRsp*) prototype {
-  return [[IMGetuiTokenRsp builder] mergeFrom:prototype];
++ (IMAllFriendRspBuilder*) builderWithPrototype:(IMAllFriendRsp*) prototype {
+  return [[IMAllFriendRsp builder] mergeFrom:prototype];
 }
-- (IMGetuiTokenRspBuilder*) builder {
-  return [IMGetuiTokenRsp builder];
+- (IMAllFriendRspBuilder*) builder {
+  return [IMAllFriendRsp builder];
 }
-- (IMGetuiTokenRspBuilder*) toBuilder {
-  return [IMGetuiTokenRsp builderWithPrototype:self];
+- (IMAllFriendRspBuilder*) toBuilder {
+  return [IMAllFriendRsp builderWithPrototype:self];
 }
 - (void) writeDescriptionTo:(NSMutableString*) output withIndent:(NSString*) indent {
   if (self.hasUserId) {
     [output appendFormat:@"%@%@: %@\n", indent, @"userId", [NSNumber numberWithInteger:self.userId]];
   }
+  if (self.hasLatestUpdateTime) {
+    [output appendFormat:@"%@%@: %@\n", indent, @"latestUpdateTime", [NSNumber numberWithInteger:self.latestUpdateTime]];
+  }
+  [self.userListArray enumerateObjectsUsingBlock:^(UserInfo *element, NSUInteger idx, BOOL *stop) {
+    [output appendFormat:@"%@%@ {\n", indent, @"userList"];
+    [element writeDescriptionTo:output
+                     withIndent:[NSString stringWithFormat:@"%@  ", indent]];
+    [output appendFormat:@"%@}\n", indent];
+  }];
   if (self.hasAttachData) {
     [output appendFormat:@"%@%@: %@\n", indent, @"attachData", self.attachData];
   }
@@ -8013,6 +7262,14 @@ static IMGetuiTokenRsp* defaultIMGetuiTokenRspInstance = nil;
 - (void) storeInDictionary:(NSMutableDictionary *)dictionary {
   if (self.hasUserId) {
     [dictionary setObject: [NSNumber numberWithInteger:self.userId] forKey: @"userId"];
+  }
+  if (self.hasLatestUpdateTime) {
+    [dictionary setObject: [NSNumber numberWithInteger:self.latestUpdateTime] forKey: @"latestUpdateTime"];
+  }
+  for (UserInfo* element in self.userListArray) {
+    NSMutableDictionary *elementDictionary = [NSMutableDictionary dictionary];
+    [element storeInDictionary:elementDictionary];
+    [dictionary setObject:[NSDictionary dictionaryWithDictionary:elementDictionary] forKey:@"userList"];
   }
   if (self.hasAttachData) {
     [dictionary setObject: self.attachData forKey: @"attachData"];
@@ -8023,13 +7280,16 @@ static IMGetuiTokenRsp* defaultIMGetuiTokenRspInstance = nil;
   if (other == self) {
     return YES;
   }
-  if (![other isKindOfClass:[IMGetuiTokenRsp class]]) {
+  if (![other isKindOfClass:[IMAllFriendRsp class]]) {
     return NO;
   }
-  IMGetuiTokenRsp *otherMessage = other;
+  IMAllFriendRsp *otherMessage = other;
   return
       self.hasUserId == otherMessage.hasUserId &&
       (!self.hasUserId || self.userId == otherMessage.userId) &&
+      self.hasLatestUpdateTime == otherMessage.hasLatestUpdateTime &&
+      (!self.hasLatestUpdateTime || self.latestUpdateTime == otherMessage.latestUpdateTime) &&
+      [self.userListArray isEqualToArray:otherMessage.userListArray] &&
       self.hasAttachData == otherMessage.hasAttachData &&
       (!self.hasAttachData || [self.attachData isEqual:otherMessage.attachData]) &&
       (self.unknownFields == otherMessage.unknownFields || (self.unknownFields != nil && [self.unknownFields isEqual:otherMessage.unknownFields]));
@@ -8039,6 +7299,12 @@ static IMGetuiTokenRsp* defaultIMGetuiTokenRspInstance = nil;
   if (self.hasUserId) {
     hashCode = hashCode * 31 + [[NSNumber numberWithInteger:self.userId] hash];
   }
+  if (self.hasLatestUpdateTime) {
+    hashCode = hashCode * 31 + [[NSNumber numberWithInteger:self.latestUpdateTime] hash];
+  }
+  [self.userListArray enumerateObjectsUsingBlock:^(UserInfo *element, NSUInteger idx, BOOL *stop) {
+    hashCode = hashCode * 31 + [element hash];
+  }];
   if (self.hasAttachData) {
     hashCode = hashCode * 31 + [self.attachData hash];
   }
@@ -8047,46 +7313,56 @@ static IMGetuiTokenRsp* defaultIMGetuiTokenRspInstance = nil;
 }
 @end
 
-@interface IMGetuiTokenRspBuilder()
-@property (strong) IMGetuiTokenRsp* resultImgetuiTokenRsp;
+@interface IMAllFriendRspBuilder()
+@property (strong) IMAllFriendRsp* resultImallFriendRsp;
 @end
 
-@implementation IMGetuiTokenRspBuilder
-@synthesize resultImgetuiTokenRsp;
+@implementation IMAllFriendRspBuilder
+@synthesize resultImallFriendRsp;
 - (instancetype) init {
   if ((self = [super init])) {
-    self.resultImgetuiTokenRsp = [[IMGetuiTokenRsp alloc] init];
+    self.resultImallFriendRsp = [[IMAllFriendRsp alloc] init];
   }
   return self;
 }
 - (PBGeneratedMessage*) internalGetResult {
-  return resultImgetuiTokenRsp;
+  return resultImallFriendRsp;
 }
-- (IMGetuiTokenRspBuilder*) clear {
-  self.resultImgetuiTokenRsp = [[IMGetuiTokenRsp alloc] init];
+- (IMAllFriendRspBuilder*) clear {
+  self.resultImallFriendRsp = [[IMAllFriendRsp alloc] init];
   return self;
 }
-- (IMGetuiTokenRspBuilder*) clone {
-  return [IMGetuiTokenRsp builderWithPrototype:resultImgetuiTokenRsp];
+- (IMAllFriendRspBuilder*) clone {
+  return [IMAllFriendRsp builderWithPrototype:resultImallFriendRsp];
 }
-- (IMGetuiTokenRsp*) defaultInstance {
-  return [IMGetuiTokenRsp defaultInstance];
+- (IMAllFriendRsp*) defaultInstance {
+  return [IMAllFriendRsp defaultInstance];
 }
-- (IMGetuiTokenRsp*) build {
+- (IMAllFriendRsp*) build {
   [self checkInitialized];
   return [self buildPartial];
 }
-- (IMGetuiTokenRsp*) buildPartial {
-  IMGetuiTokenRsp* returnMe = resultImgetuiTokenRsp;
-  self.resultImgetuiTokenRsp = nil;
+- (IMAllFriendRsp*) buildPartial {
+  IMAllFriendRsp* returnMe = resultImallFriendRsp;
+  self.resultImallFriendRsp = nil;
   return returnMe;
 }
-- (IMGetuiTokenRspBuilder*) mergeFrom:(IMGetuiTokenRsp*) other {
-  if (other == [IMGetuiTokenRsp defaultInstance]) {
+- (IMAllFriendRspBuilder*) mergeFrom:(IMAllFriendRsp*) other {
+  if (other == [IMAllFriendRsp defaultInstance]) {
     return self;
   }
   if (other.hasUserId) {
     [self setUserId:other.userId];
+  }
+  if (other.hasLatestUpdateTime) {
+    [self setLatestUpdateTime:other.latestUpdateTime];
+  }
+  if (other.userListArray.count > 0) {
+    if (resultImallFriendRsp.userListArray == nil) {
+      resultImallFriendRsp.userListArray = [[NSMutableArray alloc] initWithArray:other.userListArray];
+    } else {
+      [resultImallFriendRsp.userListArray addObjectsFromArray:other.userListArray];
+    }
   }
   if (other.hasAttachData) {
     [self setAttachData:other.attachData];
@@ -8094,10 +7370,10 @@ static IMGetuiTokenRsp* defaultIMGetuiTokenRspInstance = nil;
   [self mergeUnknownFields:other.unknownFields];
   return self;
 }
-- (IMGetuiTokenRspBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input {
+- (IMAllFriendRspBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input {
   return [self mergeFromCodedInputStream:input extensionRegistry:[PBExtensionRegistry emptyRegistry]];
 }
-- (IMGetuiTokenRspBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry {
+- (IMAllFriendRspBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry {
   PBUnknownFieldSetBuilder* unknownFields = [PBUnknownFieldSet builderWithUnknownFields:self.unknownFields];
   while (YES) {
     SInt32 tag = [input readTag];
@@ -8116,6 +7392,16 @@ static IMGetuiTokenRsp* defaultIMGetuiTokenRspInstance = nil;
         [self setUserId:[input readUInt32]];
         break;
       }
+      case 16: {
+        [self setLatestUpdateTime:[input readUInt32]];
+        break;
+      }
+      case 26: {
+        UserInfoBuilder* subBuilder = [UserInfo builder];
+        [input readMessage:subBuilder extensionRegistry:extensionRegistry];
+        [self addUserList:[subBuilder buildPartial]];
+        break;
+      }
       case 162: {
         [self setAttachData:[input readData]];
         break;
@@ -8124,35 +7410,72 @@ static IMGetuiTokenRsp* defaultIMGetuiTokenRspInstance = nil;
   }
 }
 - (BOOL) hasUserId {
-  return resultImgetuiTokenRsp.hasUserId;
+  return resultImallFriendRsp.hasUserId;
 }
 - (UInt32) userId {
-  return resultImgetuiTokenRsp.userId;
+  return resultImallFriendRsp.userId;
 }
-- (IMGetuiTokenRspBuilder*) setUserId:(UInt32) value {
-  resultImgetuiTokenRsp.hasUserId = YES;
-  resultImgetuiTokenRsp.userId = value;
+- (IMAllFriendRspBuilder*) setUserId:(UInt32) value {
+  resultImallFriendRsp.hasUserId = YES;
+  resultImallFriendRsp.userId = value;
   return self;
 }
-- (IMGetuiTokenRspBuilder*) clearUserId {
-  resultImgetuiTokenRsp.hasUserId = NO;
-  resultImgetuiTokenRsp.userId = 0;
+- (IMAllFriendRspBuilder*) clearUserId {
+  resultImallFriendRsp.hasUserId = NO;
+  resultImallFriendRsp.userId = 0;
+  return self;
+}
+- (BOOL) hasLatestUpdateTime {
+  return resultImallFriendRsp.hasLatestUpdateTime;
+}
+- (UInt32) latestUpdateTime {
+  return resultImallFriendRsp.latestUpdateTime;
+}
+- (IMAllFriendRspBuilder*) setLatestUpdateTime:(UInt32) value {
+  resultImallFriendRsp.hasLatestUpdateTime = YES;
+  resultImallFriendRsp.latestUpdateTime = value;
+  return self;
+}
+- (IMAllFriendRspBuilder*) clearLatestUpdateTime {
+  resultImallFriendRsp.hasLatestUpdateTime = NO;
+  resultImallFriendRsp.latestUpdateTime = 0;
+  return self;
+}
+- (NSMutableArray<UserInfo*> *)userList {
+  return resultImallFriendRsp.userListArray;
+}
+- (UserInfo*)userListAtIndex:(NSUInteger)index {
+  return [resultImallFriendRsp userListAtIndex:index];
+}
+- (IMAllFriendRspBuilder *)addUserList:(UserInfo*)value {
+  if (resultImallFriendRsp.userListArray == nil) {
+    resultImallFriendRsp.userListArray = [[NSMutableArray alloc]init];
+  }
+  [resultImallFriendRsp.userListArray addObject:value];
+  return self;
+}
+- (IMAllFriendRspBuilder *)setUserListArray:(NSArray<UserInfo*> *)array {
+  resultImallFriendRsp.userListArray = [[NSMutableArray alloc]initWithArray:array];
+  return self;
+}
+- (IMAllFriendRspBuilder *)clearUserList {
+  resultImallFriendRsp.userListArray = nil;
   return self;
 }
 - (BOOL) hasAttachData {
-  return resultImgetuiTokenRsp.hasAttachData;
+  return resultImallFriendRsp.hasAttachData;
 }
 - (NSData*) attachData {
-  return resultImgetuiTokenRsp.attachData;
+  return resultImallFriendRsp.attachData;
 }
-- (IMGetuiTokenRspBuilder*) setAttachData:(NSData*) value {
-  resultImgetuiTokenRsp.hasAttachData = YES;
-  resultImgetuiTokenRsp.attachData = value;
+- (IMAllFriendRspBuilder*) setAttachData:(NSData*) value {
+  resultImallFriendRsp.hasAttachData = YES;
+  resultImallFriendRsp.attachData = value;
   return self;
 }
-- (IMGetuiTokenRspBuilder*) clearAttachData {
-  resultImgetuiTokenRsp.hasAttachData = NO;
-  resultImgetuiTokenRsp.attachData = [NSData data];
+- (IMAllFriendRspBuilder*) clearAttachData {
+  resultImallFriendRsp.hasAttachData = NO;
+  resultImallFriendRsp.attachData = [NSData data];
   return self;
 }
 @end

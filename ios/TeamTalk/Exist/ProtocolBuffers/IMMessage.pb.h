@@ -591,7 +591,7 @@
 - (BOOL) hasAttachData;
 @property (readonly) UInt32 userId;
 @property (readonly) UInt32 totalCnt;
-@property (readonly, strong) NSArray * unreadinfoList;
+@property (readonly, strong) NSArray<UnreadInfo*> * unreadinfoList;
 @property (readonly, strong) NSData* attachData;
 - (UnreadInfo*)unreadinfoListAtIndex:(NSUInteger)index;
 
@@ -640,10 +640,10 @@
 - (IMUnreadMsgCntRspBuilder*) setTotalCnt:(UInt32) value;
 - (IMUnreadMsgCntRspBuilder*) clearTotalCnt;
 
-- (NSMutableArray *)unreadinfoList;
+- (NSMutableArray<UnreadInfo*> *)unreadinfoList;
 - (UnreadInfo*)unreadinfoListAtIndex:(NSUInteger)index;
 - (IMUnreadMsgCntRspBuilder *)addUnreadinfoList:(UnreadInfo*)value;
-- (IMUnreadMsgCntRspBuilder *)setUnreadinfoListArray:(NSArray *)array;
+- (IMUnreadMsgCntRspBuilder *)setUnreadinfoListArray:(NSArray<UnreadInfo*> *)array;
 - (IMUnreadMsgCntRspBuilder *)clearUnreadinfoList;
 
 - (BOOL) hasAttachData;
@@ -781,7 +781,7 @@
 @property (readonly) SessionType sessionType;
 @property (readonly) UInt32 sessionId;
 @property (readonly) UInt32 msgIdBegin;
-@property (readonly, strong) NSArray * msgList;
+@property (readonly, strong) NSArray<MsgInfo*> * msgList;
 @property (readonly, strong) NSData* attachData;
 - (MsgInfo*)msgListAtIndex:(NSUInteger)index;
 
@@ -840,10 +840,10 @@
 - (IMGetMsgListRspBuilder*) setMsgIdBegin:(UInt32) value;
 - (IMGetMsgListRspBuilder*) clearMsgIdBegin;
 
-- (NSMutableArray *)msgList;
+- (NSMutableArray<MsgInfo*> *)msgList;
 - (MsgInfo*)msgListAtIndex:(NSUInteger)index;
 - (IMGetMsgListRspBuilder *)addMsgList:(MsgInfo*)value;
-- (IMGetMsgListRspBuilder *)setMsgListArray:(NSArray *)array;
+- (IMGetMsgListRspBuilder *)setMsgListArray:(NSArray<MsgInfo*> *)array;
 - (IMGetMsgListRspBuilder *)clearMsgList;
 
 - (BOOL) hasAttachData;
@@ -1137,7 +1137,7 @@
 @property (readonly) UInt32 userId;
 @property (readonly) SessionType sessionType;
 @property (readonly) UInt32 sessionId;
-@property (readonly, strong) NSArray * msgList;
+@property (readonly, strong) NSArray<MsgInfo*> * msgList;
 @property (readonly, strong) NSData* attachData;
 - (MsgInfo*)msgListAtIndex:(NSUInteger)index;
 
@@ -1191,10 +1191,10 @@
 - (IMGetMsgByIdRspBuilder*) setSessionId:(UInt32) value;
 - (IMGetMsgByIdRspBuilder*) clearSessionId;
 
-- (NSMutableArray *)msgList;
+- (NSMutableArray<MsgInfo*> *)msgList;
 - (MsgInfo*)msgListAtIndex:(NSUInteger)index;
 - (IMGetMsgByIdRspBuilder *)addMsgList:(MsgInfo*)value;
-- (IMGetMsgByIdRspBuilder *)setMsgListArray:(NSArray *)array;
+- (IMGetMsgByIdRspBuilder *)setMsgListArray:(NSArray<MsgInfo*> *)array;
 - (IMGetMsgByIdRspBuilder *)clearMsgList;
 
 - (BOOL) hasAttachData;

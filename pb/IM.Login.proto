@@ -110,3 +110,23 @@ message IMQueryPushShieldRsp {
     optional uint32 shield_status = 3;          // 值： 如果result_code值为0(successed)，则shield_status值设置， 1:开启， 0:关闭
     optional bytes attach_data = 20;
 }
+
+// 修改密码
+message IMModifyPassReq {
+
+	// CID_LOGIN_REQ_MODIFY_PASS	= 0x0110;	// 修改密码
+    // cmd id:	0x0110
+    required uint32 user_id 	= 1;
+    required string old_pass 	= 2;
+    required string new_pass 	= 3;
+    optional bytes attach_data 	= 20;
+}
+
+message IMModifyPassRes {
+    // CID_LOGIN_RES_MODIFY_PASS	= 0x0111;
+    // cmd id:	0x0111
+    required uint32 user_id 	= 1;
+    required uint32 status 		= 2;
+    optional bytes attach_data 	= 20;
+}
+

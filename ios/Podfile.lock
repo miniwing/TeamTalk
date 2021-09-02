@@ -82,7 +82,7 @@ DEPENDENCIES:
   - MBProgressHUD (~> 0.8)
   - MWPhotoBrowser
   - OHAlertView
-  - ProtocolBuffers (~> 1.9.4)
+  - ProtocolBuffers (~> 1.9.11)
   - "PSTCollectionView (from `git@github.com:miniwing/PSTCollectionView.git`, branch `develop`)"
   - RegexKitLite
   - Reveal-SDK (~> 24)
@@ -168,6 +168,6 @@ SPEC CHECKSUMS:
   YYKit: ac05bcfde7368d81f6232daf332702dd10535a68
   ZXingObjC: fdbb269f25dd2032da343e06f10224d62f537bdb
 
-PODFILE CHECKSUM: 30098ab211df3545289e014affd075eda9fd8316
+PODFILE CHECKSUM: 174e0cec734c00abe7b86ac191c8700b17745988
 
 COCOAPODS: 1.10.2

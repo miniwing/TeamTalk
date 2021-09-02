@@ -85,6 +85,7 @@
 		46C53DA91CDADD8700034CF5 /* IMSwitchService.pb.m in Sources */ = {isa = PBXBuildFile; fileRef = 46C53DA01CDADD8700034CF5 /* IMSwitchService.pb.m */; };
 		46C53DAC1CDAF74C00034CF5 /* DDAllFriendAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 46C53DAB1CDAF74C00034CF5 /* DDAllFriendAPI.m */; };
 		46C53DB01CDB2AB700034CF5 /* FriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46C53DAF1CDB2AB700034CF5 /* FriendsViewController.m */; };
+		4A0AE88926DFF51C00F159BF /* IMRegist.pb.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A0AE88826DFF51B00F159BF /* IMRegist.pb.m */; };
 		4A0FA22A26DCB37B0096F60A /* RegistModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A0FA22226DCB37A0096F60A /* RegistModule.m */; };
 		4A0FA22B26DCB37B0096F60A /* RegistTcpServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A0FA22526DCB37A0096F60A /* RegistTcpServer.m */; };
 		4A0FA22C26DCB37B0096F60A /* RegistHttpServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A0FA22726DCB37A0096F60A /* RegistHttpServer.m */; };
@@ -643,6 +644,8 @@
 		46C53DAB1CDAF74C00034CF5 /* DDAllFriendAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDAllFriendAPI.m; sourceTree = "<group>"; };
 		46C53DAE1CDB2AB700034CF5 /* FriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendsViewController.h; sourceTree = "<group>"; };
 		46C53DAF1CDB2AB700034CF5 /* FriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendsViewController.m; sourceTree = "<group>"; };
+		4A0AE88726DFF51B00F159BF /* IMRegist.pb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMRegist.pb.h; sourceTree = "<group>"; };
+		4A0AE88826DFF51B00F159BF /* IMRegist.pb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMRegist.pb.m; sourceTree = "<group>"; };
 		4A0FA22226DCB37A0096F60A /* RegistModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegistModule.m; sourceTree = "<group>"; };
 		4A0FA22326DCB37A0096F60A /* RegistHttpServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegistHttpServer.h; sourceTree = "<group>"; };
 		4A0FA22426DCB37A0096F60A /* RegistTcpServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegistTcpServer.h; sourceTree = "<group>"; };
@@ -1878,6 +1881,8 @@
 		C054EC691B3274AB00078809 /* ProtocolBuffers */ = {
 			isa = PBXGroup;
 			children = (
+				4A0AE88726DFF51B00F159BF /* IMRegist.pb.h */,
+				4A0AE88826DFF51B00F159BF /* IMRegist.pb.m */,
 				46C53D8F1CDADD8700034CF5 /* IMBaseDefine.pb.h */,
 				46C53D901CDADD8700034CF5 /* IMBaseDefine.pb.m */,
 				46C53D911CDADD8700034CF5 /* IMBuddy.pb.h */,
@@ -3596,6 +3601,7 @@
 				469697AB1CE2E2C500E86CC2 /* GroupsViewController.m in Sources */,
 				C07E664A1B328F1A00A5102C /* GetMsgByMsgIDsAPI.m in Sources */,
 				C07E67021B32ADE600A5102C /* DDAlbumDetailsViewControll.m in Sources */,
+				4A0AE88926DFF51C00F159BF /* IMRegist.pb.m in Sources */,
 				C054ED181B3276DE00078809 /* exc_10_32_table.c in Sources */,
 				C054EC381B3270D900078809 /* AppDelegate.m in Sources */,
 				C07E672F1B32B05F00A5102C /* MTTPhotosCache.m in Sources */,

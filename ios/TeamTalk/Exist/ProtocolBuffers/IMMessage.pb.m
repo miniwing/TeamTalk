@@ -2281,7 +2281,7 @@ static IMUnreadMsgCntReq* defaultIMUnreadMsgCntReqInstance = nil;
 @interface IMUnreadMsgCntRsp ()
 @property UInt32 userId;
 @property UInt32 totalCnt;
-@property (strong) NSMutableArray * unreadinfoListArray;
+@property (strong) NSMutableArray<UnreadInfo*> * unreadinfoListArray;
 @property (strong) NSData* attachData;
 @end
 
@@ -2330,7 +2330,7 @@ static IMUnreadMsgCntRsp* defaultIMUnreadMsgCntRspInstance = nil;
 - (instancetype) defaultInstance {
   return defaultIMUnreadMsgCntRspInstance;
 }
-- (NSArray *)unreadinfoList {
+- (NSArray<UnreadInfo*> *)unreadinfoList {
   return unreadinfoListArray;
 }
 - (UnreadInfo*)unreadinfoListAtIndex:(NSUInteger)index {
@@ -2621,7 +2621,7 @@ static IMUnreadMsgCntRsp* defaultIMUnreadMsgCntRspInstance = nil;
   resultImunreadMsgCntRsp.totalCnt = 0;
   return self;
 }
-- (NSMutableArray *)unreadinfoList {
+- (NSMutableArray<UnreadInfo*> *)unreadinfoList {
   return resultImunreadMsgCntRsp.unreadinfoListArray;
 }
 - (UnreadInfo*)unreadinfoListAtIndex:(NSUInteger)index {
@@ -2634,7 +2634,7 @@ static IMUnreadMsgCntRsp* defaultIMUnreadMsgCntRspInstance = nil;
   [resultImunreadMsgCntRsp.unreadinfoListArray addObject:value];
   return self;
 }
-- (IMUnreadMsgCntRspBuilder *)setUnreadinfoListArray:(NSArray *)array {
+- (IMUnreadMsgCntRspBuilder *)setUnreadinfoListArray:(NSArray<UnreadInfo*> *)array {
   resultImunreadMsgCntRsp.unreadinfoListArray = [[NSMutableArray alloc]initWithArray:array];
   return self;
 }
@@ -3136,7 +3136,7 @@ static IMGetMsgListReq* defaultIMGetMsgListReqInstance = nil;
 @property SessionType sessionType;
 @property UInt32 sessionId;
 @property UInt32 msgIdBegin;
-@property (strong) NSMutableArray * msgListArray;
+@property (strong) NSMutableArray<MsgInfo*> * msgListArray;
 @property (strong) NSData* attachData;
 @end
 
@@ -3201,7 +3201,7 @@ static IMGetMsgListRsp* defaultIMGetMsgListRspInstance = nil;
 - (instancetype) defaultInstance {
   return defaultIMGetMsgListRspInstance;
 }
-- (NSArray *)msgList {
+- (NSArray<MsgInfo*> *)msgList {
   return msgListArray;
 }
 - (MsgInfo*)msgListAtIndex:(NSUInteger)index {
@@ -3583,7 +3583,7 @@ static IMGetMsgListRsp* defaultIMGetMsgListRspInstance = nil;
   resultImgetMsgListRsp.msgIdBegin = 0;
   return self;
 }
-- (NSMutableArray *)msgList {
+- (NSMutableArray<MsgInfo*> *)msgList {
   return resultImgetMsgListRsp.msgListArray;
 }
 - (MsgInfo*)msgListAtIndex:(NSUInteger)index {
@@ -3596,7 +3596,7 @@ static IMGetMsgListRsp* defaultIMGetMsgListRspInstance = nil;
   [resultImgetMsgListRsp.msgListArray addObject:value];
   return self;
 }
-- (IMGetMsgListRspBuilder *)setMsgListArray:(NSArray *)array {
+- (IMGetMsgListRspBuilder *)setMsgListArray:(NSArray<MsgInfo*> *)array {
   resultImgetMsgListRsp.msgListArray = [[NSMutableArray alloc]initWithArray:array];
   return self;
 }
@@ -4854,7 +4854,7 @@ static IMGetMsgByIdReq* defaultIMGetMsgByIdReqInstance = nil;
 @property UInt32 userId;
 @property SessionType sessionType;
 @property UInt32 sessionId;
-@property (strong) NSMutableArray * msgListArray;
+@property (strong) NSMutableArray<MsgInfo*> * msgListArray;
 @property (strong) NSData* attachData;
 @end
 
@@ -4911,7 +4911,7 @@ static IMGetMsgByIdRsp* defaultIMGetMsgByIdRspInstance = nil;
 - (instancetype) defaultInstance {
   return defaultIMGetMsgByIdRspInstance;
 }
-- (NSArray *)msgList {
+- (NSArray<MsgInfo*> *)msgList {
   return msgListArray;
 }
 - (MsgInfo*)msgListAtIndex:(NSUInteger)index {
@@ -5250,7 +5250,7 @@ static IMGetMsgByIdRsp* defaultIMGetMsgByIdRspInstance = nil;
   resultImgetMsgByIdRsp.sessionId = 0;
   return self;
 }
-- (NSMutableArray *)msgList {
+- (NSMutableArray<MsgInfo*> *)msgList {
   return resultImgetMsgByIdRsp.msgListArray;
 }
 - (MsgInfo*)msgListAtIndex:(NSUInteger)index {
@@ -5263,7 +5263,7 @@ static IMGetMsgByIdRsp* defaultIMGetMsgByIdRspInstance = nil;
   [resultImgetMsgByIdRsp.msgListArray addObject:value];
   return self;
 }
-- (IMGetMsgByIdRspBuilder *)setMsgListArray:(NSArray *)array {
+- (IMGetMsgByIdRspBuilder *)setMsgListArray:(NSArray<MsgInfo*> *)array {
   resultImgetMsgByIdRsp.msgListArray = [[NSMutableArray alloc]initWithArray:array];
   return self;
 }

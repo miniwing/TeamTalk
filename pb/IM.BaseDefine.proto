@@ -5,6 +5,7 @@ option optimize_for = LITE_RUNTIME;
 
 // service id
 enum ServiceID {
+	
     SID_LOGIN           = 0x0001;           // for login
     SID_BUDDY_LIST      = 0x0002;		    // for friend list
     SID_MSG             = 0x0003;           //
@@ -35,6 +36,9 @@ enum LoginCmdID {
     CID_LOGIN_RES_PUSH_SHIELD       = 0x010d; 	//
     CID_LOGIN_REQ_QUERY_PUSH_SHIELD = 0x010e; 	//
     CID_LOGIN_RES_QUERY_PUSH_SHIELD = 0x010f;
+
+    CID_LOGIN_REQ_MODIFY_PASS       = 0x0110;	// 修改密码
+    CID_LOGIN_RES_MODIFY_PASS       = 0x0111;
 }
 
 // __TEAMTALK_REGIST__
@@ -69,12 +73,15 @@ enum BuddyListCmdID {
     CID_BUDDY_LIST_REMOVE_SESSION_NOTIFY                = 0x020f;
     CID_BUDDY_LIST_DEPARTMENT_REQUEST                   = 0x0210;
     CID_BUDDY_LIST_DEPARTMENT_RESPONSE                  = 0x0211;
-    CID_BUDDY_LIST_AVATAR_CHANGED_NOTIFY                = 0x0212; //头像更改通知
-    CID_BUDDY_LIST_CHANGE_SIGN_INFO_REQUEST             = 0x0213; //修改个性签名请求
+    CID_BUDDY_LIST_AVATAR_CHANGED_NOTIFY                = 0x0212; // 头像更改通知
+    CID_BUDDY_LIST_CHANGE_SIGN_INFO_REQUEST             = 0x0213; // 修改个性签名请求
     CID_BUDDY_LIST_CHANGE_SIGN_INFO_RESPONSE            = 0x0214; //
-    CID_BUDDY_LIST_SIGN_INFO_CHANGED_NOTIFY             = 0x0215; //签名修改通知
+    CID_BUDDY_LIST_SIGN_INFO_CHANGED_NOTIFY             = 0x0215; // 签名修改通知
 
     CID_BUDDY_LIST_PC_REGIST_STATUS_NOTIFY              = 0x0216; // __TEAMTALK_REGIST__
+
+    CID_BUDDY_LIST_ALL_FRIEND_REQUEST                   = 0x0217;
+    CID_BUDDY_LIST_ALL_FRIEND_RESPONSE                  = 0x0218;
 }
 
 // command id for msg
@@ -135,10 +142,12 @@ enum FileCmdID {
 
 // command id for switch service
 enum SwitchServiceCmdID {
+
     CID_SWITCH_P2P_CMD	= 0x0601;	//
 }
 
 enum OtherCmdID {
+
     CID_OTHER_HEARTBEAT                     = 0x0701;
     CID_OTHER_STOP_RECV_PACKET              = 0x0702;
     CID_OTHER_VALIDATE_REQ                  = 0x0703;
@@ -161,10 +170,12 @@ enum OtherCmdID {
     CID_OTHER_FILE_SERVER_IP_REQ            = 0x0733;
     CID_OTHER_FILE_SERVER_IP_RSP            = 0x0734;
 
+    // __TEAMTALK_REGIST__
     CID_OTHER_REGIST_STATUS_NOTIFY          = 0x0735;	// __TEAMTALK_REGIST__
 }
 
 enum ResultType {
+
 	REFUSE_REASON_NONE				= 0;
 	REFUSE_REASON_NO_MSG_SERVER		= 1;
 	REFUSE_REASON_MSG_SERVER_FULL 	= 2;
@@ -178,45 +189,51 @@ enum ResultType {
 }
 
 enum KickReasonType {
+
 	KICK_REASON_DUPLICATE_USER = 1;
     KICK_REASON_MOBILE_KICK    = 2;
 }
 
 enum OnlineListType {
+
 	ONLINE_LIST_TYPE_FRIEND_LIST = 1;
 }
 
 enum UserStatType {
+
 	USER_STATUS_ONLINE 	= 1;
 	USER_STATUS_OFFLINE	= 2;
 	USER_STATUS_LEAVE	= 3;
 
 }
 enum SessionType {
-	SESSION_TYPE_SINGLE = 1;          	//单个用户会话
-	SESSION_TYPE_GROUP = 2;          	//群会话
+
+	SESSION_TYPE_SINGLE = 1;          	// 单个用户会话
+	SESSION_TYPE_GROUP 	= 2;          	// 群会话
 }
 
 enum MsgType {
-	MSG_TYPE_SINGLE_TEXT    = 0x01;
+
+    MSG_TYPE_SINGLE_TEXT    = 0x01;
     MSG_TYPE_SINGLE_AUDIO   = 0x02;
-    MSG_TYPE_SINGLE_IMAGE    = 0x03;
-    MSG_TYPE_SINGLE_LOCATION   = 0x04;
-    MSG_TYPE_SINGLE_VIDEO    = 0x05;
-    MSG_TYPE_SINGLE_URL   = 0x06;
-    MSG_TYPE_SINGLE_FILE   = 0x07;
-    MSG_TYPE_SINGLE_EMOTION   = 0x08;
+    MSG_TYPE_SINGLE_IMAGE   = 0x03;
+    MSG_TYPE_SINGLE_LOCATION= 0x04;
+    MSG_TYPE_SINGLE_VIDEO   = 0x05;
+    MSG_TYPE_SINGLE_URL   	= 0x06;
+    MSG_TYPE_SINGLE_FILE   	= 0x07;
+    MSG_TYPE_SINGLE_EMOTION = 0x08;
     MSG_TYPE_GROUP_TEXT     = 0x11;
     MSG_TYPE_GROUP_AUDIO    = 0x12;
-    MSG_TYPE_GROUP_IMAGE     = 0x13;
-    MSG_TYPE_GROUP_LOCATION    = 0x14;
-    MSG_TYPE_GROUP_VIDEO     = 0x15;
-    MSG_TYPE_GROUP_URL    = 0x16;
-    MSG_TYPE_GROUP_FILE    = 0x17;
-    MSG_TYPE_GROUP_EMOTION    = 0x18;
+    MSG_TYPE_GROUP_IMAGE    = 0x13;
+    MSG_TYPE_GROUP_LOCATION = 0x14;
+    MSG_TYPE_GROUP_VIDEO    = 0x15;
+    MSG_TYPE_GROUP_URL    	= 0x16;
+    MSG_TYPE_GROUP_FILE    	= 0x17;
+    MSG_TYPE_GROUP_EMOTION  = 0x18;
 }
 
 enum ClientType {
+
 	CLIENT_TYPE_WINDOWS     = 0x01;
     CLIENT_TYPE_MAC         = 0x02;
     CLIENT_TYPE_IOS         = 0x11;
@@ -224,11 +241,13 @@ enum ClientType {
 }
 
 enum GroupType {
+
 	GROUP_TYPE_NORMAL		= 0x01;
 	GROUP_TYPE_TMP			= 0x02;
 }
 
 enum GroupModifyType {
+
 	GROUP_MODIFY_TYPE_ADD	= 0x01;
 	GROUP_MODIFY_TYPE_DEL	= 0x02;
 }
@@ -242,7 +261,7 @@ enum ClientFileState {
     CLIENT_FILE_PEER_READY  = 0x00;
     CLIENT_FILE_CANCEL      = 0x01;
     CLIENT_FILE_REFUSE      = 0x02;
-    CLIENT_FILE_DONE       = 0x03;
+    CLIENT_FILE_DONE       	= 0x03;
 }
 
 enum ClientFileRole {
@@ -253,6 +272,7 @@ enum ClientFileRole {
 }
 
 enum FileServerError {
+
     FILE_SERVER_ERRNO_OK                                = 0x00;
     FILE_SERVER_ERRNO_CREATE_TASK_ID_ERROR              = 0x01;
     FILE_SERVER_ERRNO_CREATE_TASK_ERROR                 = 0x02;
@@ -271,11 +291,13 @@ enum FileServerError {
 }
 
 enum SessionStatusType {
+
     SESSION_STATUS_OK           = 0x00;
     SESSION_STATUS_DELETE       = 0x01;
 }
 
 enum DepartmentStatusType {
+
     DEPT_STATUS_OK              = 0x00;
     DEPT_STATUS_DELETE          = 0x01;
 }
@@ -287,20 +309,23 @@ message IpAddr {
 }
 
 message UserInfo {
-	required uint32 user_id = 1;
-	required uint32 user_gender = 2; 	//// 用户性别,男：1 女：2 人妖/外星人：0
-	required string user_nick_name = 3;	//绰号
-	required string avatar_url = 4;
-	required uint32 department_id = 5;
-	required string email = 6;
-	required string user_real_name = 7;	//真名
-	required string user_tel = 8;
-	required string user_domain = 9;	//用户名拼音
-    required uint32 status = 10;        //0:在职  1. 试用期 2. 正式 3. 离职 4.实习,  client端需要对“离职”进行不展示
-    optional string sign_info = 11;
+
+	required uint32 user_id 		= 1;
+	required uint32 user_gender 	= 2; 	// 用户性别,男：1 女：2 人妖/外星人：0
+	required string user_nick_name 	= 3;	// 绰号
+	required string avatar_url 		= 4;
+	required uint32 department_id 	= 5;
+	required string email 			= 6;
+	required string user_real_name 	= 7;	// 真名
+	required string user_tel 		= 8;
+	required string user_domain 	= 9;	// 用户名拼音
+    required uint32 status 			= 10;	// 0:在职  1. 试用期 2. 正式 3. 离职 4.实习,  client端需要对“离职”进行不展示
+    optional string sign_info 		= 11;
+    optional uint32 isFriend  		= 12;
 }
 
 message ContactSessionInfo {
+
 	required uint32 session_id 					= 1;
 	required SessionType session_type 			= 2;
     required SessionStatusType session_status 	= 3;
@@ -312,17 +337,20 @@ message ContactSessionInfo {
 }
 
 message UserStat {
+
 	required uint32 user_id 		= 1;
 	required UserStatType status 	= 2;
 }
 
 message ServerUserStat {
+
 	required uint32 user_id 		= 1;
 	required UserStatType status 	= 2;
 	required ClientType client_type = 3;
 }
 
 message UnreadInfo {
+
 	required uint32 session_id 			= 1;
 	required SessionType session_type 	= 2;
 	required uint32 unread_cnt 			= 3;
@@ -333,6 +361,7 @@ message UnreadInfo {
 }
 
 message MsgInfo {
+
 	required uint32 msg_id 			= 1;
 	required uint32 from_session_id = 2;   // 发送的用户id
 	required uint32 create_time 	= 3;
@@ -341,12 +370,14 @@ message MsgInfo {
 }
 
 message GroupVersionInfo {
+
 	required uint32 group_id 	= 1;
 	required uint32 version 	= 2;
 	
 }
 
 message GroupInfo {
+
 	required uint32 group_id 			= 1;
 	required uint32 version 			= 2;
 	required string group_name 			= 3;
@@ -358,6 +389,7 @@ message GroupInfo {
 }
 
 message UserTokenInfo {
+
     required uint32 user_id 		= 1;
 	required ClientType user_type 	= 2;
 	required string token 			= 3;
@@ -366,17 +398,20 @@ message UserTokenInfo {
 }
 
 message PushResult {
+
 	required string user_token 	= 1;
 	required uint32 result_code = 2;
 }
 
 message ShieldStatus {
+
 	required uint32 user_id 		= 1;		
 	required uint32 group_id 		= 2;	
 	required uint32 shield_status 	= 3;		// 1: shield  0: not shield 
 }
 
 message OfflineFileInfo {
+
     required uint32 from_user_id	= 1;
     required string task_id 		= 2;
     required string file_name 		= 3;
@@ -384,6 +419,7 @@ message OfflineFileInfo {
 }
 
 message DepartInfo {
+
 	required uint32 dept_id 		= 1;
 	required uint32 priority 		= 2;
 	required string dept_name 		= 3;
@@ -392,6 +428,7 @@ message DepartInfo {
 }
 
 message PushShieldStatus {
+
     required uint32 user_id 		= 1;
     required uint32 shield_status 	= 2;		//1: shield  0: not shield
 }

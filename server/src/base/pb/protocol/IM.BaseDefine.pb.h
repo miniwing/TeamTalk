@@ -80,11 +80,13 @@ enum LoginCmdID {
   CID_LOGIN_REQ_PUSH_SHIELD = 268,
   CID_LOGIN_RES_PUSH_SHIELD = 269,
   CID_LOGIN_REQ_QUERY_PUSH_SHIELD = 270,
-  CID_LOGIN_RES_QUERY_PUSH_SHIELD = 271
+  CID_LOGIN_RES_QUERY_PUSH_SHIELD = 271,
+  CID_LOGIN_REQ_MODIFY_PASS = 272,
+  CID_LOGIN_RES_MODIFY_PASS = 273
 };
 bool LoginCmdID_IsValid(int value);
 const LoginCmdID LoginCmdID_MIN = CID_LOGIN_REQ_MSGSERVER;
-const LoginCmdID LoginCmdID_MAX = CID_LOGIN_RES_QUERY_PUSH_SHIELD;
+const LoginCmdID LoginCmdID_MAX = CID_LOGIN_RES_MODIFY_PASS;
 const int LoginCmdID_ARRAYSIZE = LoginCmdID_MAX + 1;
 
 enum RegistCmdID {
@@ -122,11 +124,13 @@ enum BuddyListCmdID {
   CID_BUDDY_LIST_CHANGE_SIGN_INFO_REQUEST = 531,
   CID_BUDDY_LIST_CHANGE_SIGN_INFO_RESPONSE = 532,
   CID_BUDDY_LIST_SIGN_INFO_CHANGED_NOTIFY = 533,
-  CID_BUDDY_LIST_PC_REGIST_STATUS_NOTIFY = 534
+  CID_BUDDY_LIST_PC_REGIST_STATUS_NOTIFY = 534,
+  CID_BUDDY_LIST_ALL_FRIEND_REQUEST = 535,
+  CID_BUDDY_LIST_ALL_FRIEND_RESPONSE = 536
 };
 bool BuddyListCmdID_IsValid(int value);
 const BuddyListCmdID BuddyListCmdID_MIN = CID_BUDDY_LIST_RECENT_CONTACT_SESSION_REQUEST;
-const BuddyListCmdID BuddyListCmdID_MAX = CID_BUDDY_LIST_PC_REGIST_STATUS_NOTIFY;
+const BuddyListCmdID BuddyListCmdID_MAX = CID_BUDDY_LIST_ALL_FRIEND_RESPONSE;
 const int BuddyListCmdID_ARRAYSIZE = BuddyListCmdID_MAX + 1;
 
 enum MessageCmdID {
@@ -681,6 +685,13 @@ class UserInfo : public ::google::protobuf::MessageLite {
   inline ::std::string* release_sign_info();
   inline void set_allocated_sign_info(::std::string* sign_info);
 
+  // required uint32 isFriend = 12;
+  inline bool has_isfriend() const;
+  inline void clear_isfriend();
+  static const int kIsFriendFieldNumber = 12;
+  inline ::google::protobuf::uint32 isfriend() const;
+  inline void set_isfriend(::google::protobuf::uint32 value);
+
   // @@protoc_insertion_point(class_scope:IM.BaseDefine.UserInfo)
  private:
   inline void set_has_user_id();
@@ -705,6 +716,8 @@ class UserInfo : public ::google::protobuf::MessageLite {
   inline void clear_has_status();
   inline void set_has_sign_info();
   inline void clear_has_sign_info();
+  inline void set_has_isfriend();
+  inline void clear_has_isfriend();
 
   ::std::string _unknown_fields_;
 
@@ -721,6 +734,7 @@ class UserInfo : public ::google::protobuf::MessageLite {
   ::std::string* user_tel_;
   ::std::string* user_domain_;
   ::std::string* sign_info_;
+  ::google::protobuf::uint32 isfriend_;
   #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   friend void  protobuf_AddDesc_IM_2eBaseDefine_2eproto_impl();
   #else
@@ -3135,6 +3149,30 @@ inline void UserInfo::set_allocated_sign_info(::std::string* sign_info) {
     sign_info_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   }
   // @@protoc_insertion_point(field_set_allocated:IM.BaseDefine.UserInfo.sign_info)
+}
+
+// required uint32 isFriend = 12;
+inline bool UserInfo::has_isfriend() const {
+  return (_has_bits_[0] & 0x00000800u) != 0;
+}
+inline void UserInfo::set_has_isfriend() {
+  _has_bits_[0] |= 0x00000800u;
+}
+inline void UserInfo::clear_has_isfriend() {
+  _has_bits_[0] &= ~0x00000800u;
+}
+inline void UserInfo::clear_isfriend() {
+  isfriend_ = 0u;
+  clear_has_isfriend();
+}
+inline ::google::protobuf::uint32 UserInfo::isfriend() const {
+  // @@protoc_insertion_point(field_get:IM.BaseDefine.UserInfo.isFriend)
+  return isfriend_;
+}
+inline void UserInfo::set_isfriend(::google::protobuf::uint32 value) {
+  set_has_isfriend();
+  isfriend_ = value;
+  // @@protoc_insertion_point(field_set:IM.BaseDefine.UserInfo.isFriend)
 }
 
 // -------------------------------------------------------------------

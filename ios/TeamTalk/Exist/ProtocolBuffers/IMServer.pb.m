@@ -1259,7 +1259,7 @@ static IMGetDeviceTokenReq* defaultIMGetDeviceTokenReqInstance = nil;
 @end
 
 @interface IMGetDeviceTokenRsp ()
-@property (strong) NSMutableArray * userTokenInfoArray;
+@property (strong) NSMutableArray<UserTokenInfo*> * userTokenInfoArray;
 @property (strong) NSData* attachData;
 @end
 
@@ -1292,7 +1292,7 @@ static IMGetDeviceTokenRsp* defaultIMGetDeviceTokenRspInstance = nil;
 - (instancetype) defaultInstance {
   return defaultIMGetDeviceTokenRspInstance;
 }
-- (NSArray *)userTokenInfo {
+- (NSArray<UserTokenInfo*> *)userTokenInfo {
   return userTokenInfoArray;
 }
 - (UserTokenInfo*)userTokenInfoAtIndex:(NSUInteger)index {
@@ -1497,7 +1497,7 @@ static IMGetDeviceTokenRsp* defaultIMGetDeviceTokenRspInstance = nil;
     }
   }
 }
-- (NSMutableArray *)userTokenInfo {
+- (NSMutableArray<UserTokenInfo*> *)userTokenInfo {
   return resultImgetDeviceTokenRsp.userTokenInfoArray;
 }
 - (UserTokenInfo*)userTokenInfoAtIndex:(NSUInteger)index {
@@ -1510,7 +1510,7 @@ static IMGetDeviceTokenRsp* defaultIMGetDeviceTokenRspInstance = nil;
   [resultImgetDeviceTokenRsp.userTokenInfoArray addObject:value];
   return self;
 }
-- (IMGetDeviceTokenRspBuilder *)setUserTokenInfoArray:(NSArray *)array {
+- (IMGetDeviceTokenRspBuilder *)setUserTokenInfoArray:(NSArray<UserTokenInfo*> *)array {
   resultImgetDeviceTokenRsp.userTokenInfoArray = [[NSMutableArray alloc]initWithArray:array];
   return self;
 }
@@ -1746,7 +1746,7 @@ static IMRoleSet* defaultIMRoleSetInstance = nil;
 @end
 
 @interface IMOnlineUserInfo ()
-@property (strong) NSMutableArray * userStatListArray;
+@property (strong) NSMutableArray<ServerUserStat*> * userStatListArray;
 @end
 
 @implementation IMOnlineUserInfo
@@ -1770,7 +1770,7 @@ static IMOnlineUserInfo* defaultIMOnlineUserInfoInstance = nil;
 - (instancetype) defaultInstance {
   return defaultIMOnlineUserInfoInstance;
 }
-- (NSArray *)userStatList {
+- (NSArray<ServerUserStat*> *)userStatList {
   return userStatListArray;
 }
 - (ServerUserStat*)userStatListAtIndex:(NSUInteger)index {
@@ -1951,7 +1951,7 @@ static IMOnlineUserInfo* defaultIMOnlineUserInfoInstance = nil;
     }
   }
 }
-- (NSMutableArray *)userStatList {
+- (NSMutableArray<ServerUserStat*> *)userStatList {
   return resultImonlineUserInfo.userStatListArray;
 }
 - (ServerUserStat*)userStatListAtIndex:(NSUInteger)index {
@@ -1964,7 +1964,7 @@ static IMOnlineUserInfo* defaultIMOnlineUserInfoInstance = nil;
   [resultImonlineUserInfo.userStatListArray addObject:value];
   return self;
 }
-- (IMOnlineUserInfoBuilder *)setUserStatListArray:(NSArray *)array {
+- (IMOnlineUserInfoBuilder *)setUserStatListArray:(NSArray<ServerUserStat*> *)array {
   resultImonlineUserInfo.userStatListArray = [[NSMutableArray alloc]initWithArray:array];
   return self;
 }
@@ -3604,7 +3604,7 @@ static IMServerPCLoginStatusNotify* defaultIMServerPCLoginStatusNotifyInstance =
 @interface IMPushToUserReq ()
 @property (strong) NSString* flash;
 @property (strong) NSString* data;
-@property (strong) NSMutableArray * userTokenListArray;
+@property (strong) NSMutableArray<UserTokenInfo*> * userTokenListArray;
 @end
 
 @implementation IMPushToUserReq
@@ -3644,7 +3644,7 @@ static IMPushToUserReq* defaultIMPushToUserReqInstance = nil;
 - (instancetype) defaultInstance {
   return defaultIMPushToUserReqInstance;
 }
-- (NSArray *)userTokenList {
+- (NSArray<UserTokenInfo*> *)userTokenList {
   return userTokenListArray;
 }
 - (UserTokenInfo*)userTokenListAtIndex:(NSUInteger)index {
@@ -3911,7 +3911,7 @@ static IMPushToUserReq* defaultIMPushToUserReqInstance = nil;
   resultImpushToUserReq.data = @"";
   return self;
 }
-- (NSMutableArray *)userTokenList {
+- (NSMutableArray<UserTokenInfo*> *)userTokenList {
   return resultImpushToUserReq.userTokenListArray;
 }
 - (UserTokenInfo*)userTokenListAtIndex:(NSUInteger)index {
@@ -3924,7 +3924,7 @@ static IMPushToUserReq* defaultIMPushToUserReqInstance = nil;
   [resultImpushToUserReq.userTokenListArray addObject:value];
   return self;
 }
-- (IMPushToUserReqBuilder *)setUserTokenListArray:(NSArray *)array {
+- (IMPushToUserReqBuilder *)setUserTokenListArray:(NSArray<UserTokenInfo*> *)array {
   resultImpushToUserReq.userTokenListArray = [[NSMutableArray alloc]initWithArray:array];
   return self;
 }
@@ -3935,7 +3935,7 @@ static IMPushToUserReq* defaultIMPushToUserReqInstance = nil;
 @end
 
 @interface IMPushToUserRsp ()
-@property (strong) NSMutableArray * pushResultListArray;
+@property (strong) NSMutableArray<PushResult*> * pushResultListArray;
 @end
 
 @implementation IMPushToUserRsp
@@ -3959,7 +3959,7 @@ static IMPushToUserRsp* defaultIMPushToUserRspInstance = nil;
 - (instancetype) defaultInstance {
   return defaultIMPushToUserRspInstance;
 }
-- (NSArray *)pushResultList {
+- (NSArray<PushResult*> *)pushResultList {
   return pushResultListArray;
 }
 - (PushResult*)pushResultListAtIndex:(NSUInteger)index {
@@ -4140,7 +4140,7 @@ static IMPushToUserRsp* defaultIMPushToUserRspInstance = nil;
     }
   }
 }
-- (NSMutableArray *)pushResultList {
+- (NSMutableArray<PushResult*> *)pushResultList {
   return resultImpushToUserRsp.pushResultListArray;
 }
 - (PushResult*)pushResultListAtIndex:(NSUInteger)index {
@@ -4153,7 +4153,7 @@ static IMPushToUserRsp* defaultIMPushToUserRspInstance = nil;
   [resultImpushToUserRsp.pushResultListArray addObject:value];
   return self;
 }
-- (IMPushToUserRspBuilder *)setPushResultListArray:(NSArray *)array {
+- (IMPushToUserRspBuilder *)setPushResultListArray:(NSArray<PushResult*> *)array {
   resultImpushToUserRsp.pushResultListArray = [[NSMutableArray alloc]initWithArray:array];
   return self;
 }
@@ -4498,7 +4498,7 @@ static IMGroupGetShieldReq* defaultIMGroupGetShieldReqInstance = nil;
 
 @interface IMGroupGetShieldRsp ()
 @property UInt32 groupId;
-@property (strong) NSMutableArray * shieldStatusListArray;
+@property (strong) NSMutableArray<ShieldStatus*> * shieldStatusListArray;
 @property (strong) NSData* attachData;
 @end
 
@@ -4539,7 +4539,7 @@ static IMGroupGetShieldRsp* defaultIMGroupGetShieldRspInstance = nil;
 - (instancetype) defaultInstance {
   return defaultIMGroupGetShieldRspInstance;
 }
-- (NSArray *)shieldStatusList {
+- (NSArray<ShieldStatus*> *)shieldStatusList {
   return shieldStatusListArray;
 }
 - (ShieldStatus*)shieldStatusListAtIndex:(NSUInteger)index {
@@ -4787,7 +4787,7 @@ static IMGroupGetShieldRsp* defaultIMGroupGetShieldRspInstance = nil;
   resultImgroupGetShieldRsp.groupId = 0;
   return self;
 }
-- (NSMutableArray *)shieldStatusList {
+- (NSMutableArray<ShieldStatus*> *)shieldStatusList {
   return resultImgroupGetShieldRsp.shieldStatusListArray;
 }
 - (ShieldStatus*)shieldStatusListAtIndex:(NSUInteger)index {
@@ -4800,7 +4800,7 @@ static IMGroupGetShieldRsp* defaultIMGroupGetShieldRspInstance = nil;
   [resultImgroupGetShieldRsp.shieldStatusListArray addObject:value];
   return self;
 }
-- (IMGroupGetShieldRspBuilder *)setShieldStatusListArray:(NSArray *)array {
+- (IMGroupGetShieldRspBuilder *)setShieldStatusListArray:(NSArray<ShieldStatus*> *)array {
   resultImgroupGetShieldRsp.shieldStatusListArray = [[NSMutableArray alloc]initWithArray:array];
   return self;
 }
@@ -6018,7 +6018,7 @@ static IMFileServerIPReq* defaultIMFileServerIPReqInstance = nil;
 @end
 
 @interface IMFileServerIPRsp ()
-@property (strong) NSMutableArray * ipAddrListArray;
+@property (strong) NSMutableArray<IpAddr*> * ipAddrListArray;
 @end
 
 @implementation IMFileServerIPRsp
@@ -6042,7 +6042,7 @@ static IMFileServerIPRsp* defaultIMFileServerIPRspInstance = nil;
 - (instancetype) defaultInstance {
   return defaultIMFileServerIPRspInstance;
 }
-- (NSArray *)ipAddrList {
+- (NSArray<IpAddr*> *)ipAddrList {
   return ipAddrListArray;
 }
 - (IpAddr*)ipAddrListAtIndex:(NSUInteger)index {
@@ -6223,7 +6223,7 @@ static IMFileServerIPRsp* defaultIMFileServerIPRspInstance = nil;
     }
   }
 }
-- (NSMutableArray *)ipAddrList {
+- (NSMutableArray<IpAddr*> *)ipAddrList {
   return resultImfileServerIprsp.ipAddrListArray;
 }
 - (IpAddr*)ipAddrListAtIndex:(NSUInteger)index {
@@ -6236,7 +6236,7 @@ static IMFileServerIPRsp* defaultIMFileServerIPRspInstance = nil;
   [resultImfileServerIprsp.ipAddrListArray addObject:value];
   return self;
 }
-- (IMFileServerIPRspBuilder *)setIpAddrListArray:(NSArray *)array {
+- (IMFileServerIPRspBuilder *)setIpAddrListArray:(NSArray<IpAddr*> *)array {
   resultImfileServerIprsp.ipAddrListArray = [[NSMutableArray alloc]initWithArray:array];
   return self;
 }

@@ -366,7 +366,7 @@
   NSMutableArray * userTokenInfoArray;
 }
 - (BOOL) hasAttachData;
-@property (readonly, strong) NSArray * userTokenInfo;
+@property (readonly, strong) NSArray<UserTokenInfo*> * userTokenInfo;
 @property (readonly, strong) NSData* attachData;
 - (UserTokenInfo*)userTokenInfoAtIndex:(NSUInteger)index;
 
@@ -405,10 +405,10 @@
 - (IMGetDeviceTokenRspBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input;
 - (IMGetDeviceTokenRspBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
 
-- (NSMutableArray *)userTokenInfo;
+- (NSMutableArray<UserTokenInfo*> *)userTokenInfo;
 - (UserTokenInfo*)userTokenInfoAtIndex:(NSUInteger)index;
 - (IMGetDeviceTokenRspBuilder *)addUserTokenInfo:(UserTokenInfo*)value;
-- (IMGetDeviceTokenRspBuilder *)setUserTokenInfoArray:(NSArray *)array;
+- (IMGetDeviceTokenRspBuilder *)setUserTokenInfoArray:(NSArray<UserTokenInfo*> *)array;
 - (IMGetDeviceTokenRspBuilder *)clearUserTokenInfo;
 
 - (BOOL) hasAttachData;
@@ -472,7 +472,7 @@
 @private
   NSMutableArray * userStatListArray;
 }
-@property (readonly, strong) NSArray * userStatList;
+@property (readonly, strong) NSArray<ServerUserStat*> * userStatList;
 - (ServerUserStat*)userStatListAtIndex:(NSUInteger)index;
 
 + (instancetype) defaultInstance;
@@ -510,10 +510,10 @@
 - (IMOnlineUserInfoBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input;
 - (IMOnlineUserInfoBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
 
-- (NSMutableArray *)userStatList;
+- (NSMutableArray<ServerUserStat*> *)userStatList;
 - (ServerUserStat*)userStatListAtIndex:(NSUInteger)index;
 - (IMOnlineUserInfoBuilder *)addUserStatList:(ServerUserStat*)value;
-- (IMOnlineUserInfoBuilder *)setUserStatListArray:(NSArray *)array;
+- (IMOnlineUserInfoBuilder *)setUserStatListArray:(NSArray<ServerUserStat*> *)array;
 - (IMOnlineUserInfoBuilder *)clearUserStatList;
 @end
 
@@ -892,7 +892,7 @@
 - (BOOL) hasData;
 @property (readonly, strong) NSString* flash;
 @property (readonly, strong) NSString* data;
-@property (readonly, strong) NSArray * userTokenList;
+@property (readonly, strong) NSArray<UserTokenInfo*> * userTokenList;
 - (UserTokenInfo*)userTokenListAtIndex:(NSUInteger)index;
 
 + (instancetype) defaultInstance;
@@ -940,10 +940,10 @@
 - (IMPushToUserReqBuilder*) setData:(NSString*) value;
 - (IMPushToUserReqBuilder*) clearData;
 
-- (NSMutableArray *)userTokenList;
+- (NSMutableArray<UserTokenInfo*> *)userTokenList;
 - (UserTokenInfo*)userTokenListAtIndex:(NSUInteger)index;
 - (IMPushToUserReqBuilder *)addUserTokenList:(UserTokenInfo*)value;
-- (IMPushToUserReqBuilder *)setUserTokenListArray:(NSArray *)array;
+- (IMPushToUserReqBuilder *)setUserTokenListArray:(NSArray<UserTokenInfo*> *)array;
 - (IMPushToUserReqBuilder *)clearUserTokenList;
 @end
 
@@ -952,7 +952,7 @@
 @private
   NSMutableArray * pushResultListArray;
 }
-@property (readonly, strong) NSArray * pushResultList;
+@property (readonly, strong) NSArray<PushResult*> * pushResultList;
 - (PushResult*)pushResultListAtIndex:(NSUInteger)index;
 
 + (instancetype) defaultInstance;
@@ -990,10 +990,10 @@
 - (IMPushToUserRspBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input;
 - (IMPushToUserRspBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
 
-- (NSMutableArray *)pushResultList;
+- (NSMutableArray<PushResult*> *)pushResultList;
 - (PushResult*)pushResultListAtIndex:(NSUInteger)index;
 - (IMPushToUserRspBuilder *)addPushResultList:(PushResult*)value;
-- (IMPushToUserRspBuilder *)setPushResultListArray:(NSArray *)array;
+- (IMPushToUserRspBuilder *)setPushResultListArray:(NSArray<PushResult*> *)array;
 - (IMPushToUserRspBuilder *)clearPushResultList;
 @end
 
@@ -1082,7 +1082,7 @@
 - (BOOL) hasGroupId;
 - (BOOL) hasAttachData;
 @property (readonly) UInt32 groupId;
-@property (readonly, strong) NSArray * shieldStatusList;
+@property (readonly, strong) NSArray<ShieldStatus*> * shieldStatusList;
 @property (readonly, strong) NSData* attachData;
 - (ShieldStatus*)shieldStatusListAtIndex:(NSUInteger)index;
 
@@ -1126,10 +1126,10 @@
 - (IMGroupGetShieldRspBuilder*) setGroupId:(UInt32) value;
 - (IMGroupGetShieldRspBuilder*) clearGroupId;
 
-- (NSMutableArray *)shieldStatusList;
+- (NSMutableArray<ShieldStatus*> *)shieldStatusList;
 - (ShieldStatus*)shieldStatusListAtIndex:(NSUInteger)index;
 - (IMGroupGetShieldRspBuilder *)addShieldStatusList:(ShieldStatus*)value;
-- (IMGroupGetShieldRspBuilder *)setShieldStatusListArray:(NSArray *)array;
+- (IMGroupGetShieldRspBuilder *)setShieldStatusListArray:(NSArray<ShieldStatus*> *)array;
 - (IMGroupGetShieldRspBuilder *)clearShieldStatusList;
 
 - (BOOL) hasAttachData;
@@ -1403,7 +1403,7 @@
 @private
   NSMutableArray * ipAddrListArray;
 }
-@property (readonly, strong) NSArray * ipAddrList;
+@property (readonly, strong) NSArray<IpAddr*> * ipAddrList;
 - (IpAddr*)ipAddrListAtIndex:(NSUInteger)index;
 
 + (instancetype) defaultInstance;
@@ -1441,10 +1441,10 @@
 - (IMFileServerIPRspBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input;
 - (IMFileServerIPRspBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
 
-- (NSMutableArray *)ipAddrList;
+- (NSMutableArray<IpAddr*> *)ipAddrList;
 - (IpAddr*)ipAddrListAtIndex:(NSUInteger)index;
 - (IMFileServerIPRspBuilder *)addIpAddrList:(IpAddr*)value;
-- (IMFileServerIPRspBuilder *)setIpAddrListArray:(NSArray *)array;
+- (IMFileServerIPRspBuilder *)setIpAddrListArray:(NSArray<IpAddr*> *)array;
 - (IMFileServerIPRspBuilder *)clearIpAddrList;
 @end
 

@@ -94,8 +94,8 @@ void doLogin(CImPdu* pPdu, uint32_t conn_uuid) {
         
         IM::BaseDefine::UserInfo cUser;
         
-        if(g_loginStrategy.doLogin(strDomain, strPass, cUser))
-        {
+        if (g_loginStrategy.doLogin(strDomain, strPass, cUser)) {
+            
             IM::BaseDefine::UserInfo* pUser = msgResp.mutable_user_info();
             pUser->set_user_id(cUser.user_id());
             pUser->set_user_gender(cUser.user_gender());

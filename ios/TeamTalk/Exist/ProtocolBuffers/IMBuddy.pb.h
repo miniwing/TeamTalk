@@ -35,10 +35,6 @@
 @class IMDepartmentReqBuilder;
 @class IMDepartmentRsp;
 @class IMDepartmentRspBuilder;
-@class IMGetuiTokenReq;
-@class IMGetuiTokenReqBuilder;
-@class IMGetuiTokenRsp;
-@class IMGetuiTokenRspBuilder;
 @class IMPCLoginStatusNotify;
 @class IMPCLoginStatusNotifyBuilder;
 @class IMRecentContactSessionReq;
@@ -178,7 +174,7 @@
 - (BOOL) hasUserId;
 - (BOOL) hasAttachData;
 @property (readonly) UInt32 userId;
-@property (readonly, strong) NSArray * contactSessionList;
+@property (readonly, strong) NSArray<ContactSessionInfo*> * contactSessionList;
 @property (readonly, strong) NSData* attachData;
 - (ContactSessionInfo*)contactSessionListAtIndex:(NSUInteger)index;
 
@@ -222,10 +218,10 @@
 - (IMRecentContactSessionRspBuilder*) setUserId:(UInt32) value;
 - (IMRecentContactSessionRspBuilder*) clearUserId;
 
-- (NSMutableArray *)contactSessionList;
+- (NSMutableArray<ContactSessionInfo*> *)contactSessionList;
 - (ContactSessionInfo*)contactSessionListAtIndex:(NSUInteger)index;
 - (IMRecentContactSessionRspBuilder *)addContactSessionList:(ContactSessionInfo*)value;
-- (IMRecentContactSessionRspBuilder *)setContactSessionListArray:(NSArray *)array;
+- (IMRecentContactSessionRspBuilder *)setContactSessionListArray:(NSArray<ContactSessionInfo*> *)array;
 - (IMRecentContactSessionRspBuilder *)clearContactSessionList;
 
 - (BOOL) hasAttachData;
@@ -371,7 +367,7 @@
 - (BOOL) hasUserId;
 - (BOOL) hasAttachData;
 @property (readonly) UInt32 userId;
-@property (readonly, strong) NSArray * userInfoList;
+@property (readonly, strong) NSArray<UserInfo*> * userInfoList;
 @property (readonly, strong) NSData* attachData;
 - (UserInfo*)userInfoListAtIndex:(NSUInteger)index;
 
@@ -415,10 +411,10 @@
 - (IMUsersInfoRspBuilder*) setUserId:(UInt32) value;
 - (IMUsersInfoRspBuilder*) clearUserId;
 
-- (NSMutableArray *)userInfoList;
+- (NSMutableArray<UserInfo*> *)userInfoList;
 - (UserInfo*)userInfoListAtIndex:(NSUInteger)index;
 - (IMUsersInfoRspBuilder *)addUserInfoList:(UserInfo*)value;
-- (IMUsersInfoRspBuilder *)setUserInfoListArray:(NSArray *)array;
+- (IMUsersInfoRspBuilder *)setUserInfoListArray:(NSArray<UserInfo*> *)array;
 - (IMUsersInfoRspBuilder *)clearUserInfoList;
 
 - (BOOL) hasAttachData;
@@ -686,7 +682,7 @@
 - (BOOL) hasAttachData;
 @property (readonly) UInt32 userId;
 @property (readonly) UInt32 latestUpdateTime;
-@property (readonly, strong) NSArray * userList;
+@property (readonly, strong) NSArray<UserInfo*> * userList;
 @property (readonly, strong) NSData* attachData;
 - (UserInfo*)userListAtIndex:(NSUInteger)index;
 
@@ -735,166 +731,16 @@
 - (IMAllUserRspBuilder*) setLatestUpdateTime:(UInt32) value;
 - (IMAllUserRspBuilder*) clearLatestUpdateTime;
 
-- (NSMutableArray *)userList;
+- (NSMutableArray<UserInfo*> *)userList;
 - (UserInfo*)userListAtIndex:(NSUInteger)index;
 - (IMAllUserRspBuilder *)addUserList:(UserInfo*)value;
-- (IMAllUserRspBuilder *)setUserListArray:(NSArray *)array;
+- (IMAllUserRspBuilder *)setUserListArray:(NSArray<UserInfo*> *)array;
 - (IMAllUserRspBuilder *)clearUserList;
 
 - (BOOL) hasAttachData;
 - (NSData*) attachData;
 - (IMAllUserRspBuilder*) setAttachData:(NSData*) value;
 - (IMAllUserRspBuilder*) clearAttachData;
-@end
-
-#define IMAllFriendReq_user_id @"userId"
-#define IMAllFriendReq_latest_update_time @"latestUpdateTime"
-#define IMAllFriendReq_attach_data @"attachData"
-@interface IMAllFriendReq : PBGeneratedMessage<GeneratedMessageProtocol> {
-@private
-  BOOL hasAttachData_:1;
-  BOOL hasUserId_:1;
-  BOOL hasLatestUpdateTime_:1;
-  NSData* attachData;
-  UInt32 userId;
-  UInt32 latestUpdateTime;
-}
-- (BOOL) hasUserId;
-- (BOOL) hasLatestUpdateTime;
-- (BOOL) hasAttachData;
-@property (readonly) UInt32 userId;
-@property (readonly) UInt32 latestUpdateTime;
-@property (readonly, strong) NSData* attachData;
-
-+ (instancetype) defaultInstance;
-- (instancetype) defaultInstance;
-
-- (BOOL) isInitialized;
-- (void) writeToCodedOutputStream:(PBCodedOutputStream*) output;
-- (IMAllFriendReqBuilder*) builder;
-+ (IMAllFriendReqBuilder*) builder;
-+ (IMAllFriendReqBuilder*) builderWithPrototype:(IMAllFriendReq*) prototype;
-- (IMAllFriendReqBuilder*) toBuilder;
-
-+ (IMAllFriendReq*) parseFromData:(NSData*) data;
-+ (IMAllFriendReq*) parseFromData:(NSData*) data extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
-+ (IMAllFriendReq*) parseFromInputStream:(NSInputStream*) input;
-+ (IMAllFriendReq*) parseFromInputStream:(NSInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
-+ (IMAllFriendReq*) parseFromCodedInputStream:(PBCodedInputStream*) input;
-+ (IMAllFriendReq*) parseFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
-@end
-
-@interface IMAllFriendReqBuilder : PBGeneratedMessageBuilder {
-@private
-  IMAllFriendReq* resultImallFriendReq;
-}
-
-- (IMAllFriendReq*) defaultInstance;
-
-- (IMAllFriendReqBuilder*) clear;
-- (IMAllFriendReqBuilder*) clone;
-
-- (IMAllFriendReq*) build;
-- (IMAllFriendReq*) buildPartial;
-
-- (IMAllFriendReqBuilder*) mergeFrom:(IMAllFriendReq*) other;
-- (IMAllFriendReqBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input;
-- (IMAllFriendReqBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
-
-- (BOOL) hasUserId;
-- (UInt32) userId;
-- (IMAllFriendReqBuilder*) setUserId:(UInt32) value;
-- (IMAllFriendReqBuilder*) clearUserId;
-
-- (BOOL) hasLatestUpdateTime;
-- (UInt32) latestUpdateTime;
-- (IMAllFriendReqBuilder*) setLatestUpdateTime:(UInt32) value;
-- (IMAllFriendReqBuilder*) clearLatestUpdateTime;
-
-- (BOOL) hasAttachData;
-- (NSData*) attachData;
-- (IMAllFriendReqBuilder*) setAttachData:(NSData*) value;
-- (IMAllFriendReqBuilder*) clearAttachData;
-@end
-
-#define IMAllFriendRsp_user_id @"userId"
-#define IMAllFriendRsp_latest_update_time @"latestUpdateTime"
-#define IMAllFriendRsp_user_list @"userList"
-#define IMAllFriendRsp_attach_data @"attachData"
-@interface IMAllFriendRsp : PBGeneratedMessage<GeneratedMessageProtocol> {
-@private
-  BOOL hasAttachData_:1;
-  BOOL hasUserId_:1;
-  BOOL hasLatestUpdateTime_:1;
-  NSData* attachData;
-  UInt32 userId;
-  UInt32 latestUpdateTime;
-  NSMutableArray * userListArray;
-}
-- (BOOL) hasUserId;
-- (BOOL) hasLatestUpdateTime;
-- (BOOL) hasAttachData;
-@property (readonly) UInt32 userId;
-@property (readonly) UInt32 latestUpdateTime;
-@property (readonly, strong) NSArray * userList;
-@property (readonly, strong) NSData* attachData;
-- (UserInfo*)userListAtIndex:(NSUInteger)index;
-
-+ (instancetype) defaultInstance;
-- (instancetype) defaultInstance;
-
-- (BOOL) isInitialized;
-- (void) writeToCodedOutputStream:(PBCodedOutputStream*) output;
-- (IMAllFriendRspBuilder*) builder;
-+ (IMAllFriendRspBuilder*) builder;
-+ (IMAllFriendRspBuilder*) builderWithPrototype:(IMAllFriendRsp*) prototype;
-- (IMAllFriendRspBuilder*) toBuilder;
-
-+ (IMAllFriendRsp*) parseFromData:(NSData*) data;
-+ (IMAllFriendRsp*) parseFromData:(NSData*) data extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
-+ (IMAllFriendRsp*) parseFromInputStream:(NSInputStream*) input;
-+ (IMAllFriendRsp*) parseFromInputStream:(NSInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
-+ (IMAllFriendRsp*) parseFromCodedInputStream:(PBCodedInputStream*) input;
-+ (IMAllFriendRsp*) parseFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
-@end
-
-@interface IMAllFriendRspBuilder : PBGeneratedMessageBuilder {
-@private
-  IMAllFriendRsp* resultImallFriendRsp;
-}
-
-- (IMAllFriendRsp*) defaultInstance;
-
-- (IMAllFriendRspBuilder*) clear;
-- (IMAllFriendRspBuilder*) clone;
-
-- (IMAllFriendRsp*) build;
-- (IMAllFriendRsp*) buildPartial;
-
-- (IMAllFriendRspBuilder*) mergeFrom:(IMAllFriendRsp*) other;
-- (IMAllFriendRspBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input;
-- (IMAllFriendRspBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
-
-- (BOOL) hasUserId;
-- (UInt32) userId;
-- (IMAllFriendRspBuilder*) setUserId:(UInt32) value;
-- (IMAllFriendRspBuilder*) clearUserId;
-
-- (BOOL) hasLatestUpdateTime;
-- (UInt32) latestUpdateTime;
-- (IMAllFriendRspBuilder*) setLatestUpdateTime:(UInt32) value;
-- (IMAllFriendRspBuilder*) clearLatestUpdateTime;
-
-- (NSMutableArray *)userList;
-- (UserInfo*)userListAtIndex:(NSUInteger)index;
-- (IMAllFriendRspBuilder *)addUserList:(UserInfo*)value;
-- (IMAllFriendRspBuilder *)setUserListArray:(NSArray *)array;
-- (IMAllFriendRspBuilder *)clearUserList;
-
-- (BOOL) hasAttachData;
-- (NSData*) attachData;
-- (IMAllFriendRspBuilder*) setAttachData:(NSData*) value;
-- (IMAllFriendRspBuilder*) clearAttachData;
 @end
 
 #define IMUsersStatReq_user_id @"userId"
@@ -982,7 +828,7 @@
 - (BOOL) hasUserId;
 - (BOOL) hasAttachData;
 @property (readonly) UInt32 userId;
-@property (readonly, strong) NSArray * userStatList;
+@property (readonly, strong) NSArray<UserStat*> * userStatList;
 @property (readonly, strong) NSData* attachData;
 - (UserStat*)userStatListAtIndex:(NSUInteger)index;
 
@@ -1026,10 +872,10 @@
 - (IMUsersStatRspBuilder*) setUserId:(UInt32) value;
 - (IMUsersStatRspBuilder*) clearUserId;
 
-- (NSMutableArray *)userStatList;
+- (NSMutableArray<UserStat*> *)userStatList;
 - (UserStat*)userStatListAtIndex:(NSUInteger)index;
 - (IMUsersStatRspBuilder *)addUserStatList:(UserStat*)value;
-- (IMUsersStatRspBuilder *)setUserStatListArray:(NSArray *)array;
+- (IMUsersStatRspBuilder *)setUserStatListArray:(NSArray<UserStat*> *)array;
 - (IMUsersStatRspBuilder *)clearUserStatList;
 
 - (BOOL) hasAttachData;
@@ -1397,7 +1243,7 @@
 - (BOOL) hasAttachData;
 @property (readonly) UInt32 userId;
 @property (readonly) UInt32 latestUpdateTime;
-@property (readonly, strong) NSArray * deptList;
+@property (readonly, strong) NSArray<DepartInfo*> * deptList;
 @property (readonly, strong) NSData* attachData;
 - (DepartInfo*)deptListAtIndex:(NSUInteger)index;
 
@@ -1446,10 +1292,10 @@
 - (IMDepartmentRspBuilder*) setLatestUpdateTime:(UInt32) value;
 - (IMDepartmentRspBuilder*) clearLatestUpdateTime;
 
-- (NSMutableArray *)deptList;
+- (NSMutableArray<DepartInfo*> *)deptList;
 - (DepartInfo*)deptListAtIndex:(NSUInteger)index;
 - (IMDepartmentRspBuilder *)addDeptList:(DepartInfo*)value;
-- (IMDepartmentRspBuilder *)setDeptListArray:(NSArray *)array;
+- (IMDepartmentRspBuilder *)setDeptListArray:(NSArray<DepartInfo*> *)array;
 - (IMDepartmentRspBuilder *)clearDeptList;
 
 - (BOOL) hasAttachData;
@@ -1728,33 +1574,23 @@
 - (IMSignInfoChangedNotifyBuilder*) clearSignInfo;
 @end
 
-#define IMGetuiTokenReq_user_id @"userId"
-#define IMGetuiTokenReq_client_id @"clientId"
-#define IMGetuiTokenReq_client_type @"clientType"
-#define IMGetuiTokenReq_device_token @"deviceToken"
-#define IMGetuiTokenReq_attach_data @"attachData"
-@interface IMGetuiTokenReq : PBGeneratedMessage<GeneratedMessageProtocol> {
+#define IMAllFriendReq_user_id @"userId"
+#define IMAllFriendReq_latest_update_time @"latestUpdateTime"
+#define IMAllFriendReq_attach_data @"attachData"
+@interface IMAllFriendReq : PBGeneratedMessage<GeneratedMessageProtocol> {
 @private
-  BOOL hasClientId_:1;
-  BOOL hasDeviceToken_:1;
   BOOL hasAttachData_:1;
   BOOL hasUserId_:1;
-  BOOL hasClientType_:1;
-  NSString* clientId;
-  NSString* deviceToken;
+  BOOL hasLatestUpdateTime_:1;
   NSData* attachData;
   UInt32 userId;
-  ClientType clientType;
+  UInt32 latestUpdateTime;
 }
 - (BOOL) hasUserId;
-- (BOOL) hasClientId;
-- (BOOL) hasClientType;
-- (BOOL) hasDeviceToken;
+- (BOOL) hasLatestUpdateTime;
 - (BOOL) hasAttachData;
 @property (readonly) UInt32 userId;
-@property (readonly, strong) NSString* clientId;
-@property (readonly) ClientType clientType;
-@property (readonly, strong) NSString* deviceToken;
+@property (readonly) UInt32 latestUpdateTime;
 @property (readonly, strong) NSData* attachData;
 
 + (instancetype) defaultInstance;
@@ -1762,120 +1598,130 @@
 
 - (BOOL) isInitialized;
 - (void) writeToCodedOutputStream:(PBCodedOutputStream*) output;
-- (IMGetuiTokenReqBuilder*) builder;
-+ (IMGetuiTokenReqBuilder*) builder;
-+ (IMGetuiTokenReqBuilder*) builderWithPrototype:(IMGetuiTokenReq*) prototype;
-- (IMGetuiTokenReqBuilder*) toBuilder;
+- (IMAllFriendReqBuilder*) builder;
++ (IMAllFriendReqBuilder*) builder;
++ (IMAllFriendReqBuilder*) builderWithPrototype:(IMAllFriendReq*) prototype;
+- (IMAllFriendReqBuilder*) toBuilder;
 
-+ (IMGetuiTokenReq*) parseFromData:(NSData*) data;
-+ (IMGetuiTokenReq*) parseFromData:(NSData*) data extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
-+ (IMGetuiTokenReq*) parseFromInputStream:(NSInputStream*) input;
-+ (IMGetuiTokenReq*) parseFromInputStream:(NSInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
-+ (IMGetuiTokenReq*) parseFromCodedInputStream:(PBCodedInputStream*) input;
-+ (IMGetuiTokenReq*) parseFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
++ (IMAllFriendReq*) parseFromData:(NSData*) data;
++ (IMAllFriendReq*) parseFromData:(NSData*) data extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
++ (IMAllFriendReq*) parseFromInputStream:(NSInputStream*) input;
++ (IMAllFriendReq*) parseFromInputStream:(NSInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
++ (IMAllFriendReq*) parseFromCodedInputStream:(PBCodedInputStream*) input;
++ (IMAllFriendReq*) parseFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
 @end
 
-@interface IMGetuiTokenReqBuilder : PBGeneratedMessageBuilder {
+@interface IMAllFriendReqBuilder : PBGeneratedMessageBuilder {
 @private
-  IMGetuiTokenReq* resultImgetuiTokenReq;
+  IMAllFriendReq* resultImallFriendReq;
 }
 
-- (IMGetuiTokenReq*) defaultInstance;
+- (IMAllFriendReq*) defaultInstance;
 
-- (IMGetuiTokenReqBuilder*) clear;
-- (IMGetuiTokenReqBuilder*) clone;
+- (IMAllFriendReqBuilder*) clear;
+- (IMAllFriendReqBuilder*) clone;
 
-- (IMGetuiTokenReq*) build;
-- (IMGetuiTokenReq*) buildPartial;
+- (IMAllFriendReq*) build;
+- (IMAllFriendReq*) buildPartial;
 
-- (IMGetuiTokenReqBuilder*) mergeFrom:(IMGetuiTokenReq*) other;
-- (IMGetuiTokenReqBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input;
-- (IMGetuiTokenReqBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
+- (IMAllFriendReqBuilder*) mergeFrom:(IMAllFriendReq*) other;
+- (IMAllFriendReqBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input;
+- (IMAllFriendReqBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
 
 - (BOOL) hasUserId;
 - (UInt32) userId;
-- (IMGetuiTokenReqBuilder*) setUserId:(UInt32) value;
-- (IMGetuiTokenReqBuilder*) clearUserId;
+- (IMAllFriendReqBuilder*) setUserId:(UInt32) value;
+- (IMAllFriendReqBuilder*) clearUserId;
 
-- (BOOL) hasClientId;
-- (NSString*) clientId;
-- (IMGetuiTokenReqBuilder*) setClientId:(NSString*) value;
-- (IMGetuiTokenReqBuilder*) clearClientId;
-
-- (BOOL) hasClientType;
-- (ClientType) clientType;
-- (IMGetuiTokenReqBuilder*) setClientType:(ClientType) value;
-- (IMGetuiTokenReqBuilder*) clearClientType;
-
-- (BOOL) hasDeviceToken;
-- (NSString*) deviceToken;
-- (IMGetuiTokenReqBuilder*) setDeviceToken:(NSString*) value;
-- (IMGetuiTokenReqBuilder*) clearDeviceToken;
+- (BOOL) hasLatestUpdateTime;
+- (UInt32) latestUpdateTime;
+- (IMAllFriendReqBuilder*) setLatestUpdateTime:(UInt32) value;
+- (IMAllFriendReqBuilder*) clearLatestUpdateTime;
 
 - (BOOL) hasAttachData;
 - (NSData*) attachData;
-- (IMGetuiTokenReqBuilder*) setAttachData:(NSData*) value;
-- (IMGetuiTokenReqBuilder*) clearAttachData;
+- (IMAllFriendReqBuilder*) setAttachData:(NSData*) value;
+- (IMAllFriendReqBuilder*) clearAttachData;
 @end
 
-#define IMGetuiTokenRsp_user_id @"userId"
-#define IMGetuiTokenRsp_attach_data @"attachData"
-@interface IMGetuiTokenRsp : PBGeneratedMessage<GeneratedMessageProtocol> {
+#define IMAllFriendRsp_user_id @"userId"
+#define IMAllFriendRsp_latest_update_time @"latestUpdateTime"
+#define IMAllFriendRsp_user_list @"userList"
+#define IMAllFriendRsp_attach_data @"attachData"
+@interface IMAllFriendRsp : PBGeneratedMessage<GeneratedMessageProtocol> {
 @private
   BOOL hasAttachData_:1;
   BOOL hasUserId_:1;
+  BOOL hasLatestUpdateTime_:1;
   NSData* attachData;
   UInt32 userId;
+  UInt32 latestUpdateTime;
+  NSMutableArray * userListArray;
 }
 - (BOOL) hasUserId;
+- (BOOL) hasLatestUpdateTime;
 - (BOOL) hasAttachData;
 @property (readonly) UInt32 userId;
+@property (readonly) UInt32 latestUpdateTime;
+@property (readonly, strong) NSArray<UserInfo*> * userList;
 @property (readonly, strong) NSData* attachData;
+- (UserInfo*)userListAtIndex:(NSUInteger)index;
 
 + (instancetype) defaultInstance;
 - (instancetype) defaultInstance;
 
 - (BOOL) isInitialized;
 - (void) writeToCodedOutputStream:(PBCodedOutputStream*) output;
-- (IMGetuiTokenRspBuilder*) builder;
-+ (IMGetuiTokenRspBuilder*) builder;
-+ (IMGetuiTokenRspBuilder*) builderWithPrototype:(IMGetuiTokenRsp*) prototype;
-- (IMGetuiTokenRspBuilder*) toBuilder;
+- (IMAllFriendRspBuilder*) builder;
++ (IMAllFriendRspBuilder*) builder;
++ (IMAllFriendRspBuilder*) builderWithPrototype:(IMAllFriendRsp*) prototype;
+- (IMAllFriendRspBuilder*) toBuilder;
 
-+ (IMGetuiTokenRsp*) parseFromData:(NSData*) data;
-+ (IMGetuiTokenRsp*) parseFromData:(NSData*) data extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
-+ (IMGetuiTokenRsp*) parseFromInputStream:(NSInputStream*) input;
-+ (IMGetuiTokenRsp*) parseFromInputStream:(NSInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
-+ (IMGetuiTokenRsp*) parseFromCodedInputStream:(PBCodedInputStream*) input;
-+ (IMGetuiTokenRsp*) parseFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
++ (IMAllFriendRsp*) parseFromData:(NSData*) data;
++ (IMAllFriendRsp*) parseFromData:(NSData*) data extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
++ (IMAllFriendRsp*) parseFromInputStream:(NSInputStream*) input;
++ (IMAllFriendRsp*) parseFromInputStream:(NSInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
++ (IMAllFriendRsp*) parseFromCodedInputStream:(PBCodedInputStream*) input;
++ (IMAllFriendRsp*) parseFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
 @end
 
-@interface IMGetuiTokenRspBuilder : PBGeneratedMessageBuilder {
+@interface IMAllFriendRspBuilder : PBGeneratedMessageBuilder {
 @private
-  IMGetuiTokenRsp* resultImgetuiTokenRsp;
+  IMAllFriendRsp* resultImallFriendRsp;
 }
 
-- (IMGetuiTokenRsp*) defaultInstance;
+- (IMAllFriendRsp*) defaultInstance;
 
-- (IMGetuiTokenRspBuilder*) clear;
-- (IMGetuiTokenRspBuilder*) clone;
+- (IMAllFriendRspBuilder*) clear;
+- (IMAllFriendRspBuilder*) clone;
 
-- (IMGetuiTokenRsp*) build;
-- (IMGetuiTokenRsp*) buildPartial;
+- (IMAllFriendRsp*) build;
+- (IMAllFriendRsp*) buildPartial;
 
-- (IMGetuiTokenRspBuilder*) mergeFrom:(IMGetuiTokenRsp*) other;
-- (IMGetuiTokenRspBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input;
-- (IMGetuiTokenRspBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
+- (IMAllFriendRspBuilder*) mergeFrom:(IMAllFriendRsp*) other;
+- (IMAllFriendRspBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input;
+- (IMAllFriendRspBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
 
 - (BOOL) hasUserId;
 - (UInt32) userId;
-- (IMGetuiTokenRspBuilder*) setUserId:(UInt32) value;
-- (IMGetuiTokenRspBuilder*) clearUserId;
+- (IMAllFriendRspBuilder*) setUserId:(UInt32) value;
+- (IMAllFriendRspBuilder*) clearUserId;
+
+- (BOOL) hasLatestUpdateTime;
+- (UInt32) latestUpdateTime;
+- (IMAllFriendRspBuilder*) setLatestUpdateTime:(UInt32) value;
+- (IMAllFriendRspBuilder*) clearLatestUpdateTime;
+
+- (NSMutableArray<UserInfo*> *)userList;
+- (UserInfo*)userListAtIndex:(NSUInteger)index;
+- (IMAllFriendRspBuilder *)addUserList:(UserInfo*)value;
+- (IMAllFriendRspBuilder *)setUserListArray:(NSArray<UserInfo*> *)array;
+- (IMAllFriendRspBuilder *)clearUserList;
 
 - (BOOL) hasAttachData;
 - (NSData*) attachData;
-- (IMGetuiTokenRspBuilder*) setAttachData:(NSData*) value;
-- (IMGetuiTokenRspBuilder*) clearAttachData;
+- (IMAllFriendRspBuilder*) setAttachData:(NSData*) value;
+- (IMAllFriendRspBuilder*) clearAttachData;
 @end
 
 

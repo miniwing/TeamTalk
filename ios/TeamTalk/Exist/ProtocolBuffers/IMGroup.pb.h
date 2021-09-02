@@ -140,7 +140,7 @@
 - (BOOL) hasUserId;
 - (BOOL) hasAttachData;
 @property (readonly) UInt32 userId;
-@property (readonly, strong) NSArray * groupVersionList;
+@property (readonly, strong) NSArray<GroupVersionInfo*> * groupVersionList;
 @property (readonly, strong) NSData* attachData;
 - (GroupVersionInfo*)groupVersionListAtIndex:(NSUInteger)index;
 
@@ -184,10 +184,10 @@
 - (IMNormalGroupListRspBuilder*) setUserId:(UInt32) value;
 - (IMNormalGroupListRspBuilder*) clearUserId;
 
-- (NSMutableArray *)groupVersionList;
+- (NSMutableArray<GroupVersionInfo*> *)groupVersionList;
 - (GroupVersionInfo*)groupVersionListAtIndex:(NSUInteger)index;
 - (IMNormalGroupListRspBuilder *)addGroupVersionList:(GroupVersionInfo*)value;
-- (IMNormalGroupListRspBuilder *)setGroupVersionListArray:(NSArray *)array;
+- (IMNormalGroupListRspBuilder *)setGroupVersionListArray:(NSArray<GroupVersionInfo*> *)array;
 - (IMNormalGroupListRspBuilder *)clearGroupVersionList;
 
 - (BOOL) hasAttachData;
@@ -210,7 +210,7 @@
 - (BOOL) hasUserId;
 - (BOOL) hasAttachData;
 @property (readonly) UInt32 userId;
-@property (readonly, strong) NSArray * groupVersionList;
+@property (readonly, strong) NSArray<GroupVersionInfo*> * groupVersionList;
 @property (readonly, strong) NSData* attachData;
 - (GroupVersionInfo*)groupVersionListAtIndex:(NSUInteger)index;
 
@@ -254,10 +254,10 @@
 - (IMGroupInfoListReqBuilder*) setUserId:(UInt32) value;
 - (IMGroupInfoListReqBuilder*) clearUserId;
 
-- (NSMutableArray *)groupVersionList;
+- (NSMutableArray<GroupVersionInfo*> *)groupVersionList;
 - (GroupVersionInfo*)groupVersionListAtIndex:(NSUInteger)index;
 - (IMGroupInfoListReqBuilder *)addGroupVersionList:(GroupVersionInfo*)value;
-- (IMGroupInfoListReqBuilder *)setGroupVersionListArray:(NSArray *)array;
+- (IMGroupInfoListReqBuilder *)setGroupVersionListArray:(NSArray<GroupVersionInfo*> *)array;
 - (IMGroupInfoListReqBuilder *)clearGroupVersionList;
 
 - (BOOL) hasAttachData;
@@ -280,7 +280,7 @@
 - (BOOL) hasUserId;
 - (BOOL) hasAttachData;
 @property (readonly) UInt32 userId;
-@property (readonly, strong) NSArray * groupInfoList;
+@property (readonly, strong) NSArray<GroupInfo*> * groupInfoList;
 @property (readonly, strong) NSData* attachData;
 - (GroupInfo*)groupInfoListAtIndex:(NSUInteger)index;
 
@@ -324,10 +324,10 @@
 - (IMGroupInfoListRspBuilder*) setUserId:(UInt32) value;
 - (IMGroupInfoListRspBuilder*) clearUserId;
 
-- (NSMutableArray *)groupInfoList;
+- (NSMutableArray<GroupInfo*> *)groupInfoList;
 - (GroupInfo*)groupInfoListAtIndex:(NSUInteger)index;
 - (IMGroupInfoListRspBuilder *)addGroupInfoList:(GroupInfo*)value;
-- (IMGroupInfoListRspBuilder *)setGroupInfoListArray:(NSArray *)array;
+- (IMGroupInfoListRspBuilder *)setGroupInfoListArray:(NSArray<GroupInfo*> *)array;
 - (IMGroupInfoListRspBuilder *)clearGroupInfoList;
 
 - (BOOL) hasAttachData;

@@ -2185,7 +2185,7 @@ static IMFileReq* defaultIMFileReqInstance = nil;
 @property UInt32 toUserId;
 @property (strong) NSString* fileName;
 @property (strong) NSString* taskId;
-@property (strong) NSMutableArray * ipAddrListArray;
+@property (strong) NSMutableArray<IpAddr*> * ipAddrListArray;
 @property TransferFileType transMode;
 @end
 
@@ -2258,7 +2258,7 @@ static IMFileRsp* defaultIMFileRspInstance = nil;
 - (instancetype) defaultInstance {
   return defaultIMFileRspInstance;
 }
-- (NSArray *)ipAddrList {
+- (NSArray<IpAddr*> *)ipAddrList {
   return ipAddrListArray;
 }
 - (IpAddr*)ipAddrListAtIndex:(NSUInteger)index {
@@ -2686,7 +2686,7 @@ static IMFileRsp* defaultIMFileRspInstance = nil;
   resultImfileRsp.taskId = @"";
   return self;
 }
-- (NSMutableArray *)ipAddrList {
+- (NSMutableArray<IpAddr*> *)ipAddrList {
   return resultImfileRsp.ipAddrListArray;
 }
 - (IpAddr*)ipAddrListAtIndex:(NSUInteger)index {
@@ -2699,7 +2699,7 @@ static IMFileRsp* defaultIMFileRspInstance = nil;
   [resultImfileRsp.ipAddrListArray addObject:value];
   return self;
 }
-- (IMFileRspBuilder *)setIpAddrListArray:(NSArray *)array {
+- (IMFileRspBuilder *)setIpAddrListArray:(NSArray<IpAddr*> *)array {
   resultImfileRsp.ipAddrListArray = [[NSMutableArray alloc]initWithArray:array];
   return self;
 }
@@ -2731,7 +2731,7 @@ static IMFileRsp* defaultIMFileRspInstance = nil;
 @property (strong) NSString* fileName;
 @property UInt32 fileSize;
 @property (strong) NSString* taskId;
-@property (strong) NSMutableArray * ipAddrListArray;
+@property (strong) NSMutableArray<IpAddr*> * ipAddrListArray;
 @property TransferFileType transMode;
 @property UInt32 offlineReady;
 @end
@@ -2813,7 +2813,7 @@ static IMFileNotify* defaultIMFileNotifyInstance = nil;
 - (instancetype) defaultInstance {
   return defaultIMFileNotifyInstance;
 }
-- (NSArray *)ipAddrList {
+- (NSArray<IpAddr*> *)ipAddrList {
   return ipAddrListArray;
 }
 - (IpAddr*)ipAddrListAtIndex:(NSUInteger)index {
@@ -3268,7 +3268,7 @@ static IMFileNotify* defaultIMFileNotifyInstance = nil;
   resultImfileNotify.taskId = @"";
   return self;
 }
-- (NSMutableArray *)ipAddrList {
+- (NSMutableArray<IpAddr*> *)ipAddrList {
   return resultImfileNotify.ipAddrListArray;
 }
 - (IpAddr*)ipAddrListAtIndex:(NSUInteger)index {
@@ -3281,7 +3281,7 @@ static IMFileNotify* defaultIMFileNotifyInstance = nil;
   [resultImfileNotify.ipAddrListArray addObject:value];
   return self;
 }
-- (IMFileNotifyBuilder *)setIpAddrListArray:(NSArray *)array {
+- (IMFileNotifyBuilder *)setIpAddrListArray:(NSArray<IpAddr*> *)array {
   resultImfileNotify.ipAddrListArray = [[NSMutableArray alloc]initWithArray:array];
   return self;
 }
@@ -3583,8 +3583,8 @@ static IMFileHasOfflineReq* defaultIMFileHasOfflineReqInstance = nil;
 
 @interface IMFileHasOfflineRsp ()
 @property UInt32 userId;
-@property (strong) NSMutableArray * offlineFileListArray;
-@property (strong) NSMutableArray * ipAddrListArray;
+@property (strong) NSMutableArray<OfflineFileInfo*> * offlineFileListArray;
+@property (strong) NSMutableArray<IpAddr*> * ipAddrListArray;
 @property (strong) NSData* attachData;
 @end
 
@@ -3627,13 +3627,13 @@ static IMFileHasOfflineRsp* defaultIMFileHasOfflineRspInstance = nil;
 - (instancetype) defaultInstance {
   return defaultIMFileHasOfflineRspInstance;
 }
-- (NSArray *)offlineFileList {
+- (NSArray<OfflineFileInfo*> *)offlineFileList {
   return offlineFileListArray;
 }
 - (OfflineFileInfo*)offlineFileListAtIndex:(NSUInteger)index {
   return [offlineFileListArray objectAtIndex:index];
 }
-- (NSArray *)ipAddrList {
+- (NSArray<IpAddr*> *)ipAddrList {
   return ipAddrListArray;
 }
 - (IpAddr*)ipAddrListAtIndex:(NSUInteger)index {
@@ -3923,7 +3923,7 @@ static IMFileHasOfflineRsp* defaultIMFileHasOfflineRspInstance = nil;
   resultImfileHasOfflineRsp.userId = 0;
   return self;
 }
-- (NSMutableArray *)offlineFileList {
+- (NSMutableArray<OfflineFileInfo*> *)offlineFileList {
   return resultImfileHasOfflineRsp.offlineFileListArray;
 }
 - (OfflineFileInfo*)offlineFileListAtIndex:(NSUInteger)index {
@@ -3936,7 +3936,7 @@ static IMFileHasOfflineRsp* defaultIMFileHasOfflineRspInstance = nil;
   [resultImfileHasOfflineRsp.offlineFileListArray addObject:value];
   return self;
 }
-- (IMFileHasOfflineRspBuilder *)setOfflineFileListArray:(NSArray *)array {
+- (IMFileHasOfflineRspBuilder *)setOfflineFileListArray:(NSArray<OfflineFileInfo*> *)array {
   resultImfileHasOfflineRsp.offlineFileListArray = [[NSMutableArray alloc]initWithArray:array];
   return self;
 }
@@ -3944,7 +3944,7 @@ static IMFileHasOfflineRsp* defaultIMFileHasOfflineRspInstance = nil;
   resultImfileHasOfflineRsp.offlineFileListArray = nil;
   return self;
 }
-- (NSMutableArray *)ipAddrList {
+- (NSMutableArray<IpAddr*> *)ipAddrList {
   return resultImfileHasOfflineRsp.ipAddrListArray;
 }
 - (IpAddr*)ipAddrListAtIndex:(NSUInteger)index {
@@ -3957,7 +3957,7 @@ static IMFileHasOfflineRsp* defaultIMFileHasOfflineRspInstance = nil;
   [resultImfileHasOfflineRsp.ipAddrListArray addObject:value];
   return self;
 }
-- (IMFileHasOfflineRspBuilder *)setIpAddrListArray:(NSArray *)array {
+- (IMFileHasOfflineRspBuilder *)setIpAddrListArray:(NSArray<IpAddr*> *)array {
   resultImfileHasOfflineRsp.ipAddrListArray = [[NSMutableArray alloc]initWithArray:array];
   return self;
 }

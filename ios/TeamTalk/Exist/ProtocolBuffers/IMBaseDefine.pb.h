@@ -45,6 +45,7 @@ typedef NS_ENUM(SInt32, ServiceID) {
   ServiceIDSidSwitchService = 6,
   ServiceIDSidOther = 7,
   ServiceIDSidInternal = 8,
+  ServiceIDSidRegist = 9,
 };
 
 BOOL ServiceIDIsValidValue(ServiceID value);
@@ -66,14 +67,24 @@ typedef NS_ENUM(SInt32, LoginCmdID) {
   LoginCmdIDCidLoginResPushShield = 269,
   LoginCmdIDCidLoginReqQueryPushShield = 270,
   LoginCmdIDCidLoginResQueryPushShield = 271,
-  LoginCmdIDCidLoginReqModifyPass = 273,
-  LoginCmdIDCidLoginResModifyPass = 274,
-  LoginCmdIDCidLoginReqGetui = 275,
-  LoginCmdIDCidLoginResGetui = 276,
+  LoginCmdIDCidLoginReqModifyPass = 272,
+  LoginCmdIDCidLoginResModifyPass = 273,
 };
 
 BOOL LoginCmdIDIsValidValue(LoginCmdID value);
 NSString *NSStringFromLoginCmdID(LoginCmdID value);
+
+typedef NS_ENUM(SInt32, RegistCmdID) {
+  RegistCmdIDCidRegistReqMsgserver = 4097,
+  RegistCmdIDCidRegistResMsgserver = 4098,
+  RegistCmdIDCidRegistReqUserregist = 4099,
+  RegistCmdIDCidRegistResUserregist = 4100,
+  RegistCmdIDCidRegistReqDevicetoken = 4101,
+  RegistCmdIDCidRegistResDevicetoken = 4102,
+};
+
+BOOL RegistCmdIDIsValidValue(RegistCmdID value);
+NSString *NSStringFromRegistCmdID(RegistCmdID value);
 
 typedef NS_ENUM(SInt32, BuddyListCmdID) {
   BuddyListCmdIDCidBuddyListRecentContactSessionRequest = 513,
@@ -97,8 +108,9 @@ typedef NS_ENUM(SInt32, BuddyListCmdID) {
   BuddyListCmdIDCidBuddyListChangeSignInfoRequest = 531,
   BuddyListCmdIDCidBuddyListChangeSignInfoResponse = 532,
   BuddyListCmdIDCidBuddyListSignInfoChangedNotify = 533,
-  BuddyListCmdIDCidBuddyListAllFriendRequest = 534,
-  BuddyListCmdIDCidBuddyListAllFriendResponse = 535,
+  BuddyListCmdIDCidBuddyListPcRegistStatusNotify = 534,
+  BuddyListCmdIDCidBuddyListAllFriendRequest = 535,
+  BuddyListCmdIDCidBuddyListAllFriendResponse = 536,
 };
 
 BOOL BuddyListCmdIDIsValidValue(BuddyListCmdID value);
@@ -154,6 +166,8 @@ typedef NS_ENUM(SInt32, FileCmdID) {
   FileCmdIDCidFileHasOfflineRes = 1290,
   FileCmdIDCidFileAddOfflineReq = 1291,
   FileCmdIDCidFileDelOfflineReq = 1292,
+  FileCmdIDCidFileRegistReq = 1293,
+  FileCmdIDCidFileRegistRes = 1294,
 };
 
 BOOL FileCmdIDIsValidValue(FileCmdID value);
@@ -188,6 +202,7 @@ typedef NS_ENUM(SInt32, OtherCmdID) {
   OtherCmdIDCidOtherFileTransferRsp = 1842,
   OtherCmdIDCidOtherFileServerIpReq = 1843,
   OtherCmdIDCidOtherFileServerIpRsp = 1844,
+  OtherCmdIDCidOtherRegistStatusNotify = 1845,
 };
 
 BOOL OtherCmdIDIsValidValue(OtherCmdID value);
@@ -202,6 +217,7 @@ typedef NS_ENUM(SInt32, ResultType) {
   ResultTypeRefuseReasonNoRouteServer = 5,
   ResultTypeRefuseReasonDbValidateFailed = 6,
   ResultTypeRefuseReasonVersionTooOld = 7,
+  ResultTypeRefuseReasonNoRegistServer = 8,
 };
 
 BOOL ResultTypeIsValidValue(ResultType value);
@@ -329,6 +345,7 @@ typedef NS_ENUM(SInt32, FileServerError) {
   FileServerErrorFileServerErrnoPullDataAllocMemError = 10,
   FileServerErrorFileServerErrnoPullDataSeekOffsetError = 11,
   FileServerErrorFileServerErrnoPullDataFinished = 12,
+  FileServerErrorFileServerErrnoRegistInvalidToken = 13,
 };
 
 BOOL FileServerErrorIsValidValue(FileServerError value);
@@ -428,7 +445,7 @@ NSString *NSStringFromDepartmentStatusType(DepartmentStatusType value);
 #define UserInfo_user_domain @"userDomain"
 #define UserInfo_status @"status"
 #define UserInfo_sign_info @"signInfo"
-#define UserInfo_is_friend @"isFriend"
+#define UserInfo_isFriend @"isFriend"
 @interface UserInfo : PBGeneratedMessage<GeneratedMessageProtocol> {
 @private
   BOOL hasUserNickName_:1;

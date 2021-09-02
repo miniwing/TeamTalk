@@ -8,12 +8,13 @@ option optimize_for = LITE_RUNTIME;
 
 message IMRecentContactSessionReq {
 	//cmd id:		0x0201
-	required uint32 user_id = 1;
-	required uint32 latest_update_time = 2;
-	optional bytes attach_data = 20;
+	required uint32 user_id 			= 1;
+	required uint32 latest_update_time 	= 2;
+	optional bytes attach_data 			= 20;
 }
 
 message IMRecentContactSessionRsp {
+
 	//cmd id:		0x0202
 	required uint32 user_id = 1;
 	repeated IM.BaseDefine.ContactSessionInfo contact_session_list = 2;
@@ -164,4 +165,24 @@ message IMSignInfoChangedNotify {
     //cmd id:		0x0215
     required uint32 changed_user_id = 1;     // 谁修改了个性签名
     required string sign_info = 2;
+}
+
+// 所有好友
+message IMAllFriendReq {
+
+	// CID_BUDDY_LIST_ALL_FRIEND_REQUEST	= 0x0217;
+	//cmd id:		0x0217
+	required uint32 user_id 	= 1;
+	required uint32 latest_update_time = 2;
+	optional bytes attach_data 	= 20;
+}
+
+message IMAllFriendRsp {
+
+    // CID_BUDDY_LIST_ALL_FRIEND_RESPONSE		= 0x0218;
+	//cmd id:		0x0218
+	required uint32 user_id 	= 1;
+	required uint32 latest_update_time 			= 2;
+	repeated IM.BaseDefine.UserInfo user_list 	= 3;
+	optional bytes attach_data 	= 20;
 }

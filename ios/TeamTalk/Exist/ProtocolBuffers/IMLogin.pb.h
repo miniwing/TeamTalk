@@ -102,7 +102,7 @@
 
 @interface IMMsgServReqBuilder : PBGeneratedMessageBuilder {
 @private
-   IMMsgServReq* resultImmsgServReq;
+  IMMsgServReq* resultImmsgServReq;
 }
 
 - (IMMsgServReq*) defaultInstance;
@@ -124,14 +124,14 @@
 #define IMMsgServRsp_port @"port"
 @interface IMMsgServRsp : PBGeneratedMessage<GeneratedMessageProtocol> {
 @private
-   BOOL hasPriorIp_:1;
-   BOOL hasBackipIp_:1;
-   BOOL hasPort_:1;
-   BOOL hasResultCode_:1;
-   NSString* priorIp;
-   NSString* backipIp;
-   UInt32 port;
-   ResultType resultCode;
+  BOOL hasPriorIp_:1;
+  BOOL hasBackipIp_:1;
+  BOOL hasPort_:1;
+  BOOL hasResultCode_:1;
+  NSString* priorIp;
+  NSString* backipIp;
+  UInt32 port;
+  ResultType resultCode;
 }
 - (BOOL) hasResultCode;
 - (BOOL) hasPriorIp;
@@ -162,7 +162,7 @@
 
 @interface IMMsgServRspBuilder : PBGeneratedMessageBuilder {
 @private
-   IMMsgServRsp* resultImmsgServRsp;
+  IMMsgServRsp* resultImmsgServRsp;
 }
 
 - (IMMsgServRsp*) defaultInstance;
@@ -205,16 +205,16 @@
 #define IMLoginReq_client_version @"clientVersion"
 @interface IMLoginReq : PBGeneratedMessage<GeneratedMessageProtocol> {
 @private
-   BOOL hasUserName_:1;
-   BOOL hasPassword_:1;
-   BOOL hasClientVersion_:1;
-   BOOL hasOnlineStatus_:1;
-   BOOL hasClientType_:1;
-   NSString* userName;
-   NSString* password;
-   NSString* clientVersion;
-   UserStatType onlineStatus;
-   ClientType clientType;
+  BOOL hasUserName_:1;
+  BOOL hasPassword_:1;
+  BOOL hasClientVersion_:1;
+  BOOL hasOnlineStatus_:1;
+  BOOL hasClientType_:1;
+  NSString* userName;
+  NSString* password;
+  NSString* clientVersion;
+  UserStatType onlineStatus;
+  ClientType clientType;
 }
 - (BOOL) hasUserName;
 - (BOOL) hasPassword;
@@ -246,9 +246,8 @@
 @end
 
 @interface IMLoginReqBuilder : PBGeneratedMessageBuilder {
-   
 @private
-   IMLoginReq* resultImloginReq;
+  IMLoginReq* resultImloginReq;
 }
 
 - (IMLoginReq*) defaultInstance;
@@ -296,16 +295,16 @@
 #define IMLoginRes_user_info @"userInfo"
 @interface IMLoginRes : PBGeneratedMessage<GeneratedMessageProtocol> {
 @private
-   BOOL hasResultString_:1;
-   BOOL hasUserInfo_:1;
-   BOOL hasServerTime_:1;
-   BOOL hasResultCode_:1;
-   BOOL hasOnlineStatus_:1;
-   NSString* resultString;
-   UserInfo* userInfo;
-   UInt32 serverTime;
-   ResultType resultCode;
-   UserStatType onlineStatus;
+  BOOL hasResultString_:1;
+  BOOL hasUserInfo_:1;
+  BOOL hasServerTime_:1;
+  BOOL hasResultCode_:1;
+  BOOL hasOnlineStatus_:1;
+  NSString* resultString;
+  UserInfo* userInfo;
+  UInt32 serverTime;
+  ResultType resultCode;
+  UserStatType onlineStatus;
 }
 - (BOOL) hasServerTime;
 - (BOOL) hasResultCode;
@@ -338,7 +337,7 @@
 
 @interface IMLoginResBuilder : PBGeneratedMessageBuilder {
 @private
-   IMLoginRes* resultImloginRes;
+  IMLoginRes* resultImloginRes;
 }
 
 - (IMLoginRes*) defaultInstance;
@@ -405,7 +404,7 @@
 
 @interface IMLogoutReqBuilder : PBGeneratedMessageBuilder {
 @private
-   IMLogoutReq* resultImlogoutReq;
+  IMLogoutReq* resultImlogoutReq;
 }
 
 - (IMLogoutReq*) defaultInstance;
@@ -424,8 +423,8 @@
 #define IMLogoutRsp_result_code @"resultCode"
 @interface IMLogoutRsp : PBGeneratedMessage<GeneratedMessageProtocol> {
 @private
-   BOOL hasResultCode_:1;
-   UInt32 resultCode;
+  BOOL hasResultCode_:1;
+  UInt32 resultCode;
 }
 - (BOOL) hasResultCode;
 @property (readonly) UInt32 resultCode;
@@ -450,7 +449,7 @@
 
 @interface IMLogoutRspBuilder : PBGeneratedMessageBuilder {
 @private
-   IMLogoutRsp* resultImlogoutRsp;
+  IMLogoutRsp* resultImlogoutRsp;
 }
 
 - (IMLogoutRsp*) defaultInstance;
@@ -475,10 +474,10 @@
 #define IMKickUser_kick_reason @"kickReason"
 @interface IMKickUser : PBGeneratedMessage<GeneratedMessageProtocol> {
 @private
-   BOOL hasUserId_:1;
-   BOOL hasKickReason_:1;
-   UInt32 userId;
-   KickReasonType kickReason;
+  BOOL hasUserId_:1;
+  BOOL hasKickReason_:1;
+  UInt32 userId;
+  KickReasonType kickReason;
 }
 - (BOOL) hasUserId;
 - (BOOL) hasKickReason;
@@ -505,7 +504,7 @@
 
 @interface IMKickUserBuilder : PBGeneratedMessageBuilder {
 @private
-   IMKickUser* resultImkickUser;
+  IMKickUser* resultImkickUser;
 }
 
 - (IMKickUser*) defaultInstance;
@@ -537,14 +536,14 @@
 #define IMDeviceTokenReq_attach_data @"attachData"
 @interface IMDeviceTokenReq : PBGeneratedMessage<GeneratedMessageProtocol> {
 @private
-   BOOL hasDeviceToken_:1;
-   BOOL hasAttachData_:1;
-   BOOL hasUserId_:1;
-   BOOL hasClientType_:1;
-   NSString* deviceToken;
-   NSData* attachData;
-   UInt32 userId;
-   ClientType clientType;
+  BOOL hasDeviceToken_:1;
+  BOOL hasAttachData_:1;
+  BOOL hasUserId_:1;
+  BOOL hasClientType_:1;
+  NSString* deviceToken;
+  NSData* attachData;
+  UInt32 userId;
+  ClientType clientType;
 }
 - (BOOL) hasUserId;
 - (BOOL) hasDeviceToken;
@@ -575,7 +574,7 @@
 
 @interface IMDeviceTokenReqBuilder : PBGeneratedMessageBuilder {
 @private
-   IMDeviceTokenReq* resultImdeviceTokenReq;
+  IMDeviceTokenReq* resultImdeviceTokenReq;
 }
 
 - (IMDeviceTokenReq*) defaultInstance;
@@ -615,10 +614,10 @@
 #define IMDeviceTokenRsp_attach_data @"attachData"
 @interface IMDeviceTokenRsp : PBGeneratedMessage<GeneratedMessageProtocol> {
 @private
-   BOOL hasAttachData_:1;
-   BOOL hasUserId_:1;
-   NSData* attachData;
-   UInt32 userId;
+  BOOL hasAttachData_:1;
+  BOOL hasUserId_:1;
+  NSData* attachData;
+  UInt32 userId;
 }
 - (BOOL) hasUserId;
 - (BOOL) hasAttachData;
@@ -645,7 +644,7 @@
 
 @interface IMDeviceTokenRspBuilder : PBGeneratedMessageBuilder {
 @private
-   IMDeviceTokenRsp* resultImdeviceTokenRsp;
+  IMDeviceTokenRsp* resultImdeviceTokenRsp;
 }
 
 - (IMDeviceTokenRsp*) defaultInstance;
@@ -674,8 +673,8 @@
 #define IMKickPCClientReq_user_id @"userId"
 @interface IMKickPCClientReq : PBGeneratedMessage<GeneratedMessageProtocol> {
 @private
-   BOOL hasUserId_:1;
-   UInt32 userId;
+  BOOL hasUserId_:1;
+  UInt32 userId;
 }
 - (BOOL) hasUserId;
 @property (readonly) UInt32 userId;
@@ -700,7 +699,7 @@
 
 @interface IMKickPCClientReqBuilder : PBGeneratedMessageBuilder {
 @private
-   IMKickPCClientReq* resultImkickPcclientReq;
+  IMKickPCClientReq* resultImkickPcclientReq;
 }
 
 - (IMKickPCClientReq*) defaultInstance;
@@ -725,10 +724,10 @@
 #define IMKickPCClientRsp_result_code @"resultCode"
 @interface IMKickPCClientRsp : PBGeneratedMessage<GeneratedMessageProtocol> {
 @private
-   BOOL hasUserId_:1;
-   BOOL hasResultCode_:1;
-   UInt32 userId;
-   UInt32 resultCode;
+  BOOL hasUserId_:1;
+  BOOL hasResultCode_:1;
+  UInt32 userId;
+  UInt32 resultCode;
 }
 - (BOOL) hasUserId;
 - (BOOL) hasResultCode;
@@ -755,7 +754,7 @@
 
 @interface IMKickPCClientRspBuilder : PBGeneratedMessageBuilder {
 @private
-   IMKickPCClientRsp* resultImkickPcclientRsp;
+  IMKickPCClientRsp* resultImkickPcclientRsp;
 }
 
 - (IMKickPCClientRsp*) defaultInstance;
@@ -786,12 +785,12 @@
 #define IMPushShieldReq_attach_data @"attachData"
 @interface IMPushShieldReq : PBGeneratedMessage<GeneratedMessageProtocol> {
 @private
-   BOOL hasAttachData_:1;
-   BOOL hasUserId_:1;
-   BOOL hasShieldStatus_:1;
-   NSData* attachData;
-   UInt32 userId;
-   UInt32 shieldStatus;
+  BOOL hasAttachData_:1;
+  BOOL hasUserId_:1;
+  BOOL hasShieldStatus_:1;
+  NSData* attachData;
+  UInt32 userId;
+  UInt32 shieldStatus;
 }
 - (BOOL) hasUserId;
 - (BOOL) hasShieldStatus;
@@ -820,7 +819,7 @@
 
 @interface IMPushShieldReqBuilder : PBGeneratedMessageBuilder {
 @private
-   IMPushShieldReq* resultImpushShieldReq;
+  IMPushShieldReq* resultImpushShieldReq;
 }
 
 - (IMPushShieldReq*) defaultInstance;
@@ -857,14 +856,14 @@
 #define IMPushShieldRsp_attach_data @"attachData"
 @interface IMPushShieldRsp : PBGeneratedMessage<GeneratedMessageProtocol> {
 @private
-   BOOL hasAttachData_:1;
-   BOOL hasUserId_:1;
-   BOOL hasResultCode_:1;
-   BOOL hasShieldStatus_:1;
-   NSData* attachData;
-   UInt32 userId;
-   UInt32 resultCode;
-   UInt32 shieldStatus;
+  BOOL hasAttachData_:1;
+  BOOL hasUserId_:1;
+  BOOL hasResultCode_:1;
+  BOOL hasShieldStatus_:1;
+  NSData* attachData;
+  UInt32 userId;
+  UInt32 resultCode;
+  UInt32 shieldStatus;
 }
 - (BOOL) hasUserId;
 - (BOOL) hasResultCode;
@@ -895,7 +894,7 @@
 
 @interface IMPushShieldRspBuilder : PBGeneratedMessageBuilder {
 @private
-   IMPushShieldRsp* resultImpushShieldRsp;
+  IMPushShieldRsp* resultImpushShieldRsp;
 }
 
 - (IMPushShieldRsp*) defaultInstance;
@@ -935,10 +934,10 @@
 #define IMQueryPushShieldReq_attach_data @"attachData"
 @interface IMQueryPushShieldReq : PBGeneratedMessage<GeneratedMessageProtocol> {
 @private
-   BOOL hasAttachData_:1;
-   BOOL hasUserId_:1;
-   NSData* attachData;
-   UInt32 userId;
+  BOOL hasAttachData_:1;
+  BOOL hasUserId_:1;
+  NSData* attachData;
+  UInt32 userId;
 }
 - (BOOL) hasUserId;
 - (BOOL) hasAttachData;
@@ -965,7 +964,7 @@
 
 @interface IMQueryPushShieldReqBuilder : PBGeneratedMessageBuilder {
 @private
-   IMQueryPushShieldReq* resultImqueryPushShieldReq;
+  IMQueryPushShieldReq* resultImqueryPushShieldReq;
 }
 
 - (IMQueryPushShieldReq*) defaultInstance;
@@ -997,14 +996,14 @@
 #define IMQueryPushShieldRsp_attach_data @"attachData"
 @interface IMQueryPushShieldRsp : PBGeneratedMessage<GeneratedMessageProtocol> {
 @private
-   BOOL hasAttachData_:1;
-   BOOL hasUserId_:1;
-   BOOL hasResultCode_:1;
-   BOOL hasShieldStatus_:1;
-   NSData* attachData;
-   UInt32 userId;
-   UInt32 resultCode;
-   UInt32 shieldStatus;
+  BOOL hasAttachData_:1;
+  BOOL hasUserId_:1;
+  BOOL hasResultCode_:1;
+  BOOL hasShieldStatus_:1;
+  NSData* attachData;
+  UInt32 userId;
+  UInt32 resultCode;
+  UInt32 shieldStatus;
 }
 - (BOOL) hasUserId;
 - (BOOL) hasResultCode;
@@ -1035,7 +1034,7 @@
 
 @interface IMQueryPushShieldRspBuilder : PBGeneratedMessageBuilder {
 @private
-   IMQueryPushShieldRsp* resultImqueryPushShieldRsp;
+  IMQueryPushShieldRsp* resultImqueryPushShieldRsp;
 }
 
 - (IMQueryPushShieldRsp*) defaultInstance;
@@ -1077,14 +1076,14 @@
 #define IMModifyPassReq_attach_data @"attachData"
 @interface IMModifyPassReq : PBGeneratedMessage<GeneratedMessageProtocol> {
 @private
-   BOOL hasOldPass_:1;
-   BOOL hasNewPass_:1;
-   BOOL hasAttachData_:1;
-   BOOL hasUserId_:1;
-   NSString* oldPass;
-   NSString* newPass;
-   NSData* attachData;
-   UInt32 userId;
+  BOOL hasOldPass_:1;
+  BOOL hasNewPass_:1;
+  BOOL hasAttachData_:1;
+  BOOL hasUserId_:1;
+  NSString* oldPass;
+  NSString* newPass;
+  NSData* attachData;
+  UInt32 userId;
 }
 - (BOOL) hasUserId;
 - (BOOL) hasOldPass;
@@ -1115,7 +1114,7 @@
 
 @interface IMModifyPassReqBuilder : PBGeneratedMessageBuilder {
 @private
-   IMModifyPassReq* resultImmodifyPassReq;
+  IMModifyPassReq* resultImmodifyPassReq;
 }
 
 - (IMModifyPassReq*) defaultInstance;
@@ -1151,26 +1150,23 @@
 - (IMModifyPassReqBuilder*) clearAttachData;
 @end
 
-#define IMModifyPassRes_user_id     @"userId"
-#define IMModifyPassRes_status      @"status"
+#define IMModifyPassRes_user_id @"userId"
+#define IMModifyPassRes_status @"status"
 #define IMModifyPassRes_attach_data @"attachData"
-
 @interface IMModifyPassRes : PBGeneratedMessage<GeneratedMessageProtocol> {
 @private
-   BOOL hasAttachData_:1;
-   BOOL hasUserId_:1;
-   BOOL hasStatus_:1;
-   NSData* attachData;
-   UInt32 userId;
-   UInt32 status;
+  BOOL hasAttachData_:1;
+  BOOL hasUserId_:1;
+  BOOL hasStatus_:1;
+  NSData* attachData;
+  UInt32 userId;
+  UInt32 status;
 }
-
 - (BOOL) hasUserId;
 - (BOOL) hasStatus;
 - (BOOL) hasAttachData;
-
-@property (readonly, assign) UInt32 userId;
-@property (readonly, assign) UInt32 status;
+@property (readonly) UInt32 userId;
+@property (readonly) UInt32 status;
 @property (readonly, strong) NSData* attachData;
 
 + (instancetype) defaultInstance;
@@ -1193,7 +1189,7 @@
 
 @interface IMModifyPassResBuilder : PBGeneratedMessageBuilder {
 @private
-   IMModifyPassRes* resultImmodifyPassRes;
+  IMModifyPassRes* resultImmodifyPassRes;
 }
 
 - (IMModifyPassRes*) defaultInstance;

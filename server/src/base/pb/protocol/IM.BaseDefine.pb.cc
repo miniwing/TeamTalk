@@ -127,6 +127,8 @@ bool LoginCmdID_IsValid(int value) {
     case 269:
     case 270:
     case 271:
+    case 272:
+    case 273:
       return true;
     default:
       return false;
@@ -171,6 +173,8 @@ bool BuddyListCmdID_IsValid(int value) {
     case 532:
     case 533:
     case 534:
+    case 535:
+    case 536:
       return true;
     default:
       return false;
@@ -718,6 +722,7 @@ const int UserInfo::kUserTelFieldNumber;
 const int UserInfo::kUserDomainFieldNumber;
 const int UserInfo::kStatusFieldNumber;
 const int UserInfo::kSignInfoFieldNumber;
+const int UserInfo::kIsFriendFieldNumber;
 #endif  // !_MSC_VER
 
 UserInfo::UserInfo()
@@ -750,6 +755,7 @@ void UserInfo::SharedCtor() {
   user_domain_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   status_ = 0u;
   sign_info_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  isfriend_ = 0u;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -848,7 +854,7 @@ void UserInfo::Clear() {
       }
     }
   }
-  if (_has_bits_[8 / 32] & 1792) {
+  if (_has_bits_[8 / 32] & 3840) {
     if (has_user_domain()) {
       if (user_domain_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
         user_domain_->clear();
@@ -860,6 +866,7 @@ void UserInfo::Clear() {
         sign_info_->clear();
       }
     }
+    isfriend_ = 0u;
   }
 
 #undef OFFSET_OF_FIELD_
@@ -1029,6 +1036,21 @@ bool UserInfo::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(96)) goto parse_isFriend;
+        break;
+      }
+
+      // required uint32 isFriend = 12;
+      case 12: {
+        if (tag == 96) {
+         parse_isFriend:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &isfriend_)));
+          set_has_isfriend();
+        } else {
+          goto handle_unusual;
+        }
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -1120,6 +1142,11 @@ void UserInfo::SerializeWithCachedSizes(
       11, this->sign_info(), output);
   }
 
+  // required uint32 isFriend = 12;
+  if (has_isfriend()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(12, this->isfriend(), output);
+  }
+
   output->WriteRaw(unknown_fields().data(),
                    unknown_fields().size());
   // @@protoc_insertion_point(serialize_end:IM.BaseDefine.UserInfo)
@@ -1208,6 +1235,13 @@ int UserInfo::ByteSize() const {
           this->sign_info());
     }
 
+    // required uint32 isFriend = 12;
+    if (has_isfriend()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->isfriend());
+    }
+
   }
   total_size += unknown_fields().size();
 
@@ -1260,6 +1294,9 @@ void UserInfo::MergeFrom(const UserInfo& from) {
     if (from.has_sign_info()) {
       set_sign_info(from.sign_info());
     }
+    if (from.has_isfriend()) {
+      set_isfriend(from.isfriend());
+    }
   }
   mutable_unknown_fields()->append(from.unknown_fields());
 }
@@ -1271,7 +1308,7 @@ void UserInfo::CopyFrom(const UserInfo& from) {
 }
 
 bool UserInfo::IsInitialized() const {
-  if ((_has_bits_[0] & 0x000003ff) != 0x000003ff) return false;
+  if ((_has_bits_[0] & 0x00000bff) != 0x00000bff) return false;
 
   return true;
 }
@@ -1289,6 +1326,7 @@ void UserInfo::Swap(UserInfo* other) {
     std::swap(user_domain_, other->user_domain_);
     std::swap(status_, other->status_);
     std::swap(sign_info_, other->sign_info_);
+    std::swap(isfriend_, other->isfriend_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.swap(other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);

@@ -572,7 +572,7 @@
 @property (readonly) UInt32 toUserId;
 @property (readonly, strong) NSString* fileName;
 @property (readonly, strong) NSString* taskId;
-@property (readonly, strong) NSArray * ipAddrList;
+@property (readonly, strong) NSArray<IpAddr*> * ipAddrList;
 @property (readonly) TransferFileType transMode;
 - (IpAddr*)ipAddrListAtIndex:(NSUInteger)index;
 
@@ -636,10 +636,10 @@
 - (IMFileRspBuilder*) setTaskId:(NSString*) value;
 - (IMFileRspBuilder*) clearTaskId;
 
-- (NSMutableArray *)ipAddrList;
+- (NSMutableArray<IpAddr*> *)ipAddrList;
 - (IpAddr*)ipAddrListAtIndex:(NSUInteger)index;
 - (IMFileRspBuilder *)addIpAddrList:(IpAddr*)value;
-- (IMFileRspBuilder *)setIpAddrListArray:(NSArray *)array;
+- (IMFileRspBuilder *)setIpAddrListArray:(NSArray<IpAddr*> *)array;
 - (IMFileRspBuilder *)clearIpAddrList;
 
 - (BOOL) hasTransMode;
@@ -686,7 +686,7 @@
 @property (readonly, strong) NSString* fileName;
 @property (readonly) UInt32 fileSize;
 @property (readonly, strong) NSString* taskId;
-@property (readonly, strong) NSArray * ipAddrList;
+@property (readonly, strong) NSArray<IpAddr*> * ipAddrList;
 @property (readonly) TransferFileType transMode;
 @property (readonly) UInt32 offlineReady;
 - (IpAddr*)ipAddrListAtIndex:(NSUInteger)index;
@@ -751,10 +751,10 @@
 - (IMFileNotifyBuilder*) setTaskId:(NSString*) value;
 - (IMFileNotifyBuilder*) clearTaskId;
 
-- (NSMutableArray *)ipAddrList;
+- (NSMutableArray<IpAddr*> *)ipAddrList;
 - (IpAddr*)ipAddrListAtIndex:(NSUInteger)index;
 - (IMFileNotifyBuilder *)addIpAddrList:(IpAddr*)value;
-- (IMFileNotifyBuilder *)setIpAddrListArray:(NSArray *)array;
+- (IMFileNotifyBuilder *)setIpAddrListArray:(NSArray<IpAddr*> *)array;
 - (IMFileNotifyBuilder *)clearIpAddrList;
 
 - (BOOL) hasTransMode;
@@ -844,8 +844,8 @@
 - (BOOL) hasUserId;
 - (BOOL) hasAttachData;
 @property (readonly) UInt32 userId;
-@property (readonly, strong) NSArray * offlineFileList;
-@property (readonly, strong) NSArray * ipAddrList;
+@property (readonly, strong) NSArray<OfflineFileInfo*> * offlineFileList;
+@property (readonly, strong) NSArray<IpAddr*> * ipAddrList;
 @property (readonly, strong) NSData* attachData;
 - (OfflineFileInfo*)offlineFileListAtIndex:(NSUInteger)index;
 - (IpAddr*)ipAddrListAtIndex:(NSUInteger)index;
@@ -890,16 +890,16 @@
 - (IMFileHasOfflineRspBuilder*) setUserId:(UInt32) value;
 - (IMFileHasOfflineRspBuilder*) clearUserId;
 
-- (NSMutableArray *)offlineFileList;
+- (NSMutableArray<OfflineFileInfo*> *)offlineFileList;
 - (OfflineFileInfo*)offlineFileListAtIndex:(NSUInteger)index;
 - (IMFileHasOfflineRspBuilder *)addOfflineFileList:(OfflineFileInfo*)value;
-- (IMFileHasOfflineRspBuilder *)setOfflineFileListArray:(NSArray *)array;
+- (IMFileHasOfflineRspBuilder *)setOfflineFileListArray:(NSArray<OfflineFileInfo*> *)array;
 - (IMFileHasOfflineRspBuilder *)clearOfflineFileList;
 
-- (NSMutableArray *)ipAddrList;
+- (NSMutableArray<IpAddr*> *)ipAddrList;
 - (IpAddr*)ipAddrListAtIndex:(NSUInteger)index;
 - (IMFileHasOfflineRspBuilder *)addIpAddrList:(IpAddr*)value;
-- (IMFileHasOfflineRspBuilder *)setIpAddrListArray:(NSArray *)array;
+- (IMFileHasOfflineRspBuilder *)setIpAddrListArray:(NSArray<IpAddr*> *)array;
 - (IMFileHasOfflineRspBuilder *)clearIpAddrList;
 
 - (BOOL) hasAttachData;

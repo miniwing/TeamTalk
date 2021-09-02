@@ -30,6 +30,7 @@ BOOL ServiceIDIsValidValue(ServiceID value) {
     case ServiceIDSidSwitchService:
     case ServiceIDSidOther:
     case ServiceIDSidInternal:
+    case ServiceIDSidRegist:
       return YES;
     default:
       return NO;
@@ -53,6 +54,8 @@ NSString *NSStringFromServiceID(ServiceID value) {
       return @"ServiceIDSidOther";
     case ServiceIDSidInternal:
       return @"ServiceIDSidInternal";
+    case ServiceIDSidRegist:
+      return @"ServiceIDSidRegist";
     default:
       return nil;
   }
@@ -77,8 +80,6 @@ BOOL LoginCmdIDIsValidValue(LoginCmdID value) {
     case LoginCmdIDCidLoginResQueryPushShield:
     case LoginCmdIDCidLoginReqModifyPass:
     case LoginCmdIDCidLoginResModifyPass:
-    case LoginCmdIDCidLoginReqGetui:
-    case LoginCmdIDCidLoginResGetui:
       return YES;
     default:
       return NO;
@@ -120,10 +121,38 @@ NSString *NSStringFromLoginCmdID(LoginCmdID value) {
       return @"LoginCmdIDCidLoginReqModifyPass";
     case LoginCmdIDCidLoginResModifyPass:
       return @"LoginCmdIDCidLoginResModifyPass";
-    case LoginCmdIDCidLoginReqGetui:
-      return @"LoginCmdIDCidLoginReqGetui";
-    case LoginCmdIDCidLoginResGetui:
-      return @"LoginCmdIDCidLoginResGetui";
+    default:
+      return nil;
+  }
+}
+
+BOOL RegistCmdIDIsValidValue(RegistCmdID value) {
+  switch (value) {
+    case RegistCmdIDCidRegistReqMsgserver:
+    case RegistCmdIDCidRegistResMsgserver:
+    case RegistCmdIDCidRegistReqUserregist:
+    case RegistCmdIDCidRegistResUserregist:
+    case RegistCmdIDCidRegistReqDevicetoken:
+    case RegistCmdIDCidRegistResDevicetoken:
+      return YES;
+    default:
+      return NO;
+  }
+}
+NSString *NSStringFromRegistCmdID(RegistCmdID value) {
+  switch (value) {
+    case RegistCmdIDCidRegistReqMsgserver:
+      return @"RegistCmdIDCidRegistReqMsgserver";
+    case RegistCmdIDCidRegistResMsgserver:
+      return @"RegistCmdIDCidRegistResMsgserver";
+    case RegistCmdIDCidRegistReqUserregist:
+      return @"RegistCmdIDCidRegistReqUserregist";
+    case RegistCmdIDCidRegistResUserregist:
+      return @"RegistCmdIDCidRegistResUserregist";
+    case RegistCmdIDCidRegistReqDevicetoken:
+      return @"RegistCmdIDCidRegistReqDevicetoken";
+    case RegistCmdIDCidRegistResDevicetoken:
+      return @"RegistCmdIDCidRegistResDevicetoken";
     default:
       return nil;
   }
@@ -152,6 +181,7 @@ BOOL BuddyListCmdIDIsValidValue(BuddyListCmdID value) {
     case BuddyListCmdIDCidBuddyListChangeSignInfoRequest:
     case BuddyListCmdIDCidBuddyListChangeSignInfoResponse:
     case BuddyListCmdIDCidBuddyListSignInfoChangedNotify:
+    case BuddyListCmdIDCidBuddyListPcRegistStatusNotify:
     case BuddyListCmdIDCidBuddyListAllFriendRequest:
     case BuddyListCmdIDCidBuddyListAllFriendResponse:
       return YES;
@@ -203,6 +233,8 @@ NSString *NSStringFromBuddyListCmdID(BuddyListCmdID value) {
       return @"BuddyListCmdIDCidBuddyListChangeSignInfoResponse";
     case BuddyListCmdIDCidBuddyListSignInfoChangedNotify:
       return @"BuddyListCmdIDCidBuddyListSignInfoChangedNotify";
+    case BuddyListCmdIDCidBuddyListPcRegistStatusNotify:
+      return @"BuddyListCmdIDCidBuddyListPcRegistStatusNotify";
     case BuddyListCmdIDCidBuddyListAllFriendRequest:
       return @"BuddyListCmdIDCidBuddyListAllFriendRequest";
     case BuddyListCmdIDCidBuddyListAllFriendResponse:
@@ -329,6 +361,8 @@ BOOL FileCmdIDIsValidValue(FileCmdID value) {
     case FileCmdIDCidFileHasOfflineRes:
     case FileCmdIDCidFileAddOfflineReq:
     case FileCmdIDCidFileDelOfflineReq:
+    case FileCmdIDCidFileRegistReq:
+    case FileCmdIDCidFileRegistRes:
       return YES;
     default:
       return NO;
@@ -360,6 +394,10 @@ NSString *NSStringFromFileCmdID(FileCmdID value) {
       return @"FileCmdIDCidFileAddOfflineReq";
     case FileCmdIDCidFileDelOfflineReq:
       return @"FileCmdIDCidFileDelOfflineReq";
+    case FileCmdIDCidFileRegistReq:
+      return @"FileCmdIDCidFileRegistReq";
+    case FileCmdIDCidFileRegistRes:
+      return @"FileCmdIDCidFileRegistRes";
     default:
       return nil;
   }
@@ -405,6 +443,7 @@ BOOL OtherCmdIDIsValidValue(OtherCmdID value) {
     case OtherCmdIDCidOtherFileTransferRsp:
     case OtherCmdIDCidOtherFileServerIpReq:
     case OtherCmdIDCidOtherFileServerIpRsp:
+    case OtherCmdIDCidOtherRegistStatusNotify:
       return YES;
     default:
       return NO;
@@ -454,6 +493,8 @@ NSString *NSStringFromOtherCmdID(OtherCmdID value) {
       return @"OtherCmdIDCidOtherFileServerIpReq";
     case OtherCmdIDCidOtherFileServerIpRsp:
       return @"OtherCmdIDCidOtherFileServerIpRsp";
+    case OtherCmdIDCidOtherRegistStatusNotify:
+      return @"OtherCmdIDCidOtherRegistStatusNotify";
     default:
       return nil;
   }
@@ -469,6 +510,7 @@ BOOL ResultTypeIsValidValue(ResultType value) {
     case ResultTypeRefuseReasonNoRouteServer:
     case ResultTypeRefuseReasonDbValidateFailed:
     case ResultTypeRefuseReasonVersionTooOld:
+    case ResultTypeRefuseReasonNoRegistServer:
       return YES;
     default:
       return NO;
@@ -492,6 +534,8 @@ NSString *NSStringFromResultType(ResultType value) {
       return @"ResultTypeRefuseReasonDbValidateFailed";
     case ResultTypeRefuseReasonVersionTooOld:
       return @"ResultTypeRefuseReasonVersionTooOld";
+    case ResultTypeRefuseReasonNoRegistServer:
+      return @"ResultTypeRefuseReasonNoRegistServer";
     default:
       return nil;
   }
@@ -792,6 +836,7 @@ BOOL FileServerErrorIsValidValue(FileServerError value) {
     case FileServerErrorFileServerErrnoPullDataAllocMemError:
     case FileServerErrorFileServerErrnoPullDataSeekOffsetError:
     case FileServerErrorFileServerErrnoPullDataFinished:
+    case FileServerErrorFileServerErrnoRegistInvalidToken:
       return YES;
     default:
       return NO;
@@ -825,6 +870,8 @@ NSString *NSStringFromFileServerError(FileServerError value) {
       return @"FileServerErrorFileServerErrnoPullDataSeekOffsetError";
     case FileServerErrorFileServerErrnoPullDataFinished:
       return @"FileServerErrorFileServerErrnoPullDataFinished";
+    case FileServerErrorFileServerErrnoRegistInvalidToken:
+      return @"FileServerErrorFileServerErrnoRegistInvalidToken";
     default:
       return nil;
   }

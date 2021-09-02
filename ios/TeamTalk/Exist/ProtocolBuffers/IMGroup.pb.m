@@ -281,7 +281,7 @@ static IMNormalGroupListReq* defaultIMNormalGroupListReqInstance = nil;
 
 @interface IMNormalGroupListRsp ()
 @property UInt32 userId;
-@property (strong) NSMutableArray * groupVersionListArray;
+@property (strong) NSMutableArray<GroupVersionInfo*> * groupVersionListArray;
 @property (strong) NSData* attachData;
 @end
 
@@ -322,7 +322,7 @@ static IMNormalGroupListRsp* defaultIMNormalGroupListRspInstance = nil;
 - (instancetype) defaultInstance {
   return defaultIMNormalGroupListRspInstance;
 }
-- (NSArray *)groupVersionList {
+- (NSArray<GroupVersionInfo*> *)groupVersionList {
   return groupVersionListArray;
 }
 - (GroupVersionInfo*)groupVersionListAtIndex:(NSUInteger)index {
@@ -570,7 +570,7 @@ static IMNormalGroupListRsp* defaultIMNormalGroupListRspInstance = nil;
   resultImnormalGroupListRsp.userId = 0;
   return self;
 }
-- (NSMutableArray *)groupVersionList {
+- (NSMutableArray<GroupVersionInfo*> *)groupVersionList {
   return resultImnormalGroupListRsp.groupVersionListArray;
 }
 - (GroupVersionInfo*)groupVersionListAtIndex:(NSUInteger)index {
@@ -583,7 +583,7 @@ static IMNormalGroupListRsp* defaultIMNormalGroupListRspInstance = nil;
   [resultImnormalGroupListRsp.groupVersionListArray addObject:value];
   return self;
 }
-- (IMNormalGroupListRspBuilder *)setGroupVersionListArray:(NSArray *)array {
+- (IMNormalGroupListRspBuilder *)setGroupVersionListArray:(NSArray<GroupVersionInfo*> *)array {
   resultImnormalGroupListRsp.groupVersionListArray = [[NSMutableArray alloc]initWithArray:array];
   return self;
 }
@@ -611,7 +611,7 @@ static IMNormalGroupListRsp* defaultIMNormalGroupListRspInstance = nil;
 
 @interface IMGroupInfoListReq ()
 @property UInt32 userId;
-@property (strong) NSMutableArray * groupVersionListArray;
+@property (strong) NSMutableArray<GroupVersionInfo*> * groupVersionListArray;
 @property (strong) NSData* attachData;
 @end
 
@@ -652,7 +652,7 @@ static IMGroupInfoListReq* defaultIMGroupInfoListReqInstance = nil;
 - (instancetype) defaultInstance {
   return defaultIMGroupInfoListReqInstance;
 }
-- (NSArray *)groupVersionList {
+- (NSArray<GroupVersionInfo*> *)groupVersionList {
   return groupVersionListArray;
 }
 - (GroupVersionInfo*)groupVersionListAtIndex:(NSUInteger)index {
@@ -900,7 +900,7 @@ static IMGroupInfoListReq* defaultIMGroupInfoListReqInstance = nil;
   resultImgroupInfoListReq.userId = 0;
   return self;
 }
-- (NSMutableArray *)groupVersionList {
+- (NSMutableArray<GroupVersionInfo*> *)groupVersionList {
   return resultImgroupInfoListReq.groupVersionListArray;
 }
 - (GroupVersionInfo*)groupVersionListAtIndex:(NSUInteger)index {
@@ -913,7 +913,7 @@ static IMGroupInfoListReq* defaultIMGroupInfoListReqInstance = nil;
   [resultImgroupInfoListReq.groupVersionListArray addObject:value];
   return self;
 }
-- (IMGroupInfoListReqBuilder *)setGroupVersionListArray:(NSArray *)array {
+- (IMGroupInfoListReqBuilder *)setGroupVersionListArray:(NSArray<GroupVersionInfo*> *)array {
   resultImgroupInfoListReq.groupVersionListArray = [[NSMutableArray alloc]initWithArray:array];
   return self;
 }
@@ -941,7 +941,7 @@ static IMGroupInfoListReq* defaultIMGroupInfoListReqInstance = nil;
 
 @interface IMGroupInfoListRsp ()
 @property UInt32 userId;
-@property (strong) NSMutableArray * groupInfoListArray;
+@property (strong) NSMutableArray<GroupInfo*> * groupInfoListArray;
 @property (strong) NSData* attachData;
 @end
 
@@ -982,7 +982,7 @@ static IMGroupInfoListRsp* defaultIMGroupInfoListRspInstance = nil;
 - (instancetype) defaultInstance {
   return defaultIMGroupInfoListRspInstance;
 }
-- (NSArray *)groupInfoList {
+- (NSArray<GroupInfo*> *)groupInfoList {
   return groupInfoListArray;
 }
 - (GroupInfo*)groupInfoListAtIndex:(NSUInteger)index {
@@ -1230,7 +1230,7 @@ static IMGroupInfoListRsp* defaultIMGroupInfoListRspInstance = nil;
   resultImgroupInfoListRsp.userId = 0;
   return self;
 }
-- (NSMutableArray *)groupInfoList {
+- (NSMutableArray<GroupInfo*> *)groupInfoList {
   return resultImgroupInfoListRsp.groupInfoListArray;
 }
 - (GroupInfo*)groupInfoListAtIndex:(NSUInteger)index {
@@ -1243,7 +1243,7 @@ static IMGroupInfoListRsp* defaultIMGroupInfoListRspInstance = nil;
   [resultImgroupInfoListRsp.groupInfoListArray addObject:value];
   return self;
 }
-- (IMGroupInfoListRspBuilder *)setGroupInfoListArray:(NSArray *)array {
+- (IMGroupInfoListRspBuilder *)setGroupInfoListArray:(NSArray<GroupInfo*> *)array {
   resultImgroupInfoListRsp.groupInfoListArray = [[NSMutableArray alloc]initWithArray:array];
   return self;
 }
