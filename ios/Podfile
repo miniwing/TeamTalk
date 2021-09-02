@@ -40,6 +40,16 @@ pod 'SSKeychain'
 
 #pod 'SDAutoLayout'
 
+pod 'FoundationExtension'     , :git => "git@github.com:miniwing/FoundationExtension.git" , :branch => 'develop'
+pod 'UIKitExtension'          , :git => "git@github.com:miniwing/FoundationExtension.git" , :branch => 'develop'
+
+pod 'IDEAColor'               , :path => '../../TeamTalk-Pods/IDEAColor'
+pod 'IDEANightVersion'        , :path => '../../TeamTalk-Pods/IDEANightVersion'
+
+pod 'IDEAKit'                 , :path => '../../TeamTalk-Pods/IDEAKit'
+pod 'IDEAUIKit'               , :path => '../../TeamTalk-Pods/IDEAUIKit'
+pod 'IDEAUIVendor'            , :path => '../../TeamTalk-Pods/IDEAUIVendor'
+
 end
 
 post_install do |installer|
@@ -50,6 +60,21 @@ post_install do |installer|
       config.build_settings['TVOS_DEPLOYMENT_TARGET']         = '10.0'
       config.build_settings['IPHONEOS_DEPLOYMENT_TARGET']     = '10.0'
       config.build_settings['WATCHOS_DEPLOYMENT_TARGET']      = '4.3'
+      
+      
+      if target.name == 'IDEAKit'
+        config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= [
+                                                                   '$(inherited)',
+                                                                   'APP_SCHEME=\@\"TeamTalk://\"',
+                                                                   'APP_BUNDLE_IDENTIFIER=\@\"com.idea.TeamTalk\"',
+                                                                   'APP_BUNDLE_IDENTIFIER_GROUP=\@\"group.com.idea.TeamTalk\"',
+                                                                   'APP_BUNDLE_IDENTIFIER_WIDGET=\@\"com.idea.TeamTalk.Widget\"',
+                                                                   'APP_ID=1568321747',
+                                                                   'FY_TRANSITION=0',
+                                                                   'NS_EVIL_TRANSFORM=0'
+                                                                   ]
+      end
+
       end
   end
 end

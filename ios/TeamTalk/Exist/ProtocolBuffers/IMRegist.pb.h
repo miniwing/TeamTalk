@@ -13,6 +13,10 @@
 @class GroupInfoBuilder;
 @class GroupVersionInfo;
 @class GroupVersionInfoBuilder;
+@class IMRegistReq;
+@class IMRegistReqBuilder;
+@class IMRegistRes;
+@class IMRegistResBuilder;
 @class IpAddr;
 @class IpAddrBuilder;
 @class MsgInfo;
@@ -42,6 +46,188 @@
 }
 + (PBExtensionRegistry*) extensionRegistry;
 + (void) registerAllExtensions:(PBMutableExtensionRegistry*) registry;
+@end
+
+#define IMRegistReq_user_name @"userName"
+#define IMRegistReq_password @"password"
+#define IMRegistReq_online_status @"onlineStatus"
+#define IMRegistReq_client_type @"clientType"
+#define IMRegistReq_client_version @"clientVersion"
+@interface IMRegistReq : PBGeneratedMessage<GeneratedMessageProtocol> {
+@private
+  BOOL hasUserName_:1;
+  BOOL hasPassword_:1;
+  BOOL hasClientVersion_:1;
+  BOOL hasOnlineStatus_:1;
+  BOOL hasClientType_:1;
+  NSString* userName;
+  NSString* password;
+  NSString* clientVersion;
+  UserStatType onlineStatus;
+  ClientType clientType;
+}
+- (BOOL) hasUserName;
+- (BOOL) hasPassword;
+- (BOOL) hasOnlineStatus;
+- (BOOL) hasClientType;
+- (BOOL) hasClientVersion;
+@property (readonly, strong) NSString* userName;
+@property (readonly, strong) NSString* password;
+@property (readonly) UserStatType onlineStatus;
+@property (readonly) ClientType clientType;
+@property (readonly, strong) NSString* clientVersion;
+
++ (instancetype) defaultInstance;
+- (instancetype) defaultInstance;
+
+- (BOOL) isInitialized;
+- (void) writeToCodedOutputStream:(PBCodedOutputStream*) output;
+- (IMRegistReqBuilder*) builder;
++ (IMRegistReqBuilder*) builder;
++ (IMRegistReqBuilder*) builderWithPrototype:(IMRegistReq*) prototype;
+- (IMRegistReqBuilder*) toBuilder;
+
++ (IMRegistReq*) parseFromData:(NSData*) data;
++ (IMRegistReq*) parseFromData:(NSData*) data extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
++ (IMRegistReq*) parseFromInputStream:(NSInputStream*) input;
++ (IMRegistReq*) parseFromInputStream:(NSInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
++ (IMRegistReq*) parseFromCodedInputStream:(PBCodedInputStream*) input;
++ (IMRegistReq*) parseFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
+@end
+
+@interface IMRegistReqBuilder : PBGeneratedMessageBuilder {
+@private
+  IMRegistReq* resultImregistReq;
+}
+
+- (IMRegistReq*) defaultInstance;
+
+- (IMRegistReqBuilder*) clear;
+- (IMRegistReqBuilder*) clone;
+
+- (IMRegistReq*) build;
+- (IMRegistReq*) buildPartial;
+
+- (IMRegistReqBuilder*) mergeFrom:(IMRegistReq*) other;
+- (IMRegistReqBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input;
+- (IMRegistReqBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
+
+- (BOOL) hasUserName;
+- (NSString*) userName;
+- (IMRegistReqBuilder*) setUserName:(NSString*) value;
+- (IMRegistReqBuilder*) clearUserName;
+
+- (BOOL) hasPassword;
+- (NSString*) password;
+- (IMRegistReqBuilder*) setPassword:(NSString*) value;
+- (IMRegistReqBuilder*) clearPassword;
+
+- (BOOL) hasOnlineStatus;
+- (UserStatType) onlineStatus;
+- (IMRegistReqBuilder*) setOnlineStatus:(UserStatType) value;
+- (IMRegistReqBuilder*) clearOnlineStatus;
+
+- (BOOL) hasClientType;
+- (ClientType) clientType;
+- (IMRegistReqBuilder*) setClientType:(ClientType) value;
+- (IMRegistReqBuilder*) clearClientType;
+
+- (BOOL) hasClientVersion;
+- (NSString*) clientVersion;
+- (IMRegistReqBuilder*) setClientVersion:(NSString*) value;
+- (IMRegistReqBuilder*) clearClientVersion;
+@end
+
+#define IMRegistRes_server_time @"serverTime"
+#define IMRegistRes_result_code @"resultCode"
+#define IMRegistRes_result_string @"resultString"
+#define IMRegistRes_online_status @"onlineStatus"
+#define IMRegistRes_user_info @"userInfo"
+@interface IMRegistRes : PBGeneratedMessage<GeneratedMessageProtocol> {
+@private
+  BOOL hasResultString_:1;
+  BOOL hasUserInfo_:1;
+  BOOL hasServerTime_:1;
+  BOOL hasResultCode_:1;
+  BOOL hasOnlineStatus_:1;
+  NSString* resultString;
+  UserInfo* userInfo;
+  UInt32 serverTime;
+  ResultType resultCode;
+  UserStatType onlineStatus;
+}
+- (BOOL) hasServerTime;
+- (BOOL) hasResultCode;
+- (BOOL) hasResultString;
+- (BOOL) hasOnlineStatus;
+- (BOOL) hasUserInfo;
+@property (readonly) UInt32 serverTime;
+@property (readonly) ResultType resultCode;
+@property (readonly, strong) NSString* resultString;
+@property (readonly) UserStatType onlineStatus;
+@property (readonly, strong) UserInfo* userInfo;
+
++ (instancetype) defaultInstance;
+- (instancetype) defaultInstance;
+
+- (BOOL) isInitialized;
+- (void) writeToCodedOutputStream:(PBCodedOutputStream*) output;
+- (IMRegistResBuilder*) builder;
++ (IMRegistResBuilder*) builder;
++ (IMRegistResBuilder*) builderWithPrototype:(IMRegistRes*) prototype;
+- (IMRegistResBuilder*) toBuilder;
+
++ (IMRegistRes*) parseFromData:(NSData*) data;
++ (IMRegistRes*) parseFromData:(NSData*) data extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
++ (IMRegistRes*) parseFromInputStream:(NSInputStream*) input;
++ (IMRegistRes*) parseFromInputStream:(NSInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
++ (IMRegistRes*) parseFromCodedInputStream:(PBCodedInputStream*) input;
++ (IMRegistRes*) parseFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
+@end
+
+@interface IMRegistResBuilder : PBGeneratedMessageBuilder {
+@private
+  IMRegistRes* resultImregistRes;
+}
+
+- (IMRegistRes*) defaultInstance;
+
+- (IMRegistResBuilder*) clear;
+- (IMRegistResBuilder*) clone;
+
+- (IMRegistRes*) build;
+- (IMRegistRes*) buildPartial;
+
+- (IMRegistResBuilder*) mergeFrom:(IMRegistRes*) other;
+- (IMRegistResBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input;
+- (IMRegistResBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
+
+- (BOOL) hasServerTime;
+- (UInt32) serverTime;
+- (IMRegistResBuilder*) setServerTime:(UInt32) value;
+- (IMRegistResBuilder*) clearServerTime;
+
+- (BOOL) hasResultCode;
+- (ResultType) resultCode;
+- (IMRegistResBuilder*) setResultCode:(ResultType) value;
+- (IMRegistResBuilder*) clearResultCode;
+
+- (BOOL) hasResultString;
+- (NSString*) resultString;
+- (IMRegistResBuilder*) setResultString:(NSString*) value;
+- (IMRegistResBuilder*) clearResultString;
+
+- (BOOL) hasOnlineStatus;
+- (UserStatType) onlineStatus;
+- (IMRegistResBuilder*) setOnlineStatus:(UserStatType) value;
+- (IMRegistResBuilder*) clearOnlineStatus;
+
+- (BOOL) hasUserInfo;
+- (UserInfo*) userInfo;
+- (IMRegistResBuilder*) setUserInfo:(UserInfo*) value;
+- (IMRegistResBuilder*) setUserInfoBuilder:(UserInfoBuilder*) builderForValue;
+- (IMRegistResBuilder*) mergeUserInfo:(UserInfo*) value;
+- (IMRegistResBuilder*) clearUserInfo;
 @end
 
 

@@ -24,11 +24,41 @@ PODS:
     - APAddressBook/Core (= 0.3.2)
   - APAddressBook/Core (0.3.2)
   - BaiduMapKit (2.10.2)
+  - cdebug (1.3)
   - DACircularProgress (2.2.0)
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
+  - FoundationExtension (2.1.0-IDEA):
+    - cdebug (~> 1.3)
+    - FoundationExtension/FoundationExtension (= 2.1.0-IDEA)
+    - FoundationExtension/FoundationExtensionRC (= 2.1.0-IDEA)
+  - FoundationExtension/FoundationExtension (2.1.0-IDEA):
+    - cdebug (~> 1.3)
+    - FoundationExtension/FoundationExtensionRC
+  - FoundationExtension/FoundationExtensionRC (2.1.0-IDEA):
+    - cdebug (~> 1.3)
   - HPGrowingTextView (1.1)
+  - IDEAColor (1.0.0):
+    - IDEANightVersion
+  - IDEAKit (1.0.1):
+    - FoundationExtension
+  - IDEANightVersion (2.4.3)
+  - IDEAUIKit (1.0.1):
+    - FoundationExtension
+    - IDEAColor
+    - IDEAKit
+    - IDEANightVersion
+    - RTRootNavigationController
+    - UIKitExtension
+  - IDEAUIVendor (1.0.0):
+    - FoundationExtension
+    - IDEAColor
+    - IDEAKit
+    - IDEANightVersion
+    - IDEAUIKit
+    - RTRootNavigationController
+    - UIKitExtension
   - LCActionSheet (1.2.3)
   - libwebp (1.2.0):
     - libwebp/demux (= 1.2.0)
@@ -51,6 +81,9 @@ PODS:
   - PSTCollectionView (1.2.3-IDEA)
   - RegexKitLite (4.0)
   - Reveal-SDK (24)
+  - RTRootNavigationController (0.8.0):
+    - RTRootNavigationController/Core (= 0.8.0)
+  - RTRootNavigationController/Core (0.8.0)
   - SCLAlertView-Objective-C (0.7.9)
   - SDWebImage (3.8.3):
     - SDWebImage/Core (= 3.8.3)
@@ -60,6 +93,9 @@ PODS:
   - SVWebViewController (1.0)
   - TTTAttributedLabel (2.0.0)
   - TZImagePickerController (3.6.4)
+  - UIKitExtension (2.1.0-IDEA):
+    - cdebug (~> 1.3)
+    - FoundationExtension (~> 2.1.0-IDEA)
   - XHImageViewer (0.1.2)
   - YYKit (1.0.9-IDEA):
     - libwebp
@@ -76,7 +112,13 @@ DEPENDENCIES:
   - BaiduMapKit (~> 2.10.0)
   - DACircularProgress (~> 2.2.0)
   - FMDB (~> 2.3)
+  - "FoundationExtension (from `git@github.com:miniwing/FoundationExtension.git`, branch `develop`)"
   - HPGrowingTextView (~> 1.1)
+  - IDEAColor (from `../../TeamTalk-Pods/IDEAColor`)
+  - IDEAKit (from `../../TeamTalk-Pods/IDEAKit`)
+  - IDEANightVersion (from `../../TeamTalk-Pods/IDEANightVersion`)
+  - IDEAUIKit (from `../../TeamTalk-Pods/IDEAUIKit`)
+  - IDEAUIVendor (from `../../TeamTalk-Pods/IDEAUIVendor`)
   - LCActionSheet (~> 1.2.1)
   - Masonry
   - MBProgressHUD (~> 0.8)
@@ -93,6 +135,7 @@ DEPENDENCIES:
   - SVWebViewController
   - TTTAttributedLabel
   - TZImagePickerController
+  - "UIKitExtension (from `git@github.com:miniwing/FoundationExtension.git`, branch `develop`)"
   - XHImageViewer
   - "YYKit (from `git@github.com:miniwing/YYKit.git`, branch `develop`)"
   - ZXingObjC
@@ -102,6 +145,7 @@ SPEC REPOS:
     - AFNetworking
     - APAddressBook
     - BaiduMapKit
+    - cdebug
     - DACircularProgress
     - FMDB
     - HPGrowingTextView
@@ -114,6 +158,7 @@ SPEC REPOS:
     - ProtocolBuffers
     - RegexKitLite
     - Reveal-SDK
+    - RTRootNavigationController
     - SCLAlertView-Objective-C
     - SDWebImage
     - SSKeychain
@@ -125,17 +170,39 @@ SPEC REPOS:
     - ZXingObjC
 
 EXTERNAL SOURCES:
+  FoundationExtension:
+    :branch: develop
+    :git: "git@github.com:miniwing/FoundationExtension.git"
+  IDEAColor:
+    :path: "../../TeamTalk-Pods/IDEAColor"
+  IDEAKit:
+    :path: "../../TeamTalk-Pods/IDEAKit"
+  IDEANightVersion:
+    :path: "../../TeamTalk-Pods/IDEANightVersion"
+  IDEAUIKit:
+    :path: "../../TeamTalk-Pods/IDEAUIKit"
+  IDEAUIVendor:
+    :path: "../../TeamTalk-Pods/IDEAUIVendor"
   PSTCollectionView:
     :branch: develop
     :git: "git@github.com:miniwing/PSTCollectionView.git"
+  UIKitExtension:
+    :branch: develop
+    :git: "git@github.com:miniwing/FoundationExtension.git"
   YYKit:
     :branch: develop
     :git: "git@github.com:miniwing/YYKit.git"
 
 CHECKOUT OPTIONS:
+  FoundationExtension:
+    :commit: 4ff765e17ff05db02375c538cf8fb7574d1efcd0
+    :git: "git@github.com:miniwing/FoundationExtension.git"
   PSTCollectionView:
     :commit: e52e2a9b21c149ab380ac947ec16899fef550bd1
     :git: "git@github.com:miniwing/PSTCollectionView.git"
+  UIKitExtension:
+    :commit: 4ff765e17ff05db02375c538cf8fb7574d1efcd0
+    :git: "git@github.com:miniwing/FoundationExtension.git"
   YYKit:
     :commit: 0ff751e35ad1a353687d607ec5dd4b4ade43203d
     :git: "git@github.com:miniwing/YYKit.git"
@@ -144,9 +211,16 @@ SPEC CHECKSUMS:
   AFNetworking: 05b9f6e3aa5ac45bc383b4bb108ef338080a26c7
   APAddressBook: e68ecaf95f2c323b625ae585a0d25fe505291286
   BaiduMapKit: b1706a062597c70ec62a0cca93212cba1d3017e1
+  cdebug: 0d0b7207fa996236ee9e07e5988e5e39a1d94a28
   DACircularProgress: 0f92b77239d5f3c612fc66185e2998391ac8e054
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
+  FoundationExtension: aa0e97cd31ef6864d0be66352b85114686b45c22
   HPGrowingTextView: 88a716d97fb853bcb08a4a08e4727da17efc9b19
+  IDEAColor: 466477c701d2c7be432ae4f546fa936db0d7a8ec
+  IDEAKit: 8ca811157bfbf24e98eb3020afc6a08dc01282fe
+  IDEANightVersion: 78c905e090cef76545e53153ca2c1b44707a19d7
+  IDEAUIKit: 9a7331858d5b52bd899a7f45144093e0c38df7eb
+  IDEAUIVendor: abde718e5302907e27ac7e5f92476354ba03835d
   LCActionSheet: 690882cd8b9a6713f1b2881c3bb2c7f11954d034
   libwebp: e90b9c01d99205d03b6bb8f2c8c415e5a4ef66f0
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
@@ -157,6 +231,7 @@ SPEC CHECKSUMS:
   PSTCollectionView: 8650c556e7f1fa247888989783419f1aea8d00ed
   RegexKitLite: c0e4c12e6e7de0769f3a3ed679f0f61604170661
   Reveal-SDK: 5d7e56b8f018c0a88b3a2c10bf68d598bbd3b071
+  RTRootNavigationController: 36c6301870f0467f89d69f4286795340b537d473
   SCLAlertView-Objective-C: e36ab12dc1ec4ff6f932888083b21d71a3a1ad23
   SDWebImage: a72e880a8fe0f7fc31efe15aaed443c074d2a80c
   SSKeychain: 55cc80f66f5c73da827e3077f02e43528897db41
@@ -164,10 +239,11 @@ SPEC CHECKSUMS:
   SVWebViewController: c36dda7326e81fcae0abf5d02bf7bbf7e41be901
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   TZImagePickerController: 1cc39ec0454d6e94d0397418953164d7aa631719
+  UIKitExtension: b37b93d422cbae6100b13cbed4a24293fb689cbb
   XHImageViewer: 7b275d2aa829e56761c30303b9d51cae086a90b9
   YYKit: ac05bcfde7368d81f6232daf332702dd10535a68
   ZXingObjC: fdbb269f25dd2032da343e06f10224d62f537bdb
 
-PODFILE CHECKSUM: 174e0cec734c00abe7b86ac191c8700b17745988
+PODFILE CHECKSUM: 70ae91e0b667b7c45b19b3f0f910dc640a0f28ff
 
 COCOAPODS: 1.10.2

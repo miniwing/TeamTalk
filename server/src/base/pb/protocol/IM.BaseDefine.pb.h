@@ -57,12 +57,11 @@ enum ServiceID {
   SID_FILE = 5,
   SID_SWITCH_SERVICE = 6,
   SID_OTHER = 7,
-  SID_INTERNAL = 8,
-  SID_REGIST = 9
+  SID_INTERNAL = 8
 };
 bool ServiceID_IsValid(int value);
 const ServiceID ServiceID_MIN = SID_LOGIN;
-const ServiceID ServiceID_MAX = SID_REGIST;
+const ServiceID ServiceID_MAX = SID_INTERNAL;
 const int ServiceID_ARRAYSIZE = ServiceID_MAX + 1;
 
 enum LoginCmdID {
@@ -82,25 +81,14 @@ enum LoginCmdID {
   CID_LOGIN_REQ_QUERY_PUSH_SHIELD = 270,
   CID_LOGIN_RES_QUERY_PUSH_SHIELD = 271,
   CID_LOGIN_REQ_MODIFY_PASS = 272,
-  CID_LOGIN_RES_MODIFY_PASS = 273
+  CID_LOGIN_RES_MODIFY_PASS = 273,
+  CID_LOGIN_REQ_REGIST = 274,
+  CID_LOGIN_RES_REGIST = 275
 };
 bool LoginCmdID_IsValid(int value);
 const LoginCmdID LoginCmdID_MIN = CID_LOGIN_REQ_MSGSERVER;
-const LoginCmdID LoginCmdID_MAX = CID_LOGIN_RES_MODIFY_PASS;
+const LoginCmdID LoginCmdID_MAX = CID_LOGIN_RES_REGIST;
 const int LoginCmdID_ARRAYSIZE = LoginCmdID_MAX + 1;
-
-enum RegistCmdID {
-  CID_REGIST_REQ_MSGSERVER = 4097,
-  CID_REGIST_RES_MSGSERVER = 4098,
-  CID_REGIST_REQ_USERREGIST = 4099,
-  CID_REGIST_RES_USERREGIST = 4100,
-  CID_REGIST_REQ_DEVICETOKEN = 4101,
-  CID_REGIST_RES_DEVICETOKEN = 4102
-};
-bool RegistCmdID_IsValid(int value);
-const RegistCmdID RegistCmdID_MIN = CID_REGIST_REQ_MSGSERVER;
-const RegistCmdID RegistCmdID_MAX = CID_REGIST_RES_DEVICETOKEN;
-const int RegistCmdID_ARRAYSIZE = RegistCmdID_MAX + 1;
 
 enum BuddyListCmdID {
   CID_BUDDY_LIST_RECENT_CONTACT_SESSION_REQUEST = 513,
@@ -222,12 +210,11 @@ enum OtherCmdID {
   CID_OTHER_FILE_TRANSFER_REQ = 1841,
   CID_OTHER_FILE_TRANSFER_RSP = 1842,
   CID_OTHER_FILE_SERVER_IP_REQ = 1843,
-  CID_OTHER_FILE_SERVER_IP_RSP = 1844,
-  CID_OTHER_REGIST_STATUS_NOTIFY = 1845
+  CID_OTHER_FILE_SERVER_IP_RSP = 1844
 };
 bool OtherCmdID_IsValid(int value);
 const OtherCmdID OtherCmdID_MIN = CID_OTHER_HEARTBEAT;
-const OtherCmdID OtherCmdID_MAX = CID_OTHER_REGIST_STATUS_NOTIFY;
+const OtherCmdID OtherCmdID_MAX = CID_OTHER_FILE_SERVER_IP_RSP;
 const int OtherCmdID_ARRAYSIZE = OtherCmdID_MAX + 1;
 
 enum ResultType {
@@ -685,7 +672,7 @@ class UserInfo : public ::google::protobuf::MessageLite {
   inline ::std::string* release_sign_info();
   inline void set_allocated_sign_info(::std::string* sign_info);
 
-  // required uint32 isFriend = 12;
+  // optional uint32 isFriend = 12;
   inline bool has_isfriend() const;
   inline void clear_isfriend();
   static const int kIsFriendFieldNumber = 12;
@@ -3151,7 +3138,7 @@ inline void UserInfo::set_allocated_sign_info(::std::string* sign_info) {
   // @@protoc_insertion_point(field_set_allocated:IM.BaseDefine.UserInfo.sign_info)
 }
 
-// required uint32 isFriend = 12;
+// optional uint32 isFriend = 12;
 inline bool UserInfo::has_isfriend() const {
   return (_has_bits_[0] & 0x00000800u) != 0;
 }

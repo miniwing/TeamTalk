@@ -115,6 +115,9 @@
    
    __TRY;
    
+   LogDebug((@"-[MTTRegisterViewController regist] : Account : %@", szAccount));
+   LogDebug((@"-[MTTRegisterViewController regist] : Password : %@", szPassword));
+
    szAccount   = _accountTextField.text;
    szPassword  = _passTextField.text;
    
@@ -122,30 +125,19 @@
       
       [OHAlertView showAlertWithTitle:APP_STR(@"错误") message:APP_STR(@"用户名/密码为空") dismissButton:@"好的"];
       
-      return;
+      nErr  = EINVAL;
+      
+      break;
    }
-   
-   MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.view];
-   [self.view addSubview:HUD];
-   [HUD show:YES];
-   HUD.dimBackground = YES;
-   HUD.labelText = @"正在注册";
    
    [[RegistModule instance] registWithUsername:szAccount
                                       password:szPassword
-                                       success:^(MTTUserEntity *user) {
+                                       success:^(MTTUserEntity *aUser) {
       
-      [HUD removeFromSuperview];
-      
-      [self.registButton setEnabled:YES];
-      
+      LogDebug((@"-[MTTRegisterViewController ]regist"));
    }
-                                       failure:^(NSString *error) {
-      [self.registButton setEnabled:YES];
+                                       failure:^(NSString *aError) {
       
-      [HUD removeFromSuperview];
-      
-      [OHAlertView showAlertWithTitle:@"提示" message:error dismissButton:@"好的"];
    }];
    
    __CATCH(nErr);

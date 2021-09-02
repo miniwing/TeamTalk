@@ -45,7 +45,6 @@ typedef NS_ENUM(SInt32, ServiceID) {
   ServiceIDSidSwitchService = 6,
   ServiceIDSidOther = 7,
   ServiceIDSidInternal = 8,
-  ServiceIDSidRegist = 9,
 };
 
 BOOL ServiceIDIsValidValue(ServiceID value);
@@ -69,22 +68,12 @@ typedef NS_ENUM(SInt32, LoginCmdID) {
   LoginCmdIDCidLoginResQueryPushShield = 271,
   LoginCmdIDCidLoginReqModifyPass = 272,
   LoginCmdIDCidLoginResModifyPass = 273,
+  LoginCmdIDCidLoginReqRegist = 274,
+  LoginCmdIDCidLoginResRegist = 275,
 };
 
 BOOL LoginCmdIDIsValidValue(LoginCmdID value);
 NSString *NSStringFromLoginCmdID(LoginCmdID value);
-
-typedef NS_ENUM(SInt32, RegistCmdID) {
-  RegistCmdIDCidRegistReqMsgserver = 4097,
-  RegistCmdIDCidRegistResMsgserver = 4098,
-  RegistCmdIDCidRegistReqUserregist = 4099,
-  RegistCmdIDCidRegistResUserregist = 4100,
-  RegistCmdIDCidRegistReqDevicetoken = 4101,
-  RegistCmdIDCidRegistResDevicetoken = 4102,
-};
-
-BOOL RegistCmdIDIsValidValue(RegistCmdID value);
-NSString *NSStringFromRegistCmdID(RegistCmdID value);
 
 typedef NS_ENUM(SInt32, BuddyListCmdID) {
   BuddyListCmdIDCidBuddyListRecentContactSessionRequest = 513,
@@ -202,7 +191,6 @@ typedef NS_ENUM(SInt32, OtherCmdID) {
   OtherCmdIDCidOtherFileTransferRsp = 1842,
   OtherCmdIDCidOtherFileServerIpReq = 1843,
   OtherCmdIDCidOtherFileServerIpRsp = 1844,
-  OtherCmdIDCidOtherRegistStatusNotify = 1845,
 };
 
 BOOL OtherCmdIDIsValidValue(OtherCmdID value);

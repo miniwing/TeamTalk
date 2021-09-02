@@ -86,14 +86,14 @@
                    success:(void(^)(MTTUserEntity* loginedUser))success
                    failure:(void(^)(NSString* error))failure {
     
-    [_httpServer getMsgIp:^(NSDictionary *dic) {
+    [_httpServer getMsgIp:^(NSDictionary *aDictionary) {
         
-        LogDebug((@"-[RegistModule registWithUsername:password:success:failure:] : getMsgIp : %@", dic));
+        LogDebug((@"-[RegistModule registWithUsername:password:success:failure:] : getMsgIp : %@", aDictionary));
         
-        NSInteger code  = [[dic objectForKey:@"code"] integerValue];
+        NSInteger code  = [[aDictionary objectForKey:@"code"] integerValue];
         
         if (code == 0) {
-            _priorIP = [dic objectForKey:@"priorIP"];
+            _priorIP = [aDictionary objectForKey:@"priorIP"];
             
 #if __TEAMTALK_HARRY__
             if ([_priorIP isEqualToString:@"10.211.55.13"]) {
@@ -103,9 +103,9 @@
             } /* End if () */
 #endif /* __TEAMTALK_HARRY__ */
             
-            _port    =  [[dic objectForKey:@"port"] integerValue];
+            _port    =  [[aDictionary objectForKey:@"port"] integerValue];
             
-            [MTTUtil setMsfsUrl:[dic objectForKey:@"msfsPrior"]];
+            [MTTUtil setMsfsUrl:[aDictionary objectForKey:@"msfsPrior"]];
             
             [_tcpServer registTcpServerIP:_priorIP
                                      port:_port

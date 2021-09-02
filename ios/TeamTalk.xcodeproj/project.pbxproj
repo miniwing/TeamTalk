@@ -94,6 +94,8 @@
 		4A400E2D26D7892900B28B59 /* libsecurity.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A400E2C26D7892000B28B59 /* libsecurity.a */; };
 		4AA8956826D880CD0092BA3B /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AA8956726D880CD0092BA3B /* CoreServices.framework */; };
 		4ACEF0B626D777BC004BF91E /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ACEF0B526D777BC004BF91E /* libc++.tbd */; };
+		4AE81A7C26E07FF900F12AAA /* ServerController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4AE81A7B26E07FF900F12AAA /* ServerController.xib */; };
+		4AE81A8F26E08A4F00F12AAA /* ServerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE81A8726E08A4F00F12AAA /* ServerController.m */; };
 		810D52611B523E42004DF7B4 /* search_back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 810D52601B523E42004DF7B4 /* search_back@2x.png */; };
 		810D52641B52592A004DF7B4 /* MTTSearchDetailViewControll.m in Sources */ = {isa = PBXBuildFile; fileRef = 810D52631B52592A004DF7B4 /* MTTSearchDetailViewControll.m */; };
 		810D874F1B456BE10089CEA1 /* MTTBubbleModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 810D874E1B456BE10089CEA1 /* MTTBubbleModule.m */; };
@@ -660,6 +662,9 @@
 		4A400E2726D7892000B28B59 /* security.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = security.xcodeproj; path = libsecurity/ios/security.xcodeproj; sourceTree = "<group>"; };
 		4AA8956726D880CD0092BA3B /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
 		4ACEF0B526D777BC004BF91E /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		4AE81A7B26E07FF900F12AAA /* ServerController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ServerController.xib; sourceTree = "<group>"; };
+		4AE81A8126E08A4F00F12AAA /* ServerController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ServerController.h; sourceTree = "<group>"; };
+		4AE81A8726E08A4F00F12AAA /* ServerController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ServerController.m; sourceTree = "<group>"; };
 		810D52601B523E42004DF7B4 /* search_back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search_back@2x.png"; sourceTree = "<group>"; };
 		810D52621B52592A004DF7B4 /* MTTSearchDetailViewControll.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTTSearchDetailViewControll.h; sourceTree = "<group>"; };
 		810D52631B52592A004DF7B4 /* MTTSearchDetailViewControll.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTTSearchDetailViewControll.m; sourceTree = "<group>"; };
@@ -1623,6 +1628,16 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		4AE81A7E26E08A1500F12AAA /* Servers */ = {
+			isa = PBXGroup;
+			children = (
+				4AE81A8126E08A4F00F12AAA /* ServerController.h */,
+				4AE81A8726E08A4F00F12AAA /* ServerController.m */,
+				4AE81A7B26E07FF900F12AAA /* ServerController.xib */,
+			);
+			path = Servers;
+			sourceTree = "<group>";
+		};
 		527B2E51021DC51A46265D31 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1828,6 +1843,7 @@
 				C07E667C1B3298D700A5102C /* Contacts */,
 				C07E667D1B3298D700A5102C /* Find */,
 				C07E667E1B3298D700A5102C /* Login */,
+				4AE81A7E26E08A1500F12AAA /* Servers */,
 				C07E667F1B3298D700A5102C /* My */,
 				C07E66801B3298D700A5102C /* RecentContacts */,
 				C07E66821B3298D700A5102C /* ScanQR */,
@@ -3219,6 +3235,7 @@
 				C07E65871B3283FB00A5102C /* myprofile_selected.png in Resources */,
 				C07E65571B3283FB00A5102C /* dd_left_voice_two@2x.png in Resources */,
 				C07E65471B3283FB00A5102C /* dd_cancel_send_record@2x.png in Resources */,
+				4AE81A7C26E07FF900F12AAA /* ServerController.xib in Resources */,
 				C07E65951B3283FB00A5102C /* left@2x.png in Resources */,
 				C07E657C1B3283FB00A5102C /* email.png in Resources */,
 				C07E65391B3283FB00A5102C /* delImage@2x.png in Resources */,
@@ -3335,6 +3352,7 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-TeamTalk/Pods-TeamTalk-resources.sh",
 				"${PODS_ROOT}/BaiduMapKit/BaiduMapKit/BaiduMapAPI_Map.framework/Resources/mapapi.bundle",
+				"${PODS_ROOT}/../../../TeamTalk-Pods/IDEAColor/IDEAColorTable/ColorTable.txt",
 				"${PODS_ROOT}/LCActionSheet/LCActionSheet/LCActionSheet.bundle",
 				"${PODS_ROOT}/MWPhotoBrowser/MWPhotoBrowser/MWPhotoBrowser.bundle",
 				"${PODS_ROOT}/SSKeychain/Support/SSKeychain.bundle",
@@ -3360,6 +3378,7 @@
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/mapapi.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ColorTable.txt",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/LCActionSheet.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MWPhotoBrowser.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SSKeychain.bundle",
@@ -3578,6 +3597,7 @@
 				C054ED471B3276DE00078809 /* RecorderManager.mm in Sources */,
 				C054ED441B3276DE00078809 /* CAStreamBasicDescription.cpp in Sources */,
 				8157DB791B46C2B800043E0F /* MTTBubbleShowViewControll.m in Sources */,
+				4AE81A8F26E08A4F00F12AAA /* ServerController.m in Sources */,
 				81B6391B1B5CB7380026EF55 /* MTTUsersStatAPI.m in Sources */,
 				C054ED241B3276DE00078809 /* high_lsp_tables.c in Sources */,
 				C0AE39CA1B32BD0200B67232 /* MTTWebViewController.m in Sources */,

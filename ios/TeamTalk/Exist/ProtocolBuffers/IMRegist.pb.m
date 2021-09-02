@@ -21,5 +21,876 @@ static PBExtensionRegistry* extensionRegistry = nil;
 }
 @end
 
+@interface IMRegistReq ()
+@property (strong) NSString* userName;
+@property (strong) NSString* password;
+@property UserStatType onlineStatus;
+@property ClientType clientType;
+@property (strong) NSString* clientVersion;
+@end
+
+@implementation IMRegistReq
+
+- (BOOL) hasUserName {
+  return !!hasUserName_;
+}
+- (void) setHasUserName:(BOOL) _value_ {
+  hasUserName_ = !!_value_;
+}
+@synthesize userName;
+- (BOOL) hasPassword {
+  return !!hasPassword_;
+}
+- (void) setHasPassword:(BOOL) _value_ {
+  hasPassword_ = !!_value_;
+}
+@synthesize password;
+- (BOOL) hasOnlineStatus {
+  return !!hasOnlineStatus_;
+}
+- (void) setHasOnlineStatus:(BOOL) _value_ {
+  hasOnlineStatus_ = !!_value_;
+}
+@synthesize onlineStatus;
+- (BOOL) hasClientType {
+  return !!hasClientType_;
+}
+- (void) setHasClientType:(BOOL) _value_ {
+  hasClientType_ = !!_value_;
+}
+@synthesize clientType;
+- (BOOL) hasClientVersion {
+  return !!hasClientVersion_;
+}
+- (void) setHasClientVersion:(BOOL) _value_ {
+  hasClientVersion_ = !!_value_;
+}
+@synthesize clientVersion;
+- (instancetype) init {
+  if ((self = [super init])) {
+    self.userName = @"";
+    self.password = @"";
+    self.onlineStatus = UserStatTypeUserStatusOnline;
+    self.clientType = ClientTypeClientTypeWindows;
+    self.clientVersion = @"";
+  }
+  return self;
+}
+static IMRegistReq* defaultIMRegistReqInstance = nil;
++ (void) initialize {
+  if (self == [IMRegistReq class]) {
+    defaultIMRegistReqInstance = [[IMRegistReq alloc] init];
+  }
+}
++ (instancetype) defaultInstance {
+  return defaultIMRegistReqInstance;
+}
+- (instancetype) defaultInstance {
+  return defaultIMRegistReqInstance;
+}
+- (BOOL) isInitialized {
+  if (!self.hasUserName) {
+    return NO;
+  }
+  if (!self.hasPassword) {
+    return NO;
+  }
+  if (!self.hasOnlineStatus) {
+    return NO;
+  }
+  if (!self.hasClientType) {
+    return NO;
+  }
+  return YES;
+}
+- (void) writeToCodedOutputStream:(PBCodedOutputStream*) output {
+  if (self.hasUserName) {
+    [output writeString:1 value:self.userName];
+  }
+  if (self.hasPassword) {
+    [output writeString:2 value:self.password];
+  }
+  if (self.hasOnlineStatus) {
+    [output writeEnum:3 value:self.onlineStatus];
+  }
+  if (self.hasClientType) {
+    [output writeEnum:4 value:self.clientType];
+  }
+  if (self.hasClientVersion) {
+    [output writeString:5 value:self.clientVersion];
+  }
+  [self.unknownFields writeToCodedOutputStream:output];
+}
+- (SInt32) serializedSize {
+  __block SInt32 size_ = memoizedSerializedSize;
+  if (size_ != -1) {
+    return size_;
+  }
+
+  size_ = 0;
+  if (self.hasUserName) {
+    size_ += computeStringSize(1, self.userName);
+  }
+  if (self.hasPassword) {
+    size_ += computeStringSize(2, self.password);
+  }
+  if (self.hasOnlineStatus) {
+    size_ += computeEnumSize(3, self.onlineStatus);
+  }
+  if (self.hasClientType) {
+    size_ += computeEnumSize(4, self.clientType);
+  }
+  if (self.hasClientVersion) {
+    size_ += computeStringSize(5, self.clientVersion);
+  }
+  size_ += self.unknownFields.serializedSize;
+  memoizedSerializedSize = size_;
+  return size_;
+}
++ (IMRegistReq*) parseFromData:(NSData*) data {
+  return (IMRegistReq*)[[[IMRegistReq builder] mergeFromData:data] build];
+}
++ (IMRegistReq*) parseFromData:(NSData*) data extensionRegistry:(PBExtensionRegistry*) extensionRegistry {
+  return (IMRegistReq*)[[[IMRegistReq builder] mergeFromData:data extensionRegistry:extensionRegistry] build];
+}
++ (IMRegistReq*) parseFromInputStream:(NSInputStream*) input {
+  return (IMRegistReq*)[[[IMRegistReq builder] mergeFromInputStream:input] build];
+}
++ (IMRegistReq*) parseFromInputStream:(NSInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry {
+  return (IMRegistReq*)[[[IMRegistReq builder] mergeFromInputStream:input extensionRegistry:extensionRegistry] build];
+}
++ (IMRegistReq*) parseFromCodedInputStream:(PBCodedInputStream*) input {
+  return (IMRegistReq*)[[[IMRegistReq builder] mergeFromCodedInputStream:input] build];
+}
++ (IMRegistReq*) parseFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry {
+  return (IMRegistReq*)[[[IMRegistReq builder] mergeFromCodedInputStream:input extensionRegistry:extensionRegistry] build];
+}
++ (IMRegistReqBuilder*) builder {
+  return [[IMRegistReqBuilder alloc] init];
+}
++ (IMRegistReqBuilder*) builderWithPrototype:(IMRegistReq*) prototype {
+  return [[IMRegistReq builder] mergeFrom:prototype];
+}
+- (IMRegistReqBuilder*) builder {
+  return [IMRegistReq builder];
+}
+- (IMRegistReqBuilder*) toBuilder {
+  return [IMRegistReq builderWithPrototype:self];
+}
+- (void) writeDescriptionTo:(NSMutableString*) output withIndent:(NSString*) indent {
+  if (self.hasUserName) {
+    [output appendFormat:@"%@%@: %@\n", indent, @"userName", self.userName];
+  }
+  if (self.hasPassword) {
+    [output appendFormat:@"%@%@: %@\n", indent, @"password", self.password];
+  }
+  if (self.hasOnlineStatus) {
+    [output appendFormat:@"%@%@: %@\n", indent, @"onlineStatus", NSStringFromUserStatType(self.onlineStatus)];
+  }
+  if (self.hasClientType) {
+    [output appendFormat:@"%@%@: %@\n", indent, @"clientType", NSStringFromClientType(self.clientType)];
+  }
+  if (self.hasClientVersion) {
+    [output appendFormat:@"%@%@: %@\n", indent, @"clientVersion", self.clientVersion];
+  }
+  [self.unknownFields writeDescriptionTo:output withIndent:indent];
+}
+- (void) storeInDictionary:(NSMutableDictionary *)dictionary {
+  if (self.hasUserName) {
+    [dictionary setObject: self.userName forKey: @"userName"];
+  }
+  if (self.hasPassword) {
+    [dictionary setObject: self.password forKey: @"password"];
+  }
+  if (self.hasOnlineStatus) {
+    [dictionary setObject: @(self.onlineStatus) forKey: @"onlineStatus"];
+  }
+  if (self.hasClientType) {
+    [dictionary setObject: @(self.clientType) forKey: @"clientType"];
+  }
+  if (self.hasClientVersion) {
+    [dictionary setObject: self.clientVersion forKey: @"clientVersion"];
+  }
+  [self.unknownFields storeInDictionary:dictionary];
+}
+- (BOOL) isEqual:(id)other {
+  if (other == self) {
+    return YES;
+  }
+  if (![other isKindOfClass:[IMRegistReq class]]) {
+    return NO;
+  }
+  IMRegistReq *otherMessage = other;
+  return
+      self.hasUserName == otherMessage.hasUserName &&
+      (!self.hasUserName || [self.userName isEqual:otherMessage.userName]) &&
+      self.hasPassword == otherMessage.hasPassword &&
+      (!self.hasPassword || [self.password isEqual:otherMessage.password]) &&
+      self.hasOnlineStatus == otherMessage.hasOnlineStatus &&
+      (!self.hasOnlineStatus || self.onlineStatus == otherMessage.onlineStatus) &&
+      self.hasClientType == otherMessage.hasClientType &&
+      (!self.hasClientType || self.clientType == otherMessage.clientType) &&
+      self.hasClientVersion == otherMessage.hasClientVersion &&
+      (!self.hasClientVersion || [self.clientVersion isEqual:otherMessage.clientVersion]) &&
+      (self.unknownFields == otherMessage.unknownFields || (self.unknownFields != nil && [self.unknownFields isEqual:otherMessage.unknownFields]));
+}
+- (NSUInteger) hash {
+  __block NSUInteger hashCode = 7;
+  if (self.hasUserName) {
+    hashCode = hashCode * 31 + [self.userName hash];
+  }
+  if (self.hasPassword) {
+    hashCode = hashCode * 31 + [self.password hash];
+  }
+  if (self.hasOnlineStatus) {
+    hashCode = hashCode * 31 + self.onlineStatus;
+  }
+  if (self.hasClientType) {
+    hashCode = hashCode * 31 + self.clientType;
+  }
+  if (self.hasClientVersion) {
+    hashCode = hashCode * 31 + [self.clientVersion hash];
+  }
+  hashCode = hashCode * 31 + [self.unknownFields hash];
+  return hashCode;
+}
+@end
+
+@interface IMRegistReqBuilder()
+@property (strong) IMRegistReq* resultImregistReq;
+@end
+
+@implementation IMRegistReqBuilder
+@synthesize resultImregistReq;
+- (instancetype) init {
+  if ((self = [super init])) {
+    self.resultImregistReq = [[IMRegistReq alloc] init];
+  }
+  return self;
+}
+- (PBGeneratedMessage*) internalGetResult {
+  return resultImregistReq;
+}
+- (IMRegistReqBuilder*) clear {
+  self.resultImregistReq = [[IMRegistReq alloc] init];
+  return self;
+}
+- (IMRegistReqBuilder*) clone {
+  return [IMRegistReq builderWithPrototype:resultImregistReq];
+}
+- (IMRegistReq*) defaultInstance {
+  return [IMRegistReq defaultInstance];
+}
+- (IMRegistReq*) build {
+  [self checkInitialized];
+  return [self buildPartial];
+}
+- (IMRegistReq*) buildPartial {
+  IMRegistReq* returnMe = resultImregistReq;
+  self.resultImregistReq = nil;
+  return returnMe;
+}
+- (IMRegistReqBuilder*) mergeFrom:(IMRegistReq*) other {
+  if (other == [IMRegistReq defaultInstance]) {
+    return self;
+  }
+  if (other.hasUserName) {
+    [self setUserName:other.userName];
+  }
+  if (other.hasPassword) {
+    [self setPassword:other.password];
+  }
+  if (other.hasOnlineStatus) {
+    [self setOnlineStatus:other.onlineStatus];
+  }
+  if (other.hasClientType) {
+    [self setClientType:other.clientType];
+  }
+  if (other.hasClientVersion) {
+    [self setClientVersion:other.clientVersion];
+  }
+  [self mergeUnknownFields:other.unknownFields];
+  return self;
+}
+- (IMRegistReqBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input {
+  return [self mergeFromCodedInputStream:input extensionRegistry:[PBExtensionRegistry emptyRegistry]];
+}
+- (IMRegistReqBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry {
+  PBUnknownFieldSetBuilder* unknownFields = [PBUnknownFieldSet builderWithUnknownFields:self.unknownFields];
+  while (YES) {
+    SInt32 tag = [input readTag];
+    switch (tag) {
+      case 0:
+        [self setUnknownFields:[unknownFields build]];
+        return self;
+      default: {
+        if (![self parseUnknownField:input unknownFields:unknownFields extensionRegistry:extensionRegistry tag:tag]) {
+          [self setUnknownFields:[unknownFields build]];
+          return self;
+        }
+        break;
+      }
+      case 10: {
+        [self setUserName:[input readString]];
+        break;
+      }
+      case 18: {
+        [self setPassword:[input readString]];
+        break;
+      }
+      case 24: {
+        UserStatType value = (UserStatType)[input readEnum];
+        if (UserStatTypeIsValidValue(value)) {
+          [self setOnlineStatus:value];
+        } else {
+          [unknownFields mergeVarintField:3 value:value];
+        }
+        break;
+      }
+      case 32: {
+        ClientType value = (ClientType)[input readEnum];
+        if (ClientTypeIsValidValue(value)) {
+          [self setClientType:value];
+        } else {
+          [unknownFields mergeVarintField:4 value:value];
+        }
+        break;
+      }
+      case 42: {
+        [self setClientVersion:[input readString]];
+        break;
+      }
+    }
+  }
+}
+- (BOOL) hasUserName {
+  return resultImregistReq.hasUserName;
+}
+- (NSString*) userName {
+  return resultImregistReq.userName;
+}
+- (IMRegistReqBuilder*) setUserName:(NSString*) value {
+  resultImregistReq.hasUserName = YES;
+  resultImregistReq.userName = value;
+  return self;
+}
+- (IMRegistReqBuilder*) clearUserName {
+  resultImregistReq.hasUserName = NO;
+  resultImregistReq.userName = @"";
+  return self;
+}
+- (BOOL) hasPassword {
+  return resultImregistReq.hasPassword;
+}
+- (NSString*) password {
+  return resultImregistReq.password;
+}
+- (IMRegistReqBuilder*) setPassword:(NSString*) value {
+  resultImregistReq.hasPassword = YES;
+  resultImregistReq.password = value;
+  return self;
+}
+- (IMRegistReqBuilder*) clearPassword {
+  resultImregistReq.hasPassword = NO;
+  resultImregistReq.password = @"";
+  return self;
+}
+- (BOOL) hasOnlineStatus {
+  return resultImregistReq.hasOnlineStatus;
+}
+- (UserStatType) onlineStatus {
+  return resultImregistReq.onlineStatus;
+}
+- (IMRegistReqBuilder*) setOnlineStatus:(UserStatType) value {
+  resultImregistReq.hasOnlineStatus = YES;
+  resultImregistReq.onlineStatus = value;
+  return self;
+}
+- (IMRegistReqBuilder*) clearOnlineStatus {
+  resultImregistReq.hasOnlineStatus = NO;
+  resultImregistReq.onlineStatus = UserStatTypeUserStatusOnline;
+  return self;
+}
+- (BOOL) hasClientType {
+  return resultImregistReq.hasClientType;
+}
+- (ClientType) clientType {
+  return resultImregistReq.clientType;
+}
+- (IMRegistReqBuilder*) setClientType:(ClientType) value {
+  resultImregistReq.hasClientType = YES;
+  resultImregistReq.clientType = value;
+  return self;
+}
+- (IMRegistReqBuilder*) clearClientType {
+  resultImregistReq.hasClientType = NO;
+  resultImregistReq.clientType = ClientTypeClientTypeWindows;
+  return self;
+}
+- (BOOL) hasClientVersion {
+  return resultImregistReq.hasClientVersion;
+}
+- (NSString*) clientVersion {
+  return resultImregistReq.clientVersion;
+}
+- (IMRegistReqBuilder*) setClientVersion:(NSString*) value {
+  resultImregistReq.hasClientVersion = YES;
+  resultImregistReq.clientVersion = value;
+  return self;
+}
+- (IMRegistReqBuilder*) clearClientVersion {
+  resultImregistReq.hasClientVersion = NO;
+  resultImregistReq.clientVersion = @"";
+  return self;
+}
+@end
+
+@interface IMRegistRes ()
+@property UInt32 serverTime;
+@property ResultType resultCode;
+@property (strong) NSString* resultString;
+@property UserStatType onlineStatus;
+@property (strong) UserInfo* userInfo;
+@end
+
+@implementation IMRegistRes
+
+- (BOOL) hasServerTime {
+  return !!hasServerTime_;
+}
+- (void) setHasServerTime:(BOOL) _value_ {
+  hasServerTime_ = !!_value_;
+}
+@synthesize serverTime;
+- (BOOL) hasResultCode {
+  return !!hasResultCode_;
+}
+- (void) setHasResultCode:(BOOL) _value_ {
+  hasResultCode_ = !!_value_;
+}
+@synthesize resultCode;
+- (BOOL) hasResultString {
+  return !!hasResultString_;
+}
+- (void) setHasResultString:(BOOL) _value_ {
+  hasResultString_ = !!_value_;
+}
+@synthesize resultString;
+- (BOOL) hasOnlineStatus {
+  return !!hasOnlineStatus_;
+}
+- (void) setHasOnlineStatus:(BOOL) _value_ {
+  hasOnlineStatus_ = !!_value_;
+}
+@synthesize onlineStatus;
+- (BOOL) hasUserInfo {
+  return !!hasUserInfo_;
+}
+- (void) setHasUserInfo:(BOOL) _value_ {
+  hasUserInfo_ = !!_value_;
+}
+@synthesize userInfo;
+- (instancetype) init {
+  if ((self = [super init])) {
+    self.serverTime = 0;
+    self.resultCode = ResultTypeRefuseReasonNone;
+    self.resultString = @"";
+    self.onlineStatus = UserStatTypeUserStatusOnline;
+    self.userInfo = [UserInfo defaultInstance];
+  }
+  return self;
+}
+static IMRegistRes* defaultIMRegistResInstance = nil;
++ (void) initialize {
+  if (self == [IMRegistRes class]) {
+    defaultIMRegistResInstance = [[IMRegistRes alloc] init];
+  }
+}
++ (instancetype) defaultInstance {
+  return defaultIMRegistResInstance;
+}
+- (instancetype) defaultInstance {
+  return defaultIMRegistResInstance;
+}
+- (BOOL) isInitialized {
+  if (!self.hasServerTime) {
+    return NO;
+  }
+  if (!self.hasResultCode) {
+    return NO;
+  }
+  if (self.hasUserInfo) {
+    if (!self.userInfo.isInitialized) {
+      return NO;
+    }
+  }
+  return YES;
+}
+- (void) writeToCodedOutputStream:(PBCodedOutputStream*) output {
+  if (self.hasServerTime) {
+    [output writeUInt32:1 value:self.serverTime];
+  }
+  if (self.hasResultCode) {
+    [output writeEnum:2 value:self.resultCode];
+  }
+  if (self.hasResultString) {
+    [output writeString:3 value:self.resultString];
+  }
+  if (self.hasOnlineStatus) {
+    [output writeEnum:4 value:self.onlineStatus];
+  }
+  if (self.hasUserInfo) {
+    [output writeMessage:5 value:self.userInfo];
+  }
+  [self.unknownFields writeToCodedOutputStream:output];
+}
+- (SInt32) serializedSize {
+  __block SInt32 size_ = memoizedSerializedSize;
+  if (size_ != -1) {
+    return size_;
+  }
+
+  size_ = 0;
+  if (self.hasServerTime) {
+    size_ += computeUInt32Size(1, self.serverTime);
+  }
+  if (self.hasResultCode) {
+    size_ += computeEnumSize(2, self.resultCode);
+  }
+  if (self.hasResultString) {
+    size_ += computeStringSize(3, self.resultString);
+  }
+  if (self.hasOnlineStatus) {
+    size_ += computeEnumSize(4, self.onlineStatus);
+  }
+  if (self.hasUserInfo) {
+    size_ += computeMessageSize(5, self.userInfo);
+  }
+  size_ += self.unknownFields.serializedSize;
+  memoizedSerializedSize = size_;
+  return size_;
+}
++ (IMRegistRes*) parseFromData:(NSData*) data {
+  return (IMRegistRes*)[[[IMRegistRes builder] mergeFromData:data] build];
+}
++ (IMRegistRes*) parseFromData:(NSData*) data extensionRegistry:(PBExtensionRegistry*) extensionRegistry {
+  return (IMRegistRes*)[[[IMRegistRes builder] mergeFromData:data extensionRegistry:extensionRegistry] build];
+}
++ (IMRegistRes*) parseFromInputStream:(NSInputStream*) input {
+  return (IMRegistRes*)[[[IMRegistRes builder] mergeFromInputStream:input] build];
+}
++ (IMRegistRes*) parseFromInputStream:(NSInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry {
+  return (IMRegistRes*)[[[IMRegistRes builder] mergeFromInputStream:input extensionRegistry:extensionRegistry] build];
+}
++ (IMRegistRes*) parseFromCodedInputStream:(PBCodedInputStream*) input {
+  return (IMRegistRes*)[[[IMRegistRes builder] mergeFromCodedInputStream:input] build];
+}
++ (IMRegistRes*) parseFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry {
+  return (IMRegistRes*)[[[IMRegistRes builder] mergeFromCodedInputStream:input extensionRegistry:extensionRegistry] build];
+}
++ (IMRegistResBuilder*) builder {
+  return [[IMRegistResBuilder alloc] init];
+}
++ (IMRegistResBuilder*) builderWithPrototype:(IMRegistRes*) prototype {
+  return [[IMRegistRes builder] mergeFrom:prototype];
+}
+- (IMRegistResBuilder*) builder {
+  return [IMRegistRes builder];
+}
+- (IMRegistResBuilder*) toBuilder {
+  return [IMRegistRes builderWithPrototype:self];
+}
+- (void) writeDescriptionTo:(NSMutableString*) output withIndent:(NSString*) indent {
+  if (self.hasServerTime) {
+    [output appendFormat:@"%@%@: %@\n", indent, @"serverTime", [NSNumber numberWithInteger:self.serverTime]];
+  }
+  if (self.hasResultCode) {
+    [output appendFormat:@"%@%@: %@\n", indent, @"resultCode", NSStringFromResultType(self.resultCode)];
+  }
+  if (self.hasResultString) {
+    [output appendFormat:@"%@%@: %@\n", indent, @"resultString", self.resultString];
+  }
+  if (self.hasOnlineStatus) {
+    [output appendFormat:@"%@%@: %@\n", indent, @"onlineStatus", NSStringFromUserStatType(self.onlineStatus)];
+  }
+  if (self.hasUserInfo) {
+    [output appendFormat:@"%@%@ {\n", indent, @"userInfo"];
+    [self.userInfo writeDescriptionTo:output
+                         withIndent:[NSString stringWithFormat:@"%@  ", indent]];
+    [output appendFormat:@"%@}\n", indent];
+  }
+  [self.unknownFields writeDescriptionTo:output withIndent:indent];
+}
+- (void) storeInDictionary:(NSMutableDictionary *)dictionary {
+  if (self.hasServerTime) {
+    [dictionary setObject: [NSNumber numberWithInteger:self.serverTime] forKey: @"serverTime"];
+  }
+  if (self.hasResultCode) {
+    [dictionary setObject: @(self.resultCode) forKey: @"resultCode"];
+  }
+  if (self.hasResultString) {
+    [dictionary setObject: self.resultString forKey: @"resultString"];
+  }
+  if (self.hasOnlineStatus) {
+    [dictionary setObject: @(self.onlineStatus) forKey: @"onlineStatus"];
+  }
+  if (self.hasUserInfo) {
+   NSMutableDictionary *messageDictionary = [NSMutableDictionary dictionary]; 
+   [self.userInfo storeInDictionary:messageDictionary];
+   [dictionary setObject:[NSDictionary dictionaryWithDictionary:messageDictionary] forKey:@"userInfo"];
+  }
+  [self.unknownFields storeInDictionary:dictionary];
+}
+- (BOOL) isEqual:(id)other {
+  if (other == self) {
+    return YES;
+  }
+  if (![other isKindOfClass:[IMRegistRes class]]) {
+    return NO;
+  }
+  IMRegistRes *otherMessage = other;
+  return
+      self.hasServerTime == otherMessage.hasServerTime &&
+      (!self.hasServerTime || self.serverTime == otherMessage.serverTime) &&
+      self.hasResultCode == otherMessage.hasResultCode &&
+      (!self.hasResultCode || self.resultCode == otherMessage.resultCode) &&
+      self.hasResultString == otherMessage.hasResultString &&
+      (!self.hasResultString || [self.resultString isEqual:otherMessage.resultString]) &&
+      self.hasOnlineStatus == otherMessage.hasOnlineStatus &&
+      (!self.hasOnlineStatus || self.onlineStatus == otherMessage.onlineStatus) &&
+      self.hasUserInfo == otherMessage.hasUserInfo &&
+      (!self.hasUserInfo || [self.userInfo isEqual:otherMessage.userInfo]) &&
+      (self.unknownFields == otherMessage.unknownFields || (self.unknownFields != nil && [self.unknownFields isEqual:otherMessage.unknownFields]));
+}
+- (NSUInteger) hash {
+  __block NSUInteger hashCode = 7;
+  if (self.hasServerTime) {
+    hashCode = hashCode * 31 + [[NSNumber numberWithInteger:self.serverTime] hash];
+  }
+  if (self.hasResultCode) {
+    hashCode = hashCode * 31 + self.resultCode;
+  }
+  if (self.hasResultString) {
+    hashCode = hashCode * 31 + [self.resultString hash];
+  }
+  if (self.hasOnlineStatus) {
+    hashCode = hashCode * 31 + self.onlineStatus;
+  }
+  if (self.hasUserInfo) {
+    hashCode = hashCode * 31 + [self.userInfo hash];
+  }
+  hashCode = hashCode * 31 + [self.unknownFields hash];
+  return hashCode;
+}
+@end
+
+@interface IMRegistResBuilder()
+@property (strong) IMRegistRes* resultImregistRes;
+@end
+
+@implementation IMRegistResBuilder
+@synthesize resultImregistRes;
+- (instancetype) init {
+  if ((self = [super init])) {
+    self.resultImregistRes = [[IMRegistRes alloc] init];
+  }
+  return self;
+}
+- (PBGeneratedMessage*) internalGetResult {
+  return resultImregistRes;
+}
+- (IMRegistResBuilder*) clear {
+  self.resultImregistRes = [[IMRegistRes alloc] init];
+  return self;
+}
+- (IMRegistResBuilder*) clone {
+  return [IMRegistRes builderWithPrototype:resultImregistRes];
+}
+- (IMRegistRes*) defaultInstance {
+  return [IMRegistRes defaultInstance];
+}
+- (IMRegistRes*) build {
+  [self checkInitialized];
+  return [self buildPartial];
+}
+- (IMRegistRes*) buildPartial {
+  IMRegistRes* returnMe = resultImregistRes;
+  self.resultImregistRes = nil;
+  return returnMe;
+}
+- (IMRegistResBuilder*) mergeFrom:(IMRegistRes*) other {
+  if (other == [IMRegistRes defaultInstance]) {
+    return self;
+  }
+  if (other.hasServerTime) {
+    [self setServerTime:other.serverTime];
+  }
+  if (other.hasResultCode) {
+    [self setResultCode:other.resultCode];
+  }
+  if (other.hasResultString) {
+    [self setResultString:other.resultString];
+  }
+  if (other.hasOnlineStatus) {
+    [self setOnlineStatus:other.onlineStatus];
+  }
+  if (other.hasUserInfo) {
+    [self mergeUserInfo:other.userInfo];
+  }
+  [self mergeUnknownFields:other.unknownFields];
+  return self;
+}
+- (IMRegistResBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input {
+  return [self mergeFromCodedInputStream:input extensionRegistry:[PBExtensionRegistry emptyRegistry]];
+}
+- (IMRegistResBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry {
+  PBUnknownFieldSetBuilder* unknownFields = [PBUnknownFieldSet builderWithUnknownFields:self.unknownFields];
+  while (YES) {
+    SInt32 tag = [input readTag];
+    switch (tag) {
+      case 0:
+        [self setUnknownFields:[unknownFields build]];
+        return self;
+      default: {
+        if (![self parseUnknownField:input unknownFields:unknownFields extensionRegistry:extensionRegistry tag:tag]) {
+          [self setUnknownFields:[unknownFields build]];
+          return self;
+        }
+        break;
+      }
+      case 8: {
+        [self setServerTime:[input readUInt32]];
+        break;
+      }
+      case 16: {
+        ResultType value = (ResultType)[input readEnum];
+        if (ResultTypeIsValidValue(value)) {
+          [self setResultCode:value];
+        } else {
+          [unknownFields mergeVarintField:2 value:value];
+        }
+        break;
+      }
+      case 26: {
+        [self setResultString:[input readString]];
+        break;
+      }
+      case 32: {
+        UserStatType value = (UserStatType)[input readEnum];
+        if (UserStatTypeIsValidValue(value)) {
+          [self setOnlineStatus:value];
+        } else {
+          [unknownFields mergeVarintField:4 value:value];
+        }
+        break;
+      }
+      case 42: {
+        UserInfoBuilder* subBuilder = [UserInfo builder];
+        if (self.hasUserInfo) {
+          [subBuilder mergeFrom:self.userInfo];
+        }
+        [input readMessage:subBuilder extensionRegistry:extensionRegistry];
+        [self setUserInfo:[subBuilder buildPartial]];
+        break;
+      }
+    }
+  }
+}
+- (BOOL) hasServerTime {
+  return resultImregistRes.hasServerTime;
+}
+- (UInt32) serverTime {
+  return resultImregistRes.serverTime;
+}
+- (IMRegistResBuilder*) setServerTime:(UInt32) value {
+  resultImregistRes.hasServerTime = YES;
+  resultImregistRes.serverTime = value;
+  return self;
+}
+- (IMRegistResBuilder*) clearServerTime {
+  resultImregistRes.hasServerTime = NO;
+  resultImregistRes.serverTime = 0;
+  return self;
+}
+- (BOOL) hasResultCode {
+  return resultImregistRes.hasResultCode;
+}
+- (ResultType) resultCode {
+  return resultImregistRes.resultCode;
+}
+- (IMRegistResBuilder*) setResultCode:(ResultType) value {
+  resultImregistRes.hasResultCode = YES;
+  resultImregistRes.resultCode = value;
+  return self;
+}
+- (IMRegistResBuilder*) clearResultCode {
+  resultImregistRes.hasResultCode = NO;
+  resultImregistRes.resultCode = ResultTypeRefuseReasonNone;
+  return self;
+}
+- (BOOL) hasResultString {
+  return resultImregistRes.hasResultString;
+}
+- (NSString*) resultString {
+  return resultImregistRes.resultString;
+}
+- (IMRegistResBuilder*) setResultString:(NSString*) value {
+  resultImregistRes.hasResultString = YES;
+  resultImregistRes.resultString = value;
+  return self;
+}
+- (IMRegistResBuilder*) clearResultString {
+  resultImregistRes.hasResultString = NO;
+  resultImregistRes.resultString = @"";
+  return self;
+}
+- (BOOL) hasOnlineStatus {
+  return resultImregistRes.hasOnlineStatus;
+}
+- (UserStatType) onlineStatus {
+  return resultImregistRes.onlineStatus;
+}
+- (IMRegistResBuilder*) setOnlineStatus:(UserStatType) value {
+  resultImregistRes.hasOnlineStatus = YES;
+  resultImregistRes.onlineStatus = value;
+  return self;
+}
+- (IMRegistResBuilder*) clearOnlineStatus {
+  resultImregistRes.hasOnlineStatus = NO;
+  resultImregistRes.onlineStatus = UserStatTypeUserStatusOnline;
+  return self;
+}
+- (BOOL) hasUserInfo {
+  return resultImregistRes.hasUserInfo;
+}
+- (UserInfo*) userInfo {
+  return resultImregistRes.userInfo;
+}
+- (IMRegistResBuilder*) setUserInfo:(UserInfo*) value {
+  resultImregistRes.hasUserInfo = YES;
+  resultImregistRes.userInfo = value;
+  return self;
+}
+- (IMRegistResBuilder*) setUserInfoBuilder:(UserInfoBuilder*) builderForValue {
+  return [self setUserInfo:[builderForValue build]];
+}
+- (IMRegistResBuilder*) mergeUserInfo:(UserInfo*) value {
+  if (resultImregistRes.hasUserInfo &&
+      resultImregistRes.userInfo != [UserInfo defaultInstance]) {
+    resultImregistRes.userInfo =
+      [[[UserInfo builderWithPrototype:resultImregistRes.userInfo] mergeFrom:value] buildPartial];
+  } else {
+    resultImregistRes.userInfo = value;
+  }
+  resultImregistRes.hasUserInfo = YES;
+  return self;
+}
+- (IMRegistResBuilder*) clearUserInfo {
+  resultImregistRes.hasUserInfo = NO;
+  resultImregistRes.userInfo = [UserInfo defaultInstance];
+  return self;
+}
+@end
+
 
 // @@protoc_insertion_point(global_scope)

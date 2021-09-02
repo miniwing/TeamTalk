@@ -30,7 +30,6 @@ BOOL ServiceIDIsValidValue(ServiceID value) {
     case ServiceIDSidSwitchService:
     case ServiceIDSidOther:
     case ServiceIDSidInternal:
-    case ServiceIDSidRegist:
       return YES;
     default:
       return NO;
@@ -54,8 +53,6 @@ NSString *NSStringFromServiceID(ServiceID value) {
       return @"ServiceIDSidOther";
     case ServiceIDSidInternal:
       return @"ServiceIDSidInternal";
-    case ServiceIDSidRegist:
-      return @"ServiceIDSidRegist";
     default:
       return nil;
   }
@@ -80,6 +77,8 @@ BOOL LoginCmdIDIsValidValue(LoginCmdID value) {
     case LoginCmdIDCidLoginResQueryPushShield:
     case LoginCmdIDCidLoginReqModifyPass:
     case LoginCmdIDCidLoginResModifyPass:
+    case LoginCmdIDCidLoginReqRegist:
+    case LoginCmdIDCidLoginResRegist:
       return YES;
     default:
       return NO;
@@ -121,38 +120,10 @@ NSString *NSStringFromLoginCmdID(LoginCmdID value) {
       return @"LoginCmdIDCidLoginReqModifyPass";
     case LoginCmdIDCidLoginResModifyPass:
       return @"LoginCmdIDCidLoginResModifyPass";
-    default:
-      return nil;
-  }
-}
-
-BOOL RegistCmdIDIsValidValue(RegistCmdID value) {
-  switch (value) {
-    case RegistCmdIDCidRegistReqMsgserver:
-    case RegistCmdIDCidRegistResMsgserver:
-    case RegistCmdIDCidRegistReqUserregist:
-    case RegistCmdIDCidRegistResUserregist:
-    case RegistCmdIDCidRegistReqDevicetoken:
-    case RegistCmdIDCidRegistResDevicetoken:
-      return YES;
-    default:
-      return NO;
-  }
-}
-NSString *NSStringFromRegistCmdID(RegistCmdID value) {
-  switch (value) {
-    case RegistCmdIDCidRegistReqMsgserver:
-      return @"RegistCmdIDCidRegistReqMsgserver";
-    case RegistCmdIDCidRegistResMsgserver:
-      return @"RegistCmdIDCidRegistResMsgserver";
-    case RegistCmdIDCidRegistReqUserregist:
-      return @"RegistCmdIDCidRegistReqUserregist";
-    case RegistCmdIDCidRegistResUserregist:
-      return @"RegistCmdIDCidRegistResUserregist";
-    case RegistCmdIDCidRegistReqDevicetoken:
-      return @"RegistCmdIDCidRegistReqDevicetoken";
-    case RegistCmdIDCidRegistResDevicetoken:
-      return @"RegistCmdIDCidRegistResDevicetoken";
+    case LoginCmdIDCidLoginReqRegist:
+      return @"LoginCmdIDCidLoginReqRegist";
+    case LoginCmdIDCidLoginResRegist:
+      return @"LoginCmdIDCidLoginResRegist";
     default:
       return nil;
   }
@@ -443,7 +414,6 @@ BOOL OtherCmdIDIsValidValue(OtherCmdID value) {
     case OtherCmdIDCidOtherFileTransferRsp:
     case OtherCmdIDCidOtherFileServerIpReq:
     case OtherCmdIDCidOtherFileServerIpRsp:
-    case OtherCmdIDCidOtherRegistStatusNotify:
       return YES;
     default:
       return NO;
@@ -493,8 +463,6 @@ NSString *NSStringFromOtherCmdID(OtherCmdID value) {
       return @"OtherCmdIDCidOtherFileServerIpReq";
     case OtherCmdIDCidOtherFileServerIpRsp:
       return @"OtherCmdIDCidOtherFileServerIpRsp";
-    case OtherCmdIDCidOtherRegistStatusNotify:
-      return @"OtherCmdIDCidOtherRegistStatusNotify";
     default:
       return nil;
   }

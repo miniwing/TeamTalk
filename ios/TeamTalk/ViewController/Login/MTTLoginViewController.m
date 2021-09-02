@@ -16,21 +16,26 @@
 #import "MTTRegisterViewController.h"
 #import "DLAppUtil.h"
 #import "MTTUserEntity.h"
+
+#import "ServerController.h"
+
 @interface MTTLoginViewController ()<UITextFieldDelegate>
 
-@property(assign)CGPoint defaultCenter;
-@property (nonatomic, strong) UIButton *registerButton;
-@property (nonatomic,weak)IBOutlet UITextField* userNameTextField;
-@property (nonatomic,weak)IBOutlet UITextField* userPassTextField;
-@property (nonatomic,weak)IBOutlet UIButton* userLoginBtn;
-@property(assign)BOOL isRelogin;
+@property (nonatomic, assign)       CGPoint       defaultCenter;
+@property (nonatomic, strong)       UIButton    * registerButton;
+@property (nonatomic, assign)BOOL   isRelogin;
+
+@property (nonatomic, weak)IBOutlet UITextField * userNameTextField;
+@property (nonatomic, weak)IBOutlet UITextField * userPassTextField;
+@property (nonatomic, weak)IBOutlet UIButton    * userLoginBtn;
+@property (nonatomic, weak)IBOutlet UIButton    * serverButton;
 
 @end
 
 @implementation MTTLoginViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+   
    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
    if (self) {
       // Custom initialization
@@ -94,6 +99,8 @@
    [self.userPassTextField.layer setCornerRadius:4];
    
    [self.userLoginBtn.layer setCornerRadius:4];
+   [self.serverButton.layer setCornerRadius:4];
+   [self.serverButton setHidden:YES];
    
    // 设置用户名
    [self.view setBackgroundColor:[UIColor whiteColor]];
@@ -254,6 +261,32 @@
 //        }
    }];
    
+   __CATCH(nErr);
+   
+   return;
+}
+
+- (IBAction)serverButtonPressed:(UIButton*)button {
+   
+   int                            nErr                                     = EFAULT;
+   
+   ServerController              *stServerController                       = nil;
+      
+   __TRY;
+
+   stServerController   = [[ServerController alloc] initWithNibName:@"ServerController" bundle:nil];
+   
+   [self popUp:stServerController animated:YES completion:^{
+
+   }];
+
+//   [self.navigationController pushViewController:stServerController
+//                                        animated:YES];
+//
+//   [self presentViewController:stServerController
+//                      animated:YES
+//                    completion:nil];
+
    __CATCH(nErr);
    
    return;

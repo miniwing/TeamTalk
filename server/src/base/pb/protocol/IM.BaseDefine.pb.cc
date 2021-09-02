@@ -103,7 +103,6 @@ bool ServiceID_IsValid(int value) {
     case 6:
     case 7:
     case 8:
-    case 9:
       return true;
     default:
       return false;
@@ -129,20 +128,8 @@ bool LoginCmdID_IsValid(int value) {
     case 271:
     case 272:
     case 273:
-      return true;
-    default:
-      return false;
-  }
-}
-
-bool RegistCmdID_IsValid(int value) {
-  switch(value) {
-    case 4097:
-    case 4098:
-    case 4099:
-    case 4100:
-    case 4101:
-    case 4102:
+    case 274:
+    case 275:
       return true;
     default:
       return false;
@@ -276,7 +263,6 @@ bool OtherCmdID_IsValid(int value) {
     case 1842:
     case 1843:
     case 1844:
-    case 1845:
       return true;
     default:
       return false;
@@ -1040,7 +1026,7 @@ bool UserInfo::MergePartialFromCodedStream(
         break;
       }
 
-      // required uint32 isFriend = 12;
+      // optional uint32 isFriend = 12;
       case 12: {
         if (tag == 96) {
          parse_isFriend:
@@ -1142,7 +1128,7 @@ void UserInfo::SerializeWithCachedSizes(
       11, this->sign_info(), output);
   }
 
-  // required uint32 isFriend = 12;
+  // optional uint32 isFriend = 12;
   if (has_isfriend()) {
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(12, this->isfriend(), output);
   }
@@ -1235,7 +1221,7 @@ int UserInfo::ByteSize() const {
           this->sign_info());
     }
 
-    // required uint32 isFriend = 12;
+    // optional uint32 isFriend = 12;
     if (has_isfriend()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::UInt32Size(
@@ -1308,7 +1294,7 @@ void UserInfo::CopyFrom(const UserInfo& from) {
 }
 
 bool UserInfo::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000bff) != 0x00000bff) return false;
+  if ((_has_bits_[0] & 0x000003ff) != 0x000003ff) return false;
 
   return true;
 }

@@ -15,7 +15,7 @@ enum ServiceID {
     SID_OTHER           = 0x0007;
     SID_INTERNAL        = 0x0008;
 
-    SID_REGIST        	= 0x0009;			// __TEAMTALK_REGIST__
+//    SID_REGIST        	= 0x0009;			// __TEAMTALK_REGIST__
 }
 
 // command id for login
@@ -39,19 +39,23 @@ enum LoginCmdID {
 
     CID_LOGIN_REQ_MODIFY_PASS       = 0x0110;	// 修改密码
     CID_LOGIN_RES_MODIFY_PASS       = 0x0111;
+
+    // __TEAMTALK_REGIST__
+    CID_LOGIN_REQ_REGIST            = 0x0112;	// 注册
+    CID_LOGIN_RES_REGIST            = 0x0113;
 }
 
-// __TEAMTALK_REGIST__
-// command id for regist
-enum RegistCmdID {
-    
-    CID_REGIST_REQ_MSGSERVER            = 0x1001;   //
-    CID_REGIST_RES_MSGSERVER            = 0x1002;   //
-    CID_REGIST_REQ_USERREGIST           = 0x1003;   //
-    CID_REGIST_RES_USERREGIST           = 0x1004;   //
-    CID_REGIST_REQ_DEVICETOKEN          = 0x1005;   //
-    CID_REGIST_RES_DEVICETOKEN          = 0x1006;   //
-}
+// // __TEAMTALK_REGIST__
+// // command id for regist
+// enum RegistCmdID {
+//     
+//     CID_REGIST_REQ_MSGSERVER            = 0x1001;   //
+//     CID_REGIST_RES_MSGSERVER            = 0x1002;   //
+//     CID_REGIST_REQ_USERREGIST           = 0x1003;   //
+//     CID_REGIST_RES_USERREGIST           = 0x1004;   //
+//     CID_REGIST_REQ_DEVICETOKEN          = 0x1005;   //
+//     CID_REGIST_RES_DEVICETOKEN          = 0x1006;   //
+// }
 
 // command id for buddy list
 enum BuddyListCmdID {
@@ -171,7 +175,7 @@ enum OtherCmdID {
     CID_OTHER_FILE_SERVER_IP_RSP            = 0x0734;
 
     // __TEAMTALK_REGIST__
-    CID_OTHER_REGIST_STATUS_NOTIFY          = 0x0735;	// __TEAMTALK_REGIST__
+//    CID_OTHER_REGIST_STATUS_NOTIFY          = 0x0735;	// __TEAMTALK_REGIST__
 }
 
 enum ResultType {
