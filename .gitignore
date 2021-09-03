@@ -31,6 +31,7 @@ server/protobuf/**/*.tar.gz
 server/src/lib/libbase.a
 
 server/src/base/libbase.a
+
 server/src/db_proxy_server/db_proxy_server
 server/src/file_server/file_server
 server/src/http_msg_server/http_msg_server
@@ -41,6 +42,24 @@ server/src/route_server/route_server
 server/src/msfs/msfs
 
 server/src/base/pb/
+
+server/src/db_proxy_server/log/
+server/src/file_server/log/
+server/src/http_msg_server/log/
+server/src/login_server/log/
+server/src/msg_server/log/
+server/src/push_server/log/
+server/src/route_server/log/
+server/src/msfs/log/
+
+server/src/db_proxy_server/*.pid
+server/src/file_server/*.pid
+server/src/http_msg_server/*.pid
+server/src/login_server/*.pid
+server/src/msg_server/*.pid
+server/src/push_server/*.pid
+server/src/route_server/*.pid
+server/src/msfs/*.pid
 
 ##################################################
 ### iOS
