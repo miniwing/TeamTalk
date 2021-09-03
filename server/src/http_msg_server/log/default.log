@@ -28,3 +28,110 @@
 2021-08-29 23:44:48,896 [INFO  IM] - <DBServConn.cpp>|<180>|<OnConfirm>,connect to db server success
 2021-08-29 23:44:48,896 [INFO  IM] - <DBServConn.cpp>|<180>|<OnConfirm>,connect to db server success
 2021-08-29 23:44:48,896 [INFO  IM] - <RouteServConn.cpp>|<155>|<OnConfirm>,connect to route server success 
+2021-09-03 16:02:06,226 [INFO  IM] - <http_msg_server.cpp>|<63>|<main>,MsgServer max files can open: 65535 
+2021-09-03 16:02:06,234 [INFO  IM] - <BaseSocket.cpp>|<81>|<Listen>,CBaseSocket::Listen on 10.211.55.13:8400
+2021-09-03 16:02:06,234 [INFO  IM] - <DBServConn.cpp>|<84>|<init_db_serv_conn>,DB server connection index for login business: [0, 4), for other business: [4, 8)
+2021-09-03 16:02:06,234 [INFO  IM] - <DBServConn.cpp>|<162>|<Connect>,Connecting to DB Storage Server 10.211.55.13:10600
+2021-09-03 16:02:06,235 [INFO  IM] - <BaseSocket.cpp>|<90>|<Connect>,CBaseSocket::Connect, server_ip=10.211.55.13, port=10600
+2021-09-03 16:02:06,235 [INFO  IM] - <DBServConn.cpp>|<162>|<Connect>,Connecting to DB Storage Server 10.211.55.13:10600
+2021-09-03 16:02:06,235 [INFO  IM] - <BaseSocket.cpp>|<90>|<Connect>,CBaseSocket::Connect, server_ip=10.211.55.13, port=10600
+2021-09-03 16:02:06,236 [INFO  IM] - <DBServConn.cpp>|<162>|<Connect>,Connecting to DB Storage Server 10.211.55.13:10600
+2021-09-03 16:02:06,236 [INFO  IM] - <BaseSocket.cpp>|<90>|<Connect>,CBaseSocket::Connect, server_ip=10.211.55.13, port=10600
+2021-09-03 16:02:06,236 [INFO  IM] - <DBServConn.cpp>|<162>|<Connect>,Connecting to DB Storage Server 10.211.55.13:10600
+2021-09-03 16:02:06,236 [INFO  IM] - <BaseSocket.cpp>|<90>|<Connect>,CBaseSocket::Connect, server_ip=10.211.55.13, port=10600
+2021-09-03 16:02:06,237 [INFO  IM] - <DBServConn.cpp>|<162>|<Connect>,Connecting to DB Storage Server 10.211.55.13:10600
+2021-09-03 16:02:06,237 [INFO  IM] - <BaseSocket.cpp>|<90>|<Connect>,CBaseSocket::Connect, server_ip=10.211.55.13, port=10600
+2021-09-03 16:02:06,237 [INFO  IM] - <DBServConn.cpp>|<162>|<Connect>,Connecting to DB Storage Server 10.211.55.13:10600
+2021-09-03 16:02:06,237 [INFO  IM] - <BaseSocket.cpp>|<90>|<Connect>,CBaseSocket::Connect, server_ip=10.211.55.13, port=10600
+2021-09-03 16:02:06,238 [INFO  IM] - <DBServConn.cpp>|<162>|<Connect>,Connecting to DB Storage Server 10.211.55.13:10600
+2021-09-03 16:02:06,238 [INFO  IM] - <BaseSocket.cpp>|<90>|<Connect>,CBaseSocket::Connect, server_ip=10.211.55.13, port=10600
+2021-09-03 16:02:06,238 [INFO  IM] - <DBServConn.cpp>|<162>|<Connect>,Connecting to DB Storage Server 10.211.55.13:10600
+2021-09-03 16:02:06,238 [INFO  IM] - <BaseSocket.cpp>|<90>|<Connect>,CBaseSocket::Connect, server_ip=10.211.55.13, port=10600
+2021-09-03 16:02:06,239 [INFO  IM] - <RouteServConn.cpp>|<130>|<Connect>,Connecting to RouteServer 10.211.55.13:8200 
+2021-09-03 16:02:06,239 [INFO  IM] - <BaseSocket.cpp>|<90>|<Connect>,CBaseSocket::Connect, server_ip=10.211.55.13, port=8200
+2021-09-03 16:02:06,242 [INFO  IM] - <DBServConn.cpp>|<196>|<OnClose>,onclose from db server handle=7
+2021-09-03 16:02:06,242 [INFO  IM] - <DBServConn.cpp>|<196>|<OnClose>,onclose from db server handle=8
+2021-09-03 16:02:06,242 [INFO  IM] - <DBServConn.cpp>|<196>|<OnClose>,onclose from db server handle=9
+2021-09-03 16:02:06,242 [INFO  IM] - <DBServConn.cpp>|<196>|<OnClose>,onclose from db server handle=10
+2021-09-03 16:02:06,242 [INFO  IM] - <DBServConn.cpp>|<196>|<OnClose>,onclose from db server handle=11
+2021-09-03 16:02:06,243 [INFO  IM] - <DBServConn.cpp>|<196>|<OnClose>,onclose from db server handle=12
+2021-09-03 16:02:06,243 [INFO  IM] - <DBServConn.cpp>|<196>|<OnClose>,onclose from db server handle=13
+2021-09-03 16:02:06,243 [INFO  IM] - <DBServConn.cpp>|<196>|<OnClose>,onclose from db server handle=14
+2021-09-03 16:02:06,243 [INFO  IM] - <RouteServConn.cpp>|<159>|<OnConfirm>,connect to route server success 
+2021-09-03 16:02:10,274 [INFO  IM] - <DBServConn.cpp>|<162>|<Connect>,Connecting to DB Storage Server 10.211.55.13:10600
+2021-09-03 16:02:10,274 [INFO  IM] - <BaseSocket.cpp>|<90>|<Connect>,CBaseSocket::Connect, server_ip=10.211.55.13, port=10600
+2021-09-03 16:02:10,275 [INFO  IM] - <DBServConn.cpp>|<162>|<Connect>,Connecting to DB Storage Server 10.211.55.13:10600
+2021-09-03 16:02:10,275 [INFO  IM] - <BaseSocket.cpp>|<90>|<Connect>,CBaseSocket::Connect, server_ip=10.211.55.13, port=10600
+2021-09-03 16:02:10,275 [INFO  IM] - <DBServConn.cpp>|<162>|<Connect>,Connecting to DB Storage Server 10.211.55.13:10600
+2021-09-03 16:02:10,275 [INFO  IM] - <BaseSocket.cpp>|<90>|<Connect>,CBaseSocket::Connect, server_ip=10.211.55.13, port=10600
+2021-09-03 16:02:10,275 [INFO  IM] - <DBServConn.cpp>|<162>|<Connect>,Connecting to DB Storage Server 10.211.55.13:10600
+2021-09-03 16:02:10,276 [INFO  IM] - <BaseSocket.cpp>|<90>|<Connect>,CBaseSocket::Connect, server_ip=10.211.55.13, port=10600
+2021-09-03 16:02:10,276 [INFO  IM] - <DBServConn.cpp>|<162>|<Connect>,Connecting to DB Storage Server 10.211.55.13:10600
+2021-09-03 16:02:10,276 [INFO  IM] - <BaseSocket.cpp>|<90>|<Connect>,CBaseSocket::Connect, server_ip=10.211.55.13, port=10600
+2021-09-03 16:02:10,277 [INFO  IM] - <DBServConn.cpp>|<162>|<Connect>,Connecting to DB Storage Server 10.211.55.13:10600
+2021-09-03 16:02:10,278 [INFO  IM] - <BaseSocket.cpp>|<90>|<Connect>,CBaseSocket::Connect, server_ip=10.211.55.13, port=10600
+2021-09-03 16:02:10,278 [INFO  IM] - <DBServConn.cpp>|<162>|<Connect>,Connecting to DB Storage Server 10.211.55.13:10600
+2021-09-03 16:02:10,279 [INFO  IM] - <BaseSocket.cpp>|<90>|<Connect>,CBaseSocket::Connect, server_ip=10.211.55.13, port=10600
+2021-09-03 16:02:10,279 [INFO  IM] - <DBServConn.cpp>|<162>|<Connect>,Connecting to DB Storage Server 10.211.55.13:10600
+2021-09-03 16:02:10,279 [INFO  IM] - <BaseSocket.cpp>|<90>|<Connect>,CBaseSocket::Connect, server_ip=10.211.55.13, port=10600
+2021-09-03 16:02:10,279 [INFO  IM] - <DBServConn.cpp>|<196>|<OnClose>,onclose from db server handle=7
+2021-09-03 16:02:10,280 [INFO  IM] - <DBServConn.cpp>|<196>|<OnClose>,onclose from db server handle=8
+2021-09-03 16:02:10,280 [INFO  IM] - <DBServConn.cpp>|<196>|<OnClose>,onclose from db server handle=9
+2021-09-03 16:02:10,280 [INFO  IM] - <DBServConn.cpp>|<196>|<OnClose>,onclose from db server handle=10
+2021-09-03 16:02:10,281 [INFO  IM] - <DBServConn.cpp>|<196>|<OnClose>,onclose from db server handle=11
+2021-09-03 16:02:10,281 [INFO  IM] - <DBServConn.cpp>|<196>|<OnClose>,onclose from db server handle=12
+2021-09-03 16:02:10,281 [INFO  IM] - <DBServConn.cpp>|<196>|<OnClose>,onclose from db server handle=13
+2021-09-03 16:02:10,281 [INFO  IM] - <DBServConn.cpp>|<196>|<OnClose>,onclose from db server handle=14
+2021-09-03 16:02:18,244 [INFO  IM] - <DBServConn.cpp>|<162>|<Connect>,Connecting to DB Storage Server 10.211.55.13:10600
+2021-09-03 16:02:18,246 [INFO  IM] - <BaseSocket.cpp>|<90>|<Connect>,CBaseSocket::Connect, server_ip=10.211.55.13, port=10600
+2021-09-03 16:02:18,250 [INFO  IM] - <DBServConn.cpp>|<162>|<Connect>,Connecting to DB Storage Server 10.211.55.13:10600
+2021-09-03 16:02:18,251 [INFO  IM] - <BaseSocket.cpp>|<90>|<Connect>,CBaseSocket::Connect, server_ip=10.211.55.13, port=10600
+2021-09-03 16:02:18,252 [INFO  IM] - <DBServConn.cpp>|<162>|<Connect>,Connecting to DB Storage Server 10.211.55.13:10600
+2021-09-03 16:02:18,254 [INFO  IM] - <BaseSocket.cpp>|<90>|<Connect>,CBaseSocket::Connect, server_ip=10.211.55.13, port=10600
+2021-09-03 16:02:18,255 [INFO  IM] - <DBServConn.cpp>|<162>|<Connect>,Connecting to DB Storage Server 10.211.55.13:10600
+2021-09-03 16:02:18,265 [INFO  IM] - <BaseSocket.cpp>|<90>|<Connect>,CBaseSocket::Connect, server_ip=10.211.55.13, port=10600
+2021-09-03 16:02:18,266 [INFO  IM] - <DBServConn.cpp>|<162>|<Connect>,Connecting to DB Storage Server 10.211.55.13:10600
+2021-09-03 16:02:18,269 [INFO  IM] - <BaseSocket.cpp>|<90>|<Connect>,CBaseSocket::Connect, server_ip=10.211.55.13, port=10600
+2021-09-03 16:02:18,270 [INFO  IM] - <DBServConn.cpp>|<162>|<Connect>,Connecting to DB Storage Server 10.211.55.13:10600
+2021-09-03 16:02:18,271 [INFO  IM] - <BaseSocket.cpp>|<90>|<Connect>,CBaseSocket::Connect, server_ip=10.211.55.13, port=10600
+2021-09-03 16:02:18,272 [INFO  IM] - <DBServConn.cpp>|<162>|<Connect>,Connecting to DB Storage Server 10.211.55.13:10600
+2021-09-03 16:02:18,274 [INFO  IM] - <BaseSocket.cpp>|<90>|<Connect>,CBaseSocket::Connect, server_ip=10.211.55.13, port=10600
+2021-09-03 16:02:18,274 [INFO  IM] - <DBServConn.cpp>|<162>|<Connect>,Connecting to DB Storage Server 10.211.55.13:10600
+2021-09-03 16:02:18,275 [INFO  IM] - <BaseSocket.cpp>|<90>|<Connect>,CBaseSocket::Connect, server_ip=10.211.55.13, port=10600
+2021-09-03 16:02:18,275 [INFO  IM] - <DBServConn.cpp>|<196>|<OnClose>,onclose from db server handle=7
+2021-09-03 16:02:18,275 [INFO  IM] - <DBServConn.cpp>|<196>|<OnClose>,onclose from db server handle=8
+2021-09-03 16:02:18,275 [INFO  IM] - <DBServConn.cpp>|<196>|<OnClose>,onclose from db server handle=9
+2021-09-03 16:02:18,276 [INFO  IM] - <DBServConn.cpp>|<196>|<OnClose>,onclose from db server handle=10
+2021-09-03 16:02:18,277 [INFO  IM] - <DBServConn.cpp>|<196>|<OnClose>,onclose from db server handle=11
+2021-09-03 16:02:18,278 [INFO  IM] - <DBServConn.cpp>|<196>|<OnClose>,onclose from db server handle=12
+2021-09-03 16:02:18,280 [INFO  IM] - <DBServConn.cpp>|<196>|<OnClose>,onclose from db server handle=13
+2021-09-03 16:02:18,281 [INFO  IM] - <DBServConn.cpp>|<196>|<OnClose>,onclose from db server handle=14
+2021-09-03 16:02:34,306 [INFO  IM] - <DBServConn.cpp>|<162>|<Connect>,Connecting to DB Storage Server 10.211.55.13:10600
+2021-09-03 16:02:34,307 [INFO  IM] - <BaseSocket.cpp>|<90>|<Connect>,CBaseSocket::Connect, server_ip=10.211.55.13, port=10600
+2021-09-03 16:02:34,307 [INFO  IM] - <DBServConn.cpp>|<162>|<Connect>,Connecting to DB Storage Server 10.211.55.13:10600
+2021-09-03 16:02:34,307 [INFO  IM] - <BaseSocket.cpp>|<90>|<Connect>,CBaseSocket::Connect, server_ip=10.211.55.13, port=10600
+2021-09-03 16:02:34,308 [INFO  IM] - <DBServConn.cpp>|<162>|<Connect>,Connecting to DB Storage Server 10.211.55.13:10600
+2021-09-03 16:02:34,308 [INFO  IM] - <BaseSocket.cpp>|<90>|<Connect>,CBaseSocket::Connect, server_ip=10.211.55.13, port=10600
+2021-09-03 16:02:34,308 [INFO  IM] - <DBServConn.cpp>|<162>|<Connect>,Connecting to DB Storage Server 10.211.55.13:10600
+2021-09-03 16:02:34,309 [INFO  IM] - <BaseSocket.cpp>|<90>|<Connect>,CBaseSocket::Connect, server_ip=10.211.55.13, port=10600
+2021-09-03 16:02:34,309 [INFO  IM] - <DBServConn.cpp>|<162>|<Connect>,Connecting to DB Storage Server 10.211.55.13:10600
+2021-09-03 16:02:34,309 [INFO  IM] - <BaseSocket.cpp>|<90>|<Connect>,CBaseSocket::Connect, server_ip=10.211.55.13, port=10600
+2021-09-03 16:02:34,309 [INFO  IM] - <DBServConn.cpp>|<162>|<Connect>,Connecting to DB Storage Server 10.211.55.13:10600
+2021-09-03 16:02:34,309 [INFO  IM] - <BaseSocket.cpp>|<90>|<Connect>,CBaseSocket::Connect, server_ip=10.211.55.13, port=10600
+2021-09-03 16:02:34,310 [INFO  IM] - <DBServConn.cpp>|<162>|<Connect>,Connecting to DB Storage Server 10.211.55.13:10600
+2021-09-03 16:02:34,310 [INFO  IM] - <BaseSocket.cpp>|<90>|<Connect>,CBaseSocket::Connect, server_ip=10.211.55.13, port=10600
+2021-09-03 16:02:34,310 [INFO  IM] - <DBServConn.cpp>|<162>|<Connect>,Connecting to DB Storage Server 10.211.55.13:10600
+2021-09-03 16:02:34,310 [INFO  IM] - <BaseSocket.cpp>|<90>|<Connect>,CBaseSocket::Connect, server_ip=10.211.55.13, port=10600
+2021-09-03 16:02:34,311 [INFO  IM] - <DBServConn.cpp>|<189>|<OnConfirm>,connect to db server success
+2021-09-03 16:02:34,311 [INFO  IM] - <DBServConn.cpp>|<189>|<OnConfirm>,connect to db server success
+2021-09-03 16:02:34,311 [INFO  IM] - <DBServConn.cpp>|<189>|<OnConfirm>,connect to db server success
+2021-09-03 16:02:34,311 [INFO  IM] - <DBServConn.cpp>|<189>|<OnConfirm>,connect to db server success
+2021-09-03 16:02:34,311 [INFO  IM] - <DBServConn.cpp>|<189>|<OnConfirm>,connect to db server success
+2021-09-03 16:02:34,311 [INFO  IM] - <DBServConn.cpp>|<189>|<OnConfirm>,connect to db server success
+2021-09-03 16:02:34,312 [INFO  IM] - <DBServConn.cpp>|<189>|<OnConfirm>,connect to db server success
+2021-09-03 16:02:34,312 [INFO  IM] - <DBServConn.cpp>|<189>|<OnConfirm>,connect to db server success
+2021-09-03 16:03:28,505 [INFO  IM] - <BaseSocket.cpp>|<329>|<_AcceptNewSocket>,AcceptNewSocket, socket=16 from 10.211.55.2:58976
+
+2021-09-03 16:03:28,509 [INFO  IM] - <HttpQuery.cpp>|<76>|<DispatchQuery>,DispatchQuery, url=/api/, content=name=name&password=password 
+2021-09-03 16:03:28,510 [INFO  IM] - <HttpQuery.cpp>|<86>|<DispatchQuery>,json parse failed, post_data=name=name&password=password 
+2021-09-03 16:03:29,517 [INFO  IM] - <HttpQuery.cpp>|<48>|<http_query_timer_callback>,a new day begin, g_total_query=1 

@@ -14,7 +14,7 @@
 // @@protoc_insertion_point(includes)
 
 namespace IM {
-namespace Regist {
+namespace Login {
 
 void protobuf_ShutdownFile_IM_2eRegist_2eproto() {
   delete IMRegistReq::default_instance_;
@@ -55,21 +55,38 @@ struct StaticDescriptorInitializer_IM_2eRegist_2eproto {
   }
 } static_descriptor_initializer_IM_2eRegist_2eproto_;
 #endif
+bool RegistResult_IsValid(int value) {
+  switch(value) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+    case 5:
+    case 6:
+    case 7:
+    case 8:
+      return true;
+    default:
+      return false;
+  }
+}
+
 
 // ===================================================================
 
 #ifndef _MSC_VER
 const int IMRegistReq::kUserNameFieldNumber;
 const int IMRegistReq::kPasswordFieldNumber;
-const int IMRegistReq::kOnlineStatusFieldNumber;
 const int IMRegistReq::kClientTypeFieldNumber;
 const int IMRegistReq::kClientVersionFieldNumber;
+const int IMRegistReq::kAttachDataFieldNumber;
 #endif  // !_MSC_VER
 
 IMRegistReq::IMRegistReq()
   : ::google::protobuf::MessageLite() {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:IM.Regist.IMRegistReq)
+  // @@protoc_insertion_point(constructor:IM.Login.IMRegistReq)
 }
 
 void IMRegistReq::InitAsDefaultInstance() {
@@ -79,7 +96,7 @@ IMRegistReq::IMRegistReq(const IMRegistReq& from)
   : ::google::protobuf::MessageLite() {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:IM.Regist.IMRegistReq)
+  // @@protoc_insertion_point(copy_constructor:IM.Login.IMRegistReq)
 }
 
 void IMRegistReq::SharedCtor() {
@@ -87,14 +104,14 @@ void IMRegistReq::SharedCtor() {
   _cached_size_ = 0;
   user_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   password_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  online_status_ = 1;
   client_type_ = 1;
   client_version_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  attach_data_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
 IMRegistReq::~IMRegistReq() {
-  // @@protoc_insertion_point(destructor:IM.Regist.IMRegistReq)
+  // @@protoc_insertion_point(destructor:IM.Login.IMRegistReq)
   SharedDtor();
 }
 
@@ -107,6 +124,9 @@ void IMRegistReq::SharedDtor() {
   }
   if (client_version_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     delete client_version_;
+  }
+  if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete attach_data_;
   }
   #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   if (this != &default_instance()) {
@@ -148,11 +168,15 @@ void IMRegistReq::Clear() {
         password_->clear();
       }
     }
-    online_status_ = 1;
     client_type_ = 1;
     if (has_client_version()) {
       if (client_version_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
         client_version_->clear();
+      }
+    }
+    if (has_attach_data()) {
+      if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+        attach_data_->clear();
       }
     }
   }
@@ -168,9 +192,9 @@ bool IMRegistReq::MergePartialFromCodedStream(
       mutable_unknown_fields());
   ::google::protobuf::io::CodedOutputStream unknown_fields_stream(
       &unknown_fields_string);
-  // @@protoc_insertion_point(parse_start:IM.Regist.IMRegistReq)
+  // @@protoc_insertion_point(parse_start:IM.Login.IMRegistReq)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(16383);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
@@ -195,34 +219,13 @@ bool IMRegistReq::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(24)) goto parse_online_status;
+        if (input->ExpectTag(24)) goto parse_client_type;
         break;
       }
 
-      // required .IM.BaseDefine.UserStatType online_status = 3;
+      // required .IM.BaseDefine.ClientType client_type = 3;
       case 3: {
         if (tag == 24) {
-         parse_online_status:
-          int value;
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
-                 input, &value)));
-          if (::IM::BaseDefine::UserStatType_IsValid(value)) {
-            set_online_status(static_cast< ::IM::BaseDefine::UserStatType >(value));
-          } else {
-            unknown_fields_stream.WriteVarint32(tag);
-            unknown_fields_stream.WriteVarint32(value);
-          }
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(32)) goto parse_client_type;
-        break;
-      }
-
-      // required .IM.BaseDefine.ClientType client_type = 4;
-      case 4: {
-        if (tag == 32) {
          parse_client_type:
           int value;
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
@@ -237,16 +240,29 @@ bool IMRegistReq::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(42)) goto parse_client_version;
+        if (input->ExpectTag(34)) goto parse_client_version;
         break;
       }
 
-      // optional string client_version = 5;
-      case 5: {
-        if (tag == 42) {
+      // optional string client_version = 4;
+      case 4: {
+        if (tag == 34) {
          parse_client_version:
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_client_version()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(162)) goto parse_attach_data;
+        break;
+      }
+
+      // optional bytes attach_data = 20;
+      case 20: {
+        if (tag == 162) {
+         parse_attach_data:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
+                input, this->mutable_attach_data()));
         } else {
           goto handle_unusual;
         }
@@ -268,17 +284,17 @@ bool IMRegistReq::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:IM.Regist.IMRegistReq)
+  // @@protoc_insertion_point(parse_success:IM.Login.IMRegistReq)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:IM.Regist.IMRegistReq)
+  // @@protoc_insertion_point(parse_failure:IM.Login.IMRegistReq)
   return false;
 #undef DO_
 }
 
 void IMRegistReq::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:IM.Regist.IMRegistReq)
+  // @@protoc_insertion_point(serialize_start:IM.Login.IMRegistReq)
   // required string user_name = 1;
   if (has_user_name()) {
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
@@ -291,27 +307,27 @@ void IMRegistReq::SerializeWithCachedSizes(
       2, this->password(), output);
   }
 
-  // required .IM.BaseDefine.UserStatType online_status = 3;
-  if (has_online_status()) {
-    ::google::protobuf::internal::WireFormatLite::WriteEnum(
-      3, this->online_status(), output);
-  }
-
-  // required .IM.BaseDefine.ClientType client_type = 4;
+  // required .IM.BaseDefine.ClientType client_type = 3;
   if (has_client_type()) {
     ::google::protobuf::internal::WireFormatLite::WriteEnum(
-      4, this->client_type(), output);
+      3, this->client_type(), output);
   }
 
-  // optional string client_version = 5;
+  // optional string client_version = 4;
   if (has_client_version()) {
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      5, this->client_version(), output);
+      4, this->client_version(), output);
+  }
+
+  // optional bytes attach_data = 20;
+  if (has_attach_data()) {
+    ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
+      20, this->attach_data(), output);
   }
 
   output->WriteRaw(unknown_fields().data(),
                    unknown_fields().size());
-  // @@protoc_insertion_point(serialize_end:IM.Regist.IMRegistReq)
+  // @@protoc_insertion_point(serialize_end:IM.Login.IMRegistReq)
 }
 
 int IMRegistReq::ByteSize() const {
@@ -332,23 +348,24 @@ int IMRegistReq::ByteSize() const {
           this->password());
     }
 
-    // required .IM.BaseDefine.UserStatType online_status = 3;
-    if (has_online_status()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::EnumSize(this->online_status());
-    }
-
-    // required .IM.BaseDefine.ClientType client_type = 4;
+    // required .IM.BaseDefine.ClientType client_type = 3;
     if (has_client_type()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::EnumSize(this->client_type());
     }
 
-    // optional string client_version = 5;
+    // optional string client_version = 4;
     if (has_client_version()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::StringSize(
           this->client_version());
+    }
+
+    // optional bytes attach_data = 20;
+    if (has_attach_data()) {
+      total_size += 2 +
+        ::google::protobuf::internal::WireFormatLite::BytesSize(
+          this->attach_data());
     }
 
   }
@@ -374,14 +391,14 @@ void IMRegistReq::MergeFrom(const IMRegistReq& from) {
     if (from.has_password()) {
       set_password(from.password());
     }
-    if (from.has_online_status()) {
-      set_online_status(from.online_status());
-    }
     if (from.has_client_type()) {
       set_client_type(from.client_type());
     }
     if (from.has_client_version()) {
       set_client_version(from.client_version());
+    }
+    if (from.has_attach_data()) {
+      set_attach_data(from.attach_data());
     }
   }
   mutable_unknown_fields()->append(from.unknown_fields());
@@ -394,7 +411,7 @@ void IMRegistReq::CopyFrom(const IMRegistReq& from) {
 }
 
 bool IMRegistReq::IsInitialized() const {
-  if ((_has_bits_[0] & 0x0000000f) != 0x0000000f) return false;
+  if ((_has_bits_[0] & 0x00000007) != 0x00000007) return false;
 
   return true;
 }
@@ -403,9 +420,9 @@ void IMRegistReq::Swap(IMRegistReq* other) {
   if (other != this) {
     std::swap(user_name_, other->user_name_);
     std::swap(password_, other->password_);
-    std::swap(online_status_, other->online_status_);
     std::swap(client_type_, other->client_type_);
     std::swap(client_version_, other->client_version_);
+    std::swap(attach_data_, other->attach_data_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.swap(other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
@@ -413,7 +430,7 @@ void IMRegistReq::Swap(IMRegistReq* other) {
 }
 
 ::std::string IMRegistReq::GetTypeName() const {
-  return "IM.Regist.IMRegistReq";
+  return "IM.Login.IMRegistReq";
 }
 
 
@@ -421,16 +438,17 @@ void IMRegistReq::Swap(IMRegistReq* other) {
 
 #ifndef _MSC_VER
 const int IMRegistRes::kServerTimeFieldNumber;
+const int IMRegistRes::kUserNameFieldNumber;
 const int IMRegistRes::kResultCodeFieldNumber;
 const int IMRegistRes::kResultStringFieldNumber;
-const int IMRegistRes::kOnlineStatusFieldNumber;
 const int IMRegistRes::kUserInfoFieldNumber;
+const int IMRegistRes::kAttachDataFieldNumber;
 #endif  // !_MSC_VER
 
 IMRegistRes::IMRegistRes()
   : ::google::protobuf::MessageLite() {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:IM.Regist.IMRegistRes)
+  // @@protoc_insertion_point(constructor:IM.Login.IMRegistRes)
 }
 
 void IMRegistRes::InitAsDefaultInstance() {
@@ -446,28 +464,35 @@ IMRegistRes::IMRegistRes(const IMRegistRes& from)
   : ::google::protobuf::MessageLite() {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:IM.Regist.IMRegistRes)
+  // @@protoc_insertion_point(copy_constructor:IM.Login.IMRegistRes)
 }
 
 void IMRegistRes::SharedCtor() {
   ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
   server_time_ = 0u;
+  user_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   result_code_ = 0;
   result_string_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  online_status_ = 1;
   user_info_ = NULL;
+  attach_data_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
 IMRegistRes::~IMRegistRes() {
-  // @@protoc_insertion_point(destructor:IM.Regist.IMRegistRes)
+  // @@protoc_insertion_point(destructor:IM.Login.IMRegistRes)
   SharedDtor();
 }
 
 void IMRegistRes::SharedDtor() {
+  if (user_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete user_name_;
+  }
   if (result_string_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     delete result_string_;
+  }
+  if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete attach_data_;
   }
   #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   if (this != &default_instance()) {
@@ -509,16 +534,25 @@ void IMRegistRes::Clear() {
     ::memset(&first, 0, n);                                \
   } while (0)
 
-  if (_has_bits_[0 / 32] & 31) {
+  if (_has_bits_[0 / 32] & 63) {
     ZR_(server_time_, result_code_);
+    if (has_user_name()) {
+      if (user_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+        user_name_->clear();
+      }
+    }
     if (has_result_string()) {
       if (result_string_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
         result_string_->clear();
       }
     }
-    online_status_ = 1;
     if (has_user_info()) {
       if (user_info_ != NULL) user_info_->::IM::BaseDefine::UserInfo::Clear();
+    }
+    if (has_attach_data()) {
+      if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+        attach_data_->clear();
+      }
     }
   }
 
@@ -537,9 +571,9 @@ bool IMRegistRes::MergePartialFromCodedStream(
       mutable_unknown_fields());
   ::google::protobuf::io::CodedOutputStream unknown_fields_stream(
       &unknown_fields_string);
-  // @@protoc_insertion_point(parse_start:IM.Regist.IMRegistRes)
+  // @@protoc_insertion_point(parse_start:IM.Login.IMRegistRes)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(16383);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
@@ -553,20 +587,33 @@ bool IMRegistRes::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(16)) goto parse_result_code;
+        if (input->ExpectTag(18)) goto parse_user_name;
         break;
       }
 
-      // required .IM.BaseDefine.ResultType result_code = 2;
+      // required string user_name = 2;
       case 2: {
-        if (tag == 16) {
+        if (tag == 18) {
+         parse_user_name:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_user_name()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(24)) goto parse_result_code;
+        break;
+      }
+
+      // required .IM.Login.RegistResult result_code = 3;
+      case 3: {
+        if (tag == 24) {
          parse_result_code:
           int value;
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
                  input, &value)));
-          if (::IM::BaseDefine::ResultType_IsValid(value)) {
-            set_result_code(static_cast< ::IM::BaseDefine::ResultType >(value));
+          if (::IM::Login::RegistResult_IsValid(value)) {
+            set_result_code(static_cast< ::IM::Login::RegistResult >(value));
           } else {
             unknown_fields_stream.WriteVarint32(tag);
             unknown_fields_stream.WriteVarint32(value);
@@ -574,37 +621,16 @@ bool IMRegistRes::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(26)) goto parse_result_string;
+        if (input->ExpectTag(34)) goto parse_result_string;
         break;
       }
 
-      // optional string result_string = 3;
-      case 3: {
-        if (tag == 26) {
+      // optional string result_string = 4;
+      case 4: {
+        if (tag == 34) {
          parse_result_string:
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_result_string()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(32)) goto parse_online_status;
-        break;
-      }
-
-      // optional .IM.BaseDefine.UserStatType online_status = 4;
-      case 4: {
-        if (tag == 32) {
-         parse_online_status:
-          int value;
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
-                 input, &value)));
-          if (::IM::BaseDefine::UserStatType_IsValid(value)) {
-            set_online_status(static_cast< ::IM::BaseDefine::UserStatType >(value));
-          } else {
-            unknown_fields_stream.WriteVarint32(tag);
-            unknown_fields_stream.WriteVarint32(value);
-          }
         } else {
           goto handle_unusual;
         }
@@ -618,6 +644,19 @@ bool IMRegistRes::MergePartialFromCodedStream(
          parse_user_info:
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
                input, mutable_user_info()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(162)) goto parse_attach_data;
+        break;
+      }
+
+      // optional bytes attach_data = 20;
+      case 20: {
+        if (tag == 162) {
+         parse_attach_data:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
+                input, this->mutable_attach_data()));
         } else {
           goto handle_unusual;
         }
@@ -639,38 +678,38 @@ bool IMRegistRes::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:IM.Regist.IMRegistRes)
+  // @@protoc_insertion_point(parse_success:IM.Login.IMRegistRes)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:IM.Regist.IMRegistRes)
+  // @@protoc_insertion_point(parse_failure:IM.Login.IMRegistRes)
   return false;
 #undef DO_
 }
 
 void IMRegistRes::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:IM.Regist.IMRegistRes)
+  // @@protoc_insertion_point(serialize_start:IM.Login.IMRegistRes)
   // required uint32 server_time = 1;
   if (has_server_time()) {
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->server_time(), output);
   }
 
-  // required .IM.BaseDefine.ResultType result_code = 2;
+  // required string user_name = 2;
+  if (has_user_name()) {
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      2, this->user_name(), output);
+  }
+
+  // required .IM.Login.RegistResult result_code = 3;
   if (has_result_code()) {
     ::google::protobuf::internal::WireFormatLite::WriteEnum(
-      2, this->result_code(), output);
+      3, this->result_code(), output);
   }
 
-  // optional string result_string = 3;
+  // optional string result_string = 4;
   if (has_result_string()) {
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      3, this->result_string(), output);
-  }
-
-  // optional .IM.BaseDefine.UserStatType online_status = 4;
-  if (has_online_status()) {
-    ::google::protobuf::internal::WireFormatLite::WriteEnum(
-      4, this->online_status(), output);
+      4, this->result_string(), output);
   }
 
   // optional .IM.BaseDefine.UserInfo user_info = 5;
@@ -679,9 +718,15 @@ void IMRegistRes::SerializeWithCachedSizes(
       5, this->user_info(), output);
   }
 
+  // optional bytes attach_data = 20;
+  if (has_attach_data()) {
+    ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
+      20, this->attach_data(), output);
+  }
+
   output->WriteRaw(unknown_fields().data(),
                    unknown_fields().size());
-  // @@protoc_insertion_point(serialize_end:IM.Regist.IMRegistRes)
+  // @@protoc_insertion_point(serialize_end:IM.Login.IMRegistRes)
 }
 
 int IMRegistRes::ByteSize() const {
@@ -695,23 +740,24 @@ int IMRegistRes::ByteSize() const {
           this->server_time());
     }
 
-    // required .IM.BaseDefine.ResultType result_code = 2;
+    // required string user_name = 2;
+    if (has_user_name()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->user_name());
+    }
+
+    // required .IM.Login.RegistResult result_code = 3;
     if (has_result_code()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::EnumSize(this->result_code());
     }
 
-    // optional string result_string = 3;
+    // optional string result_string = 4;
     if (has_result_string()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::StringSize(
           this->result_string());
-    }
-
-    // optional .IM.BaseDefine.UserStatType online_status = 4;
-    if (has_online_status()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::EnumSize(this->online_status());
     }
 
     // optional .IM.BaseDefine.UserInfo user_info = 5;
@@ -719,6 +765,13 @@ int IMRegistRes::ByteSize() const {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
           this->user_info());
+    }
+
+    // optional bytes attach_data = 20;
+    if (has_attach_data()) {
+      total_size += 2 +
+        ::google::protobuf::internal::WireFormatLite::BytesSize(
+          this->attach_data());
     }
 
   }
@@ -741,17 +794,20 @@ void IMRegistRes::MergeFrom(const IMRegistRes& from) {
     if (from.has_server_time()) {
       set_server_time(from.server_time());
     }
+    if (from.has_user_name()) {
+      set_user_name(from.user_name());
+    }
     if (from.has_result_code()) {
       set_result_code(from.result_code());
     }
     if (from.has_result_string()) {
       set_result_string(from.result_string());
     }
-    if (from.has_online_status()) {
-      set_online_status(from.online_status());
-    }
     if (from.has_user_info()) {
       mutable_user_info()->::IM::BaseDefine::UserInfo::MergeFrom(from.user_info());
+    }
+    if (from.has_attach_data()) {
+      set_attach_data(from.attach_data());
     }
   }
   mutable_unknown_fields()->append(from.unknown_fields());
@@ -764,7 +820,7 @@ void IMRegistRes::CopyFrom(const IMRegistRes& from) {
 }
 
 bool IMRegistRes::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000003) != 0x00000003) return false;
+  if ((_has_bits_[0] & 0x00000007) != 0x00000007) return false;
 
   if (has_user_info()) {
     if (!this->user_info().IsInitialized()) return false;
@@ -775,10 +831,11 @@ bool IMRegistRes::IsInitialized() const {
 void IMRegistRes::Swap(IMRegistRes* other) {
   if (other != this) {
     std::swap(server_time_, other->server_time_);
+    std::swap(user_name_, other->user_name_);
     std::swap(result_code_, other->result_code_);
     std::swap(result_string_, other->result_string_);
-    std::swap(online_status_, other->online_status_);
     std::swap(user_info_, other->user_info_);
+    std::swap(attach_data_, other->attach_data_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.swap(other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
@@ -786,13 +843,13 @@ void IMRegistRes::Swap(IMRegistRes* other) {
 }
 
 ::std::string IMRegistRes::GetTypeName() const {
-  return "IM.Regist.IMRegistRes";
+  return "IM.Login.IMRegistRes";
 }
 
 
 // @@protoc_insertion_point(namespace_scope)
 
-}  // namespace Regist
+}  // namespace Login
 }  // namespace IM
 
 // @@protoc_insertion_point(global_scope)

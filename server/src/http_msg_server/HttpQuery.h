@@ -11,6 +11,8 @@
 #include "HttpConn.h"
 #include "public_define.h"
 
+#include "TTIMConfig.h"
+#include "TTIMLog.h"
 typedef enum {
     HTTP_ERROR_SUCCESS = 0,
     HTTP_ERROR_PARMENT,
@@ -29,12 +31,13 @@ typedef enum {
 } HTTP_ERROR_CODE;
 
 typedef enum {
-    HTTP_SEND_MSG_TYPE_SIGNEL = 1,
-    HTTP_SEND_MSG_TYPE_GROUP = 2,
+    HTTP_SEND_MSG_TYPE_SIGNEL   = 1,
+    HTTP_SEND_MSG_TYPE_GROUP    = 2,
+
 } HTTP_SEND_MSG_TYPE;
 
-static string HTTP_ERROR_MSG[] =
-{
+static string HTTP_ERROR_MSG[] = {
+
     "成功",
     "参数错误",
     "appKey不存在",
@@ -51,8 +54,8 @@ static string HTTP_ERROR_MSG[] =
 };
 
 
-class CHttpQuery
-{
+class CHttpQuery {
+    
 public:
 	virtual ~CHttpQuery() {}
 
@@ -66,7 +69,11 @@ private:
     static void _QueryChangeMember(const string& strAppKey,Json::Value& post_json_obj, CHttpConn* pHttpConn);
     static HTTP_ERROR_CODE _CheckAuth(const string& strAppKey, const uint32_t userId, const string& strInterface, const string& strIp);
     static HTTP_ERROR_CODE _CheckPermission(const string& strAppKey, uint8_t nType, const list<uint32_t>& lsToId , string strMsg);
-    
+
+#if __TTIM_HTTP_REGIST__
+    static void _ApiRegist(const string& strName, const string& strPassword, CHttpConn* aHttpConn);
+#endif /* __TTIM_HTTP_REGIST__ */
+
 private:
 	static CHttpQuery*	m_query_instance;
 };

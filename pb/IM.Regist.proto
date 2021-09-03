@@ -1,27 +1,46 @@
-package IM.Regist;
+package IM.Login;
+
 import "IM.BaseDefine.proto";
+
 option java_package = "com.mogujie.tt.protobuf";
 //option java_outer_classname = "MOGUJIEIMMessage";
 option optimize_for = LITE_RUNTIME;
 
+enum RegistResult {
+
+    REGIST_RESULT_NO_ERROR                  = 0;
+    REGIST_RESULT_ERROR_GENERIC             = 1;
+    REGIST_RESULT_ERROR_ALREADY_EXIST       = 2;
+    REGIST_RESULT_ERROR_NO_DB_SERVER        = 3;
+    REGIST_RESULT_ERROR_NO_LOGIN_SERVER     = 4;
+    REGIST_RESULT_ERROR_NO_ROUTE_SERVER     = 5;
+    REGIST_RESULT_ERROR_NO_MSG_SERVER       = 6;
+    REGIST_RESULT_ERROR_DB_VALIDATE_FAILED  = 7;
+    REGIST_RESULT_ERROR_VERSION_TOO_OLD     = 8;
+}
+
+// 注册
 message IMRegistReq {
 
-    // CID_LOGIN_REQ_REGIST = 0x0112;	// 注册
-	// cmd id:      0x0112
-	required string user_name       = 1;
-	required string password        = 2;
-	required IM.BaseDefine.UserStatType online_status   = 3;
-	required IM.BaseDefine.ClientType client_type       = 4;
-	optional string client_version  = 5;
+    // CID_LOGIN_REQ_REGIST = 0x0112;   // 注册
+    // cmd id:      0x0112
+    required string user_name       = 1;
+    required string password        = 2;
+    required IM.BaseDefine.ClientType client_type   = 3;
+    optional string client_version  = 4;
+
+    optional bytes attach_data      = 20;            // 服务端用，客户端不用设置
 }
 
 message IMRegistRes {
 
     // CID_LOGIN_RES_REGIST = 0x0113;
-	// cmd id:      0x0113
-	required uint32 server_time     = 1;
-	required IM.BaseDefine.ResultType result_code       = 2;
-	optional string result_string   = 3;
-	optional IM.BaseDefine.UserStatType online_status   = 4;
-	optional IM.BaseDefine.UserInfo user_info   = 5;
+    // cmd id:      0x0113
+    required uint32 server_time     = 1;
+    required string user_name       = 2;
+    required IM.Login.RegistResult result_code  = 3;
+    optional string result_string   = 4;
+    optional IM.BaseDefine.UserInfo user_info   = 5;
+
+    optional bytes attach_data      = 20;            // 服务端用，客户端不用设置
 }
