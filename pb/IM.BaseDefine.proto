@@ -310,7 +310,7 @@ message IpAddr {
 message UserInfo {
 
 	required uint32 user_id 		= 1;
-	required uint32 user_gender 	= 2; 	// 用户性别,男：1 女：2 人妖/外星人：0
+	required uint32 user_gender 	= 2; 	// 用户性别, 保密:0 | 男:1 | 女:2 | 中性:3
 	required string user_nick_name 	= 3;	// 绰号
 	required string avatar_url 		= 4;
 	required uint32 department_id 	= 5;

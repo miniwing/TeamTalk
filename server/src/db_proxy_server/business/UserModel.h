@@ -29,6 +29,7 @@ public:
     bool getUser(uint32_t nUserId, DBUserInfo_t& cUser);
 
     bool getUser(const std::string &aUserName);
+    bool insertUser(const std::string &aUserName, const std::string &aPassword);
 
     bool updateUser(DBUserInfo_t& cUser);
     bool insertUser(DBUserInfo_t& cUser);

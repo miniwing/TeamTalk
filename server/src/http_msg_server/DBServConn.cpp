@@ -225,10 +225,11 @@ void CDBServConn::HandlePdu(CImPdu* pPdu)
 
 void CDBServConn::_HandleStopReceivePacket(CImPdu* pPdu)
 {
-	log("HandleStopReceivePacket, from %s:%d",
-			g_db_server_list[m_serv_idx].server_ip.c_str(), g_db_server_list[m_serv_idx].server_port);
+	log("HandleStopReceivePacket, from %s:%d", g_db_server_list[m_serv_idx].server_ip.c_str(), g_db_server_list[m_serv_idx].server_port);
 
 	m_bOpen = false;
+
+    return;
 }
     
 void CDBServConn::_HandleCreateGroupRsp(CImPdu *pPdu)
@@ -282,14 +283,15 @@ void CDBServConn::_HandleChangeMemberRsp(CImPdu *pPdu)
     CDbAttachData attach_data((uchar_t*)msg.attach_data().c_str(), msg.attach_data().length());
     uint32_t http_handle = attach_data.GetHandle();
     CHttpConn* pHttpConn = FindHttpConnByHandle(http_handle);
-    if(!pHttpConn)
-    {
+    if(!pHttpConn) {
+
         log("no http connection.");
         return;
     }
     char* response_buf = NULL;
-    if (result != 0)
-    {
+
+    if (result != 0) {
+
         response_buf = PackSendResult(HTTP_ERROR_CHANGE_MEMBER, HTTP_ERROR_MSG[11].c_str());
     }
     else
@@ -300,21 +302,25 @@ void CDBServConn::_HandleChangeMemberRsp(CImPdu *pPdu)
     pHttpConn->Close();
     
     if (!result) {
+
         IM::Group::IMGroupChangeMemberNotify msg2;
         msg2.set_user_id(user_id);
         msg2.set_change_type((::IM::BaseDefine::GroupModifyType)change_type);
         msg2.set_group_id(group_id);
+
         for (uint32_t i = 0; i < chg_user_cnt; i++) {
             msg2.add_chg_user_id_list(msg.chg_user_id_list(i));
         }
         for (uint32_t i = 0; i < cur_user_cnt; i++) {
             msg2.add_cur_user_id_list(msg.cur_user_id_list(i));
         }
+
         CImPdu pdu;
         pdu.SetPBMsg(&msg2);
         pdu.SetServiceId(SID_GROUP);
         pdu.SetCommandId(CID_GROUP_CHANGE_MEMBER_NOTIFY);
         CRouteServConn* pRouteConn = get_route_serv_conn();
+        
         if (pRouteConn) {
             pRouteConn->SendPdu(&pdu);
         }

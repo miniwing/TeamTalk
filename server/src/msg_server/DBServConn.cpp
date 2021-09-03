@@ -25,6 +25,7 @@
 #include "IM.Server.pb.h"
 #include "ImPduBase.h"
 #include "public_define.h"
+
 using namespace IM::BaseDefine;
 
 static ConnMap_t g_db_server_conn_map;
@@ -202,13 +203,13 @@ void CDBServConn::HandlePdu(CImPdu* pPdu)
 
 #if __TEAMTALK_REGIST__
         case CID_LOGIN_RES_REGIST:
-            _HandleRegistResponse(pPdu );
+            _HandleRegistResponse(pPdu);
             break;
 #endif /* __TEAMTALK_REGIST__ */
         case CID_OTHER_HEARTBEAT:
             break;
         case CID_OTHER_VALIDATE_RSP:
-            _HandleValidateResponse(pPdu );
+            _HandleValidateResponse(pPdu);
             break;
         case CID_LOGIN_RES_DEVICETOKEN:
             _HandleSetDeviceTokenResponse(pPdu);
@@ -298,6 +299,23 @@ void CDBServConn::_HandleRegistResponse(CImPdu* pPdu) {
 
     IM::Login::IMRegistRes cRegistRes;
     CHECK_PB_PARSE_MSG(cRegistRes.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()));
+
+    TTIM_PRINTF(("msg_server::DBServConn::_HandleRegistResponse : result_string : %s\n", cRegistRes.result_string()));
+
+    // cRegistRes.set_server_time(time(NULL));
+    // cRegistRes.set_result_code(result);
+    // cRegistRes.set_result_string(result_string);
+
+    CDbAttachData    attach_data((uchar_t*)cRegistRes.attach_data().c_str(), cRegistRes.attach_data().length());
+    uint32_t         nHandle    = attach_data.GetHandle();
+    CMsgConn        *pMsgConn   = CImUserManager::GetInstance()->GetMsgConnByHandle(nHandle);
+
+    TTIM_PRINTF(("msg_server::DBServConn::_HandleRegistResponse : CMsgConn : 0x%08x\n", (size_t)pMsgConn));
+
+    if (pMsgConn) {
+    
+        pMsgConn->SendPdu(pPdu);
+    }
 
     return;
 }
@@ -707,8 +725,8 @@ void CDBServConn::_HandleDepartmentResponse(CImPdu *pPdu)
     }
 }
 
-void CDBServConn::_HandleSetDeviceTokenResponse(CImPdu *pPdu)
-{
+void CDBServConn::_HandleSetDeviceTokenResponse(CImPdu *pPdu) {
+
     IM::Login::IMDeviceTokenRsp msg;
     CHECK_PB_PARSE_MSG(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()));
 
@@ -716,8 +734,8 @@ void CDBServConn::_HandleSetDeviceTokenResponse(CImPdu *pPdu)
     log("HandleSetDeviceTokenResponse, user_id = %u.", user_id);
 }
 
-void CDBServConn::_HandleGetDeviceTokenResponse(CImPdu *pPdu)
-{
+void CDBServConn::_HandleGetDeviceTokenResponse(CImPdu *pPdu) {
+
     IM::Server::IMGetDeviceTokenRsp msg;
     CHECK_PB_PARSE_MSG(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()));
     

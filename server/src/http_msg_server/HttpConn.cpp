@@ -192,6 +192,12 @@ void CHttpConn::OnRead()
 			CHttpQuery* pQueryInstance = CHttpQuery::GetInstance();
 			pQueryInstance->DispatchQuery(url, content, this);
 		}
+		else if (strncmp(url.c_str(), "/api/", 7) == 0) {
+            
+			string content = m_HttpParser.GetBodyContent();
+			CHttpQuery* pQueryInstance = CHttpQuery::GetInstance();
+			pQueryInstance->DispatchQuery(url, content, this);
+		}
 		else {
 			log("url unknown, url=%s ", url.c_str());
 			Close();

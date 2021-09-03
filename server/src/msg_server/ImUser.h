@@ -10,6 +10,7 @@
 
 #include "imconn.h"
 #include "public_define.h"
+
 #define MAX_ONLINE_FRIEND_CNT		100	//通知好友状态通知的最多个数
 
 class CMsgConn;

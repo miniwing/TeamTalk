@@ -232,20 +232,23 @@ void CProxyConn::HandlePduBuf(uchar_t* pdu_buf, uint32_t pdu_len) {
  * if pPdu == NULL, it means you want to close connection with conn_uuid
  * e.g. parse packet failed
  */
-void CProxyConn::AddResponsePdu(uint32_t conn_uuid, CImPdu* pPdu)
-{
-	ResponsePdu_t* pResp = new ResponsePdu_t;
-	pResp->conn_uuid = conn_uuid;
-	pResp->pPdu = pPdu;
+void CProxyConn::AddResponsePdu(uint32_t conn_uuid, CImPdu* pPdu) {
+
+	ResponsePdu_t   *pResp  = new ResponsePdu_t;
+	pResp->conn_uuid    = conn_uuid;
+	pResp->pPdu         = pPdu;
 
 	s_list_lock.lock();
 	s_response_pdu_list.push_back(pResp);
 	s_list_lock.unlock();
+
+    return;
 }
 
-void CProxyConn::SendResponsePduList()
-{
+void CProxyConn::SendResponsePduList() {
+
 	s_list_lock.lock();
+
 	while (!s_response_pdu_list.empty()) {
 		ResponsePdu_t* pResp = s_response_pdu_list.front();
 		s_response_pdu_list.pop_front();
@@ -253,9 +256,12 @@ void CProxyConn::SendResponsePduList()
 
 		CProxyConn* pConn = get_proxy_conn_by_uuid(pResp->conn_uuid);
 		if (pConn) {
+
 			if (pResp->pPdu) {
+                
 				pConn->SendPdu(pResp->pPdu);
-			} else {
+			} 
+            else {
 				log("close connection uuid=%d by parse pdu error\b", pResp->conn_uuid);
 				pConn->Close();
 			}

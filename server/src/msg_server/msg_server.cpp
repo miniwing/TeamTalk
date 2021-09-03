@@ -24,17 +24,19 @@
 CAes *pAes;
 
 // for client connect in
-void msg_serv_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pParam)
-{
-	if (msg == NETLIB_MSG_CONNECT)
-	{
+void msg_serv_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pParam) {
+
+	if (msg == NETLIB_MSG_CONNECT) {
+
 		CMsgConn* pConn = new CMsgConn();
 		pConn->OnConnect(handle);
 	}
-	else
-	{
+	else {
+
 		log("!!!error msg: %d ", msg);
 	}
+
+    return;
 }
 
 

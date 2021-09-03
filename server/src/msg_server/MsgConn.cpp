@@ -47,13 +47,14 @@ static bool g_log_msg_toggle = true;	// 是否把收到的MsgData写入Log的开
 static CFileHandler* s_file_handler = NULL;
 static CGroupChat* s_group_chat = NULL;
 
-void msg_conn_timer_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pParam)
-{
-	ConnMap_t::iterator it_old;
-	CMsgConn* pConn = NULL;
-	uint64_t cur_time = get_tick_count();
+void msg_conn_timer_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pParam) {
+
+	ConnMap_t::iterator  it_old;
+	CMsgConn            *pConn      = NULL;
+	uint64_t             cur_time   = get_tick_count();
 
 	for (ConnMap_t::iterator it = g_msg_conn_map.begin(); it != g_msg_conn_map.end(); ) {
+
 		it_old = it;
 		it++;
 
@@ -66,17 +67,22 @@ void msg_conn_timer_callback(void* callback_data, uint8_t msg, uint32_t handle, 
 		log("up_msg_cnt=%u, up_msg_miss_cnt=%u, down_msg_cnt=%u, down_msg_miss_cnt=%u ",
 			g_up_msg_total_cnt, g_up_msg_miss_cnt, g_down_msg_total_cnt, g_down_msg_miss_cnt);
 	}
+
+    return;
 }
 
-static void signal_handler_usr1(int sig_no)
-{
+static void signal_handler_usr1(int sig_no) {
+
 	if (sig_no == SIGUSR1) {
+        
 		log("receive SIGUSR1 ");
 		g_up_msg_total_cnt = 0;
 		g_up_msg_miss_cnt = 0;
 		g_down_msg_total_cnt = 0;
 		g_down_msg_miss_cnt = 0;
 	}
+
+    return;
 }
 
 static void signal_handler_usr2(int sig_no)
@@ -295,7 +301,7 @@ void CMsgConn::HandlePdu(CImPdu* pPdu) {
             break;
         case CID_LOGIN_REQ_USERLOGIN:
             TTIM_PRINTF(("msg_server::MsgConn::HandlePdu : CID_LOGIN_REQ_USERLOGIN\n"));
-            _HandleLoginRequest(pPdu );
+            _HandleLoginRequest(pPdu);
             break;
         case CID_LOGIN_REQ_LOGINOUT:
             TTIM_PRINTF(("msg_server::MsgConn::HandlePdu : CID_LOGIN_REQ_LOGINOUT\n"));
@@ -475,7 +481,10 @@ void CMsgConn::_HandleLoginRequest(CImPdu* pPdu) {
     uint32_t online_status  = msg.online_status();
 
     if (online_status < IM::BaseDefine::USER_STATUS_ONLINE || online_status > IM::BaseDefine::USER_STATUS_LEAVE) {
+
         log("HandleLoginReq, online status wrong: %u ", online_status);
+        TTIM_PRINTF(("HandleLoginReq, online status wrong: %u \n", online_status));
+
         online_status = IM::BaseDefine::USER_STATUS_ONLINE;
     }
 
@@ -483,8 +492,8 @@ void CMsgConn::_HandleLoginRequest(CImPdu* pPdu) {
     m_client_type       = msg.client_type();
     m_online_status     = online_status;
 
-    log("HandleLoginReq, user_name=%s, status=%u, client_type=%u, client=%s, ",
-        m_login_name.c_str(), online_status, m_client_type, m_client_version.c_str());
+    log("HandleLoginReq, user_name=%s, status=%u, client_type=%u, client=%s, ", m_login_name.c_str(), online_status, m_client_type, m_client_version.c_str());
+    TTIM_PRINTF(("HandleLoginReq, user_name=%s, status=%u, client_type=%u, client=%s, \n", m_login_name.c_str(), online_status, m_client_type, m_client_version.c_str()));
         
     CImUser* pImUser = CImUserManager::GetInstance()->GetImUserByLoginName(GetLoginName());
 
@@ -572,12 +581,12 @@ void CMsgConn::_HandleRegistRequest(CImPdu *pPdu) {
         cRegistRes.set_result_code(result);
         cRegistRes.set_result_string(result_string);
 
-        CImPdu pdu;
-        pdu.SetPBMsg(&cRegistRes);
-        pdu.SetServiceId(SID_LOGIN);
-        pdu.SetCommandId(CID_LOGIN_RES_USERLOGIN);
-        pdu.SetSeqNum(pPdu->GetSeqNum());
-        SendPdu(&pdu);
+        CImPdu   cPDU;
+        cPDU.SetPBMsg(&cRegistRes);
+        cPDU.SetServiceId(SID_LOGIN);
+        cPDU.SetCommandId(CID_LOGIN_RES_REGIST);
+        cPDU.SetSeqNum(pPdu->GetSeqNum());
+        SendPdu(&cPDU);
         Close();
 
         return;
@@ -591,6 +600,9 @@ void CMsgConn::_HandleRegistRequest(CImPdu *pPdu) {
     TTIM_PRINTF(("msg_server::MsgConn::_HandleRegistRequest password : %s\n", cMSG.password().c_str()));
 
     if (pDBConn) {
+
+        CDbAttachData attach(ATTACH_TYPE_HANDLE, m_handle, 0);
+        cMSG.set_attach_data(attach.GetBuffer(), attach.GetLength());
 
         pPdu->SetPBMsg(&cMSG);
         pDBConn->SendPdu(pPdu);
@@ -990,11 +1002,12 @@ void CMsgConn::_HandleClientDepartmentRequest(CImPdu *pPdu)
     }
 }
 
-void CMsgConn::_HandleClientDeviceToken(CImPdu *pPdu)
-{
-    if (!CHECK_CLIENT_TYPE_MOBILE(GetClientType()))
-    {
+void CMsgConn::_HandleClientDeviceToken(CImPdu *pPdu) {
+
+    if (!CHECK_CLIENT_TYPE_MOBILE(GetClientType())) {
+
         log("HandleClientDeviceToken, user_id=%u, not mobile client.", GetUserId());
+        
         return;
     }
     IM::Login::IMDeviceTokenReq msg;

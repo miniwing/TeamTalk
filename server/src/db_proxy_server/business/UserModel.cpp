@@ -189,7 +189,10 @@ bool CUserModel::getUser(const std::string &aUserName) {
 
     if (pDBConn) {
 
-        string       cSQL       = "select * from IMUser where name=" + aUserName;
+        // string       cSQL       = "select * from IMUser where name=" + aUserName;
+        string       cSQL       = string_format("select * from IMUser where name=\'%s\'", aUserName.c_str());
+        TTIM_PRINTF(("db_proxy_server::UserModel::getUser SQL: %s\n", cSQL.c_str()));
+
         CResultSet  *pResultSet = pDBConn->ExecuteQuery(cSQL.c_str());
 
         if(pResultSet) {
@@ -209,6 +212,47 @@ bool CUserModel::getUser(const std::string &aUserName) {
 
         log("no db connection for teamtalk_slave");
         TTIM_PRINTF(("no db connection for teamtalk_slave\n"));
+    }
+
+    return bRet;
+}
+
+bool CUserModel::insertUser(const std::string &aUserName, const std::string &aPassword) {
+
+    bool         bRet       = false;
+    CDBManager  *pDBManager = CDBManager::getInstance();
+    CDBConn     *pDBConn    = pDBManager->GetDBConn("teamtalk_master");
+
+    if (pDBConn) {
+
+        string               szSQL  = "insert into IMUser(`name`,`password`, `created`) values(?,?,?)";
+        CPrepareStatement   *stmt   = new CPrepareStatement();
+
+        if (stmt->Init(pDBConn->GetMysql(), szSQL)) {
+
+            uint32_t     nNow = (uint32_t) time(NULL);
+            uint32_t     index  = 0;
+            stmt->SetParam(index++, aUserName);
+            stmt->SetParam(index++, aPassword);
+            stmt->SetParam(index++, nNow);
+            bRet = stmt->ExecuteUpdate();
+            
+            if (!bRet) {
+
+                log("insert user failed: %s", szSQL.c_str());
+                TTIM_PRINTF(("insert user failed: %s \n", szSQL.c_str()));
+
+            } /* End if () */
+
+        }/* End if () */
+
+        delete stmt;
+        pDBManager->RelDBConn(pDBConn);
+    }
+    else {
+
+        log("no db connection for teamtalk_master");
+        TTIM_PRINTF(("no db connection for teamtalk_master\n"));
     }
 
     return bRet;
@@ -246,8 +290,8 @@ bool CUserModel::insertUser(DBUserInfo_t &cUser)
     {
         string strSql = "insert into IMUser(`id`,`sex`,`nick`,`domain`,`name`,`phone`,`email`,`avatar`,`sign_info`,`departId`,`status`,`created`,`updated`) values(?,?,?,?,?,?,?,?,?,?,?,?)";
         CPrepareStatement* stmt = new CPrepareStatement();
-        if (stmt->Init(pDBConn->GetMysql(), strSql))
-        {
+        if (stmt->Init(pDBConn->GetMysql(), strSql)) {
+
             uint32_t nNow = (uint32_t) time(NULL);
             uint32_t index = 0;
             uint32_t nGender = cUser.nSex;
@@ -458,32 +502,36 @@ bool CUserModel::getPushShield(uint32_t user_id, uint32_t* shield_status) {
                 rv = true;
             }
             delete result_set;
-        } else {
+        }
+        else {
             log("getPushShield: no result set for sql:%s", str_sql.c_str());
         }
         db_manager->RelDBConn(db_conn);
-    } else {
+    }
+    else {
         log("getPushShield: no db connection for teamtalk_slave");
     }
     
     return rv;
 }
 
-uint32_t CUserModel::modifyUserPass(uint32_t nUserId, const string &strOldPass, const string &strNewPass)
-{
-    uint32_t nRet = 0;
+uint32_t CUserModel::modifyUserPass(uint32_t nUserId, const string &strOldPass, const string &strNewPass) {
 
-    CDBManager* pDBManager = CDBManager::getInstance();
-    CDBConn* pDBConn = pDBManager->GetDBConn("teamtalk_master");
-    if (pDBConn)
-    {
+    uint32_t     nRet       = 0;
+
+    CDBManager  *pDBManager = CDBManager::getInstance();
+    CDBConn     *pDBConn    = pDBManager->GetDBConn("teamtalk_master");
+
+    if (pDBConn) {
+
         string strPass, strSalt;
-        string strSql = "select password, salt from IMUser where id="+int2string(nUserId);
+        string strSql   = "select password, salt from IMUser where id="+int2string(nUserId);
+
         CResultSet* pResultSet = pDBConn->ExecuteQuery(strSql.c_str());
-        if(pResultSet)
-        {
-            while (pResultSet->Next()) 
-            {
+        if(pResultSet) {
+
+            while (pResultSet->Next())  {
+                
                 strPass = pResultSet->GetString("password");
                 strSalt = pResultSet->GetString("salt");
             }
@@ -493,8 +541,8 @@ uint32_t CUserModel::modifyUserPass(uint32_t nUserId, const string &strOldPass, 
             char szMd5Old[33];
             CMd5::MD5_Calculate(strInPassOld.c_str(), strInPassOld.length(), szMd5Old);
             string strOutPassOld(szMd5Old);
-            if(strOutPassOld == strPass)
-            {
+            if(strOutPassOld == strPass) {
+
                 string strInPass = strNewPass + strSalt;
                 char szMd5[33];
                 CMd5::MD5_Calculate(strInPass.c_str(), strInPass.length(), szMd5);
@@ -505,13 +553,13 @@ uint32_t CUserModel::modifyUserPass(uint32_t nUserId, const string &strOldPass, 
                     nRet = -4;
                 }
             }
-            else
-            {
+            else {
+
                 nRet = -3;
             }
         }
-        else
-        {
+        else {
+
             log("no result for sql:%s.", strSql.c_str());
             nRet = -2;
         }
@@ -519,8 +567,10 @@ uint32_t CUserModel::modifyUserPass(uint32_t nUserId, const string &strOldPass, 
         pDBManager->RelDBConn(pDBConn);
     }
     else {
+        
         log("no db connection for teamtalk_master");
         nRet = -1;
     }
+
     return nRet;
 }

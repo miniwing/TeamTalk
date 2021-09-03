@@ -32,27 +32,69 @@ namespace DB_PROXY {
 
 void doRegist(CImPdu* pPdu, uint32_t conn_uuid) {
     
-    TTIM_PRINTF(("DB_PROXY::doRegist : %d", conn_uuid));
+    TTIM_PRINTF(("DB_PROXY::doRegist : %d\n", conn_uuid));
 
-    IM::Login::IMRegistReq msg;
-    IM::Login::IMRegistRes msgResp;
+    CImPdu                  *pPDURes    = new CImPdu;
 
-    if (msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength())) {
+    IM::Login::IMRegistReq   cRegistReq;
+    IM::Login::IMRegistRes   cRegistRes;
 
-        CImPdu  *pPduRes    = new CImPdu;
+    if (cRegistReq.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength())) {
+
+        TTIM_PRINTF(("DB_PROXY::doRegist : user_name : %s\n", cRegistReq.user_name().c_str()));
+        TTIM_PRINTF(("DB_PROXY::doRegist : password  : %s\n", cRegistReq.password().c_str()));
+
+        bool     bRet   = CUserModel::getInstance()->getUser(cRegistReq.user_name());
         
-        bool     nRet       = CUserModel::getInstance()->getUser(msg.user_name());
+        if (bRet) {
+
+            TTIM_PRINTF(("DB_PROXY::doRegist : 用户名已经存在\n"));
+
+            cRegistRes.set_server_time(time(NULL));
+            cRegistRes.set_result_code(IM::Login::RegistResult::REGIST_RESULT_ERROR_ALREADY_EXIST);
+            cRegistRes.set_result_string("用户名已经存在");
+
+        } /* End if () */
+        else {
+
+            TTIM_PRINTF(("DB_PROXY::doRegist : 注册用户名 : %s\n", cRegistReq.user_name().c_str()));
+
+            bRet    = CUserModel::getInstance()->insertUser(cRegistReq.user_name(), cRegistReq.password());
+            TTIM_PRINTF(("DB_PROXY::doRegist : insertUser : %d\n", bRet));
+
+            if (bRet) {
+
+                cRegistRes.set_server_time(time(NULL));
+                cRegistRes.set_result_code(IM::Login::RegistResult::REGIST_RESULT_NO_ERROR);
+                cRegistRes.set_result_string("");
+            }
+            else {
+
+                cRegistRes.set_server_time(time(NULL));
+                cRegistRes.set_result_code(IM::Login::RegistResult::REGIST_RESULT_ERROR_DB_VALIDATE_FAILED);
+                cRegistRes.set_result_string("服务端内部错误");
+
+            } /* End else */
+
+
+        } /* End else */
         
-        pPduRes->SetPBMsg(&msgResp);
-        pPduRes->SetSeqNum(pPdu->GetSeqNum());
-        pPduRes->SetServiceId(IM::BaseDefine::SID_LOGIN);
-        pPduRes->SetCommandId(IM::BaseDefine::CID_LOGIN_RES_REGIST);
-        CProxyConn::AddResponsePdu(conn_uuid, pPduRes);
-    }
-    else
-    {
+    } /* End if () */
+    else {
+
         log("parse pb failed");
-    }
+        TTIM_PRINTF(("parse pb failed \n"));
+
+        cRegistRes.set_result_code(IM::Login::RegistResult::REGIST_RESULT_ERROR_GENERIC);
+        cRegistRes.set_result_string("服务端内部错误");
+
+    } /* End else */
+
+    pPDURes->SetPBMsg(&cRegistRes);
+    pPDURes->SetSeqNum(pPdu->GetSeqNum());
+    pPDURes->SetServiceId(IM::BaseDefine::SID_LOGIN);
+    pPDURes->SetCommandId(IM::BaseDefine::CID_LOGIN_RES_REGIST);
+    CProxyConn::AddResponsePdu(conn_uuid, pPDURes);
 
     return;
 }

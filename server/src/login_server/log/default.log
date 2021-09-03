@@ -256,3 +256,71 @@
 2021-09-02 18:03:10,819 [INFO  IM] - <BaseSocket.cpp>|<329>|<_AcceptNewSocket>,AcceptNewSocket, socket=10 from 192.168.3.23:50299
 
 2021-09-02 18:03:10,819 [INFO  IM] - <HttpConn.cpp>|<394>|<OnWriteComlete>,write complete 
+2021-09-02 23:40:31,949 [INFO  IM] - <BaseSocket.cpp>|<81>|<Listen>,CBaseSocket::Listen on 10.211.55.13:8008
+2021-09-02 23:40:31,950 [INFO  IM] - <BaseSocket.cpp>|<81>|<Listen>,CBaseSocket::Listen on 10.211.55.13:8100
+2021-09-02 23:40:31,950 [INFO  IM] - <BaseSocket.cpp>|<81>|<Listen>,CBaseSocket::Listen on 10.211.55.13:8080
+2021-09-02 23:40:40,110 [INFO  IM] - <BaseSocket.cpp>|<329>|<_AcceptNewSocket>,AcceptNewSocket, socket=9 from 10.211.55.13:53768
+
+2021-09-02 23:40:40,110 [INFO  IM] - <login_server.cpp>|<39>|<msg_serv_callback>,msg_server come in
+2021-09-02 23:40:40,122 [INFO  IM] - <LoginConn.cpp>|<196>|<_HandleMsgServInfo>,MsgServInfo, ip_addr1=10.211.55.13, ip_addr2=10.211.55.13, port=8000, max_conn_cnt=100000, cur_conn_cnt=0, hostname: centos7. 
+2021-09-02 23:41:05,911 [INFO  IM] - <BaseSocket.cpp>|<329>|<_AcceptNewSocket>,AcceptNewSocket, socket=10 from 192.168.3.23:50758
+
+2021-09-02 23:41:05,912 [INFO  IM] - <HttpConn.cpp>|<394>|<OnWriteComlete>,write complete 
+2021-09-02 23:47:02,116 [INFO  IM] - <BaseSocket.cpp>|<329>|<_AcceptNewSocket>,AcceptNewSocket, socket=10 from 192.168.3.23:50779
+
+2021-09-02 23:47:02,120 [INFO  IM] - <HttpConn.cpp>|<394>|<OnWriteComlete>,write complete 
+2021-09-02 23:47:19,130 [INFO  IM] - <BaseSocket.cpp>|<329>|<_AcceptNewSocket>,AcceptNewSocket, socket=10 from 192.168.3.23:50781
+
+2021-09-02 23:47:19,144 [INFO  IM] - <HttpConn.cpp>|<394>|<OnWriteComlete>,write complete 
+2021-09-03 00:13:31,584 [INFO  IM] - <BaseSocket.cpp>|<329>|<_AcceptNewSocket>,AcceptNewSocket, socket=10 from 192.168.3.23:50814
+
+2021-09-03 00:13:31,592 [INFO  IM] - <HttpConn.cpp>|<394>|<OnWriteComlete>,write complete 
+2021-09-03 00:14:39,689 [INFO  IM] - <BaseSocket.cpp>|<329>|<_AcceptNewSocket>,AcceptNewSocket, socket=10 from 192.168.3.23:50816
+
+2021-09-03 00:14:39,696 [INFO  IM] - <HttpConn.cpp>|<394>|<OnWriteComlete>,write complete 
+2021-09-03 00:14:49,221 [INFO  IM] - <BaseSocket.cpp>|<329>|<_AcceptNewSocket>,AcceptNewSocket, socket=10 from 192.168.3.23:50818
+
+2021-09-03 00:14:49,225 [INFO  IM] - <HttpConn.cpp>|<394>|<OnWriteComlete>,write complete 
+2021-09-03 00:24:49,900 [INFO  IM] - <BaseSocket.cpp>|<329>|<_AcceptNewSocket>,AcceptNewSocket, socket=10 from 192.168.3.23:50826
+
+2021-09-03 00:24:49,904 [INFO  IM] - <HttpConn.cpp>|<394>|<OnWriteComlete>,write complete 
+2021-09-03 00:24:58,001 [INFO  IM] - <BaseSocket.cpp>|<329>|<_AcceptNewSocket>,AcceptNewSocket, socket=10 from 192.168.3.23:50828
+
+2021-09-03 00:24:58,006 [INFO  IM] - <HttpConn.cpp>|<394>|<OnWriteComlete>,write complete 
+2021-09-03 00:37:10,636 [INFO  IM] - <BaseSocket.cpp>|<329>|<_AcceptNewSocket>,AcceptNewSocket, socket=10 from 192.168.3.23:50933
+
+2021-09-03 00:37:10,638 [INFO  IM] - <HttpConn.cpp>|<394>|<OnWriteComlete>,write complete 
+2021-09-03 00:37:41,278 [INFO  IM] - <BaseSocket.cpp>|<329>|<_AcceptNewSocket>,AcceptNewSocket, socket=10 from 192.168.3.23:50935
+
+2021-09-03 00:37:41,282 [INFO  IM] - <HttpConn.cpp>|<394>|<OnWriteComlete>,write complete 
+2021-09-03 01:16:09,306 [INFO  IM] - <LoginConn.cpp>|<85>|<Close>,onclose from MsgServer: centos7:8000 
+2021-09-03 01:24:17,027 [INFO  IM] - <BaseSocket.cpp>|<81>|<Listen>,CBaseSocket::Listen on 10.211.55.13:8008
+2021-09-03 01:24:17,028 [INFO  IM] - <BaseSocket.cpp>|<81>|<Listen>,CBaseSocket::Listen on 10.211.55.13:8100
+2021-09-03 01:24:17,029 [INFO  IM] - <BaseSocket.cpp>|<81>|<Listen>,CBaseSocket::Listen on 10.211.55.13:8080
+2021-09-03 01:24:31,311 [INFO  IM] - <BaseSocket.cpp>|<329>|<_AcceptNewSocket>,AcceptNewSocket, socket=9 from 10.211.55.13:56460
+
+2021-09-03 01:24:31,312 [INFO  IM] - <login_server.cpp>|<39>|<msg_serv_callback>,msg_server come in
+2021-09-03 01:24:31,330 [INFO  IM] - <LoginConn.cpp>|<196>|<_HandleMsgServInfo>,MsgServInfo, ip_addr1=10.211.55.13, ip_addr2=10.211.55.13, port=8000, max_conn_cnt=100000, cur_conn_cnt=0, hostname: centos7. 
+2021-09-03 01:24:55,314 [INFO  IM] - <BaseSocket.cpp>|<329>|<_AcceptNewSocket>,AcceptNewSocket, socket=10 from 192.168.3.23:51066
+
+2021-09-03 01:24:55,315 [INFO  IM] - <HttpConn.cpp>|<394>|<OnWriteComlete>,write complete 
+2021-09-03 01:27:05,363 [INFO  IM] - <BaseSocket.cpp>|<329>|<_AcceptNewSocket>,AcceptNewSocket, socket=10 from 192.168.3.23:51068
+
+2021-09-03 01:27:05,367 [INFO  IM] - <HttpConn.cpp>|<394>|<OnWriteComlete>,write complete 
+2021-09-03 01:27:14,885 [INFO  IM] - <BaseSocket.cpp>|<329>|<_AcceptNewSocket>,AcceptNewSocket, socket=10 from 192.168.3.23:51070
+
+2021-09-03 01:27:14,890 [INFO  IM] - <HttpConn.cpp>|<394>|<OnWriteComlete>,write complete 
+2021-09-03 01:27:25,939 [INFO  IM] - <BaseSocket.cpp>|<329>|<_AcceptNewSocket>,AcceptNewSocket, socket=10 from 192.168.3.23:51072
+
+2021-09-03 01:27:25,943 [INFO  IM] - <HttpConn.cpp>|<394>|<OnWriteComlete>,write complete 
+2021-09-03 10:41:46,561 [INFO  IM] - <BaseSocket.cpp>|<81>|<Listen>,CBaseSocket::Listen on 10.211.55.13:8008
+2021-09-03 10:41:46,562 [INFO  IM] - <BaseSocket.cpp>|<81>|<Listen>,CBaseSocket::Listen on 10.211.55.13:8100
+2021-09-03 10:41:46,562 [INFO  IM] - <BaseSocket.cpp>|<81>|<Listen>,CBaseSocket::Listen on 10.211.55.13:8080
+2021-09-03 10:42:17,110 [INFO  IM] - <BaseSocket.cpp>|<329>|<_AcceptNewSocket>,AcceptNewSocket, socket=9 from 10.211.55.13:42314
+
+2021-09-03 10:42:17,110 [INFO  IM] - <login_server.cpp>|<39>|<msg_serv_callback>,msg_server come in
+2021-09-03 10:42:17,119 [INFO  IM] - <LoginConn.cpp>|<196>|<_HandleMsgServInfo>,MsgServInfo, ip_addr1=10.211.55.13, ip_addr2=10.211.55.13, port=8000, max_conn_cnt=100000, cur_conn_cnt=0, hostname: centos7. 
+2021-09-03 10:57:58,180 [INFO  IM] - <BaseSocket.cpp>|<329>|<_AcceptNewSocket>,AcceptNewSocket, socket=10 from 192.168.3.23:51532
+
+2021-09-03 10:57:58,185 [INFO  IM] - <HttpConn.cpp>|<394>|<OnWriteComlete>,write complete 
+2021-09-03 11:34:53,371 [INFO  IM] - <LoginConn.cpp>|<85>|<Close>,onclose from MsgServer: centos7:8000 

@@ -41,6 +41,21 @@
 @class UserTokenInfoBuilder;
 
 
+typedef NS_ENUM(SInt32, RegistResult) {
+  RegistResultRegistResultNoError = 0,
+  RegistResultRegistResultErrorGeneric = 1,
+  RegistResultRegistResultErrorAlreadyExist = 2,
+  RegistResultRegistResultErrorNoDbServer = 3,
+  RegistResultRegistResultErrorNoLoginServer = 4,
+  RegistResultRegistResultErrorNoRouteServer = 5,
+  RegistResultRegistResultErrorNoMsgServer = 6,
+  RegistResultRegistResultErrorDbValidateFailed = 7,
+  RegistResultRegistResultErrorVersionTooOld = 8,
+};
+
+BOOL RegistResultIsValidValue(RegistResult value);
+NSString *NSStringFromRegistResult(RegistResult value);
+
 
 @interface ImregistRoot : NSObject {
 }
@@ -52,25 +67,30 @@
 #define IMRegistReq_password @"password"
 #define IMRegistReq_client_type @"clientType"
 #define IMRegistReq_client_version @"clientVersion"
+#define IMRegistReq_attach_data @"attachData"
 @interface IMRegistReq : PBGeneratedMessage<GeneratedMessageProtocol> {
 @private
   BOOL hasUserName_:1;
   BOOL hasPassword_:1;
   BOOL hasClientVersion_:1;
+  BOOL hasAttachData_:1;
   BOOL hasClientType_:1;
   NSString* userName;
   NSString* password;
   NSString* clientVersion;
+  NSData* attachData;
   ClientType clientType;
 }
 - (BOOL) hasUserName;
 - (BOOL) hasPassword;
 - (BOOL) hasClientType;
 - (BOOL) hasClientVersion;
+- (BOOL) hasAttachData;
 @property (readonly, strong) NSString* userName;
 @property (readonly, strong) NSString* password;
 @property (readonly) ClientType clientType;
 @property (readonly, strong) NSString* clientVersion;
+@property (readonly, strong) NSData* attachData;
 
 + (instancetype) defaultInstance;
 - (instancetype) defaultInstance;
@@ -126,31 +146,41 @@
 - (NSString*) clientVersion;
 - (IMRegistReqBuilder*) setClientVersion:(NSString*) value;
 - (IMRegistReqBuilder*) clearClientVersion;
+
+- (BOOL) hasAttachData;
+- (NSData*) attachData;
+- (IMRegistReqBuilder*) setAttachData:(NSData*) value;
+- (IMRegistReqBuilder*) clearAttachData;
 @end
 
 #define IMRegistRes_server_time @"serverTime"
 #define IMRegistRes_result_code @"resultCode"
 #define IMRegistRes_result_string @"resultString"
 #define IMRegistRes_user_info @"userInfo"
+#define IMRegistRes_attach_data @"attachData"
 @interface IMRegistRes : PBGeneratedMessage<GeneratedMessageProtocol> {
 @private
   BOOL hasResultString_:1;
   BOOL hasUserInfo_:1;
+  BOOL hasAttachData_:1;
   BOOL hasServerTime_:1;
   BOOL hasResultCode_:1;
   NSString* resultString;
   UserInfo* userInfo;
+  NSData* attachData;
   UInt32 serverTime;
-  ResultType resultCode;
+  RegistResult resultCode;
 }
 - (BOOL) hasServerTime;
 - (BOOL) hasResultCode;
 - (BOOL) hasResultString;
 - (BOOL) hasUserInfo;
+- (BOOL) hasAttachData;
 @property (readonly) UInt32 serverTime;
-@property (readonly) ResultType resultCode;
+@property (readonly) RegistResult resultCode;
 @property (readonly, strong) NSString* resultString;
 @property (readonly, strong) UserInfo* userInfo;
+@property (readonly, strong) NSData* attachData;
 
 + (instancetype) defaultInstance;
 - (instancetype) defaultInstance;
@@ -193,8 +223,8 @@
 - (IMRegistResBuilder*) clearServerTime;
 
 - (BOOL) hasResultCode;
-- (ResultType) resultCode;
-- (IMRegistResBuilder*) setResultCode:(ResultType) value;
+- (RegistResult) resultCode;
+- (IMRegistResBuilder*) setResultCode:(RegistResult) value;
 - (IMRegistResBuilder*) clearResultCode;
 
 - (BOOL) hasResultString;
@@ -208,6 +238,11 @@
 - (IMRegistResBuilder*) setUserInfoBuilder:(UserInfoBuilder*) builderForValue;
 - (IMRegistResBuilder*) mergeUserInfo:(UserInfo*) value;
 - (IMRegistResBuilder*) clearUserInfo;
+
+- (BOOL) hasAttachData;
+- (NSData*) attachData;
+- (IMRegistResBuilder*) setAttachData:(NSData*) value;
+- (IMRegistResBuilder*) clearAttachData;
 @end
 
 

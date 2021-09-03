@@ -191,8 +191,10 @@ namespace DB_PROXY {
     }
     
     void doQueryPushShield(CImPdu* pPdu, uint32_t conn_uuid) {
+
         IM::Login::IMQueryPushShieldReq req;
         IM::Login::IMQueryPushShieldRsp resp;
+        
         if(req.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength())) {
             uint32_t user_id = req.user_id();
             uint32_t shield_status = 0;
@@ -221,20 +223,22 @@ namespace DB_PROXY {
         }
     }
 
-    void modifyUserPass(CImPdu* pPdu, uint32_t conn_uuid)
-    {
+    void modifyUserPass(CImPdu* pPdu, uint32_t conn_uuid) {
+
         IM::Login::IMModifyPassReq msg;
         IM::Login::IMModifyPassRes msgResp;
-        if(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()))
-        {
-            CImPdu* pPduRes = new CImPdu;
+
+        if(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength())) {
+
+            CImPdu  *pPduRes    = new CImPdu;
             
-            uint32_t nUserId = msg.user_id();
-            string strOldPass = msg.old_pass();
-            string strNewPass = msg.new_pass();
-            uint32_t nRet = CUserModel::getInstance()->modifyUserPass(nUserId, strOldPass, strNewPass);
+            uint32_t nUserId    = msg.user_id();
+            string   strOldPass = msg.old_pass();
+            string   strNewPass = msg.new_pass();
+            uint32_t nRet       = CUserModel::getInstance()->modifyUserPass(nUserId, strOldPass, strNewPass);
             
             log("modifyUserPass. userId=%u, result=%d.", nUserId, nRet);
+
             msgResp.set_user_id(nUserId);
             msgResp.set_status(nRet);
             msgResp.set_attach_data(msg.attach_data());
@@ -244,8 +248,8 @@ namespace DB_PROXY {
             pPduRes->SetCommandId(IM::BaseDefine::CID_LOGIN_RES_MODIFY_PASS);
             CProxyConn::AddResponsePdu(conn_uuid, pPduRes);
         }
-        else
-        {
+        else {
+
             log("parse pb failed");
         }
     }

@@ -155,8 +155,6 @@ typedef NS_ENUM(SInt32, FileCmdID) {
   FileCmdIDCidFileHasOfflineRes = 1290,
   FileCmdIDCidFileAddOfflineReq = 1291,
   FileCmdIDCidFileDelOfflineReq = 1292,
-  FileCmdIDCidFileRegistReq = 1293,
-  FileCmdIDCidFileRegistRes = 1294,
 };
 
 BOOL FileCmdIDIsValidValue(FileCmdID value);
@@ -205,7 +203,6 @@ typedef NS_ENUM(SInt32, ResultType) {
   ResultTypeRefuseReasonNoRouteServer = 5,
   ResultTypeRefuseReasonDbValidateFailed = 6,
   ResultTypeRefuseReasonVersionTooOld = 7,
-  ResultTypeRefuseReasonNoRegistServer = 8,
 };
 
 BOOL ResultTypeIsValidValue(ResultType value);

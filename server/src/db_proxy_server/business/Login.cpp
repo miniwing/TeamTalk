@@ -18,10 +18,15 @@
 #include "TokenValidator.h"
 #include "json/json.h"
 #include "Common.h"
-#include "IM.Server.pb.h"
 #include "Base64.h"
 #include "InterLogin.h"
 #include "ExterLogin.h"
+
+#include "IM.Server.pb.h"
+#include "IM.Login.pb.h"
+
+#include "TTIMConfig.h"
+#include "TTIMLog.h"
 
 CInterLoginStrategy g_loginStrategy;
 
@@ -32,24 +37,24 @@ namespace DB_PROXY {
     
 void doLogin(CImPdu* pPdu, uint32_t conn_uuid) {
     
-    CImPdu* pPduResp = new CImPdu;
+    CImPdu                      *pPduResp   = new CImPdu;
     
-    IM::Server::IMValidateReq msg;
-    IM::Server::IMValidateRsp msgResp;
+    IM::Server::IMValidateReq    msg;
+    IM::Server::IMValidateRsp    msgResp;
     
-    if(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength())) {
+    if (msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength())) {
         
-        string strDomain = msg.user_name();
-        string strPass = msg.password();
+        string strDomain    = msg.user_name();
+        string strPass      = msg.password();
         
         msgResp.set_user_name(strDomain);
         msgResp.set_attach_data(msg.attach_data());
         
         do {
             
-            CAutoLock cAutoLock(&g_cLimitLock);
-            list<uint32_t>& lsErrorTime = g_hmLimits[strDomain];
-            uint32_t tmNow = time(NULL);
+            CAutoLock        cAutoLock(&g_cLimitLock);
+            list<uint32_t>&  lsErrorTime    = g_hmLimits[strDomain];
+            uint32_t         tmNow          = time(NULL);
             
             //清理超过30分钟的错误时间点记录
             /*
@@ -58,24 +63,26 @@ void doLogin(CImPdu* pPdu, uint32_t conn_uuid) {
              放在后面，可能会造成30分钟之前有10次错的，但是本次是对的就没办法再访问了。
              */
             auto itTime=lsErrorTime.begin();
-            for(; itTime!=lsErrorTime.end();++itTime)
-            {
-                if(tmNow - *itTime > 30*60)
-                {
+            for (; itTime!=lsErrorTime.end();++itTime) {
+
+                if(tmNow - *itTime > 30*60) {
+
                     break;
                 }
             }
-            if(itTime != lsErrorTime.end())
-            {
+
+            if (itTime != lsErrorTime.end()) {
+
                 lsErrorTime.erase(itTime, lsErrorTime.end());
             }
             
             // 判断30分钟内密码错误次数是否大于10
-            if(lsErrorTime.size() > 10)
-            {
+            if (lsErrorTime.size() > 10) {
+
                 itTime = lsErrorTime.begin();
-                if(tmNow - *itTime <= 30*60)
-                {
+
+                if (tmNow - *itTime <= 30*60) {
+
                     msgResp.set_result_code(6);
                     msgResp.set_result_string("用户名/密码错误次数太多");
                     pPduResp->SetPBMsg(&msgResp);
@@ -84,15 +91,17 @@ void doLogin(CImPdu* pPdu, uint32_t conn_uuid) {
                     pPduResp->SetCommandId(IM::BaseDefine::CID_OTHER_VALIDATE_RSP);
                     CProxyConn::AddResponsePdu(conn_uuid, pPduResp);
                     return ;
-                }
-            }
+
+                } /* End if () */
+
+            } /* End if () */
+
         } while(false);
         
         log("%s request login.", strDomain.c_str());
+        TTIM_PRINTF(("%s request login.\n", strDomain.c_str()));
         
-        
-        
-        IM::BaseDefine::UserInfo cUser;
+        IM::BaseDefine::UserInfo     cUser;
         
         if (g_loginStrategy.doLogin(strDomain, strPass, cUser)) {
             
@@ -119,8 +128,8 @@ void doLogin(CImPdu* pPdu, uint32_t conn_uuid) {
             list<uint32_t>& lsErrorTime = g_hmLimits[strDomain];
             lsErrorTime.clear();
         }
-        else
-        {
+        else {
+
             //密码错误，记录一次登陆失败
             uint32_t tmCurrent = time(NULL);
             CAutoLock cAutoLock(&g_cLimitLock);
@@ -128,12 +137,14 @@ void doLogin(CImPdu* pPdu, uint32_t conn_uuid) {
             lsErrorTime.push_front(tmCurrent);
             
             log("get result false");
+            TTIM_PRINTF(("get result false\n"));
+            
             msgResp.set_result_code(1);
             msgResp.set_result_string("用户名/密码错误");
         }
     }
-    else
-    {
+    else {
+
         msgResp.set_result_code(2);
         msgResp.set_result_string("服务端内部错误");
     }

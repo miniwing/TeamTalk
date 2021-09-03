@@ -332,8 +332,6 @@ BOOL FileCmdIDIsValidValue(FileCmdID value) {
     case FileCmdIDCidFileHasOfflineRes:
     case FileCmdIDCidFileAddOfflineReq:
     case FileCmdIDCidFileDelOfflineReq:
-    case FileCmdIDCidFileRegistReq:
-    case FileCmdIDCidFileRegistRes:
       return YES;
     default:
       return NO;
@@ -365,10 +363,6 @@ NSString *NSStringFromFileCmdID(FileCmdID value) {
       return @"FileCmdIDCidFileAddOfflineReq";
     case FileCmdIDCidFileDelOfflineReq:
       return @"FileCmdIDCidFileDelOfflineReq";
-    case FileCmdIDCidFileRegistReq:
-      return @"FileCmdIDCidFileRegistReq";
-    case FileCmdIDCidFileRegistRes:
-      return @"FileCmdIDCidFileRegistRes";
     default:
       return nil;
   }
@@ -478,7 +472,6 @@ BOOL ResultTypeIsValidValue(ResultType value) {
     case ResultTypeRefuseReasonNoRouteServer:
     case ResultTypeRefuseReasonDbValidateFailed:
     case ResultTypeRefuseReasonVersionTooOld:
-    case ResultTypeRefuseReasonNoRegistServer:
       return YES;
     default:
       return NO;
@@ -502,8 +495,6 @@ NSString *NSStringFromResultType(ResultType value) {
       return @"ResultTypeRefuseReasonDbValidateFailed";
     case ResultTypeRefuseReasonVersionTooOld:
       return @"ResultTypeRefuseReasonVersionTooOld";
-    case ResultTypeRefuseReasonNoRegistServer:
-      return @"ResultTypeRefuseReasonNoRegistServer";
     default:
       return nil;
   }

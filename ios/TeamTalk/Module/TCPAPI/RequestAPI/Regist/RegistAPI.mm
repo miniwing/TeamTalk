@@ -76,13 +76,14 @@
    
    Analysis analysis = (id)^(NSData* data) {
       
-      IMLoginRes *res = [IMLoginRes parseFromData:data];
-      NSInteger serverTime = res.serverTime;
-      NSInteger loginResult = res.resultCode;
-      NSString *resultString=nil;
-      resultString = res.resultString;
-      NSDictionary* result = nil;
-      debugLog(@"%ld", loginResult);
+      IMRegistRes    *stRegistRes   = [IMRegistRes parseFromData:data];
+      NSInteger       serverTime    = stRegistRes.serverTime;
+      NSInteger       loginResult   = stRegistRes.resultCode;
+      NSString       *resultString  = stRegistRes.resultString;
+      NSDictionary   *result        = nil;
+      
+      LogDebug((@"%ld", loginResult));
+      
       if (loginResult !=0) {
          result = @{
             @"code":[NSString stringWithFormat:@"%ld", loginResult],
@@ -91,7 +92,7 @@
       }
       else {
          
-         MTTUserEntity *user = [[MTTUserEntity alloc] initWithPB:res.userInfo];
+         MTTUserEntity *user = [[MTTUserEntity alloc] initWithPB:stRegistRes.userInfo];
          result = @{@"serverTime":@(serverTime),
                     @"result":resultString,
                     @"user":user,

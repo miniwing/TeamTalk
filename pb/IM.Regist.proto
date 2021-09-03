@@ -26,6 +26,8 @@ message IMRegistReq {
     required string password        = 2;
     required IM.BaseDefine.ClientType client_type   = 3;
     optional string client_version  = 4;
+
+    optional bytes attach_data      = 20;            // 服务端用，客户端不用设置
 }
 
 message IMRegistRes {
@@ -33,7 +35,10 @@ message IMRegistRes {
     // CID_LOGIN_RES_REGIST = 0x0113;
     // cmd id:      0x0113
     required uint32 server_time     = 1;
-    required IM.Login.RegistResult result_code  = 2;
-    optional string result_string   = 3;
-    optional IM.BaseDefine.UserInfo user_info   = 4;
+    required string user_name       = 2;
+    required IM.Login.RegistResult result_code  = 3;
+    optional string result_string   = 4;
+    optional IM.BaseDefine.UserInfo user_info   = 5;
+
+    optional bytes attach_data      = 20;            // 服务端用，客户端不用设置
 }

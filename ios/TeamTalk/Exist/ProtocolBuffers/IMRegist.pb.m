@@ -21,11 +21,53 @@ static PBExtensionRegistry* extensionRegistry = nil;
 }
 @end
 
+BOOL RegistResultIsValidValue(RegistResult value) {
+  switch (value) {
+    case RegistResultRegistResultNoError:
+    case RegistResultRegistResultErrorGeneric:
+    case RegistResultRegistResultErrorAlreadyExist:
+    case RegistResultRegistResultErrorNoDbServer:
+    case RegistResultRegistResultErrorNoLoginServer:
+    case RegistResultRegistResultErrorNoRouteServer:
+    case RegistResultRegistResultErrorNoMsgServer:
+    case RegistResultRegistResultErrorDbValidateFailed:
+    case RegistResultRegistResultErrorVersionTooOld:
+      return YES;
+    default:
+      return NO;
+  }
+}
+NSString *NSStringFromRegistResult(RegistResult value) {
+  switch (value) {
+    case RegistResultRegistResultNoError:
+      return @"RegistResultRegistResultNoError";
+    case RegistResultRegistResultErrorGeneric:
+      return @"RegistResultRegistResultErrorGeneric";
+    case RegistResultRegistResultErrorAlreadyExist:
+      return @"RegistResultRegistResultErrorAlreadyExist";
+    case RegistResultRegistResultErrorNoDbServer:
+      return @"RegistResultRegistResultErrorNoDbServer";
+    case RegistResultRegistResultErrorNoLoginServer:
+      return @"RegistResultRegistResultErrorNoLoginServer";
+    case RegistResultRegistResultErrorNoRouteServer:
+      return @"RegistResultRegistResultErrorNoRouteServer";
+    case RegistResultRegistResultErrorNoMsgServer:
+      return @"RegistResultRegistResultErrorNoMsgServer";
+    case RegistResultRegistResultErrorDbValidateFailed:
+      return @"RegistResultRegistResultErrorDbValidateFailed";
+    case RegistResultRegistResultErrorVersionTooOld:
+      return @"RegistResultRegistResultErrorVersionTooOld";
+    default:
+      return nil;
+  }
+}
+
 @interface IMRegistReq ()
 @property (strong) NSString* userName;
 @property (strong) NSString* password;
 @property ClientType clientType;
 @property (strong) NSString* clientVersion;
+@property (strong) NSData* attachData;
 @end
 
 @implementation IMRegistReq
@@ -58,12 +100,20 @@ static PBExtensionRegistry* extensionRegistry = nil;
   hasClientVersion_ = !!_value_;
 }
 @synthesize clientVersion;
+- (BOOL) hasAttachData {
+  return !!hasAttachData_;
+}
+- (void) setHasAttachData:(BOOL) _value_ {
+  hasAttachData_ = !!_value_;
+}
+@synthesize attachData;
 - (instancetype) init {
   if ((self = [super init])) {
     self.userName = @"";
     self.password = @"";
     self.clientType = ClientTypeClientTypeWindows;
     self.clientVersion = @"";
+    self.attachData = [NSData data];
   }
   return self;
 }
@@ -104,6 +154,9 @@ static IMRegistReq* defaultIMRegistReqInstance = nil;
   if (self.hasClientVersion) {
     [output writeString:4 value:self.clientVersion];
   }
+  if (self.hasAttachData) {
+    [output writeData:20 value:self.attachData];
+  }
   [self.unknownFields writeToCodedOutputStream:output];
 }
 - (SInt32) serializedSize {
@@ -124,6 +177,9 @@ static IMRegistReq* defaultIMRegistReqInstance = nil;
   }
   if (self.hasClientVersion) {
     size_ += computeStringSize(4, self.clientVersion);
+  }
+  if (self.hasAttachData) {
+    size_ += computeDataSize(20, self.attachData);
   }
   size_ += self.unknownFields.serializedSize;
   memoizedSerializedSize = size_;
@@ -172,6 +228,9 @@ static IMRegistReq* defaultIMRegistReqInstance = nil;
   if (self.hasClientVersion) {
     [output appendFormat:@"%@%@: %@\n", indent, @"clientVersion", self.clientVersion];
   }
+  if (self.hasAttachData) {
+    [output appendFormat:@"%@%@: %@\n", indent, @"attachData", self.attachData];
+  }
   [self.unknownFields writeDescriptionTo:output withIndent:indent];
 }
 - (void) storeInDictionary:(NSMutableDictionary *)dictionary {
@@ -186,6 +245,9 @@ static IMRegistReq* defaultIMRegistReqInstance = nil;
   }
   if (self.hasClientVersion) {
     [dictionary setObject: self.clientVersion forKey: @"clientVersion"];
+  }
+  if (self.hasAttachData) {
+    [dictionary setObject: self.attachData forKey: @"attachData"];
   }
   [self.unknownFields storeInDictionary:dictionary];
 }
@@ -206,6 +268,8 @@ static IMRegistReq* defaultIMRegistReqInstance = nil;
       (!self.hasClientType || self.clientType == otherMessage.clientType) &&
       self.hasClientVersion == otherMessage.hasClientVersion &&
       (!self.hasClientVersion || [self.clientVersion isEqual:otherMessage.clientVersion]) &&
+      self.hasAttachData == otherMessage.hasAttachData &&
+      (!self.hasAttachData || [self.attachData isEqual:otherMessage.attachData]) &&
       (self.unknownFields == otherMessage.unknownFields || (self.unknownFields != nil && [self.unknownFields isEqual:otherMessage.unknownFields]));
 }
 - (NSUInteger) hash {
@@ -221,6 +285,9 @@ static IMRegistReq* defaultIMRegistReqInstance = nil;
   }
   if (self.hasClientVersion) {
     hashCode = hashCode * 31 + [self.clientVersion hash];
+  }
+  if (self.hasAttachData) {
+    hashCode = hashCode * 31 + [self.attachData hash];
   }
   hashCode = hashCode * 31 + [self.unknownFields hash];
   return hashCode;
@@ -277,6 +344,9 @@ static IMRegistReq* defaultIMRegistReqInstance = nil;
   if (other.hasClientVersion) {
     [self setClientVersion:other.clientVersion];
   }
+  if (other.hasAttachData) {
+    [self setAttachData:other.attachData];
+  }
   [self mergeUnknownFields:other.unknownFields];
   return self;
 }
@@ -317,6 +387,10 @@ static IMRegistReq* defaultIMRegistReqInstance = nil;
       }
       case 34: {
         [self setClientVersion:[input readString]];
+        break;
+      }
+      case 162: {
+        [self setAttachData:[input readData]];
         break;
       }
     }
@@ -386,13 +460,30 @@ static IMRegistReq* defaultIMRegistReqInstance = nil;
   resultImregistReq.clientVersion = @"";
   return self;
 }
+- (BOOL) hasAttachData {
+  return resultImregistReq.hasAttachData;
+}
+- (NSData*) attachData {
+  return resultImregistReq.attachData;
+}
+- (IMRegistReqBuilder*) setAttachData:(NSData*) value {
+  resultImregistReq.hasAttachData = YES;
+  resultImregistReq.attachData = value;
+  return self;
+}
+- (IMRegistReqBuilder*) clearAttachData {
+  resultImregistReq.hasAttachData = NO;
+  resultImregistReq.attachData = [NSData data];
+  return self;
+}
 @end
 
 @interface IMRegistRes ()
 @property UInt32 serverTime;
-@property ResultType resultCode;
+@property RegistResult resultCode;
 @property (strong) NSString* resultString;
 @property (strong) UserInfo* userInfo;
+@property (strong) NSData* attachData;
 @end
 
 @implementation IMRegistRes
@@ -425,12 +516,20 @@ static IMRegistReq* defaultIMRegistReqInstance = nil;
   hasUserInfo_ = !!_value_;
 }
 @synthesize userInfo;
+- (BOOL) hasAttachData {
+  return !!hasAttachData_;
+}
+- (void) setHasAttachData:(BOOL) _value_ {
+  hasAttachData_ = !!_value_;
+}
+@synthesize attachData;
 - (instancetype) init {
   if ((self = [super init])) {
     self.serverTime = 0;
-    self.resultCode = ResultTypeRefuseReasonNone;
+    self.resultCode = RegistResultRegistResultNoError;
     self.resultString = @"";
     self.userInfo = [UserInfo defaultInstance];
+    self.attachData = [NSData data];
   }
   return self;
 }
@@ -473,6 +572,9 @@ static IMRegistRes* defaultIMRegistResInstance = nil;
   if (self.hasUserInfo) {
     [output writeMessage:4 value:self.userInfo];
   }
+  if (self.hasAttachData) {
+    [output writeData:20 value:self.attachData];
+  }
   [self.unknownFields writeToCodedOutputStream:output];
 }
 - (SInt32) serializedSize {
@@ -493,6 +595,9 @@ static IMRegistRes* defaultIMRegistResInstance = nil;
   }
   if (self.hasUserInfo) {
     size_ += computeMessageSize(4, self.userInfo);
+  }
+  if (self.hasAttachData) {
+    size_ += computeDataSize(20, self.attachData);
   }
   size_ += self.unknownFields.serializedSize;
   memoizedSerializedSize = size_;
@@ -533,7 +638,7 @@ static IMRegistRes* defaultIMRegistResInstance = nil;
     [output appendFormat:@"%@%@: %@\n", indent, @"serverTime", [NSNumber numberWithInteger:self.serverTime]];
   }
   if (self.hasResultCode) {
-    [output appendFormat:@"%@%@: %@\n", indent, @"resultCode", NSStringFromResultType(self.resultCode)];
+    [output appendFormat:@"%@%@: %@\n", indent, @"resultCode", NSStringFromRegistResult(self.resultCode)];
   }
   if (self.hasResultString) {
     [output appendFormat:@"%@%@: %@\n", indent, @"resultString", self.resultString];
@@ -543,6 +648,9 @@ static IMRegistRes* defaultIMRegistResInstance = nil;
     [self.userInfo writeDescriptionTo:output
                          withIndent:[NSString stringWithFormat:@"%@  ", indent]];
     [output appendFormat:@"%@}\n", indent];
+  }
+  if (self.hasAttachData) {
+    [output appendFormat:@"%@%@: %@\n", indent, @"attachData", self.attachData];
   }
   [self.unknownFields writeDescriptionTo:output withIndent:indent];
 }
@@ -560,6 +668,9 @@ static IMRegistRes* defaultIMRegistResInstance = nil;
    NSMutableDictionary *messageDictionary = [NSMutableDictionary dictionary]; 
    [self.userInfo storeInDictionary:messageDictionary];
    [dictionary setObject:[NSDictionary dictionaryWithDictionary:messageDictionary] forKey:@"userInfo"];
+  }
+  if (self.hasAttachData) {
+    [dictionary setObject: self.attachData forKey: @"attachData"];
   }
   [self.unknownFields storeInDictionary:dictionary];
 }
@@ -580,6 +691,8 @@ static IMRegistRes* defaultIMRegistResInstance = nil;
       (!self.hasResultString || [self.resultString isEqual:otherMessage.resultString]) &&
       self.hasUserInfo == otherMessage.hasUserInfo &&
       (!self.hasUserInfo || [self.userInfo isEqual:otherMessage.userInfo]) &&
+      self.hasAttachData == otherMessage.hasAttachData &&
+      (!self.hasAttachData || [self.attachData isEqual:otherMessage.attachData]) &&
       (self.unknownFields == otherMessage.unknownFields || (self.unknownFields != nil && [self.unknownFields isEqual:otherMessage.unknownFields]));
 }
 - (NSUInteger) hash {
@@ -595,6 +708,9 @@ static IMRegistRes* defaultIMRegistResInstance = nil;
   }
   if (self.hasUserInfo) {
     hashCode = hashCode * 31 + [self.userInfo hash];
+  }
+  if (self.hasAttachData) {
+    hashCode = hashCode * 31 + [self.attachData hash];
   }
   hashCode = hashCode * 31 + [self.unknownFields hash];
   return hashCode;
@@ -651,6 +767,9 @@ static IMRegistRes* defaultIMRegistResInstance = nil;
   if (other.hasUserInfo) {
     [self mergeUserInfo:other.userInfo];
   }
+  if (other.hasAttachData) {
+    [self setAttachData:other.attachData];
+  }
   [self mergeUnknownFields:other.unknownFields];
   return self;
 }
@@ -677,8 +796,8 @@ static IMRegistRes* defaultIMRegistResInstance = nil;
         break;
       }
       case 16: {
-        ResultType value = (ResultType)[input readEnum];
-        if (ResultTypeIsValidValue(value)) {
+        RegistResult value = (RegistResult)[input readEnum];
+        if (RegistResultIsValidValue(value)) {
           [self setResultCode:value];
         } else {
           [unknownFields mergeVarintField:2 value:value];
@@ -696,6 +815,10 @@ static IMRegistRes* defaultIMRegistResInstance = nil;
         }
         [input readMessage:subBuilder extensionRegistry:extensionRegistry];
         [self setUserInfo:[subBuilder buildPartial]];
+        break;
+      }
+      case 162: {
+        [self setAttachData:[input readData]];
         break;
       }
     }
@@ -720,17 +843,17 @@ static IMRegistRes* defaultIMRegistResInstance = nil;
 - (BOOL) hasResultCode {
   return resultImregistRes.hasResultCode;
 }
-- (ResultType) resultCode {
+- (RegistResult) resultCode {
   return resultImregistRes.resultCode;
 }
-- (IMRegistResBuilder*) setResultCode:(ResultType) value {
+- (IMRegistResBuilder*) setResultCode:(RegistResult) value {
   resultImregistRes.hasResultCode = YES;
   resultImregistRes.resultCode = value;
   return self;
 }
 - (IMRegistResBuilder*) clearResultCode {
   resultImregistRes.hasResultCode = NO;
-  resultImregistRes.resultCode = ResultTypeRefuseReasonNone;
+  resultImregistRes.resultCode = RegistResultRegistResultNoError;
   return self;
 }
 - (BOOL) hasResultString {
@@ -777,6 +900,22 @@ static IMRegistRes* defaultIMRegistResInstance = nil;
 - (IMRegistResBuilder*) clearUserInfo {
   resultImregistRes.hasUserInfo = NO;
   resultImregistRes.userInfo = [UserInfo defaultInstance];
+  return self;
+}
+- (BOOL) hasAttachData {
+  return resultImregistRes.hasAttachData;
+}
+- (NSData*) attachData {
+  return resultImregistRes.attachData;
+}
+- (IMRegistResBuilder*) setAttachData:(NSData*) value {
+  resultImregistRes.hasAttachData = YES;
+  resultImregistRes.attachData = value;
+  return self;
+}
+- (IMRegistResBuilder*) clearAttachData {
+  resultImregistRes.hasAttachData = NO;
+  resultImregistRes.attachData = [NSData data];
   return self;
 }
 @end
