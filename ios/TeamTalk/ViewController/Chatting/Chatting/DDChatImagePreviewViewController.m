@@ -29,7 +29,7 @@
     }
     return self;
 }
--(void)viewWillAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
@@ -65,7 +65,7 @@
     
     // Do any additional setup after loading the view.
 }
--(void)goBack
+- (void)goBack
 {
     [self dismissViewControllerAnimated:YES completion:NULL];
 //    [self.navigationController popViewControllerAnimated:YES];
@@ -73,12 +73,12 @@
 //    self.navigationController.navigationBarHidden =!self.navigationController.navigationBarHidden;
 }
 
--(void)viewDidDisappear:(BOOL)animated{
+- (void)viewDidDisappear:(BOOL)animated{
 
     [super viewDidDisappear:animated];
 }
 
--(void)longPressToDo:(UILongPressGestureRecognizer *)recognizer
+- (void)longPressToDo:(UILongPressGestureRecognizer *)recognizer
 {
     if (recognizer.state == UIGestureRecognizerStateBegan){
         NSString* nick = [RuntimeStatus instance].user.nick;
@@ -152,7 +152,7 @@
     }
 }
 
--(void)decodeQRImage
+- (void)decodeQRImage
 {
     MWPhoto *curImage = [self.photos objectAtIndex:self.browser.currentIndex];
     ZXImage *img = [[ZXImage alloc]initWithURL:curImage.photoURL];
@@ -170,7 +170,7 @@
                                 error:&error];
     self.QRCodeResult = result.text;
 }
--(void)saveImage
+- (void)saveImage
 {
     MWPhoto *curImage = [self.photos objectAtIndex:self.browser.currentIndex];
     UIImageView *imageview = [UIImageView new];

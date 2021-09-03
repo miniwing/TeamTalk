@@ -113,19 +113,19 @@
     }
     return dic;
 }
--(void)viewWillDisappear:(BOOL)animated
+- (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     [self.tabBarController.tabBar setHidden:YES];
     [self.editArray removeAllObjects];
 }
--(void)viewWillAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
 
 
 }
--(void)saveSelectItems
+- (void)saveSelectItems
 {
     if (self.isCreat) {
         [self createGroup];
@@ -284,7 +284,7 @@
     }
     
 }
--(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     EditContactsCell *oneCell =(EditContactsCell *) [tableView cellForRowAtIndexPath: indexPath];
     NSString *keyStr = [[self allKeys] objectAtIndex:indexPath.section];
@@ -302,7 +302,7 @@
         [oneCell setCellToSelected:NO];
     }
 }
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
         MTTUserEntity *user;
         NSString *keyStr = [[self allKeys] objectAtIndex:indexPath.section];
@@ -329,7 +329,7 @@
     
 }
 
--(void)addUsersToGroup:(NSMutableArray *)users
+- (void)addUsersToGroup:(NSMutableArray *)users
 {
     DDAddMemberToGroupAPI *addMember = [[DDAddMemberToGroupAPI alloc] init];
     __block NSMutableArray *userIDs = [NSMutableArray new];
@@ -409,7 +409,7 @@
         
     }
 }
--(void)createGroup
+- (void)createGroup
 {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"创建讨论组" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
     alert.alertViewStyle=UIAlertViewStylePlainTextInput;
@@ -417,7 +417,7 @@
    
 }
 
--(void)showAlert:(NSString *)string
+- (void)showAlert:(NSString *)string
 {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:string delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
     [alert show];

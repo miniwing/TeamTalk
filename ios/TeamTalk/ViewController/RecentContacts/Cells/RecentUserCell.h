@@ -25,5 +25,5 @@
 - (void)setLastMessage:(NSString*)message;
 - (void)setAvatar:(NSString*)avatar;
 - (void)setUnreadMessageCount:(NSUInteger)messageCount;
--(void)setShowSession:(MTTSessionEntity *)session;
+- (void)setShowSession:(MTTSessionEntity *)session;
 @end

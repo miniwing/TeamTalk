@@ -21,7 +21,7 @@ typedef void(^DDLoadRecentUsersCompletion)();
 - (void )getUserForUserID:(NSString*)userID Block:(void(^)(MTTUserEntity *user))block;
 - (void)addRecentUser:(MTTUserEntity*)user;
 - (void)loadAllRecentUsers:(DDLoadRecentUsersCompletion)completion;
--(void)clearRecentUser;
+- (void)clearRecentUser;
 -(NSArray *)getAllMaintanceUser;
 -(NSArray *)getAllUsersNick;
 -(MTTUserEntity *)getUserByNick:(NSString*)nickName;

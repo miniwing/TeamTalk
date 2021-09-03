@@ -480,9 +480,9 @@ static IMRegistReq* defaultIMRegistReqInstance = nil;
 
 @interface IMRegistRes ()
 @property UInt32 serverTime;
+@property (strong) NSString* userName;
 @property RegistResult resultCode;
 @property (strong) NSString* resultString;
-@property (strong) UserInfo* userInfo;
 @property (strong) NSData* attachData;
 @end
 
@@ -495,6 +495,13 @@ static IMRegistReq* defaultIMRegistReqInstance = nil;
   hasServerTime_ = !!_value_;
 }
 @synthesize serverTime;
+- (BOOL) hasUserName {
+  return !!hasUserName_;
+}
+- (void) setHasUserName:(BOOL) _value_ {
+  hasUserName_ = !!_value_;
+}
+@synthesize userName;
 - (BOOL) hasResultCode {
   return !!hasResultCode_;
 }
@@ -509,13 +516,6 @@ static IMRegistReq* defaultIMRegistReqInstance = nil;
   hasResultString_ = !!_value_;
 }
 @synthesize resultString;
-- (BOOL) hasUserInfo {
-  return !!hasUserInfo_;
-}
-- (void) setHasUserInfo:(BOOL) _value_ {
-  hasUserInfo_ = !!_value_;
-}
-@synthesize userInfo;
 - (BOOL) hasAttachData {
   return !!hasAttachData_;
 }
@@ -526,9 +526,9 @@ static IMRegistReq* defaultIMRegistReqInstance = nil;
 - (instancetype) init {
   if ((self = [super init])) {
     self.serverTime = 0;
+    self.userName = @"";
     self.resultCode = RegistResultRegistResultNoError;
     self.resultString = @"";
-    self.userInfo = [UserInfo defaultInstance];
     self.attachData = [NSData data];
   }
   return self;
@@ -549,13 +549,11 @@ static IMRegistRes* defaultIMRegistResInstance = nil;
   if (!self.hasServerTime) {
     return NO;
   }
-  if (!self.hasResultCode) {
+  if (!self.hasUserName) {
     return NO;
   }
-  if (self.hasUserInfo) {
-    if (!self.userInfo.isInitialized) {
-      return NO;
-    }
+  if (!self.hasResultCode) {
+    return NO;
   }
   return YES;
 }
@@ -563,14 +561,14 @@ static IMRegistRes* defaultIMRegistResInstance = nil;
   if (self.hasServerTime) {
     [output writeUInt32:1 value:self.serverTime];
   }
+  if (self.hasUserName) {
+    [output writeString:2 value:self.userName];
+  }
   if (self.hasResultCode) {
-    [output writeEnum:2 value:self.resultCode];
+    [output writeEnum:3 value:self.resultCode];
   }
   if (self.hasResultString) {
-    [output writeString:3 value:self.resultString];
-  }
-  if (self.hasUserInfo) {
-    [output writeMessage:4 value:self.userInfo];
+    [output writeString:4 value:self.resultString];
   }
   if (self.hasAttachData) {
     [output writeData:20 value:self.attachData];
@@ -587,14 +585,14 @@ static IMRegistRes* defaultIMRegistResInstance = nil;
   if (self.hasServerTime) {
     size_ += computeUInt32Size(1, self.serverTime);
   }
+  if (self.hasUserName) {
+    size_ += computeStringSize(2, self.userName);
+  }
   if (self.hasResultCode) {
-    size_ += computeEnumSize(2, self.resultCode);
+    size_ += computeEnumSize(3, self.resultCode);
   }
   if (self.hasResultString) {
-    size_ += computeStringSize(3, self.resultString);
-  }
-  if (self.hasUserInfo) {
-    size_ += computeMessageSize(4, self.userInfo);
+    size_ += computeStringSize(4, self.resultString);
   }
   if (self.hasAttachData) {
     size_ += computeDataSize(20, self.attachData);
@@ -637,17 +635,14 @@ static IMRegistRes* defaultIMRegistResInstance = nil;
   if (self.hasServerTime) {
     [output appendFormat:@"%@%@: %@\n", indent, @"serverTime", [NSNumber numberWithInteger:self.serverTime]];
   }
+  if (self.hasUserName) {
+    [output appendFormat:@"%@%@: %@\n", indent, @"userName", self.userName];
+  }
   if (self.hasResultCode) {
     [output appendFormat:@"%@%@: %@\n", indent, @"resultCode", NSStringFromRegistResult(self.resultCode)];
   }
   if (self.hasResultString) {
     [output appendFormat:@"%@%@: %@\n", indent, @"resultString", self.resultString];
-  }
-  if (self.hasUserInfo) {
-    [output appendFormat:@"%@%@ {\n", indent, @"userInfo"];
-    [self.userInfo writeDescriptionTo:output
-                         withIndent:[NSString stringWithFormat:@"%@  ", indent]];
-    [output appendFormat:@"%@}\n", indent];
   }
   if (self.hasAttachData) {
     [output appendFormat:@"%@%@: %@\n", indent, @"attachData", self.attachData];
@@ -658,16 +653,14 @@ static IMRegistRes* defaultIMRegistResInstance = nil;
   if (self.hasServerTime) {
     [dictionary setObject: [NSNumber numberWithInteger:self.serverTime] forKey: @"serverTime"];
   }
+  if (self.hasUserName) {
+    [dictionary setObject: self.userName forKey: @"userName"];
+  }
   if (self.hasResultCode) {
     [dictionary setObject: @(self.resultCode) forKey: @"resultCode"];
   }
   if (self.hasResultString) {
     [dictionary setObject: self.resultString forKey: @"resultString"];
-  }
-  if (self.hasUserInfo) {
-   NSMutableDictionary *messageDictionary = [NSMutableDictionary dictionary]; 
-   [self.userInfo storeInDictionary:messageDictionary];
-   [dictionary setObject:[NSDictionary dictionaryWithDictionary:messageDictionary] forKey:@"userInfo"];
   }
   if (self.hasAttachData) {
     [dictionary setObject: self.attachData forKey: @"attachData"];
@@ -685,12 +678,12 @@ static IMRegistRes* defaultIMRegistResInstance = nil;
   return
       self.hasServerTime == otherMessage.hasServerTime &&
       (!self.hasServerTime || self.serverTime == otherMessage.serverTime) &&
+      self.hasUserName == otherMessage.hasUserName &&
+      (!self.hasUserName || [self.userName isEqual:otherMessage.userName]) &&
       self.hasResultCode == otherMessage.hasResultCode &&
       (!self.hasResultCode || self.resultCode == otherMessage.resultCode) &&
       self.hasResultString == otherMessage.hasResultString &&
       (!self.hasResultString || [self.resultString isEqual:otherMessage.resultString]) &&
-      self.hasUserInfo == otherMessage.hasUserInfo &&
-      (!self.hasUserInfo || [self.userInfo isEqual:otherMessage.userInfo]) &&
       self.hasAttachData == otherMessage.hasAttachData &&
       (!self.hasAttachData || [self.attachData isEqual:otherMessage.attachData]) &&
       (self.unknownFields == otherMessage.unknownFields || (self.unknownFields != nil && [self.unknownFields isEqual:otherMessage.unknownFields]));
@@ -700,14 +693,14 @@ static IMRegistRes* defaultIMRegistResInstance = nil;
   if (self.hasServerTime) {
     hashCode = hashCode * 31 + [[NSNumber numberWithInteger:self.serverTime] hash];
   }
+  if (self.hasUserName) {
+    hashCode = hashCode * 31 + [self.userName hash];
+  }
   if (self.hasResultCode) {
     hashCode = hashCode * 31 + self.resultCode;
   }
   if (self.hasResultString) {
     hashCode = hashCode * 31 + [self.resultString hash];
-  }
-  if (self.hasUserInfo) {
-    hashCode = hashCode * 31 + [self.userInfo hash];
   }
   if (self.hasAttachData) {
     hashCode = hashCode * 31 + [self.attachData hash];
@@ -758,14 +751,14 @@ static IMRegistRes* defaultIMRegistResInstance = nil;
   if (other.hasServerTime) {
     [self setServerTime:other.serverTime];
   }
+  if (other.hasUserName) {
+    [self setUserName:other.userName];
+  }
   if (other.hasResultCode) {
     [self setResultCode:other.resultCode];
   }
   if (other.hasResultString) {
     [self setResultString:other.resultString];
-  }
-  if (other.hasUserInfo) {
-    [self mergeUserInfo:other.userInfo];
   }
   if (other.hasAttachData) {
     [self setAttachData:other.attachData];
@@ -795,26 +788,21 @@ static IMRegistRes* defaultIMRegistResInstance = nil;
         [self setServerTime:[input readUInt32]];
         break;
       }
-      case 16: {
+      case 18: {
+        [self setUserName:[input readString]];
+        break;
+      }
+      case 24: {
         RegistResult value = (RegistResult)[input readEnum];
         if (RegistResultIsValidValue(value)) {
           [self setResultCode:value];
         } else {
-          [unknownFields mergeVarintField:2 value:value];
+          [unknownFields mergeVarintField:3 value:value];
         }
-        break;
-      }
-      case 26: {
-        [self setResultString:[input readString]];
         break;
       }
       case 34: {
-        UserInfoBuilder* subBuilder = [UserInfo builder];
-        if (self.hasUserInfo) {
-          [subBuilder mergeFrom:self.userInfo];
-        }
-        [input readMessage:subBuilder extensionRegistry:extensionRegistry];
-        [self setUserInfo:[subBuilder buildPartial]];
+        [self setResultString:[input readString]];
         break;
       }
       case 162: {
@@ -838,6 +826,22 @@ static IMRegistRes* defaultIMRegistResInstance = nil;
 - (IMRegistResBuilder*) clearServerTime {
   resultImregistRes.hasServerTime = NO;
   resultImregistRes.serverTime = 0;
+  return self;
+}
+- (BOOL) hasUserName {
+  return resultImregistRes.hasUserName;
+}
+- (NSString*) userName {
+  return resultImregistRes.userName;
+}
+- (IMRegistResBuilder*) setUserName:(NSString*) value {
+  resultImregistRes.hasUserName = YES;
+  resultImregistRes.userName = value;
+  return self;
+}
+- (IMRegistResBuilder*) clearUserName {
+  resultImregistRes.hasUserName = NO;
+  resultImregistRes.userName = @"";
   return self;
 }
 - (BOOL) hasResultCode {
@@ -870,36 +874,6 @@ static IMRegistRes* defaultIMRegistResInstance = nil;
 - (IMRegistResBuilder*) clearResultString {
   resultImregistRes.hasResultString = NO;
   resultImregistRes.resultString = @"";
-  return self;
-}
-- (BOOL) hasUserInfo {
-  return resultImregistRes.hasUserInfo;
-}
-- (UserInfo*) userInfo {
-  return resultImregistRes.userInfo;
-}
-- (IMRegistResBuilder*) setUserInfo:(UserInfo*) value {
-  resultImregistRes.hasUserInfo = YES;
-  resultImregistRes.userInfo = value;
-  return self;
-}
-- (IMRegistResBuilder*) setUserInfoBuilder:(UserInfoBuilder*) builderForValue {
-  return [self setUserInfo:[builderForValue build]];
-}
-- (IMRegistResBuilder*) mergeUserInfo:(UserInfo*) value {
-  if (resultImregistRes.hasUserInfo &&
-      resultImregistRes.userInfo != [UserInfo defaultInstance]) {
-    resultImregistRes.userInfo =
-      [[[UserInfo builderWithPrototype:resultImregistRes.userInfo] mergeFrom:value] buildPartial];
-  } else {
-    resultImregistRes.userInfo = value;
-  }
-  resultImregistRes.hasUserInfo = YES;
-  return self;
-}
-- (IMRegistResBuilder*) clearUserInfo {
-  resultImregistRes.hasUserInfo = NO;
-  resultImregistRes.userInfo = [UserInfo defaultInstance];
   return self;
 }
 - (BOOL) hasAttachData {

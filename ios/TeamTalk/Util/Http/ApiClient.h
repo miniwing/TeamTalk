@@ -12,20 +12,20 @@
 
 + (id)sharedInstance;
 
--(void)registerUser:(NSString *)name
+- (void)registerUser:(NSString *)name
            password:(NSString *)password
             Success:(void (^)(id model) )success
             failure:(void (^)(NSString *message) )failure;
 
--(void)applyFriend:(NSString *)targetId
+- (void)applyFriend:(NSString *)targetId
                msg:(NSString *)msg
            Success:(void (^)(id model) )success
            failure:(void (^)(NSString *message) )failure;
--(void)confrimFriend:(NSString *)targetId
+- (void)confrimFriend:(NSString *)targetId
              Success:(void (^)(id model) )success
              failure:(void (^)(NSString *message) )failure;
 
--(void)updateUserPush:(NSString *)clientId
+- (void)updateUserPush:(NSString *)clientId
               Success:(void (^)(id model) )success
               failure:(void (^)(NSString *message) )failure;
 @end

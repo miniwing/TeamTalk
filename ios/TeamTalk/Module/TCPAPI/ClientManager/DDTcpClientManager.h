@@ -25,9 +25,9 @@
 
 + (instancetype)instance;
 
--(void)connect:(NSString *)ipAdr port:(NSInteger)port status:(NSInteger)status;
--(void)disconnect;
--(void)writeToSocket:(NSMutableData *)data;
+- (void)connect:(NSString *)ipAdr port:(NSInteger)port status:(NSInteger)status;
+- (void)disconnect;
+- (void)writeToSocket:(NSMutableData *)data;
 
 
 @end

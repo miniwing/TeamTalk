@@ -75,14 +75,14 @@
 }
 
 
--(void)sendMsgRead:(MTTMessageEntity *)message
+- (void)sendMsgRead:(MTTMessageEntity *)message
 {
     MsgReadACKAPI* readACK = [[MsgReadACKAPI alloc] init];
     [readACK requestWithObject:@[message.sessionId,@(message.msgID),@(message.sessionType)] Completion:nil];
 }
 
 
--(void)removeAllUnreadMessages{
+- (void)removeAllUnreadMessages{
 
     [_unreadMessages removeAllObjects];
 }
@@ -130,7 +130,7 @@
     
 }
 
--(void)getMessageFromServer:(NSInteger)fromMsgID currentSession:(MTTSessionEntity *)session count:(NSInteger)count Block:(void(^)(NSMutableArray *array, NSError *error))block
+- (void)getMessageFromServer:(NSInteger)fromMsgID currentSession:(MTTSessionEntity *)session count:(NSInteger)count Block:(void(^)(NSMutableArray *array, NSError *error))block
 {
     GetMessageQueueAPI *getMessageQueue = [GetMessageQueueAPI new];
     [getMessageQueue requestWithObject:@[@(fromMsgID),@(count),@(session.sessionType),session.sessionID] Completion:^(NSMutableArray *response, NSError *error) {
@@ -193,7 +193,7 @@
     return messageContentArray;
 }
 
--(void)setApplicationUnreadMsgCount
+- (void)setApplicationUnreadMsgCount
 {
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:[self getUnreadMessgeCount]];
 }

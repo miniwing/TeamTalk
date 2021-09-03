@@ -89,7 +89,7 @@
     
 }
 
--(void)viewWillAppear:(BOOL)animated{
+- (void)viewWillAppear:(BOOL)animated{
 
     [super viewWillAppear:animated];
     
@@ -104,14 +104,14 @@
     }
 }
 
--(void)viewWillDisappear:(BOOL)animated{
+- (void)viewWillDisappear:(BOOL)animated{
 
     [super viewWillDisappear:animated];
     
     self.navigationController.interactivePopGestureRecognizer.enabled =YES;
 }
 
--(void)viewDidAppear:(BOOL)animated{
+- (void)viewDidAppear:(BOOL)animated{
 
     [super viewDidAppear:animated];
     
@@ -136,7 +136,7 @@
 }
 
 #pragma mark - autologin
--(void)autoLogin
+- (void)autoLogin
 {
     [[LoginModule instance] autologinWithUsername:getUserPhone password:getUserPassword success:^(MTTUserEntity *user) {
         
@@ -172,14 +172,14 @@
 
 #pragma mark - 退出登录和被踢登录 通知
 
--(void)logoutNotification:(NSNotification*)notification{
+- (void)logoutNotification:(NSNotification*)notification{
 
     [MTTUtil loginOut];
     setLogout;
     [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIFICATION_LOGINCHANGE object:@NO];
 }
 
--(void)kickOffUserNotification:(NSNotification*)notification
+- (void)kickOffUserNotification:(NSNotification*)notification
 {
     DDClientState* clientState = [DDClientState shareInstance];
     clientState.userState = DDUserKickout;
@@ -191,7 +191,7 @@
     [alert show];
 }
 
--(void)signChangeNotification:(NSNotification*)notification
+- (void)signChangeNotification:(NSNotification*)notification
 {
     NSString *sign = [[notification object] objectForKey:@"sign"];
     NSString* uid = [[notification object] objectForKey:@"uid"];
@@ -246,7 +246,7 @@
 }
 
 
--(void)dealloc{
+- (void)dealloc{
 
     self.navigationController.interactivePopGestureRecognizer.delegate =nil;
 }

@@ -188,7 +188,7 @@
     return nil;
 }
 
--(void)setSendButtonTitle
+- (void)setSendButtonTitle
 {
     __block int j =0;
     [self.selections enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -208,11 +208,11 @@
     self.bar= nil;
 }
 
--(void)viewWillAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
 }
--(void)backToRoot
+- (void)backToRoot
 {
 }
 - (void)didReceiveMemoryWarning

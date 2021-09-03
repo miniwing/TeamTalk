@@ -21,5 +21,5 @@ typedef void(^DDSpearerPlay)();
 
 - (void)showVoicePlayed;
 - (void)stopVoicePlayAnimation;
--(void)sendVoiceAgain:(MTTMessageEntity *)message;
+- (void)sendVoiceAgain:(MTTMessageEntity *)message;
 @end

@@ -14,8 +14,8 @@
 -(NSMutableDictionary *)sortByContactPy;
 -(NSMutableDictionary *)sortByDepartment;
 -(NSMutableDictionary *)sortByFriendPy;
-+(void)favContact:(MTTUserEntity *)user;
++ (void)favContact:(MTTUserEntity *)user;
 +(NSArray *)getFavContact;
 -(BOOL)isInFavContactList:(MTTUserEntity *)user;
-+(void)getDepartmentData:(void(^)(id response))block;
++ (void)getDepartmentData:(void(^)(id response))block;
 @end

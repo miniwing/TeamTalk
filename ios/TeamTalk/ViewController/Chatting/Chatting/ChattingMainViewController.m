@@ -146,7 +146,7 @@ typedef NS_ENUM(NSUInteger, PanelStatus)
     return YES;
 }
 
--(void)sendImageMessage:(MTTPhotoEnity *)photo Image:(UIImage *)image
+- (void)sendImageMessage:(MTTPhotoEnity *)photo Image:(UIImage *)image
 {
     NSDictionary* messageContentDic = @{DD_IMAGE_LOCAL_KEY:photo.localPath};
     NSString* messageContent = [messageContentDic jsonString];
@@ -191,7 +191,7 @@ typedef NS_ENUM(NSUInteger, PanelStatus)
     }];
 }
 
--(void)sendLocationMessage:(NSString *)latitude longitude:(NSString *)longitude andAddress:(NSString *)address
+- (void)sendLocationMessage:(NSString *)latitude longitude:(NSString *)longitude andAddress:(NSString *)address
 {
     NSDictionary* messageContentDic = @{DD_LOCATION_LAT_KEY:latitude, DD_LOCATION_LNG_KEY:longitude, DD_LOCATION_ADDRESS_KEY:address};
     NSString* messageContent = [messageContentDic jsonString];
@@ -290,7 +290,7 @@ typedef NS_ENUM(NSUInteger, PanelStatus)
     [self scrollToBottomAnimated:YES];
 }
 
--(void)sendMessage:(NSString *)msg messageEntity:(MTTMessageEntity *)message
+- (void)sendMessage:(NSString *)msg messageEntity:(MTTMessageEntity *)message
 {
     BOOL isGroup = [self.module.MTTSessionEntity isGroup];
     [[DDMessageSendManager instance] sendMessage:message isGroup:isGroup Session:self.module.MTTSessionEntity  completion:^(MTTMessageEntity* theMessage,NSError *error) {
@@ -447,7 +447,7 @@ typedef NS_ENUM(NSUInteger, PanelStatus)
     }
     return self;
 }
--(void)notificationCenter
+- (void)notificationCenter
 {
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(n_receiveMessage:)
@@ -522,7 +522,7 @@ typedef NS_ENUM(NSUInteger, PanelStatus)
     self.ifScrollBottom = YES;
 }
 
--(void)queryUserStat
+- (void)queryUserStat
 {
     MTTUsersStatAPI *request = [MTTUsersStatAPI new];
     NSMutableArray *array = [NSMutableArray new];
@@ -538,7 +538,7 @@ typedef NS_ENUM(NSUInteger, PanelStatus)
     }];
 }
 
--(void)viewWillAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     if(!self.isGotoAt){
@@ -551,7 +551,7 @@ typedef NS_ENUM(NSUInteger, PanelStatus)
     self.tableView.noMore =NO;
 }
 
--(void)viewDidAppear:(BOOL)animated
+- (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     
@@ -582,7 +582,7 @@ typedef NS_ENUM(NSUInteger, PanelStatus)
 }
 
 
--(void)initScrollView{
+- (void)initScrollView{
     
     __weak ChattingMainViewController *tmpSelf =self;
     
@@ -594,7 +594,7 @@ typedef NS_ENUM(NSUInteger, PanelStatus)
     
 }
 
--(void)loadHistoryRecords{
+- (void)loadHistoryRecords{
     
     __weak ChattingMainViewController *tmpSelf =self;
     self.hadLoadHistory=YES;
@@ -626,7 +626,7 @@ typedef NS_ENUM(NSUInteger, PanelStatus)
     
 }
 
--(void)setThisViewTitle:(NSString *)title
+- (void)setThisViewTitle:(NSString *)title
 {
     [self.titleBtn setTitle:title forState:UIControlStateNormal];
     [self queryUserStat];
@@ -699,7 +699,7 @@ typedef NS_ENUM(NSUInteger, PanelStatus)
 }
 
 #pragma mark - EmojiFace Funcation
--(void)insertEmojiFace:(NSString *)string
+- (void)insertEmojiFace:(NSString *)string
 {
     DDMessageContentType msgContentType = DDMEssageEmotion;
     MTTMessageEntity *message = [MTTMessageEntity makeMessage:string Module:self.module MsgType:msgContentType];
@@ -713,7 +713,7 @@ typedef NS_ENUM(NSUInteger, PanelStatus)
     [self sendMessage:string messageEntity:message];
     
 }
--(void)deleteEmojiFace
+- (void)deleteEmojiFace
 {
     EmotionsModule* emotionModule = [EmotionsModule shareInstance];
     NSString* toDeleteString = nil;
@@ -1095,7 +1095,7 @@ typedef NS_ENUM(NSUInteger, PanelStatus)
     return cell;
 }
 
--(void)downVoice:(NSString *)url cell:(DDChatVoiceCell *)cell displayType:(int)type ofMessage:(MTTMessageEntity *)message
+- (void)downVoice:(NSString *)url cell:(DDChatVoiceCell *)cell displayType:(int)type ofMessage:(MTTMessageEntity *)message
 {
     debugLog(@"%@", url);
     NSString *filePath = [Tool fileSavedPath:[NSString stringWithFormat:@"%@.spx", [Tool getMd5_16Bit_String:url]] atDocument:@"voice"];
@@ -1782,7 +1782,7 @@ typedef NS_ENUM(NSUInteger, PanelStatus)
     
 }
 
--(void)removeImage
+- (void)removeImage
 {
     _lastPhoto = nil;
     [_preShow removeFromSuperview];
@@ -1948,7 +1948,7 @@ typedef NS_ENUM(NSUInteger, PanelStatus)
 {
     [_recordingView setVolume:levelMeter];
 }
--(void)reloginSuccess
+- (void)reloginSuccess
 {
 //    [self.module getNewMsg:^(NSUInteger addcount, NSError *error) {
 //        [self.tableView reloadData];

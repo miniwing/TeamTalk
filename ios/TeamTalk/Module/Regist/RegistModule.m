@@ -87,11 +87,12 @@
    
    [_httpServer getMsgIp:^(NSDictionary *aDictionary) {
       
-      LogDebug((@"-[RegistModule registWithUsername:password:success:failure:] : getMsgIp : %@", aDictionary));
+      LogDebug((@"-[RegistModule registWithUsername:password:success:failure:] 111 : getMsgIp : %@", aDictionary));
       
       NSInteger code  = [[aDictionary objectForKey:@"code"] integerValue];
       
       if (code == 0) {
+         
          _priorIP = [aDictionary objectForKey:@"priorIP"];
          
 #if __TEAMTALK_HARRY__
@@ -114,7 +115,7 @@
                               password:aPassword
                                success:^(id aObject) {
                
-               LogDebug((@"[RegistModule registWithUsername:password:success:failure:] : success : Object : %@", aObject));
+               LogDebug((@"[RegistModule registWithUsername:password:success:failure:] 222 : Object : %@", aObject));
                
                if (success) {
                   
@@ -124,24 +125,27 @@
             }
                                failure:^(NSError *aError) {
                
-               LogDebug((@"[RegistModule registWithUsername:password:success:failure:] : failure : Error : %@", aError));
+               LogDebug((@"[RegistModule registWithUsername:password:success:failure:] 333 : Error : %@", aError));
                
                if (failure) {
                   
                   failure(aError.domain);
                   
                } /* End if () */
-
             }];
          }
                                failure:^{
+            
+            LogDebug((@"[RegistModule registWithUsername:password:success:failure:] 444 : 连接消息服务器失败"));
             debugLog(@"连接消息服务器失败");
             failure(@"连接消息服务器失败");
-            
          }];
       }
    }
                  failure:^(NSString *error) {
+      
+      LogDebug((@"[RegistModule registWithUsername:password:success:failure:] 555 : 连接消息服务器失败"));
+
       debugLog(@"%@", error.description);
       failure(@"连接消息服务器失败");
    }];

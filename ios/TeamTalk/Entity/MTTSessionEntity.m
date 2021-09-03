@@ -70,7 +70,7 @@
     }
     return name;
 }
--(void)setSessionName:(NSString *)theName
+- (void)setSessionName:(NSString *)theName
 {
     name = theName;
 }

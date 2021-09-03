@@ -91,7 +91,7 @@
         }
     }
 }
--(void)clearSpellById:(NSString *)objctid
+- (void)clearSpellById:(NSString *)objctid
 {
     [_spellLibrary removeObjectForKey:objctid];
 }

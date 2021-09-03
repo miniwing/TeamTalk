@@ -17,9 +17,9 @@ typedef void(^ChangeSwitch)(BOOL on);
 
 @property(nonatomic,copy)ChangeSwitch changeSwitch;
 
--(void)showSwitch;
--(void)opSwitch:(BOOL)status;
--(void)showDesc:(NSString *)desc;
--(void)showDetail:(NSString *)detail;
+- (void)showSwitch;
+- (void)opSwitch:(BOOL)status;
+- (void)showDesc:(NSString *)desc;
+- (void)showDetail:(NSString *)detail;
 
 @end

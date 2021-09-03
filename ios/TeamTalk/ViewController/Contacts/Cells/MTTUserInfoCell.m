@@ -58,7 +58,7 @@
     return self;
 }
 
--(void)setCellContent:(NSString *)avatar Name:(NSString *)name Cname:(NSString *)cname
+- (void)setCellContent:(NSString *)avatar Name:(NSString *)name Cname:(NSString *)cname
 {
     UIImage* placeholder = [UIImage imageNamed:@"user_placeholder"];
     [_avatar sd_setImageWithURL:[NSURL URLWithString:avatar] placeholderImage:placeholder];

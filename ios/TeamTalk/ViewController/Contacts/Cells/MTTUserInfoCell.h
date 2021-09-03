@@ -12,5 +12,5 @@
 @property(strong)UIImageView *avatar;
 @property(strong)UILabel *nameLabel;
 @property(strong)UILabel *cnameLabel;
--(void)setCellContent:(NSString *)avater Name:(NSString *)name Cname:(NSString *)cname;
+- (void)setCellContent:(NSString *)avater Name:(NSString *)name Cname:(NSString *)cname;
 @end

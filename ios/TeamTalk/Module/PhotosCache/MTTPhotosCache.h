@@ -19,7 +19,7 @@ typedef void(^cacheblock)(BOOL isFinished);
 
 
 @interface MTTPhotosCache : NSObject
-+(void)calculatePhotoSizeWithCompletionBlock:(void (^)(NSUInteger fileCount, NSUInteger totalSize))completionBlock;
++ (void)calculatePhotoSizeWithCompletionBlock:(void (^)(NSUInteger fileCount, NSUInteger totalSize))completionBlock;
 + (MTTPhotosCache *)sharedPhotoCache;
 - (void)storePhoto:(NSData *)photos forKey:(NSString *)key toDisk:(BOOL)toDisk ;
 - (NSData *)photoFromDiskCacheForKey:(NSString *)key;
@@ -30,6 +30,6 @@ typedef void(^cacheblock)(BOOL isFinished);
 - (void)removePhotoFromNSCacheForKey:(NSString *)key;
 - (NSOperation *)queryDiskCacheForKey:(NSString *)key done:(void (^)(NSData *voice))doneBlock;
 -(NSString *)getKeyName;
--(void)clearAllCache:(void(^)(bool isfinish))block;;
+- (void)clearAllCache:(void(^)(bool isfinish))block;;
 -(NSMutableArray *)getAllImageCache;
 @end

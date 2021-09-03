@@ -61,11 +61,11 @@
     });
     return group;
 }
--(void)getGroupFromDB
+- (void)getGroupFromDB
 {
     
 }
--(void)addGroup:(MTTGroupEntity*)newGroup
+- (void)addGroup:(MTTGroupEntity*)newGroup
 {
     if (!newGroup)
     {

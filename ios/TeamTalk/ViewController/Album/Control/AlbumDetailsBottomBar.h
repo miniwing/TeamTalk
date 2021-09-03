@@ -12,5 +12,5 @@ typedef void(^ButtonSelectBlock)(int buttonIndex) ;
 @property(nonatomic,strong)UIButton *send;
 @property(nonatomic,copy)ButtonSelectBlock Block;
 
--(void)setSendButtonTitle:(int)num;
+- (void)setSendButtonTitle:(int)num;
 @end

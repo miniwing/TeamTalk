@@ -157,7 +157,7 @@
     }
 }
 
--(void)clearRecentUser
+- (void)clearRecentUser
 {
     DDUserModule* userModule = [DDUserModule shareInstance];
     [[userModule recentUsers] removeAllObjects];

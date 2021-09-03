@@ -48,10 +48,10 @@
 
 +(NSString *) platformString;
 
-+(void)showCompletedTextOnStatusBar:(NSString *)text;
-+(void)showLoadingTextOnStatuBar:(NSString *)text;
-+(void)showErrorTextOnStatusBar:(NSString *)text;
-+(void)showNothingOnStatuBar;
++ (void)showCompletedTextOnStatusBar:(NSString *)text;
++ (void)showLoadingTextOnStatuBar:(NSString *)text;
++ (void)showErrorTextOnStatusBar:(NSString *)text;
++ (void)showNothingOnStatuBar;
 
 +(NSString *)getAlpha:(NSString *)str;
 + (NSString *)getChinesePinYin:(NSString *)str;
@@ -69,7 +69,7 @@
 
 +(NSData *)jsonFromObject:(id)object;
 
-+(void)saveCache:(NSData *)data pathName:(NSString *)pathName;
++ (void)saveCache:(NSData *)data pathName:(NSString *)pathName;
 
 +(int)getFontScaleNum;
 

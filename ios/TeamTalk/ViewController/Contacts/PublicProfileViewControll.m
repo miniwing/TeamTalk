@@ -46,7 +46,7 @@
     [self initData];
 }
 
--(void)render
+- (void)render
 {
     MTT_WEAKSELF(ws);
     self.title=@"详细资料";
@@ -84,7 +84,7 @@
     }];
 }
 
--(void)initData
+- (void)initData
 {
     UIImage* placeholder = [UIImage imageNamed:@"user_placeholder"];
     [_avatar sd_setImageWithURL:[NSURL URLWithString:[self.user get300AvatarUrl]] placeholderImage:placeholder];
@@ -258,7 +258,7 @@
     return cell;
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     switch (indexPath.row) {
@@ -289,7 +289,7 @@
     }
 }
 
--(void)callPhoneNum:(NSString *)phoneNum
+- (void)callPhoneNum:(NSString *)phoneNum
 {
     if (!phoneNum) {
         return;
@@ -299,7 +299,7 @@
     [[UIApplication sharedApplication] openURL:url];
 }
 
--(void)sendEmail:(NSString *)address
+- (void)sendEmail:(NSString *)address
 {
     if (!address.length) {
         return;
@@ -309,7 +309,7 @@
     [[UIApplication sharedApplication] openURL:url];
 }
 
--(void)startChat
+- (void)startChat
 {
     MTTSessionEntity* session = [[MTTSessionEntity alloc] initWithSessionID:self.user.objID type:SessionTypeSessionTypeSingle];
     [[ChattingMainViewController shareInstance] showChattingContentForSession:session];
@@ -323,7 +323,7 @@
     }
 }
 
--(void)startAddFriend
+- (void)startAddFriend
 {
     [SVProgressHUD show];
     [[ApiClient sharedInstance] applyFriend:[NSString stringWithFormat:@"%ld", [self.user getOriginalID]]
@@ -338,7 +338,7 @@
                                     }];
 }
 
--(void)callUser
+- (void)callUser
 {
     NSString *alertMsg;
     if([self.user.telphone length]>0){
@@ -381,7 +381,7 @@
     [self.tableView reloadData];
 }
 
--(void)didReceiveMemoryWarning
+- (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

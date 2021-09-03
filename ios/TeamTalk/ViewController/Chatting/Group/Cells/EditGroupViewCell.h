@@ -14,5 +14,5 @@
 @property(strong)UIImageView *personIcon;
 @property(strong)UIButton *button;
 
--(void)showDeleteActionView;
+- (void)showDeleteActionView;
 @end

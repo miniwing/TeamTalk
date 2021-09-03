@@ -47,7 +47,7 @@
     }
     return self;
 }
--(void)setSendButtonTitle:(int)num
+- (void)setSendButtonTitle:(int)num
 {
     [self.send setTitle:[NSString stringWithFormat:@"%@(%d)",@"发送",num] forState:UIControlStateNormal];
     [self.send setTitle:[NSString stringWithFormat:@"%@(%d)",@"发送",num] forState:UIControlStateHighlighted];

@@ -126,13 +126,13 @@
     return user;
 
 }
--(void)sendEmail
+- (void)sendEmail
 {
     NSString *stringURL =[NSString stringWithFormat:@"mailto:%@",self.email];
     NSURL *url = [NSURL URLWithString:stringURL];
     [[UIApplication sharedApplication] openURL:url];
 }
--(void)callPhoneNum
+- (void)callPhoneNum
 {
     NSString *string = [NSString stringWithFormat:@"tel:%@",self.telphone];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:string]];

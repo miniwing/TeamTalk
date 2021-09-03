@@ -30,7 +30,7 @@
     }];
 }
 
--(void)copyContent:(MTTGroupEntity*)entity
+- (void)copyContent:(MTTGroupEntity*)entity
 {
     self.groupType = entity.groupType;
     self.lastUpdateTime = entity.lastUpdateTime;
@@ -105,7 +105,7 @@
 {
     return YES;
 }
--(void)updateGroupInfo
+- (void)updateGroupInfo
 {
     
 }

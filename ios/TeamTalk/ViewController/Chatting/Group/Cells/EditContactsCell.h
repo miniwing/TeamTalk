@@ -9,5 +9,5 @@
 #import "DDContactsCell.h"
 
 @interface EditContactsCell : DDContactsCell
--(void)setCellToSelected:(BOOL)select;
+- (void)setCellToSelected:(BOOL)select;
 @end

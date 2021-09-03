@@ -44,7 +44,7 @@ NSString *const kDDReachabilityChangedNotification = @"kDDReachabilityChangedNot
 
 @property (nonatomic, strong) id reachabilityObject;
 
--(void)reachabilityChanged:(SCNetworkReachabilityFlags)flags;
+- (void)reachabilityChanged:(SCNetworkReachabilityFlags)flags;
 -(BOOL)isReachableWithFlags:(SCNetworkReachabilityFlags)flags;
 
 @end
@@ -177,7 +177,7 @@ static void TMReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkRea
     return self;    
 }
 
--(void)dealloc
+- (void)dealloc
 {
     [self stopNotifier];
 
@@ -277,7 +277,7 @@ static void TMReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkRea
     return YES;
 }
 
--(void)stopNotifier
+- (void)stopNotifier
 {
     // First stop, any callbacks!
     SCNetworkReachabilitySetCallback(self.reachabilityRef, NULL, NULL);
@@ -491,7 +491,7 @@ static void TMReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkRea
 
 #pragma mark - Callback function calls this method
 
--(void)reachabilityChanged:(SCNetworkReachabilityFlags)flags
+- (void)reachabilityChanged:(SCNetworkReachabilityFlags)flags
 {
     if([self isReachableWithFlags:flags])
     {

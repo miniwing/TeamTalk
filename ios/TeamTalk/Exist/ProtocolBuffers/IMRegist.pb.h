@@ -154,32 +154,32 @@ NSString *NSStringFromRegistResult(RegistResult value);
 @end
 
 #define IMRegistRes_server_time @"serverTime"
+#define IMRegistRes_user_name @"userName"
 #define IMRegistRes_result_code @"resultCode"
 #define IMRegistRes_result_string @"resultString"
-#define IMRegistRes_user_info @"userInfo"
 #define IMRegistRes_attach_data @"attachData"
 @interface IMRegistRes : PBGeneratedMessage<GeneratedMessageProtocol> {
 @private
+  BOOL hasUserName_:1;
   BOOL hasResultString_:1;
-  BOOL hasUserInfo_:1;
   BOOL hasAttachData_:1;
   BOOL hasServerTime_:1;
   BOOL hasResultCode_:1;
+  NSString* userName;
   NSString* resultString;
-  UserInfo* userInfo;
   NSData* attachData;
   UInt32 serverTime;
   RegistResult resultCode;
 }
 - (BOOL) hasServerTime;
+- (BOOL) hasUserName;
 - (BOOL) hasResultCode;
 - (BOOL) hasResultString;
-- (BOOL) hasUserInfo;
 - (BOOL) hasAttachData;
 @property (readonly) UInt32 serverTime;
+@property (readonly, strong) NSString* userName;
 @property (readonly) RegistResult resultCode;
 @property (readonly, strong) NSString* resultString;
-@property (readonly, strong) UserInfo* userInfo;
 @property (readonly, strong) NSData* attachData;
 
 + (instancetype) defaultInstance;
@@ -222,6 +222,11 @@ NSString *NSStringFromRegistResult(RegistResult value);
 - (IMRegistResBuilder*) setServerTime:(UInt32) value;
 - (IMRegistResBuilder*) clearServerTime;
 
+- (BOOL) hasUserName;
+- (NSString*) userName;
+- (IMRegistResBuilder*) setUserName:(NSString*) value;
+- (IMRegistResBuilder*) clearUserName;
+
 - (BOOL) hasResultCode;
 - (RegistResult) resultCode;
 - (IMRegistResBuilder*) setResultCode:(RegistResult) value;
@@ -231,13 +236,6 @@ NSString *NSStringFromRegistResult(RegistResult value);
 - (NSString*) resultString;
 - (IMRegistResBuilder*) setResultString:(NSString*) value;
 - (IMRegistResBuilder*) clearResultString;
-
-- (BOOL) hasUserInfo;
-- (UserInfo*) userInfo;
-- (IMRegistResBuilder*) setUserInfo:(UserInfo*) value;
-- (IMRegistResBuilder*) setUserInfoBuilder:(UserInfoBuilder*) builderForValue;
-- (IMRegistResBuilder*) mergeUserInfo:(UserInfo*) value;
-- (IMRegistResBuilder*) clearUserInfo;
 
 - (BOOL) hasAttachData;
 - (NSData*) attachData;

@@ -47,7 +47,7 @@
     return self;
 }
 
--(void)hiddenSelf
+- (void)hiddenSelf
 {
     [UIView animateWithDuration:0.5 animations:^{
         self.item1.frame=DEFAULTRECT;
@@ -63,7 +63,7 @@
     }];
 
 }
--(void)showItem
+- (void)showItem
 {
     self.isShow=YES;
     [UIView animateWithDuration:0.3 animations:^{
@@ -104,7 +104,7 @@
     }];
     
 }
--(void)goToUserInfo
+- (void)goToUserInfo
 {
 
     PublicProfileViewControll *public = [PublicProfileViewControll new];

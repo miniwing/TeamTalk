@@ -20,6 +20,6 @@
 - (void)removeAllUnreadMessages;
 - (NSUInteger)getUnreadMessgeCount;
 
--(void)sendMsgRead:(MTTMessageEntity *)message;
--(void)getMessageFromServer:(NSInteger)fromMsgID currentSession:(MTTSessionEntity *)session count:(NSInteger)count Block:(void(^)(NSMutableArray *array, NSError *error))block;
+- (void)sendMsgRead:(MTTMessageEntity *)message;
+- (void)getMessageFromServer:(NSInteger)fromMsgID currentSession:(MTTSessionEntity *)session count:(NSInteger)count Block:(void(^)(NSMutableArray *array, NSError *error))block;
 @end

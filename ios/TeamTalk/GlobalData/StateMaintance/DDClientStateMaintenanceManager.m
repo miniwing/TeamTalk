@@ -158,7 +158,7 @@ static NSInteger const reloginTimeinterval = 5;
 }
 
 //开启发送心跳的Timer
--(void)p_startHeartBeat{
+- (void)p_startHeartBeat{
     
     DDLog(@"begin heart beat");
     if (!_sendHeartTimer && ![_sendHeartTimer isValid])

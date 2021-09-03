@@ -30,22 +30,32 @@
 #include "slog/slog_api.h"
 #include "util.h"
 
-#define __ON__                                     (1)
-#define __OFF__                                    (0)
+#include "TTIMConfig.h"
 
-#if (defined(DEBUG_CLIENT) && (DEBUG_CLIENT==1))
-#  define __AUTO__                                 (1)
-#  define __Debug__                                (1)
-#else
-#  define __AUTO__                                 (0)
-#  define __Debug__                                (0)
+#if __Debug__
+
+#define LOG_BUG_SIZE                                            (1024 * 10 * 5)
+
+static __inline void __PRINTF(char *_Format, ...) {
+   
+   va_list      args;
+   static char s_MSG[LOG_BUG_SIZE]  = {0};
+   
+   bzero(s_MSG, sizeof(s_MSG));
+   
+   va_start (args, _Format);
+   vsnprintf(s_MSG, sizeof(s_MSG), _Format, args);
+   va_end (args);
+   
+   printf("%s\n", s_MSG);
+   
+   return;
+}
 #endif
 
 #if __Debug__
-// #	define TTIMLog(x)                              	log x
-#	define TTIM_PRINTF(x)									printf x
+#	define TTIM_PRINTF(x)									    __PRINTF x
 #else
-// #	define TTIMLog(x)
 #	define TTIM_PRINTF(x)
 #endif
 

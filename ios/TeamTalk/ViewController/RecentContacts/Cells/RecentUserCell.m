@@ -244,7 +244,7 @@
 }
 
 
--(void)setShowSession:(MTTSessionEntity *)session
+- (void)setShowSession:(MTTSessionEntity *)session
 {
     [self setName:session.name];
     if ([session.lastMsg isKindOfClass:[NSString class]]) {
@@ -311,7 +311,7 @@
     }
 }
 
--(void)loadGroupIcon:(MTTSessionEntity *)session
+- (void)loadGroupIcon:(MTTSessionEntity *)session
 {
     [[DDGroupModule instance] getGroupInfogroupID:session.sessionID completion:^(MTTGroupEntity *group) {
         [self setName:group.name];

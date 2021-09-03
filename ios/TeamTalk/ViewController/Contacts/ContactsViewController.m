@@ -137,7 +137,7 @@
     // 初始化searchTableView
     [self addSearchTableView];
 }
--(void)addSearchTableView{
+- (void)addSearchTableView{
     self.searchTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 109, SCREEN_WIDTH, SCREEN_HEIGHT-109)];
     [self.view addSubview:self.searchTableView];
     [self.searchTableView setHidden:YES];
@@ -259,18 +259,18 @@
     }
 }
 
--(void)appBecomeActive{
+- (void)appBecomeActive{
     
     self.tableView.contentInset =UIEdgeInsetsMake(64, 0, 49, 0);
 }
 
--(void)scrollToTitle:(NSNotification *)notification
+- (void)scrollToTitle:(NSNotification *)notification
 {
     NSString *string = [notification object];
     self.searchKey=string;
 }
 
--(void)viewWillAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
@@ -290,26 +290,26 @@
 //    }
 }
 
--(void)viewDidAppear:(BOOL)animated
+- (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     
     self.tableView.contentInset =UIEdgeInsetsMake(64, 0, 49, 0);
 }
 
--(void)viewDidDisappear:(BOOL)animated{
+- (void)viewDidDisappear:(BOOL)animated{
     
     [super viewDidDisappear:animated];
     
 }
 
--(void)swichContactsToALl
+- (void)swichContactsToALl
 {
     //[self.items removeAllObjects];
     self.items = [self.model sortByContactPy];
    [self.tableView reloadData];
 }
--(void)swichToShowDepartment
+- (void)swichToShowDepartment
 {
     // [self.items removeAllObjects];
     //self.items = [self.model sortByDepartment];
@@ -336,7 +336,7 @@
     }
     return array ;
 }
--(void)segmentSelect:(UISegmentedControl *)sender
+- (void)segmentSelect:(UISegmentedControl *)sender
 {
     NSInteger index = sender.selectedSegmentIndex;
     switch (index) {
@@ -518,7 +518,7 @@
 {
 }
 
--(void)callNum:(MTTUserEntity *)user
+- (void)callNum:(MTTUserEntity *)user
 {
     if (user == nil) {
         return;
@@ -526,7 +526,7 @@
     NSString *string = [NSString stringWithFormat:@"tel:%@",user.telphone];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:string]];
 }
--(void)sendEmail:(MTTUserEntity *)user
+- (void)sendEmail:(MTTUserEntity *)user
 {
     if (user == nil) {
         return;
@@ -534,7 +534,7 @@
     NSString *string = [NSString stringWithFormat:@"mailto:%@",user.email];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:string]];
 }
--(void)chatTo:(MTTUserEntity *)user
+- (void)chatTo:(MTTUserEntity *)user
 {
     if (user == nil) {
         return;
@@ -544,13 +544,13 @@
     [[ChattingMainViewController shareInstance] showChattingContentForSession:session];
     [self pushViewController:[ChattingMainViewController shareInstance] animated:YES];
 }
--(void)scrollViewDidScroll:(UIScrollView *)scrollView
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     if (self.tools.isShow) {
         [self.tools hiddenSelf];
     }
 }
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     if (self.tools.isShow) {

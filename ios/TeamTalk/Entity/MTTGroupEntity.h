@@ -19,7 +19,7 @@ enum
 @property(nonatomic,readonly)NSMutableArray* fixGroupUserIds;//固定的群用户列表IDS，用户生成群头像
 @property(strong)NSString *lastMsg;
 @property(assign)BOOL isShield;
--(void)copyContent:(MTTGroupEntity*)entity;
+- (void)copyContent:(MTTGroupEntity*)entity;
 +(UInt32)localGroupIDTopb:(NSString *)groupID;
 +(NSString *)pbGroupIdToLocalID:(UInt32)groupID;
 - (void)addFixOrderGroupUserIDS:(NSString*)ID;

@@ -12,6 +12,7 @@
 #import "RegistAPI.h"
 
 #import "IMBaseDefine.pb.h"
+#import "IMRegist.pb.h"
 
 #if __TEAMTALK_REGIST__
 
@@ -75,45 +76,19 @@ typedef void(^CheckFailure)(NSError* error);
             
             if (response) {
                
-               NSInteger code =[response[@"code"] integerValue];
-               if (code !=0) {
-                  NSString *errString= @"";
-                  switch (code) {
-                     case 0:
-                        errString=@"登陆异常";
-                        break;
-                     case 1:
-                        errString=@"连接服务器失败";
-                        break;
-                     case 2:
-                        errString=@"连接服务器失败";
-                        break;
-                     case 3:
-                        errString=@"连接服务器失败";
-                        break;
-                     case 4:
-                        errString=@"连接服务器失败";
-                        break;
-                     case 5:
-                        errString=@"连接服务器失败";
-                        break;
-                     case 6:
-                        errString=@"用户名或密码错误";
-                        break;
-                     case 7:
-                        errString=@"版本过低";
-                        break;
-                        
-                     default:
-                        break;
-                  }
-                  debugLog(@"%@", errString);
-                  NSError *error1 = [NSError errorWithDomain:errString code:code userInfo:nil];
+               NSInteger code =[response[@"result"] integerValue];
+               
+               if (RegistResultRegistResultNoError != code) {
+
+                  debugLog(@"resultString : %@", response[@"resultString"]);
+                  NSError *error1 = [NSError errorWithDomain:response[@"resultString"] code:code userInfo:nil];
                   failure(error1);
                }
                else {
                   NSString *resultString =response[@"resultString"];
+                  
                   if (resultString == nil) {
+                     
                      success(response);
                   }
                }

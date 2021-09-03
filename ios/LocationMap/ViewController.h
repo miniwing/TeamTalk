@@ -10,7 +10,7 @@
 
 @protocol LocationViewControllerDelegate <NSObject>
 
--(void)sendLocationLatitude:(double)latitude longitude:(double)longitude andAddress:(NSString *)address;
+- (void)sendLocationLatitude:(double)latitude longitude:(double)longitude andAddress:(NSString *)address;
 
 @end
 

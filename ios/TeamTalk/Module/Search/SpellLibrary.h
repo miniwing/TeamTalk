@@ -20,7 +20,7 @@
  *  清除所有数据
  */
 - (void)clearAllSpell;
--(void)clearSpellById:(NSString *)objctid;
+- (void)clearSpellById:(NSString *)objctid;
 /**
  *  添加一个用户名称的拼音数据
  *

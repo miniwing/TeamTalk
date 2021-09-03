@@ -29,7 +29,7 @@
 }
 
 
--(void)addContact:(MTTUserEntity *)user
+- (void)addContact:(MTTUserEntity *)user
 {
     
 }
@@ -140,7 +140,7 @@
  *
  *  @param user 联系人对象
  */
-+(void)favContact:(MTTUserEntity *)user
++ (void)favContact:(MTTUserEntity *)user
 {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     if ([userDefaults objectForKey:@"favuser"] == nil) {
@@ -192,7 +192,7 @@
     }
     return NO;
 }
-+(void)getDepartmentData:(void(^)(id response))block
++ (void)getDepartmentData:(void(^)(id response))block
 {
     DMTTDepartmentAPI* api = [[DMTTDepartmentAPI alloc] init];
     [api requestWithObject:nil Completion:^(id response, NSError *error) {

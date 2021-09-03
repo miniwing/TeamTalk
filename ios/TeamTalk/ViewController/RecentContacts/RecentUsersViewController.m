@@ -128,7 +128,7 @@
     [self addSearchTableView];
 }
 
--(void)addSearchTableView{
+- (void)addSearchTableView{
     self.searchTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 105, SCREEN_WIDTH, SCREEN_HEIGHT-105)];
     [self.view addSubview:self.searchTableView];
     [self.searchTableView setHidden:YES];
@@ -225,7 +225,7 @@
     }
 }
 
--(void)getMacLoginStatus{
+- (void)getMacLoginStatus{
     MTTUsersStatAPI *request = [MTTUsersStatAPI new];
     NSMutableArray *array = [NSMutableArray new];
     UInt32 uid = [MTTUserEntity localIDTopb:TheRuntime.user.objID];
@@ -241,7 +241,7 @@
     }];
 }
 
--(void)sortItems
+- (void)sortItems
 {
     [self.items removeAllObjects];
     [self.items addObjectsFromArray:[[SessionModule instance] getAllSessions]];
@@ -252,13 +252,13 @@
     [self.tableView reloadData];
 }
 
--(void)refreshData
+- (void)refreshData
 {
     [self setToolbarBadge:0];
     [self sortItems];
 }
 
--(void)setToolbarBadge:(NSUInteger)count
+- (void)setToolbarBadge:(NSUInteger)count
 {
     
     if (count !=0) {
@@ -278,7 +278,7 @@
 }
 
 
--(void)searchContact
+- (void)searchContact
 {
     
 }
@@ -380,7 +380,7 @@
     }
     
 }
--(void)sessionUpdate:(MTTSessionEntity *)session Action:(SessionAction)action
+- (void)sessionUpdate:(MTTSessionEntity *)session Action:(SessionAction)action
 {
     if (![self.items containsObject:session]) {
         [self.items insertObject:session atIndex:0];
@@ -410,7 +410,7 @@
 }
 
 
--(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSUInteger row = [indexPath row];
     MTTSessionEntity *session = self.items[row];
@@ -526,7 +526,7 @@
     });
 }
 
--(void)n_receiveReLoginSuccessNotification
+- (void)n_receiveReLoginSuccessNotification
 {
     self.title = APP_NAME;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -540,7 +540,7 @@
         }];
     });
 }
--(void)preLoadMessage:(MTTSessionEntity *)session
+- (void)preLoadMessage:(MTTSessionEntity *)session
 {
     [[MTTDatabaseUtil instance] getLastestMessageForSessionID:session.sessionID completion:^(MTTMessageEntity *message, NSError *error) {
         if (message) {
@@ -566,7 +566,7 @@
         }
     }];
 }
--(void)pcLoginNotification:(NSNotification*)notification
+- (void)pcLoginNotification:(NSNotification*)notification
 {
     if([[[notification object]objectForKey: @"loginStat"] intValue]== UserStatTypeUserStatusOffline){
         self.isMacOnline = 0;
@@ -576,7 +576,7 @@
     [self.tableView reloadData];
 }
 
--(void)logoutNotification:(NSNotification*)notification{
+- (void)logoutNotification:(NSNotification*)notification{
     [self.items removeAllObjects];
 }
 @end

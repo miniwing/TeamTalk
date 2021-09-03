@@ -38,7 +38,7 @@
 }
 
 #pragma mark - PublicAPI
--(void)connect:(NSString *)aIP port:(NSInteger)aPort status:(NSInteger)aStatus {
+- (void)connect:(NSString *)aIP port:(NSInteger)aPort status:(NSInteger)aStatus {
    
    int                            nErr                                     = EFAULT;
    
@@ -76,7 +76,7 @@
    return;
 }
 
--(void)disconnect {
+- (void)disconnect {
    
    int                            nErr                                     = EFAULT;
    
@@ -114,7 +114,7 @@
    return;
 }
 
--(void)writeToSocket:(NSMutableData *)data{
+- (void)writeToSocket:(NSMutableData *)data{
    
    int                            nErr                                     = EFAULT;
    

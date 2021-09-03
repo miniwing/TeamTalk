@@ -77,30 +77,21 @@
    Analysis analysis = (id)^(NSData* data) {
       
       IMRegistRes    *stRegistRes   = [IMRegistRes parseFromData:data];
-      NSInteger       serverTime    = stRegistRes.serverTime;
-      NSInteger       loginResult   = stRegistRes.resultCode;
-      NSString       *resultString  = stRegistRes.resultString;
-      NSDictionary   *result        = nil;
+      NSInteger       nServerTime   = stRegistRes.serverTime;
+      NSInteger       nLoginResult  = stRegistRes.resultCode;
+      NSString       *szResultString= stRegistRes.resultString;
+      NSDictionary   *stResult      = [NSDictionary dictionary];
       
-      LogDebug((@"%ld", loginResult));
-      
-      if (loginResult !=0) {
-         result = @{
-            @"code":[NSString stringWithFormat:@"%ld", loginResult],
-         };
-         return result;
-      }
-      else {
-         
-         MTTUserEntity *user = [[MTTUserEntity alloc] initWithPB:stRegistRes.userInfo];
-         result = @{@"serverTime":@(serverTime),
-                    @"result":resultString,
-                    @"user":user,
-         };
-         return result;
-      }
-      
+      LogDebug((@"-[RegistAPI analysisReturnData] : LoginResult : %ld", nLoginResult));
+
+      stResult = @{
+         @"result":@(nLoginResult),
+         @"resultString":szResultString,
+      };
+
+      return stResult;
    };
+   
    return analysis;
 }
 

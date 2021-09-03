@@ -336,7 +336,7 @@
 
 #pragma mark - data
 
--(void)loadGroupUsers
+- (void)loadGroupUsers
 {
     
     if([self.items count] > 2)
@@ -366,7 +366,7 @@
     [self.tableView reloadData];
 }
 
--(void)loadUserToView:(NSArray *)users
+- (void)loadUserToView:(NSArray *)users
 {
     NSMutableArray *tmpArray = [[NSMutableArray alloc]initWithArray:users];
     // 对users排序.群主第一个!
@@ -388,7 +388,7 @@
     }
 }
 
--(void)addHiddenDelete
+- (void)addHiddenDelete
 {
     UITapGestureRecognizer *hiddenDelete = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hiddenAlldelete)];
     UIView *bgview = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.collectionView.contentSize.width, self.collectionView.contentSize.height)];
@@ -397,13 +397,13 @@
     
 }
 
--(void)hiddenAlldelete
+- (void)hiddenAlldelete
 {
     self.isShowEdit=NO;
     [self.collectionView reloadData];
 }
 
--(void)refreshUsers:(NSMutableArray *)array
+- (void)refreshUsers:(NSMutableArray *)array
 {
     
     [self.items removeAllObjects];
@@ -413,7 +413,7 @@
     [self.tableView reloadData];
 }
 
--(void)clickDeleteUser:(id)sender
+- (void)clickDeleteUser:(id)sender
 {
     [self.hud show:YES];
     UIButton *btn = (UIButton *)sender;
@@ -437,7 +437,7 @@
     }];
 }
 
--(void)switchIsAddShielding:(BOOL)on
+- (void)switchIsAddShielding:(BOOL)on
 {
     ShieldGroupMessageAPI *request = [ShieldGroupMessageAPI new];
     NSMutableArray *array = [NSMutableArray new];
@@ -462,7 +462,7 @@
 }
 
 
--(void)viewWillAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     MTTUserEntity *user = [self.items lastObject];

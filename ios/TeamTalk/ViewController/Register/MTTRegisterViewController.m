@@ -44,7 +44,7 @@
    return;
 }
 
--(void)initUi {
+- (void)initUi {
    
    int                            nErr                                     = EFAULT;
       
@@ -102,14 +102,41 @@
    .centerXEqualToView(self.view);
    
 #if __Debug__
-   [self.accountTextField setText:@"AAAAA"];
-   [self.passTextField setText:@"AAAAA"];
+   [self.accountTextField setText:@"AAAA"];
+   [self.passTextField setText:@"AAAA"];
 #endif /* __Debug__ */
    
    __CATCH(nErr);
    
    return;
 }
+
+- (void)login {
+   
+   NSString *account    = _accountTextField.text;
+   NSString *password   = _passTextField.text;
+   if (!(account.trim.length > 0) || !(password.trim.length > 0)) {
+      [OHAlertView showAlertWithTitle:@"提示" message:@"" dismissButton:@"好的"];
+      return;
+   }
+   [SVProgressHUD show];
+   [[ApiClient sharedInstance] registerUser:account
+                                   password:password
+                                    Success:^(id model) {
+      [SVProgressHUD dismiss];
+      if ([[model valueForKey:@"status"] integerValue] == 0) {
+         [self.navigationController popViewControllerAnimated:YES];
+      }
+      else {
+         [OHAlertView showAlertWithTitle:@"提示" message:[model valueForKey:@"msg"] dismissButton:@"好的"];
+      }
+   }
+                                    failure:^(NSString *message) {
+      [SVProgressHUD dismiss];
+      [OHAlertView showAlertWithTitle:@"提示" message:message dismissButton:@"好的"];
+   }];
+}
+
 
 - (void)regist {
    

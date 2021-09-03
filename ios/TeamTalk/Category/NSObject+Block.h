@@ -10,8 +10,8 @@
 
 @interface NSObject (Block)
 
--(void)perform:(void (^)(void))performBlock;
+- (void)perform:(void (^)(void))performBlock;
 
--(void)perform:(void (^)(void))performBlock andDelay:(NSTimeInterval)delay;
+- (void)perform:(void (^)(void))performBlock andDelay:(NSTimeInterval)delay;
 
 @end

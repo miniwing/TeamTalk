@@ -82,7 +82,7 @@ CGFloat const dd_bubbleUpDown = 20;                //气泡到上下边缘的距
     }
     return self;
 }
--(void)openProfilePage
+- (void)openProfilePage
 {
     if (self.currentUserID) {
         [[DDUserModule shareInstance] getUserForUserID:self.currentUserID Block:^(MTTUserEntity *user) {
@@ -92,7 +92,7 @@ CGFloat const dd_bubbleUpDown = 20;                //气泡到上下边缘的距
         }];
     }
 }
--(void)clickTheSendAgain
+- (void)clickTheSendAgain
 {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"重发" message:@"是否重新发送此消息" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
     [alert show];
@@ -266,7 +266,7 @@ CGFloat const dd_bubbleUpDown = 20;                //气泡到上下边缘的距
     
 }
 
--(void)longPress:(UIGestureRecognizer*) recognizer{
+- (void)longPress:(UIGestureRecognizer*) recognizer{
     [self.bubbleImageView showTheMenu];
 
 }
@@ -292,7 +292,7 @@ CGFloat const dd_bubbleUpDown = 20;                //气泡到上下边缘的距
     self.sendFailuredImageView.hidden = YES;
 }
 
--(void)deleteMessage:(MTTMessageEntity *)message
+- (void)deleteMessage:(MTTMessageEntity *)message
 {
     [[ChattingMainViewController shareInstance] deleteTheMessage:message];
 }

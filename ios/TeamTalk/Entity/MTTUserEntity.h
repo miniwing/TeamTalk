@@ -32,13 +32,13 @@
 - (id)initWithUserID:(NSString*)userID name:(NSString*)name nick:(NSString*)nick avatar:(NSString*)avatar userRole:(NSInteger)userRole userUpdated:(NSUInteger)updated;
 +(id)dicToUserEntity:(NSDictionary *)dic;
 +(NSMutableDictionary *)userToDic:(MTTUserEntity *)user;
--(void)sendEmail;
--(void)callPhoneNum;
+- (void)sendEmail;
+- (void)callPhoneNum;
 -(NSString *)getAvatarUrl;
 -(NSString *)get300AvatarUrl;
 -(NSString *)getAvatarPreImageUrl;
 -(id)initWithPB:(UserInfo *)pbUser;
 +(UInt32)localIDTopb:(NSString *)userid;
 +(NSString *)pbUserIdToLocalID:(NSUInteger)userID;
--(void)updateLastUpdateTimeToDB;
+- (void)updateLastUpdateTimeToDB;
 @end

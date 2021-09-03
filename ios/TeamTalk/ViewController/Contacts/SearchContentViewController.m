@@ -60,7 +60,7 @@ NSInteger const MAX_LINE_LENGTH = 15;
 }
 
 
--(void)searchTextDidChanged:(NSString *)searchText Block:(void(^)(bool done)) block
+- (void)searchTextDidChanged:(NSString *)searchText Block:(void(^)(bool done)) block
 {
     self.searchKey = searchText;
     [self.department removeAllObjects];
@@ -309,7 +309,7 @@ NSInteger const MAX_LINE_LENGTH = 15;
     return headView;
 }
 
--(void)scrollViewDidScroll:(UIScrollView *)scrollView
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     if (self.didScrollViewScrolled) {
         self.didScrollViewScrolled();
@@ -326,7 +326,7 @@ NSInteger const MAX_LINE_LENGTH = 15;
     return 55;
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     if(self.searchType == MTTSearchAll){

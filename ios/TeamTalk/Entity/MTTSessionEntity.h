@@ -43,8 +43,8 @@
 - (id)initWithSessionIDByGroup:(MTTGroupEntity*)group;
 - (void)updateUpdateTime:(NSUInteger)date;
 -(NSString *)getSessionGroupID;
--(void)setSessionName:(NSString *)theName;
+- (void)setSessionName:(NSString *)theName;
 -(BOOL)isGroup;
 -(id)dicToGroup:(NSDictionary *)dic;
--(void)setSessionUser:(NSArray *)array;
+- (void)setSessionUser:(NSArray *)array;
 @end

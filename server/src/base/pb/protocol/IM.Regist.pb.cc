@@ -438,9 +438,9 @@ void IMRegistReq::Swap(IMRegistReq* other) {
 
 #ifndef _MSC_VER
 const int IMRegistRes::kServerTimeFieldNumber;
+const int IMRegistRes::kUserNameFieldNumber;
 const int IMRegistRes::kResultCodeFieldNumber;
 const int IMRegistRes::kResultStringFieldNumber;
-const int IMRegistRes::kUserInfoFieldNumber;
 const int IMRegistRes::kAttachDataFieldNumber;
 #endif  // !_MSC_VER
 
@@ -451,12 +451,6 @@ IMRegistRes::IMRegistRes()
 }
 
 void IMRegistRes::InitAsDefaultInstance() {
-#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  user_info_ = const_cast< ::IM::BaseDefine::UserInfo*>(
-      ::IM::BaseDefine::UserInfo::internal_default_instance());
-#else
-  user_info_ = const_cast< ::IM::BaseDefine::UserInfo*>(&::IM::BaseDefine::UserInfo::default_instance());
-#endif
 }
 
 IMRegistRes::IMRegistRes(const IMRegistRes& from)
@@ -470,9 +464,9 @@ void IMRegistRes::SharedCtor() {
   ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
   server_time_ = 0u;
+  user_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   result_code_ = 0;
   result_string_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  user_info_ = NULL;
   attach_data_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
@@ -483,6 +477,9 @@ IMRegistRes::~IMRegistRes() {
 }
 
 void IMRegistRes::SharedDtor() {
+  if (user_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete user_name_;
+  }
   if (result_string_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     delete result_string_;
   }
@@ -494,7 +491,6 @@ void IMRegistRes::SharedDtor() {
   #else
   if (this != default_instance_) {
   #endif
-    delete user_info_;
   }
 }
 
@@ -531,13 +527,15 @@ void IMRegistRes::Clear() {
 
   if (_has_bits_[0 / 32] & 31) {
     ZR_(server_time_, result_code_);
+    if (has_user_name()) {
+      if (user_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+        user_name_->clear();
+      }
+    }
     if (has_result_string()) {
       if (result_string_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
         result_string_->clear();
       }
-    }
-    if (has_user_info()) {
-      if (user_info_ != NULL) user_info_->::IM::BaseDefine::UserInfo::Clear();
     }
     if (has_attach_data()) {
       if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
@@ -577,13 +575,26 @@ bool IMRegistRes::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(16)) goto parse_result_code;
+        if (input->ExpectTag(18)) goto parse_user_name;
         break;
       }
 
-      // required .IM.Login.RegistResult result_code = 2;
+      // required string user_name = 2;
       case 2: {
-        if (tag == 16) {
+        if (tag == 18) {
+         parse_user_name:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_user_name()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(24)) goto parse_result_code;
+        break;
+      }
+
+      // required .IM.Login.RegistResult result_code = 3;
+      case 3: {
+        if (tag == 24) {
          parse_result_code:
           int value;
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
@@ -598,29 +609,16 @@ bool IMRegistRes::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(26)) goto parse_result_string;
+        if (input->ExpectTag(34)) goto parse_result_string;
         break;
       }
 
-      // optional string result_string = 3;
-      case 3: {
-        if (tag == 26) {
+      // optional string result_string = 4;
+      case 4: {
+        if (tag == 34) {
          parse_result_string:
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_result_string()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(34)) goto parse_user_info;
-        break;
-      }
-
-      // optional .IM.BaseDefine.UserInfo user_info = 4;
-      case 4: {
-        if (tag == 34) {
-         parse_user_info:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-               input, mutable_user_info()));
         } else {
           goto handle_unusual;
         }
@@ -671,22 +669,22 @@ void IMRegistRes::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->server_time(), output);
   }
 
-  // required .IM.Login.RegistResult result_code = 2;
+  // required string user_name = 2;
+  if (has_user_name()) {
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      2, this->user_name(), output);
+  }
+
+  // required .IM.Login.RegistResult result_code = 3;
   if (has_result_code()) {
     ::google::protobuf::internal::WireFormatLite::WriteEnum(
-      2, this->result_code(), output);
+      3, this->result_code(), output);
   }
 
-  // optional string result_string = 3;
+  // optional string result_string = 4;
   if (has_result_string()) {
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      3, this->result_string(), output);
-  }
-
-  // optional .IM.BaseDefine.UserInfo user_info = 4;
-  if (has_user_info()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
-      4, this->user_info(), output);
+      4, this->result_string(), output);
   }
 
   // optional bytes attach_data = 20;
@@ -711,24 +709,24 @@ int IMRegistRes::ByteSize() const {
           this->server_time());
     }
 
-    // required .IM.Login.RegistResult result_code = 2;
+    // required string user_name = 2;
+    if (has_user_name()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->user_name());
+    }
+
+    // required .IM.Login.RegistResult result_code = 3;
     if (has_result_code()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::EnumSize(this->result_code());
     }
 
-    // optional string result_string = 3;
+    // optional string result_string = 4;
     if (has_result_string()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::StringSize(
           this->result_string());
-    }
-
-    // optional .IM.BaseDefine.UserInfo user_info = 4;
-    if (has_user_info()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-          this->user_info());
     }
 
     // optional bytes attach_data = 20;
@@ -758,14 +756,14 @@ void IMRegistRes::MergeFrom(const IMRegistRes& from) {
     if (from.has_server_time()) {
       set_server_time(from.server_time());
     }
+    if (from.has_user_name()) {
+      set_user_name(from.user_name());
+    }
     if (from.has_result_code()) {
       set_result_code(from.result_code());
     }
     if (from.has_result_string()) {
       set_result_string(from.result_string());
-    }
-    if (from.has_user_info()) {
-      mutable_user_info()->::IM::BaseDefine::UserInfo::MergeFrom(from.user_info());
     }
     if (from.has_attach_data()) {
       set_attach_data(from.attach_data());
@@ -781,20 +779,17 @@ void IMRegistRes::CopyFrom(const IMRegistRes& from) {
 }
 
 bool IMRegistRes::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000003) != 0x00000003) return false;
+  if ((_has_bits_[0] & 0x00000007) != 0x00000007) return false;
 
-  if (has_user_info()) {
-    if (!this->user_info().IsInitialized()) return false;
-  }
   return true;
 }
 
 void IMRegistRes::Swap(IMRegistRes* other) {
   if (other != this) {
     std::swap(server_time_, other->server_time_);
+    std::swap(user_name_, other->user_name_);
     std::swap(result_code_, other->result_code_);
     std::swap(result_string_, other->result_string_);
-    std::swap(user_info_, other->user_info_);
     std::swap(attach_data_, other->attach_data_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.swap(other->_unknown_fields_);

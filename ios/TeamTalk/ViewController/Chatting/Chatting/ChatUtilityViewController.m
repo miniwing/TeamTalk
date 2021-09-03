@@ -161,7 +161,7 @@
         make.height.mas_equalTo(13);
     }];
 }
--(void)setShakeHidden
+- (void)setShakeHidden
 {
 //    if(self.userId){
         [_rightView setHidden:NO];
@@ -169,14 +169,14 @@
 //        [_rightView setHidden:YES];
 //    }
 }
--(void)shakePC:(id)sender
+- (void)shakePC:(id)sender
 {
     ViewController *locationController = [[ViewController alloc] init];
     locationController.delegate = self;
     [self pushViewController:locationController animated:YES];
 }
 
--(void)choosePicture:(id)sender
+- (void)choosePicture:(id)sender
 {
     self.imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     self.imagePicker.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
@@ -185,7 +185,7 @@
     [imagePickerVc setAllowPickingOriginalPhoto:YES];
     [[ChattingMainViewController shareInstance] presentViewController:imagePickerVc animated:YES completion:nil];
 }
--(void)takePicture:(id)sender
+- (void)takePicture:(id)sender
 {
         dispatch_async(dispatch_get_main_queue(), ^{
             if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
@@ -211,7 +211,7 @@
    
 }
 
--(void)viewWillAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
     
@@ -223,7 +223,7 @@
     [picker dismissViewControllerAnimated:YES completion:nil];
       self.imagePicker=nil;
 }
--(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
     NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
     if ([mediaType isEqualToString:( NSString *)kUTTypeImage]){
   
@@ -262,7 +262,7 @@
     // Dispose of any resources that can be recreated.
 }
 
--(void)sendLocationLatitude:(double)latitude longitude:(double)longitude andAddress:(NSString *)address
+- (void)sendLocationLatitude:(double)latitude longitude:(double)longitude andAddress:(NSString *)address
 {
     
     [[ChattingMainViewController shareInstance] sendLocationMessage:[NSString stringWithFormat:@"%.6f", latitude] longitude:[NSString stringWithFormat:@"%.6f", longitude] andAddress:address];

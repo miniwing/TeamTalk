@@ -35,12 +35,12 @@
     return self;
 }
 
--(void)setup{
+- (void)setup{
 
     _process =0;
 }
 
-//-(void)display{
+//- (void)display{
 //
 //    float process = [self.presentationLayer process];
 //    
@@ -85,7 +85,7 @@
 //}
 
 
--(void)setProcess:(float)process{
+- (void)setProcess:(float)process{
 
     _process =process;
     
@@ -148,7 +148,7 @@
     return self;
 }
 
--(void)setup{
+- (void)setup{
 
     self.processTintColor =[UIColor whiteColor];
     
@@ -160,7 +160,7 @@
 }
 
 
--(void)setImage:(UIImage *)image{
+- (void)setImage:(UIImage *)image{
 
     self.orginImage =image;
     
@@ -170,7 +170,7 @@
 }
 
 
--(void)layoutSubviews{
+- (void)layoutSubviews{
 
     
     /*
@@ -204,7 +204,7 @@
     [super layoutSubviews];
 }
 
--(void)setProcess:(float)process{
+- (void)setProcess:(float)process{
 
 //    if (process <0) {
 //        process =0;
@@ -219,12 +219,12 @@
     
 }
 
--(void)showAnimation{
+- (void)showAnimation{
 
     [self.activityIndicatorView startAnimating];
 }
 
--(void)hideAnimation{
+- (void)hideAnimation{
     [self.activityIndicatorView stopAnimating];
 }
 

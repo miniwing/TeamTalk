@@ -86,7 +86,7 @@ typedef void (^NetworkUnreachable)(DDReachability * reachability);
 -(DDReachability *)initWithReachabilityRef:(SCNetworkReachabilityRef)ref;
 
 -(BOOL)startNotifier;
--(void)stopNotifier;
+- (void)stopNotifier;
 
 -(BOOL)isReachable;
 -(BOOL)isReachableViaWWAN;

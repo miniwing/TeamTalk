@@ -26,7 +26,7 @@
 @implementation MTTPhotosCache
 
 
-+(void)calculatePhotoSizeWithCompletionBlock:(void (^)(NSUInteger fileCount, NSUInteger totalSize))completionBlock
++ (void)calculatePhotoSizeWithCompletionBlock:(void (^)(NSUInteger fileCount, NSUInteger totalSize))completionBlock
 {
     NSURL *diskCacheURL = [NSURL fileURLWithPath:PhotosMessageDir isDirectory:YES];
     [ [MTTSundriesCenter instance] pushTaskToSerialQueue:^{
@@ -249,7 +249,7 @@
     });
     return array;
 }
--(void)clearAllCache:(void(^)(bool isfinish))block;
+- (void)clearAllCache:(void(^)(bool isfinish))block;
 {
     [self.memCache removeAllObjects];
     NSArray *allimage = [self getAllImageCache];

@@ -49,6 +49,10 @@ public:
 private:
     void _HandleMsgServRequest(string& url, string& post_data);
 
+#if __TEAMTALK_REGIST__
+    void _HandleRegistRequest(string &url, string &post_data);
+#endif /* __TEAMTALK_REGIST__ */
+
 protected:
 	net_handle_t	m_sock_handle;
 	uint32_t		m_conn_handle;

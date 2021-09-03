@@ -13,7 +13,7 @@
 @interface EmotionsViewController ()
 - (void)clickTheSendButton:(id)sender;
 - (void)p_loadFacialViewWithRow:(NSUInteger)page CGSize:(CGSize)size;
--(void)p_selected:(UIButton*)button;
+- (void)p_selected:(UIButton*)button;
 @end
 #define  keyboardHeight 180
 #define  facialViewWidth 300
@@ -72,7 +72,7 @@
  
     self.pageControl.currentPage = self.scrollView.contentOffset.x / FULL_WIDTH;
 }
--(void)selectedFacialView:(NSString*)str
+- (void)selectedFacialView:(NSString*)str
 {
     if ([str isEqualToString:@"delete"]) {
         [[ChattingMainViewController shareInstance] deleteEmojiFace];
@@ -128,7 +128,7 @@
     [self.scrollView addSubview:yayaview];
 }
 
--(void)p_selected:(UIButton*)button
+- (void)p_selected:(UIButton*)button
 {
     NSArray* emotions = [EmotionsModule shareInstance].emotions;
     NSString *str=[emotions objectAtIndex:button.tag];

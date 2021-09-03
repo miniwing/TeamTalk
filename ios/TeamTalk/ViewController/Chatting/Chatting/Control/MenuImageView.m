@@ -76,7 +76,7 @@
 }
 
 //UILabel默认是不接收事件的，我们需要自己添加touch事件
--(void)attachTapHandler{
+- (void)attachTapHandler{
     self.userInteractionEnabled = YES;  //用户交互的总开关
     UITapGestureRecognizer *touch = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
     touch.numberOfTapsRequired = 1;
@@ -88,12 +88,12 @@
 }
 
 //同上
--(void)awakeFromNib{
+- (void)awakeFromNib{
     [super awakeFromNib];
     [self attachTapHandler];
 }
 
--(void)handleTap:(UIGestureRecognizer*) recognizer{
+- (void)handleTap:(UIGestureRecognizer*) recognizer{
     if ([self.delegate respondsToSelector:@selector(tapTheImageView:)])
     {
         [self.delegate tapTheImageView:self];

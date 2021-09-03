@@ -48,5 +48,5 @@
 @property (nonatomic,strong) UIImageView *selectImage;
 @property(strong)UILabel *title;
 @property (assign) BOOL isShowSelect;
--(void)setCellIsToHighlight:(BOOL)isHighlight;
+- (void)setCellIsToHighlight:(BOOL)isHighlight;
 @end

@@ -263,7 +263,7 @@ NSString * const ID = @"SDCycleScrollViewCell";
     }
 }
 
--(void)setAutoScroll:(BOOL)autoScroll{
+- (void)setAutoScroll:(BOOL)autoScroll{
     _autoScroll = autoScroll;
     
     [self invalidateTimer];

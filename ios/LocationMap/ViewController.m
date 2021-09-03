@@ -42,7 +42,7 @@
 @end
 
 @implementation ViewController
--(void)viewWillAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
@@ -51,7 +51,7 @@
     _geoCodeSearch.delegate=self;
     _locService.delegate = self;
 }
--(void)viewWillDisappear:(BOOL)animated
+- (void)viewWillDisappear:(BOOL)animated
 {
     [_mapView viewWillDisappear];
     _mapView.delegate = nil; //不用时，置nil
@@ -90,14 +90,14 @@
     
 }
 
--(void)sendLocation
+- (void)sendLocation
 {
     [self.navigationController popViewControllerAnimated:YES];
     [self.delegate sendLocationLatitude:currentPt.latitude longitude:currentPt.longitude andAddress:currentAddress];
 }
 
 //放置中间大头针
--(void)initBomeImage
+- (void)initBomeImage
 {
     if (_bomeImage==nil) {
         
@@ -108,7 +108,7 @@
 }
 
 //放置中间大头针
--(void)initLocationButton
+- (void)initLocationButton
 {
     if (locationButton==nil) {
         
@@ -125,7 +125,7 @@
 
 
 //初始化显示列表
--(void)initTableView
+- (void)initTableView
 {
     
     _tableView = [UITableView new];
@@ -153,7 +153,7 @@
 //    return _searchBar;
 //}
 
--(void)initMap
+- (void)initMap
 {
     
     _mapView= [BMKMapView new];
@@ -177,7 +177,7 @@
     
 }
 
--(void)initLocationService
+- (void)initLocationService
 {
     if (_locService==nil) {
         
@@ -192,7 +192,7 @@
 
 }
 
--(void)startLocation
+- (void)startLocation
 {
     [_mapView updateLocationData:currentUserLocation];
     _mapView.centerCoordinate = currentUserLocation.location.coordinate;
@@ -281,7 +281,7 @@
 
 #pragma mark BMKGeoCodeSearchDelegate
 
--(void) onGetReverseGeoCodeResult:(BMKGeoCodeSearch *)searcher result:(BMKReverseGeoCodeResult *)result errorCode:(BMKSearchErrorCode)error
+- (void) onGetReverseGeoCodeResult:(BMKGeoCodeSearch *)searcher result:(BMKReverseGeoCodeResult *)result errorCode:(BMKSearchErrorCode)error
 {
     //获取周边用户信息
     if (error==BMK_SEARCH_NO_ERROR) {
@@ -340,7 +340,7 @@
 }
 
 //设置cell分割线做对齐
--(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPat{
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPat{
     if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
         [cell setLayoutMargins:UIEdgeInsetsZero];
     }
@@ -349,7 +349,7 @@
     }
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     Place *place =_addArray[indexPath.row];
@@ -360,7 +360,7 @@
     
 }
 
--(void)viewDidLayoutSubviews {
+- (void)viewDidLayoutSubviews {
     
     if ([_tableView respondsToSelector:@selector(setSeparatorInset:)]) {
         [_tableView setSeparatorInset:UIEdgeInsetsZero];
@@ -407,7 +407,7 @@
     [searchBar setShowsCancelButton:NO animated:YES];
 }
 
--(void)searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller {
+- (void)searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller {
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
         CGRect statusBarFrame =  [[UIApplication sharedApplication] statusBarFrame];
         [UIView animateWithDuration:0.25 animations:^{
@@ -417,7 +417,7 @@
     }
 }
 
--(void)searchDisplayControllerWillEndSearch:(UISearchDisplayController *)controller {
+- (void)searchDisplayControllerWillEndSearch:(UISearchDisplayController *)controller {
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
         [UIView animateWithDuration:0.25 animations:^{
             for (UIView *subview in self.view.subviews)
@@ -448,7 +448,7 @@
     }
 }
 
--(void)onGetPoiDetailResult:(BMKPoiSearch *)searcher
+- (void)onGetPoiDetailResult:(BMKPoiSearch *)searcher
                      result:(BMKPoiDetailResult *)poiDetailResult
                   errorCode:(BMKSearchErrorCode)errorCode
 {

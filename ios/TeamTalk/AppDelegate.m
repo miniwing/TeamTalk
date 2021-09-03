@@ -77,7 +77,7 @@
     return YES;
 }
 
--(void)loginStateChange:(NSNotification *)notification
+- (void)loginStateChange:(NSNotification *)notification
 {
     [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeBlack];
     BOOL loginSuccess = [notification.object boolValue];

@@ -56,7 +56,7 @@
     });
     return g_databaseUtil;
 }
--(void)reOpenNewDB
+- (void)reOpenNewDB
 {
     
     [self openCurrentUserDB];
@@ -951,7 +951,7 @@
     }];
 }
 
--(void)removeAllUser
+- (void)removeAllUser
 {
     [_dataBaseQueue inDatabase:^(FMDatabase *db) {
         NSString* sql = @"DELETE FROM allContacts";
@@ -1054,7 +1054,7 @@
     }];
 }
 
--(void)removeAllFriend
+- (void)removeAllFriend
 {
     [_dataBaseQueue inDatabase:^(FMDatabase *db) {
         NSString* sql = @"DELETE FROM friendContacts";
@@ -1325,7 +1325,7 @@
     session.unReadMsgCount = [resultSet longForColumn:@"unreadCount"];
     return session;
 }
--(void)removeSession:(NSString *)sessionID
+- (void)removeSession:(NSString *)sessionID
 {
     [_dataBaseQueue inDatabase:^(FMDatabase *db) {
         NSString* sql = @"DELETE FROM recentSession WHERE ID = ?";

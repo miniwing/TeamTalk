@@ -66,7 +66,7 @@
     [self setTitle:@"个性签名"];
 }
 
--(void)Edit
+- (void)Edit
 {
     NSString *sign = _signText.text;
     MTTSignatureAPI *request = [MTTSignatureAPI new];

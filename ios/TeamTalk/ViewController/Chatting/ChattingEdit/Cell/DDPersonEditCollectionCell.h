@@ -13,5 +13,5 @@
 @property(strong)UIButton *delImg;
 @property(strong)UILabel *name;
 @property(strong) UIButton *button;
--(void)setContent:(NSString *)name AvatarImage:(NSString *)urlString;
+- (void)setContent:(NSString *)name AvatarImage:(NSString *)urlString;
 @end

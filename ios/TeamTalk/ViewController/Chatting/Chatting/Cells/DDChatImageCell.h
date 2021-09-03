@@ -15,6 +15,6 @@ typedef void(^DDTapPreview)();
 @property(nonatomic,strong)UIImageView *msgImgView;
 @property(nonatomic,strong)NSMutableArray *photos;
 @property(nonatomic,strong)DDPreview preview;
--(void)showPreview:(NSMutableArray*)photos index:(NSInteger)index;
+- (void)showPreview:(NSMutableArray*)photos index:(NSInteger)index;
 - (void)sendImageAgain:(MTTMessageEntity*)message;
 @end

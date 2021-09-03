@@ -13,15 +13,15 @@
 
 - (void)refreshFinished;
 
--(void)removeKOV;
+- (void)removeKOV;
 
 @end
 
 @protocol UIScrollViewPullResfreshDelegate <NSObject>
 
--(void)scrollViewRefresh:(UIScrollView *)scrollView;
+- (void)scrollViewRefresh:(UIScrollView *)scrollView;
 
--(void)scrollViewLoadMore:(UIScrollView *)scrollView;
+- (void)scrollViewLoadMore:(UIScrollView *)scrollView;
 
 @end
 
@@ -41,21 +41,21 @@
 
 @property (nonatomic,assign) NSUInteger pageNumber;
 
--(void)setRefreshLogo:(UIImage *)logo;
+- (void)setRefreshLogo:(UIImage *)logo;
 
 - (void)setRefreshHandler:(void (^)(void))actionHandler;
 
 - (void)setLoadMoreHandler:(void (^)(void))actionHandler;
 
 //设置 下拉刷新标题
--(void)setRefreshTitle:(NSString *)title;
+- (void)setRefreshTitle:(NSString *)title;
 
 //设置 加载更多标题
--(void)setLoadMoreTitle:(NSString *)title;
+- (void)setLoadMoreTitle:(NSString *)title;
 
 - (void)refreshFinished;
 
--(void)loadMoreFinished;
+- (void)loadMoreFinished;
 
 -(CGPoint)theBeiginContentOffset;
 

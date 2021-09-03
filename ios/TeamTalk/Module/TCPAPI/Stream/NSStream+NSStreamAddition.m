@@ -86,22 +86,22 @@
    return;
 }
 
--(void)writeLong:(long long)value {
+- (void)writeLong:(long long)value {
    
    return;
 }
 
--(void)writeFloat:(float)value {
+- (void)writeFloat:(float)value {
    
    return;
 }
 
--(void)writeDouble:(double)value {
+- (void)writeDouble:(double)value {
    
    return;
 }
 
--(void)writeUTF:(NSString *)value {
+- (void)writeUTF:(NSString *)value {
    
    return;
 }
