@@ -43,7 +43,7 @@ PODS:
     - IDEANightVersion
   - IDEAKit (1.0.1):
     - FoundationExtension
-  - IDEANightVersion (2.4.3)
+  - IDEANightVersion (3.0.0)
   - IDEAUIKit (1.0.1):
     - FoundationExtension
     - IDEAColor
@@ -114,11 +114,11 @@ DEPENDENCIES:
   - FMDB (~> 2.3)
   - "FoundationExtension (from `git@github.com:miniwing/FoundationExtension.git`, branch `develop`)"
   - HPGrowingTextView (~> 1.1)
-  - IDEAColor (from `../../TeamTalk-Pods/IDEAColor`)
-  - IDEAKit (from `../../TeamTalk-Pods/IDEAKit`)
-  - IDEANightVersion (from `../../TeamTalk-Pods/IDEANightVersion`)
-  - IDEAUIKit (from `../../TeamTalk-Pods/IDEAUIKit`)
-  - IDEAUIVendor (from `../../TeamTalk-Pods/IDEAUIVendor`)
+  - IDEAColor (from `../../../../MINIWING-PODs/IDEAColor`)
+  - IDEAKit (from `TeamTalk-Pods/IDEAKit`)
+  - IDEANightVersion (from `../../../../MINIWING-PODs/IDEANightVersion`)
+  - IDEAUIKit (from `TeamTalk-Pods/IDEAUIKit`)
+  - IDEAUIVendor (from `TeamTalk-Pods/IDEAUIVendor`)
   - LCActionSheet (~> 1.2.1)
   - Masonry
   - MBProgressHUD (~> 0.8)
@@ -174,15 +174,15 @@ EXTERNAL SOURCES:
     :branch: develop
     :git: "git@github.com:miniwing/FoundationExtension.git"
   IDEAColor:
-    :path: "../../TeamTalk-Pods/IDEAColor"
+    :path: "../../../../MINIWING-PODs/IDEAColor"
   IDEAKit:
-    :path: "../../TeamTalk-Pods/IDEAKit"
+    :path: TeamTalk-Pods/IDEAKit
   IDEANightVersion:
-    :path: "../../TeamTalk-Pods/IDEANightVersion"
+    :path: "../../../../MINIWING-PODs/IDEANightVersion"
   IDEAUIKit:
-    :path: "../../TeamTalk-Pods/IDEAUIKit"
+    :path: TeamTalk-Pods/IDEAUIKit
   IDEAUIVendor:
-    :path: "../../TeamTalk-Pods/IDEAUIVendor"
+    :path: TeamTalk-Pods/IDEAUIVendor
   PSTCollectionView:
     :branch: develop
     :git: "git@github.com:miniwing/PSTCollectionView.git"
@@ -218,7 +218,7 @@ SPEC CHECKSUMS:
   HPGrowingTextView: 88a716d97fb853bcb08a4a08e4727da17efc9b19
   IDEAColor: 466477c701d2c7be432ae4f546fa936db0d7a8ec
   IDEAKit: 8ca811157bfbf24e98eb3020afc6a08dc01282fe
-  IDEANightVersion: 78c905e090cef76545e53153ca2c1b44707a19d7
+  IDEANightVersion: c3ecd1c06efd32c12503610968f225d780750b0c
   IDEAUIKit: 9a7331858d5b52bd899a7f45144093e0c38df7eb
   IDEAUIVendor: abde718e5302907e27ac7e5f92476354ba03835d
   LCActionSheet: 690882cd8b9a6713f1b2881c3bb2c7f11954d034
@@ -244,6 +244,6 @@ SPEC CHECKSUMS:
   YYKit: ac05bcfde7368d81f6232daf332702dd10535a68
   ZXingObjC: fdbb269f25dd2032da343e06f10224d62f537bdb
 
-PODFILE CHECKSUM: 70ae91e0b667b7c45b19b3f0f910dc640a0f28ff
+PODFILE CHECKSUM: bd59e8727f3fe08861d6b374c6d1ac68af59763e
 
 COCOAPODS: 1.11.0

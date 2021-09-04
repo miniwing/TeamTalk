@@ -1,3 +1,34 @@
+# source 'https://github.com/CocoaPods/Specs.git'
+# source 'https://cdn.cocoapods.org/'
+# source 'https://mirrors.tuna.tsinghua.edu.cn/git/CocoaPods/Specs.git'
+
+install!  'cocoapods',
+          :deterministic_uuids                => false,
+          :generate_multiple_pod_projects     => false
+
+###################################################################################################################################
+
+def github_pod(pod_name, file = pod_name, type = 'remote', branch = 'master', modular_headers = true)
+  case type
+    when 'local'
+      pod pod_name, :path => "../../../../MINIWING-PODs/#{file}"           , :inhibit_warnings => false, :modular_headers => modular_headers
+    when 'remote'
+      pod pod_name, :git  => "git@github.com:miniwing/#{file}.git", :branch => "#{branch}"    ,     :modular_headers => modular_headers
+    else
+  end
+end
+
+def miniwing_pod(pod_name, file = pod_name, type = 'remote', branch = 'master', modular_headers = true)
+  case type
+    when 'local'
+      pod pod_name, :path => "../../../../MINIWING-PODs/#{file}"           , :inhibit_warnings => false, :modular_headers => modular_headers
+    when 'remote'
+      pod pod_name, :git  => "git@github.com:miniwing/MINIWING-PODs.git", :branch => "#{branch}"    , :modular_headers => modular_headers
+    else
+  end
+end
+
+###################################################################################################################################
 
 workspace 'TeamTalk'
 
@@ -11,7 +42,7 @@ platform:ios, '10.0'
 
 target 'TeamTalk' do
 
-pod 'Reveal-SDK' , '~> 24' , :configurations => ['Debug']
+pod 'Reveal-SDK'              , '~> 24'   , :configurations => ['Debug']
 
 pod 'FMDB'                    , '~> 2.3'
 pod 'SDWebImage'              , '~> 3.6'
@@ -28,7 +59,8 @@ pod 'TTTAttributedLabel'
 pod 'SVWebViewController'
 pod 'XHImageViewer'
 pod 'ZXingObjC'
-pod 'YYKit'                   , :git => "git@github.com:miniwing/YYKit.git"             , :branch => 'develop'
+#pod 'YYKit'                   , :git => "git@github.com:miniwing/YYKit.git"             , :branch => 'develop'
+
 pod 'TZImagePickerController'
 pod 'APAddressBook'
 pod 'OHAlertView'
@@ -40,15 +72,18 @@ pod 'SSKeychain'
 
 #pod 'SDAutoLayout'
 
-pod 'FoundationExtension'     , :git => "git@github.com:miniwing/FoundationExtension.git" , :branch => 'develop'
-pod 'UIKitExtension'          , :git => "git@github.com:miniwing/FoundationExtension.git" , :branch => 'develop'
+github_pod('YYKit', file = 'YYKit', type = 'remote', branch = 'develop', modular_headers = true)
+github_pod('FoundationExtension', file = 'FoundationExtension', type = 'remote', branch = 'develop', modular_headers = true)
+github_pod('UIKitExtension', file = 'FoundationExtension', type = 'remote', branch = 'develop', modular_headers = true)
 
-pod 'IDEAColor'               , :path => '../../TeamTalk-Pods/IDEAColor'
-pod 'IDEANightVersion'        , :path => '../../TeamTalk-Pods/IDEANightVersion'
 
-pod 'IDEAKit'                 , :path => '../../TeamTalk-Pods/IDEAKit'
-pod 'IDEAUIKit'               , :path => '../../TeamTalk-Pods/IDEAUIKit'
-pod 'IDEAUIVendor'            , :path => '../../TeamTalk-Pods/IDEAUIVendor'
+miniwing_pod('IDEAColor', file = 'IDEAColor', type = 'local', branch = 'develop', modular_headers = true)
+miniwing_pod('IDEANightVersion', file = 'IDEANightVersion', type = 'local', branch = 'develop', modular_headers = true)
+
+
+pod 'IDEAKit'                 , :path => 'TeamTalk-Pods/IDEAKit'
+pod 'IDEAUIKit'               , :path => 'TeamTalk-Pods/IDEAUIKit'
+pod 'IDEAUIVendor'            , :path => 'TeamTalk-Pods/IDEAUIVendor'
 
 end
 

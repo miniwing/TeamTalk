@@ -16,14 +16,13 @@
 using namespace std;
 
 //AudioModel
-CAudioModel* CAudioModel::m_pInstance = NULL;
+CAudioModel *CAudioModel::m_pInstance = NULL;
 
 /**
  *  构造函数
  */
 CAudioModel::CAudioModel()
 {
-
 }
 
 /**
@@ -31,7 +30,6 @@ CAudioModel::CAudioModel()
  */
 CAudioModel::~CAudioModel()
 {
-
 }
 
 /**
@@ -39,13 +37,14 @@ CAudioModel::~CAudioModel()
  *
  *  @return 单例的指针
  */
-CAudioModel* CAudioModel::getInstance()
+CAudioModel *CAudioModel::getInstance()
 {
-	if (!m_pInstance) {
-		m_pInstance = new CAudioModel();
-	}
+    if (!m_pInstance)
+    {
+        m_pInstance = new CAudioModel();
+    }
 
-	return m_pInstance;
+    return m_pInstance;
 }
 
 /**
@@ -53,10 +52,10 @@ CAudioModel* CAudioModel::getInstance()
  *
  *  @param strFileSite 上传的url
  */
-void CAudioModel::setUrl(string& strFileSite)
+void CAudioModel::setUrl(string &strFileSite)
 {
     m_strFileSite = strFileSite;
-    if(m_strFileSite[m_strFileSite.length()] != '/')
+    if (m_strFileSite[m_strFileSite.length()] != '/')
     {
         m_strFileSite += "/";
     }
@@ -70,27 +69,28 @@ void CAudioModel::setUrl(string& strFileSite)
  *
  *  @return bool 成功返回true，失败返回false
  */
-bool CAudioModel::readAudios(list<IM::BaseDefine::MsgInfo>& lsMsg)
+bool CAudioModel::readAudios(list<IM::BaseDefine::MsgInfo> &lsMsg)
 {
-    if(lsMsg.empty())
+    if (lsMsg.empty())
     {
         return true;
     }
     bool bRet = false;
-    CDBManager* pDBManger = CDBManager::getInstance();
-    CDBConn* pDBConn = pDBManger->GetDBConn("teamtalk_slave");
+    CDBManager *pDBManger = CDBManager::getInstance();
+    CDBConn *pDBConn = pDBManger->GetDBConn("teamtalk_slave");
     if (pDBConn)
     {
-        for (auto it=lsMsg.begin(); it!=lsMsg.end(); )
+        for (auto it = lsMsg.begin(); it != lsMsg.end();)
         {
             IM::BaseDefine::MsgType nType = it->msg_type();
-            if((IM::BaseDefine::MSG_TYPE_GROUP_AUDIO ==  nType) || (IM::BaseDefine::MSG_TYPE_SINGLE_AUDIO == nType))
+            if ((IM::BaseDefine::MSG_TYPE_GROUP_AUDIO == nType) || (IM::BaseDefine::MSG_TYPE_SINGLE_AUDIO == nType))
             {
                 string strSql = "select * from IMAudio where id=" + it->msg_data();
-                CResultSet* pResultSet = pDBConn->ExecuteQuery(strSql.c_str());
+                CResultSet *pResultSet = pDBConn->ExecuteQuery(strSql.c_str());
                 if (pResultSet)
                 {
-                    while (pResultSet->Next()) {
+                    while (pResultSet->Next())
+                    {
                         uint32_t nCostTime = pResultSet->GetInt("duration");
                         uint32_t nSize = pResultSet->GetInt("size");
                         string strPath = pResultSet->GetString("path");
@@ -117,6 +117,7 @@ bool CAudioModel::readAudios(list<IM::BaseDefine::MsgInfo>& lsMsg)
     {
         log("no connection for teamtalk_slave");
     }
+    
     return bRet;
 }
 
@@ -131,25 +132,25 @@ bool CAudioModel::readAudios(list<IM::BaseDefine::MsgInfo>& lsMsg)
  *
  *  @return 成功返回语音id，失败返回-1
  */
-int CAudioModel::saveAudioInfo(uint32_t nFromId, uint32_t nToId, uint32_t nCreateTime, const char* pAudioData, uint32_t nAudioLen)
+int CAudioModel::saveAudioInfo(uint32_t nFromId, uint32_t nToId, uint32_t nCreateTime, const char *pAudioData, uint32_t nAudioLen)
 {
-	// parse audio data
-	uint32_t nCostTime = CByteStream::ReadUint32((uchar_t*)pAudioData);
-	uchar_t* pRealData = (uchar_t*)pAudioData + 4;
-	uint32_t nRealLen = nAudioLen - 4;
+    // parse audio data
+    uint32_t nCostTime = CByteStream::ReadUint32((uchar_t *)pAudioData);
+    uchar_t *pRealData = (uchar_t *)pAudioData + 4;
+    uint32_t nRealLen = nAudioLen - 4;
     int nAudioId = -1;
-    
-	CHttpClient httpClient;
-	string strPath = httpClient.UploadByteFile(m_strFileSite, pRealData, nRealLen);
-	if (!strPath.empty())
+
+    CHttpClient httpClient;
+    string strPath = httpClient.UploadByteFile(m_strFileSite, pRealData, nRealLen);
+    if (!strPath.empty())
     {
-        CDBManager* pDBManager = CDBManager::getInstance();
-        CDBConn* pDBConn = pDBManager->GetDBConn("teamtalk_master");
+        CDBManager *pDBManager = CDBManager::getInstance();
+        CDBConn *pDBConn = pDBManager->GetDBConn("teamtalk_master");
         if (pDBConn)
         {
             uint32_t nStartPos = 0;
-            string strSql = "insert into IMAudio(`fromId`, `toId`, `path`, `size`, `duration`, `created`) "\
-            "values(?, ?, ?, ?, ?, ?)";
+            string strSql = "insert into IMAudio(`fromId`, `toId`, `path`, `size`, `duration`, `created`) "
+                            "values(?, ?, ?, ?, ?, ?)";
             replace_mark(strSql, nFromId, nStartPos);
             replace_mark(strSql, nToId, nStartPos);
             replace_mark(strSql, strPath, nStartPos);
@@ -160,7 +161,8 @@ int CAudioModel::saveAudioInfo(uint32_t nFromId, uint32_t nToId, uint32_t nCreat
             {
                 nAudioId = pDBConn->GetInsertId();
                 log("audioId=%d", nAudioId);
-            } else
+            }
+            else
             {
                 log("sql failed: %s", strSql.c_str());
             }
@@ -170,12 +172,12 @@ int CAudioModel::saveAudioInfo(uint32_t nFromId, uint32_t nToId, uint32_t nCreat
         {
             log("no db connection for teamtalk_master");
         }
-	}
+    }
     else
     {
         log("upload file failed");
     }
-	return nAudioId;
+    return nAudioId;
 }
 
 /**
@@ -188,31 +190,32 @@ int CAudioModel::saveAudioInfo(uint32_t nFromId, uint32_t nToId, uint32_t nCreat
  *
  *  @return 成功返回true，失败返回false
  */
-bool CAudioModel::readAudioContent(uint32_t nCostTime, uint32_t nSize, const string& strPath, IM::BaseDefine::MsgInfo& cMsg)
+bool CAudioModel::readAudioContent(uint32_t nCostTime, uint32_t nSize, const string &strPath, IM::BaseDefine::MsgInfo &cMsg)
 {
-	if (strPath.empty() || nCostTime == 0 || nSize == 0) {
-		return false;
-	}
+    if (strPath.empty() || nCostTime == 0 || nSize == 0)
+    {
+        return false;
+    }
 
-	// 分配内存，写入音频时长
+    // 分配内存，写入音频时长
     AudioMsgInfo cAudioMsg;
-    uchar_t* pData = new uchar_t [4 + nSize];
-	cAudioMsg.data = pData;
-	CByteStream::WriteUint32(cAudioMsg.data, nCostTime);
+    uchar_t *pData = new uchar_t[4 + nSize];
+    cAudioMsg.data = pData;
+    CByteStream::WriteUint32(cAudioMsg.data, nCostTime);
     cAudioMsg.data_len = 4;
     cAudioMsg.fileSize = nSize;
 
-	// 获取音频数据，写入上面分配的内存
+    // 获取音频数据，写入上面分配的内存
     CHttpClient httpClient;
-    if(!httpClient.DownloadByteFile(strPath, &cAudioMsg))
+    if (!httpClient.DownloadByteFile(strPath, &cAudioMsg))
     {
-        delete [] pData;
+        delete[] pData;
         return false;
     }
 
     log("download_path=%s, data_len=%d", strPath.c_str(), cAudioMsg.data_len);
-    cMsg.set_msg_data((const char*)cAudioMsg.data, cAudioMsg.data_len);
-    
-    delete [] pData;
+    cMsg.set_msg_data((const char *)cAudioMsg.data, cAudioMsg.data_len);
+
+    delete[] pData;
     return true;
 }
