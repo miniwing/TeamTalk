@@ -20,7 +20,7 @@
  */
 - (int)requestTimeOutTimeInterval
 {
-    return TimeOutTimeInterval;
+   return TimeOutTimeInterval;
 }
 
 /**
@@ -30,7 +30,7 @@
  */
 - (int)requestServiceID
 {
-    return SID_GROUP;
+   return ServiceIDSidGroup;
 }
 
 /**
@@ -40,7 +40,7 @@
  */
 - (int)responseServiceID
 {
-    return SID_GROUP;
+   return ServiceIDSidGroup;
 }
 
 /**
@@ -50,7 +50,7 @@
  */
 - (int)requestCommendID
 {
-    return IM_GROUP_CREATE_REQ;
+   return GroupCmdIDCidGroupCreateRequest;
 }
 
 /**
@@ -60,7 +60,7 @@
  */
 - (int)responseCommendID
 {
-    return IM_GROUP_CREATE_RES;
+   return GroupCmdIDCidGroupCreateResponse;
 }
 
 /**
@@ -70,35 +70,35 @@
  */
 - (Analysis)analysisReturnData
 {
-    Analysis analysis = (id)^(NSData* data)
-    {
-        IMGroupCreateRsp *rsp = [IMGroupCreateRsp parseFromData:data];
-        uint32_t result = rsp.resultCode;
-        MTTGroupEntity* group = nil;
-        if (result != 0)
-        {
-            return group;
-        }
-        else
-        {
-            NSString *groupId = [MTTGroupEntity pbGroupIdToLocalID:rsp.groupId];
-            NSString *groupName = rsp.groupName;
-            uint32_t userCnt =[[rsp userIdList] count];
-            group = [[MTTGroupEntity alloc] init];
-            group.objID = groupId;
-            group.name = groupName;
-            group.groupUserIds = [[NSMutableArray alloc] init];
-            
-            for (uint32_t i = 0; i < userCnt; i++) {
-                NSString* userId = [MTTUserEntity pbUserIdToLocalID:[[rsp userIdList][i] integerValue]];
-                [group.groupUserIds addObject:userId];
-                [group addFixOrderGroupUserIDS:userId];
-            }
-           
-            return group;
-        }
-    };
-    return analysis;
+   Analysis analysis = (id)^(NSData* data)
+   {
+      IMGroupCreateRsp *rsp = [IMGroupCreateRsp parseFromData:data];
+      uint32_t result = rsp.resultCode;
+      MTTGroupEntity* group = nil;
+      if (result != 0)
+      {
+         return group;
+      }
+      else
+      {
+         NSString *groupId = [MTTGroupEntity pbGroupIdToLocalID:rsp.groupId];
+         NSString *groupName = rsp.groupName;
+         uint32_t userCnt =[[rsp userIdList] count];
+         group = [[MTTGroupEntity alloc] init];
+         group.objID = groupId;
+         group.name = groupName;
+         group.groupUserIds = [[NSMutableArray alloc] init];
+         
+         for (uint32_t i = 0; i < userCnt; i++) {
+            NSString* userId = [MTTUserEntity pbUserIdToLocalID:[[rsp userIdList][i] integerValue]];
+            [group.groupUserIds addObject:userId];
+            [group addFixOrderGroupUserIDS:userId];
+         }
+         
+         return group;
+      }
+   };
+   return analysis;
 }
 
 /**
@@ -108,32 +108,32 @@
  */
 - (Package)packageRequestObject
 {
-    Package package = (id)^(id object,uint16_t seqNo)
-    {
-        NSArray* array = (NSArray*)object;
-        NSString* groupName = array[0];
-        NSString* groupAvatar = array[1];
-        NSArray* groupUserList = array[2];
-        
-        IMGroupCreateReqBuilder *req = [IMGroupCreateReq builder];
-        [req setUserId:0];
-        [req setGroupName:groupName];
-        [req setGroupAvatar:groupAvatar];
-        [req setGroupType:GroupTypeGroupTypeTmp];
-        NSMutableArray *originalID = [NSMutableArray new];
-        for (NSString *localID in groupUserList) {
-            [originalID addObject:@([MTTUtil changeIDToOriginal:localID])];
-        }
-        [req setMemberIdListArray:originalID];
-        DDDataOutputStream *dataout = [[DDDataOutputStream alloc] init];
-        [dataout writeInt:0];
-        [dataout writeTcpProtocolHeader:SID_GROUP
-                                    cId:IM_GROUP_CREATE_REQ
-                                  seqNo:seqNo];
-        [dataout directWriteBytes:[req build].data];
-        [dataout writeDataCount];
-        return [dataout toByteArray];
-    };
-    return package;
+   Package package = (id)^(id object,uint16_t seqNo)
+   {
+      NSArray* array = (NSArray*)object;
+      NSString* groupName = array[0];
+      NSString* groupAvatar = array[1];
+      NSArray* groupUserList = array[2];
+      
+      IMGroupCreateReqBuilder *req = [IMGroupCreateReq builder];
+      [req setUserId:0];
+      [req setGroupName:groupName];
+      [req setGroupAvatar:groupAvatar];
+      [req setGroupType:GroupTypeGroupTypeTmp];
+      NSMutableArray *originalID = [NSMutableArray new];
+      for (NSString *localID in groupUserList) {
+         [originalID addObject:@([MTTUtil changeIDToOriginal:localID])];
+      }
+      [req setMemberIdListArray:originalID];
+      DDDataOutputStream *dataout = [[DDDataOutputStream alloc] init];
+      [dataout writeInt:0];
+      [dataout writeTcpProtocolHeader:[self requestServiceID]
+                                  cId:[self requestCommendID]
+                                seqNo:seqNo];
+      [dataout directWriteBytes:[req build].data];
+      [dataout writeDataCount];
+      return [dataout toByteArray];
+   };
+   return package;
 }
 @end

@@ -43,7 +43,7 @@
     return self;
 }
 
--(void)setCellToSelected:(BOOL)select
+- (void)setCellToSelected:(BOOL)select
 {
     [self.selectView setHighlighted:select];
 }

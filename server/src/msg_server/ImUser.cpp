@@ -29,120 +29,128 @@ CImUser::~CImUser()
     //log("~ImUser, userId=%u\n", m_user_id);
 }
 
-CMsgConn* CImUser::GetUnValidateMsgConn(uint32_t handle)
+CMsgConn *CImUser::GetUnValidateMsgConn(uint32_t handle)
 {
-    for (set<CMsgConn*>::iterator it = m_unvalidate_conn_set.begin(); it != m_unvalidate_conn_set.end(); it++)
+    for (set<CMsgConn *>::iterator it = m_unvalidate_conn_set.begin(); it != m_unvalidate_conn_set.end(); it++)
     {
-        CMsgConn* pConn = *it;
-        if (pConn->GetHandle() == handle) {
+        CMsgConn *pConn = *it;
+        if (pConn->GetHandle() == handle)
+        {
             return pConn;
         }
     }
-    
+
     return NULL;
 }
 
-CMsgConn* CImUser::GetMsgConn(uint32_t handle)
+CMsgConn *CImUser::GetMsgConn(uint32_t handle)
 {
-    CMsgConn* pMsgConn = NULL;
-    map<uint32_t, CMsgConn*>::iterator it = m_conn_map.find(handle);
-    if (it != m_conn_map.end()) {
+    CMsgConn *pMsgConn = NULL;
+    map<uint32_t, CMsgConn *>::iterator it = m_conn_map.find(handle);
+    if (it != m_conn_map.end())
+    {
         pMsgConn = it->second;
     }
     return pMsgConn;
 }
 
-void CImUser::ValidateMsgConn(uint32_t handle, CMsgConn* pMsgConn)
+void CImUser::ValidateMsgConn(uint32_t handle, CMsgConn *pMsgConn)
 {
     AddMsgConn(handle, pMsgConn);
     DelUnValidateMsgConn(pMsgConn);
 }
 
-
 user_conn_t CImUser::GetUserConn()
 {
     uint32_t conn_cnt = 0;
-    for (map<uint32_t, CMsgConn*>::iterator it = m_conn_map.begin(); it != m_conn_map.end(); it++)
+    for (map<uint32_t, CMsgConn *>::iterator it = m_conn_map.begin(); it != m_conn_map.end(); it++)
     {
-        CMsgConn* pConn = it->second;
-        if (pConn->IsOpen()) {
+        CMsgConn *pConn = it->second;
+        if (pConn->IsOpen())
+        {
             conn_cnt++;
         }
     }
-    
+
     user_conn_t user_cnt = {m_user_id, conn_cnt};
     return user_cnt;
 }
 
-void CImUser::BroadcastPdu(CImPdu* pPdu, CMsgConn* pFromConn)
+void CImUser::BroadcastPdu(CImPdu *pPdu, CMsgConn *pFromConn)
 {
-    for (map<uint32_t, CMsgConn*>::iterator it = m_conn_map.begin(); it != m_conn_map.end(); it++)
+    for (map<uint32_t, CMsgConn *>::iterator it = m_conn_map.begin(); it != m_conn_map.end(); it++)
     {
-        CMsgConn* pConn = it->second;
-        if (pConn != pFromConn) {
+        CMsgConn *pConn = it->second;
+        if (pConn != pFromConn)
+        {
             pConn->SendPdu(pPdu);
         }
     }
 }
 
-void CImUser::BroadcastPduWithOutMobile(CImPdu *pPdu, CMsgConn* pFromConn)
+void CImUser::BroadcastPduWithOutMobile(CImPdu *pPdu, CMsgConn *pFromConn)
 {
-    for (map<uint32_t, CMsgConn*>::iterator it = m_conn_map.begin(); it != m_conn_map.end(); it++)
+    for (map<uint32_t, CMsgConn *>::iterator it = m_conn_map.begin(); it != m_conn_map.end(); it++)
     {
-        CMsgConn* pConn = it->second;
-        if (pConn != pFromConn && CHECK_CLIENT_TYPE_PC(pConn->GetClientType())) {
+        CMsgConn *pConn = it->second;
+        if (pConn != pFromConn && CHECK_CLIENT_TYPE_PC(pConn->GetClientType()))
+        {
             pConn->SendPdu(pPdu);
         }
     }
 }
 
-void CImUser::BroadcastPduToMobile(CImPdu* pPdu, CMsgConn* pFromConn)
+void CImUser::BroadcastPduToMobile(CImPdu *pPdu, CMsgConn *pFromConn)
 {
-    for (map<uint32_t, CMsgConn*>::iterator it = m_conn_map.begin(); it != m_conn_map.end(); it++)
+    for (map<uint32_t, CMsgConn *>::iterator it = m_conn_map.begin(); it != m_conn_map.end(); it++)
     {
-        CMsgConn* pConn = it->second;
-        if (pConn != pFromConn && CHECK_CLIENT_TYPE_MOBILE(pConn->GetClientType())) {
+        CMsgConn *pConn = it->second;
+        if (pConn != pFromConn && CHECK_CLIENT_TYPE_MOBILE(pConn->GetClientType()))
+        {
             pConn->SendPdu(pPdu);
         }
     }
 }
 
-
-void CImUser::BroadcastClientMsgData(CImPdu* pPdu, uint32_t msg_id, CMsgConn* pFromConn, uint32_t from_id)
+void CImUser::BroadcastClientMsgData(CImPdu *pPdu, uint32_t msg_id, CMsgConn *pFromConn, uint32_t from_id)
 {
-    for (map<uint32_t, CMsgConn*>::iterator it = m_conn_map.begin(); it != m_conn_map.end(); it++)
+    for (map<uint32_t, CMsgConn *>::iterator it = m_conn_map.begin(); it != m_conn_map.end(); it++)
     {
-        CMsgConn* pConn = it->second;
-        if (pConn != pFromConn) {
+        CMsgConn *pConn = it->second;
+        if (pConn != pFromConn)
+        {
             pConn->SendPdu(pPdu);
             pConn->AddToSendList(msg_id, from_id);
         }
     }
 }
 
-void CImUser::BroadcastData(void *buff, uint32_t len, CMsgConn* pFromConn)
+void CImUser::BroadcastData(void *buff, uint32_t len, CMsgConn *pFromConn)
 {
-    if(!buff)
+    if (!buff)
         return;
-    for (map<uint32_t, CMsgConn*>::iterator it = m_conn_map.begin(); it != m_conn_map.end(); it++)
+    for (map<uint32_t, CMsgConn *>::iterator it = m_conn_map.begin(); it != m_conn_map.end(); it++)
     {
-        CMsgConn* pConn = it->second;
-        
-        if(pConn == NULL)
+        CMsgConn *pConn = it->second;
+
+        if (pConn == NULL)
             continue;
-        
-        if (pConn != pFromConn) {
+
+        if (pConn != pFromConn)
+        {
             pConn->Send(buff, len);
         }
     }
 }
 
-void CImUser::HandleKickUser(CMsgConn* pConn, uint32_t reason)
+void CImUser::HandleKickUser(CMsgConn *pConn, uint32_t reason)
 {
-    map<uint32_t, CMsgConn*>::iterator it = m_conn_map.find(pConn->GetHandle());
-    if (it != m_conn_map.end()) {
-        CMsgConn* pConn = it->second;
-        if(pConn) {
+    map<uint32_t, CMsgConn *>::iterator it = m_conn_map.find(pConn->GetHandle());
+    if (it != m_conn_map.end())
+    {
+        CMsgConn *pConn = it->second;
+        if (pConn)
+        {
             log("kick service user, user_id=%u.", m_user_id);
             IM::Login::IMKickUser msg;
             msg.set_user_id(m_user_id);
@@ -159,14 +167,15 @@ void CImUser::HandleKickUser(CMsgConn* pConn, uint32_t reason)
 }
 
 // 只支持一个WINDOWS/MAC客户端登陆,或者一个ios/android登录
-bool CImUser::KickOutSameClientType(uint32_t client_type, uint32_t reason, CMsgConn* pFromConn)
+bool CImUser::KickOutSameClientType(uint32_t client_type, uint32_t reason, CMsgConn *pFromConn)
 {
-    for (map<uint32_t, CMsgConn*>::iterator it = m_conn_map.begin(); it != m_conn_map.end(); it++)
+    for (map<uint32_t, CMsgConn *>::iterator it = m_conn_map.begin(); it != m_conn_map.end(); it++)
     {
-        CMsgConn* pMsgConn = it->second;
-        
+        CMsgConn *pMsgConn = it->second;
+
         //16进制位移计算
-        if ((((pMsgConn->GetClientType() ^ client_type) >> 4) == 0) && (pMsgConn != pFromConn)) {
+        if ((((pMsgConn->GetClientType() ^ client_type) >> 4) == 0) && (pMsgConn != pFromConn))
+        {
             HandleKickUser(pMsgConn, reason);
             break;
         }
@@ -177,10 +186,10 @@ bool CImUser::KickOutSameClientType(uint32_t client_type, uint32_t reason, CMsgC
 uint32_t CImUser::GetClientTypeFlag()
 {
     uint32_t client_type_flag = 0x00;
-    map<uint32_t, CMsgConn*>::iterator it = m_conn_map.begin();
+    map<uint32_t, CMsgConn *>::iterator it = m_conn_map.begin();
     for (; it != m_conn_map.end(); it++)
     {
-        CMsgConn* pConn = it->second;
+        CMsgConn *pConn = it->second;
         uint32_t client_type = pConn->GetClientType();
         if (CHECK_CLIENT_TYPE_PC(client_type))
         {
@@ -194,44 +203,45 @@ uint32_t CImUser::GetClientTypeFlag()
     return client_type_flag;
 }
 
-
 CImUserManager::~CImUserManager()
 {
     RemoveAll();
 }
 
-CImUserManager* CImUserManager::GetInstance()
+CImUserManager *CImUserManager::GetInstance()
 {
     static CImUserManager s_manager;
     return &s_manager;
 }
 
-
-CImUser* CImUserManager::GetImUserByLoginName(string login_name)
+CImUser *CImUserManager::GetImUserByLoginName(string login_name)
 {
-    CImUser* pUser = NULL;
+    CImUser *pUser = NULL;
     ImUserMapByName_t::iterator it = m_im_user_map_by_name.find(login_name);
-    if (it != m_im_user_map_by_name.end()) {
+    if (it != m_im_user_map_by_name.end())
+    {
         pUser = it->second;
     }
     return pUser;
 }
 
-CImUser* CImUserManager::GetImUserById(uint32_t user_id)
+CImUser *CImUserManager::GetImUserById(uint32_t user_id)
 {
-    CImUser* pUser = NULL;
+    CImUser *pUser = NULL;
     ImUserMap_t::iterator it = m_im_user_map.find(user_id);
-    if (it != m_im_user_map.end()) {
+    if (it != m_im_user_map.end())
+    {
         pUser = it->second;
     }
     return pUser;
 }
 
-CMsgConn* CImUserManager::GetMsgConnByHandle(uint32_t user_id, uint32_t handle)
+CMsgConn *CImUserManager::GetMsgConnByHandle(uint32_t user_id, uint32_t handle)
 {
-    CMsgConn* pMsgConn = NULL;
-    CImUser* pImUser = GetImUserById(user_id);
-    if (pImUser) {
+    CMsgConn *pMsgConn = NULL;
+    CImUser *pImUser = GetImUserById(user_id);
+    if (pImUser)
+    {
         pMsgConn = pImUser->GetMsgConn(handle);
     }
     return pMsgConn;
@@ -240,7 +250,8 @@ CMsgConn* CImUserManager::GetMsgConnByHandle(uint32_t user_id, uint32_t handle)
 bool CImUserManager::AddImUserByLoginName(string login_name, CImUser *pUser)
 {
     bool bRet = false;
-    if (GetImUserByLoginName(login_name) == NULL) {
+    if (GetImUserByLoginName(login_name) == NULL)
+    {
         m_im_user_map_by_name[login_name] = pUser;
         bRet = true;
     }
@@ -255,7 +266,8 @@ void CImUserManager::RemoveImUserByLoginName(string login_name)
 bool CImUserManager::AddImUserById(uint32_t user_id, CImUser *pUser)
 {
     bool bRet = false;
-    if (GetImUserById(user_id) == NULL) {
+    if (GetImUserById(user_id) == NULL)
+    {
         m_im_user_map[user_id] = pUser;
         bRet = true;
     }
@@ -269,7 +281,8 @@ void CImUserManager::RemoveImUserById(uint32_t user_id)
 
 void CImUserManager::RemoveImUser(CImUser *pUser)
 {
-    if (pUser != NULL) {
+    if (pUser != NULL)
+    {
         RemoveImUserById(pUser->GetUserId());
         RemoveImUserByLoginName(pUser->GetLoginName());
         delete pUser;
@@ -282,8 +295,9 @@ void CImUserManager::RemoveAll()
     for (ImUserMapByName_t::iterator it = m_im_user_map_by_name.begin(); it != m_im_user_map_by_name.end();
          it++)
     {
-        CImUser* pUser = it->second;
-        if (pUser != NULL) {
+        CImUser *pUser = it->second;
+        if (pUser != NULL)
+        {
             delete pUser;
             pUser = NULL;
         }
@@ -292,17 +306,19 @@ void CImUserManager::RemoveAll()
     m_im_user_map.clear();
 }
 
-void CImUserManager::GetOnlineUserInfo(list<user_stat_t>* online_user_info)
+void CImUserManager::GetOnlineUserInfo(list<user_stat_t> *online_user_info)
 {
     user_stat_t status;
-    CImUser* pImUser = NULL;
-    for (ImUserMap_t::iterator it = m_im_user_map.begin(); it != m_im_user_map.end(); it++) {
-        pImUser = (CImUser*)it->second;
-        if (pImUser->IsValidate()) {
-            map<uint32_t, CMsgConn*>& ConnMap = pImUser->GetMsgConnMap();
-            for (map<uint32_t, CMsgConn*>::iterator it = ConnMap.begin(); it != ConnMap.end(); it++)
+    CImUser *pImUser = NULL;
+    for (ImUserMap_t::iterator it = m_im_user_map.begin(); it != m_im_user_map.end(); it++)
+    {
+        pImUser = (CImUser *)it->second;
+        if (pImUser->IsValidate())
+        {
+            map<uint32_t, CMsgConn *> &ConnMap = pImUser->GetMsgConnMap();
+            for (map<uint32_t, CMsgConn *>::iterator it = ConnMap.begin(); it != ConnMap.end(); it++)
             {
-                CMsgConn* pConn = it->second;
+                CMsgConn *pConn = it->second;
                 if (pConn->IsOpen())
                 {
                     status.user_id = pImUser->GetUserId();
@@ -315,13 +331,13 @@ void CImUserManager::GetOnlineUserInfo(list<user_stat_t>* online_user_info)
     }
 }
 
-void CImUserManager::GetUserConnCnt(list<user_conn_t>* user_conn_list, uint32_t& total_conn_cnt)
+void CImUserManager::GetUserConnCnt(list<user_conn_t> *user_conn_list, uint32_t &total_conn_cnt)
 {
     total_conn_cnt = 0;
-    CImUser* pImUser = NULL;
+    CImUser *pImUser = NULL;
     for (ImUserMap_t::iterator it = m_im_user_map.begin(); it != m_im_user_map.end(); it++)
     {
-        pImUser = (CImUser*)it->second;
+        pImUser = (CImUser *)it->second;
         if (pImUser->IsValidate())
         {
             user_conn_t user_conn_cnt = pImUser->GetUserConn();
@@ -331,28 +347,28 @@ void CImUserManager::GetUserConnCnt(list<user_conn_t>* user_conn_list, uint32_t&
     }
 }
 
-void CImUserManager::BroadcastPdu(CImPdu* pdu, uint32_t client_type_flag)
+void CImUserManager::BroadcastPdu(CImPdu *pdu, uint32_t client_type_flag)
 {
-    CImUser* pImUser = NULL;
+    CImUser *pImUser = NULL;
     for (ImUserMap_t::iterator it = m_im_user_map.begin(); it != m_im_user_map.end(); it++)
     {
-        pImUser = (CImUser*)it->second;
+        pImUser = (CImUser *)it->second;
         if (pImUser->IsValidate())
         {
-            switch (client_type_flag) {
-                case CLIENT_TYPE_FLAG_PC:
-                    pImUser->BroadcastPduWithOutMobile(pdu);
-                    break;
-                case CLIENT_TYPE_FLAG_MOBILE:
-                    pImUser->BroadcastPduToMobile(pdu);
-                    break;
-                case CLIENT_TYPE_FLAG_BOTH:
-                    pImUser->BroadcastPdu(pdu);
-                    break;
-                default:
-                    break;
+            switch (client_type_flag)
+            {
+            case CLIENT_TYPE_FLAG_PC:
+                pImUser->BroadcastPduWithOutMobile(pdu);
+                break;
+            case CLIENT_TYPE_FLAG_MOBILE:
+                pImUser->BroadcastPduToMobile(pdu);
+                break;
+            case CLIENT_TYPE_FLAG_BOTH:
+                pImUser->BroadcastPdu(pdu);
+                break;
+            default:
+                break;
             }
         }
     }
 }
-

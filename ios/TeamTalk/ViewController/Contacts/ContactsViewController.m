@@ -24,7 +24,7 @@
 #import "MTTNotification.h"
 
 @interface ContactsViewController ()
-//@property(nonatomic,strong) UISegmentedControl *segmentedControl;
+@property(nonatomic,strong) UISegmentedControl *segmentedControl;
 @property(nonatomic,strong) NSMutableDictionary *items;
 @property(nonatomic,strong) NSMutableDictionary *department;
 @property(nonatomic,strong) NSMutableDictionary *keys;
@@ -47,7 +47,7 @@
 @implementation ContactsViewController
 
 
--(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     if (self == [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
     }
@@ -63,13 +63,13 @@
     self.groups = [NSMutableArray arrayWithArray:self.model.groups];
     self.searchResult = [NSArray new];
     
-//    self.segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"全部",@"部门"]];
-//    self.segmentedControl.selectedSegmentIndex=0;
-//    self.segmentedControl.frame=CGRectMake(80.0f, 8.0f, 200.0f, 30.0f);
-//    self.segmentedControl.backgroundColor = [UIColor whiteColor];
-//    self.segmentedControl.tintColor= TTBLUE;
-//    [self.segmentedControl addTarget:self action:@selector(segmentSelect:) forControlEvents:UIControlEventValueChanged];
-//    self.navigationItem.titleView=self.segmentedControl;
+    self.segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"全部",@"部门"]];
+    self.segmentedControl.selectedSegmentIndex=0;
+    self.segmentedControl.frame=CGRectMake(80.0f, 8.0f, 200.0f, 30.0f);
+    self.segmentedControl.backgroundColor = [UIColor whiteColor];
+    self.segmentedControl.tintColor= TTBLUE;
+    [self.segmentedControl addTarget:self action:@selector(segmentSelect:) forControlEvents:UIControlEventValueChanged];
+    self.navigationItem.titleView=self.segmentedControl;
     
     self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, FULL_WIDTH, 44)];
     [self.searchBar setPlaceholder:@"搜索"];
@@ -98,31 +98,32 @@
     self.tableView.tableHeaderView=self.searchBar;
     self.tableView.separatorStyle = NO;
     
-//    DDFixedGroupAPI *getFixgroup = [DDFixedGroupAPI new];
-//    [getFixgroup requestWithObject:nil Completion:^(NSArray *response, NSError *error) {
-//        
-//        [response enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL *stop){
-//            NSString *groupID = [MTTUtil changeOriginalToLocalID:(UInt32)[obj[@"groupid"] integerValue] SessionType:SessionTypeSessionTypeGroup];
-//            NSInteger version = [obj[@"version"] integerValue];
-//            MTTGroupEntity *group = [[DDGroupModule instance] getGroupByGId:groupID];
-//            if (group) {
-//                if (group.objectVersion == version) {
-//                    [self.groups addObject:group];
-//                }else{
-//                    [[DDGroupModule instance] getGroupInfogroupID:groupID completion:^(MTTGroupEntity *group) {
-//                        [self.groups addObject:group];
-//                        
-//                    }];
-//                }
-//            }else{
-//                [[DDGroupModule instance] getGroupInfogroupID:groupID completion:^(MTTGroupEntity *group) {
-//                    [self.groups addObject:group];
-//                }];
-//            }
-//            
-//        }];
-//        [self.tableView reloadData];
-//    }];
+    DDFixedGroupAPI *getFixgroup = [DDFixedGroupAPI new];
+    [getFixgroup requestWithObject:nil Completion:^(NSArray *response, NSError *error) {
+        
+        [response enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL *stop){
+            NSString *groupID = [MTTUtil changeOriginalToLocalID:(UInt32)[obj[@"groupid"] integerValue] SessionType:SessionTypeSessionTypeGroup];
+            NSInteger version = [obj[@"version"] integerValue];
+            MTTGroupEntity *group = [[DDGroupModule instance] getGroupByGId:groupID];
+            if (group) {
+                if (group.objectVersion == version) {
+                    [self.groups addObject:group];
+                }
+                else{
+                    [[DDGroupModule instance] getGroupInfogroupID:groupID completion:^(MTTGroupEntity *group) {
+                        [self.groups addObject:group];
+                        
+                    }];
+                }
+            }else{
+                [[DDGroupModule instance] getGroupInfogroupID:groupID completion:^(MTTGroupEntity *group) {
+                    [self.groups addObject:group];
+                }];
+            }
+            
+        }];
+        [self.tableView reloadData];
+    }];
     self.department = [self.model sortByDepartment];
     [self swichContactsToALl];
     
@@ -137,7 +138,8 @@
     // 初始化searchTableView
     [self addSearchTableView];
 }
--(void)addSearchTableView{
+
+- (void)addSearchTableView {
     self.searchTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 109, SCREEN_WIDTH, SCREEN_HEIGHT-109)];
     [self.view addSubview:self.searchTableView];
     [self.searchTableView setHidden:YES];
@@ -145,7 +147,7 @@
     [self.searchTableView setBackgroundColor:TTBG];
     self.searchContent = [SearchContentViewController new];
     self.searchContent.viewController=self;
-    if(self.isFromAt){
+    if (self.isFromAt) {
         self.searchContent.searchType = MTTSearchUser;
         self.searchContent.isFromAt = self.isFromAt;
         MTT_WEAKSELF(ws);
@@ -237,7 +239,7 @@
     [searchMoreContent addSubview:searchChatLabel];
 }
 
-- (void)endSearch{
+- (void)endSearch {
     // 原tableview允许滚动
     self.tableView.scrollEnabled = YES;
     self.searchBar.text = @"";
@@ -259,63 +261,64 @@
     }
 }
 
--(void)appBecomeActive{
+- (void)appBecomeActive{
     
     self.tableView.contentInset =UIEdgeInsetsMake(64, 0, 49, 0);
 }
 
--(void)scrollToTitle:(NSNotification *)notification
+- (void)scrollToTitle:(NSNotification *)notification
 {
     NSString *string = [notification object];
     self.searchKey=string;
 }
 
--(void)viewWillAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
     self.title=@"联系人";
     
-//    self.navigationItem.titleView=self.segmentedControl;
-//    
-//    if (self.searchKey) {
-//        [self.segmentedControl setSelectedSegmentIndex:1];
-//        self.selectIndex=1;
-//        [self swichToShowDepartment];
-//        if ([self.allKeys count]) {
-//            NSInteger location = [self.allKeys indexOfObject:self.searchKey];
-//            [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:location] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
-//        }
-//        return;
-//    }
+    self.navigationItem.titleView=self.segmentedControl;
+    
+    if (self.searchKey) {
+        [self.segmentedControl setSelectedSegmentIndex:1];
+        self.selectIndex=1;
+        [self swichToShowDepartment];
+        if ([self.allKeys count]) {
+            NSInteger location = [self.allKeys indexOfObject:self.searchKey];
+            [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:location] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+        }
+        return;
+    }
 }
 
--(void)viewDidAppear:(BOOL)animated
+- (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     
     self.tableView.contentInset =UIEdgeInsetsMake(64, 0, 49, 0);
 }
 
--(void)viewDidDisappear:(BOOL)animated{
+- (void)viewDidDisappear:(BOOL)animated{
     
     [super viewDidDisappear:animated];
     
 }
 
--(void)swichContactsToALl
-{
+- (void)swichContactsToALl {
+   
     //[self.items removeAllObjects];
     self.items = [self.model sortByContactPy];
    [self.tableView reloadData];
 }
--(void)swichToShowDepartment
+
+- (void)swichToShowDepartment
 {
     // [self.items removeAllObjects];
     //self.items = [self.model sortByDepartment];
     [self.tableView reloadData];
 }
--(NSArray*)sectionIndexTitlesForTableView:(UITableView *)tableView{
+- (NSArray*)sectionIndexTitlesForTableView:(UITableView *)tableView{
     NSMutableArray* array = [[NSMutableArray alloc] init];
     if (self.selectIndex == 1) {
         [[self allKeys] enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL *stop) {
@@ -336,7 +339,7 @@
     }
     return array ;
 }
--(void)segmentSelect:(UISegmentedControl *)sender
+- (void)segmentSelect:(UISegmentedControl *)sender
 {
     NSInteger index = sender.selectedSegmentIndex;
     switch (index) {
@@ -359,7 +362,7 @@
 }
 
 #pragma mark - Table view data source
--(NSArray*)allKeys{
+- (NSArray*)allKeys{
     if (self.selectIndex == 1) {
         if ([self.departmentIndexes count]) {
             return self.departmentIndexes;
@@ -514,11 +517,11 @@
     return cell;
 }
 
--(IBAction)showActions:(id)sender
+- (IBAction)showActions:(id)sender
 {
 }
 
--(void)callNum:(MTTUserEntity *)user
+- (void)callNum:(MTTUserEntity *)user
 {
     if (user == nil) {
         return;
@@ -526,7 +529,7 @@
     NSString *string = [NSString stringWithFormat:@"tel:%@",user.telphone];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:string]];
 }
--(void)sendEmail:(MTTUserEntity *)user
+- (void)sendEmail:(MTTUserEntity *)user
 {
     if (user == nil) {
         return;
@@ -534,7 +537,7 @@
     NSString *string = [NSString stringWithFormat:@"mailto:%@",user.email];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:string]];
 }
--(void)chatTo:(MTTUserEntity *)user
+- (void)chatTo:(MTTUserEntity *)user
 {
     if (user == nil) {
         return;
@@ -544,13 +547,13 @@
     [[ChattingMainViewController shareInstance] showChattingContentForSession:session];
     [self pushViewController:[ChattingMainViewController shareInstance] animated:YES];
 }
--(void)scrollViewDidScroll:(UIScrollView *)scrollView
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     if (self.tools.isShow) {
         [self.tools hiddenSelf];
     }
 }
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     if (self.tools.isShow) {
@@ -602,7 +605,7 @@
     }
     
 }
--(CGFloat )tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+- (CGFloat )tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 55;
 }

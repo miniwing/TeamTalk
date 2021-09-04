@@ -71,7 +71,7 @@ typedef enum
 + (CGFloat)textViewLineHeight;
 + (CGFloat)maxLines;
 + (CGFloat)maxHeight;
--(void)setDefaultHeight;
+- (void)setDefaultHeight;
 + (JSInputBarStyle)inputBarStyle;
 - (void)willBeginRecord;
 - (void)willBeginInput;;

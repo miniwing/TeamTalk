@@ -14,7 +14,7 @@
     // Initialization code
 }
 
--(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
@@ -50,7 +50,7 @@
     return self;
 }
 
--(void)showSwitch
+- (void)showSwitch
 {
     [self.contentView addSubview:_switchIcon];
     
@@ -64,12 +64,12 @@
     [_switchIcon addTarget:self action:@selector(changeSwitch:) forControlEvents:UIControlEventValueChanged];
 }
 
--(void)showDesc:(NSString *)desc
+- (void)showDesc:(NSString *)desc
 {
     [_desc setText:desc];
 }
 
--(void)showDetail:(NSString *)detail
+- (void)showDetail:(NSString *)detail
 {
     [_detail setText:detail];
 }

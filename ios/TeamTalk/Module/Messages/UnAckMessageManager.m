@@ -35,7 +35,7 @@
     }
     return self;
 }
--(BOOL)isInUnAckQueue:(MTTMessageEntity *)message
+- (BOOL)isInUnAckQueue:(MTTMessageEntity *)message
 {
     if ([[self.msgDic allKeys] containsObject:@(message.msgID)]) {
         return YES;
@@ -43,13 +43,13 @@
     return NO;
 
 }
--(void)removeMessageFromUnAckQueue:(MTTMessageEntity *)message
+- (void)removeMessageFromUnAckQueue:(MTTMessageEntity *)message
 {
     if ([[self.msgDic allKeys] containsObject:@(message.msgID)]) {
         [self.msgDic removeObjectForKey:@(message.msgID)];
     }
 }
--(void)addMessageToUnAckQueue:(MTTMessageEntity *)message
+- (void)addMessageToUnAckQueue:(MTTMessageEntity *)message
 {
     NSLog(@"add message to %d,%@",message.msgID,[message description]);
     MessageAndTime *msgAndTime = [MessageAndTime new];
@@ -60,7 +60,7 @@
         [self.msgDic setObject:msgAndTime forKey:@(message.msgID)];
     }
 }
--(void)checkMessageTimeout
+- (void)checkMessageTimeout
 {
     [[self.msgDic allValues] enumerateObjectsUsingBlock:^(MessageAndTime *obj, NSUInteger idx, BOOL *stop) {
         NSUInteger timeNow = [[NSDate date] timeIntervalSince1970];

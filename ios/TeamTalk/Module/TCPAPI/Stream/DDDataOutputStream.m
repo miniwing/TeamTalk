@@ -67,13 +67,13 @@
     
     length = length + len;
 }
--(void)directWriteBytes:(NSData *)v
+- (void)directWriteBytes:(NSData *)v
 {
     int32_t len = (int32_t)[v length];
     [data appendData:v];
     length = length + len;
 }
--(void)writeDataCount
+- (void)writeDataCount
 {
     int8_t ch[4];
     for(int32_t i = 0;i<4;i++){

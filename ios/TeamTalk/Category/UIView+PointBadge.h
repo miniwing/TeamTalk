@@ -16,8 +16,8 @@
 
 @property (nonatomic)UIView *pointBadgeView;
 
--(void)showPointBadge:(BOOL)animated;
+- (void)showPointBadge:(BOOL)animated;
 
--(void)removePointBadge:(BOOL)animated;
+- (void)removePointBadge:(BOOL)animated;
 
 @end

@@ -10,7 +10,10 @@
 #import "MTTGroupEntity.h"
 #import "DDGroupModule.h"
 #import "MTTUserEntity.h"
+
+#import "IMBaseDefine.pb.h"
 #import "IMGroup.pb.h"
+
 @implementation DDDeleteMemberFromGroupAPI
 /**
  *  请求超时时间
@@ -19,7 +22,7 @@
  */
 - (int)requestTimeOutTimeInterval
 {
-    return TimeOutTimeInterval;
+   return TimeOutTimeInterval;
 }
 
 /**
@@ -29,7 +32,7 @@
  */
 - (int)requestServiceID
 {
-    return SID_GROUP;
+   return ServiceIDSidGroup;
 }
 
 /**
@@ -39,7 +42,7 @@
  */
 - (int)responseServiceID
 {
-    return SID_GROUP;
+   return ServiceIDSidGroup;
 }
 
 /**
@@ -49,7 +52,7 @@
  */
 - (int)requestCommendID
 {
-    return IM_GROUP_CHANGE_MEMBER_REQ;
+   return GroupCmdIDCidGroupChangeMemberRequest;
 }
 
 /**
@@ -59,7 +62,7 @@
  */
 - (int)responseCommendID
 {
-    return IM_GROUP_CHANGE_MEMBER_RES;
+   return GroupCmdIDCidGroupChangeMemberResponse;
 }
 
 /**
@@ -69,31 +72,31 @@
  */
 - (Analysis)analysisReturnData
 {
-    Analysis analysis = (id)^(NSData* data)
-    {
-        
-        IMGroupChangeMemberRsp *rsp = [IMGroupChangeMemberRsp parseFromData:data];
-
-        uint32_t result =rsp.resultCode;
-        MTTGroupEntity *groupEntity = nil;
-        if (result != 0)
-        {
-            return groupEntity;
-        }
-        NSString *groupId =[MTTGroupEntity pbGroupIdToLocalID:rsp.groupId];
-        //NSArray *currentUserIds = rsp.curUserIdList;
-
-        groupEntity =  [[DDGroupModule instance] getGroupByGId:groupId];
-        NSMutableArray *array = [NSMutableArray new];
-        for (uint32_t i = 0; i < [[rsp curUserIdList] count]; i++) {
-            NSString* userId = [MTTUtil changeOriginalToLocalID:[rsp curUserIdList][i] SessionType:SessionTypeSessionTypeSingle];
-            [array addObject:userId];
-        }
-        groupEntity.groupUserIds=array;
-        return groupEntity;
-        
-    };
-    return analysis;
+   Analysis analysis = (id)^(NSData* data)
+   {
+      
+      IMGroupChangeMemberRsp *rsp = [IMGroupChangeMemberRsp parseFromData:data];
+      
+      uint32_t result =rsp.resultCode;
+      MTTGroupEntity *groupEntity = nil;
+      if (result != 0)
+      {
+         return groupEntity;
+      }
+      NSString *groupId =[MTTGroupEntity pbGroupIdToLocalID:rsp.groupId];
+      //NSArray *currentUserIds = rsp.curUserIdList;
+      
+      groupEntity =  [[DDGroupModule instance] getGroupByGId:groupId];
+      NSMutableArray *array = [NSMutableArray new];
+      for (uint32_t i = 0; i < [[rsp curUserIdList] count]; i++) {
+         NSString* userId = [MTTUtil changeOriginalToLocalID:[rsp curUserIdList][i] SessionType:SessionTypeSessionTypeSingle];
+         [array addObject:userId];
+      }
+      groupEntity.groupUserIds=array;
+      return groupEntity;
+      
+   };
+   return analysis;
 }
 
 /**
@@ -103,23 +106,25 @@
  */
 - (Package)packageRequestObject
 {
-    Package package = (id)^(id object,uint16_t seqNo)
-    {
-        NSArray* array = (NSArray*)object;
-        NSString* groupId = array[0];
-        NSUInteger userid = [MTTUtil changeIDToOriginal:array[1]];
-        IMGroupChangeMemberReqBuilder *memberChange = [IMGroupChangeMemberReq builder];
-        [memberChange setUserId:[MTTUtil changeIDToOriginal:TheRuntime.user.objID]];
-        [memberChange setChangeType:GroupModifyTypeGroupModifyTypeDel];
-        [memberChange setGroupId:[MTTUtil changeIDToOriginal:groupId]];
-        [memberChange addMemberIdList:@[@(userid)]];
-        DDDataOutputStream *dataout = [[DDDataOutputStream alloc] init];
-        [dataout writeInt:0];
-        [dataout writeTcpProtocolHeader:SID_GROUP cId:IM_GROUP_CHANGE_MEMBER_REQ seqNo:seqNo];
-        [dataout directWriteBytes:[memberChange build].data];
-        [dataout writeDataCount];
-        return [dataout toByteArray];
-    };
-    return package;
+   Package package = (id)^(id object,uint16_t seqNo)
+   {
+      NSArray* array = (NSArray*)object;
+      NSString* groupId = array[0];
+      NSUInteger userid = [MTTUtil changeIDToOriginal:array[1]];
+      IMGroupChangeMemberReqBuilder *memberChange = [IMGroupChangeMemberReq builder];
+      [memberChange setUserId:[MTTUtil changeIDToOriginal:TheRuntime.user.objID]];
+      [memberChange setChangeType:GroupModifyTypeGroupModifyTypeDel];
+      [memberChange setGroupId:[MTTUtil changeIDToOriginal:groupId]];
+      [memberChange addMemberIdList:@[@(userid)]];
+      DDDataOutputStream *dataout = [[DDDataOutputStream alloc] init];
+      [dataout writeInt:0];
+      [dataout writeTcpProtocolHeader:[self requestServiceID]
+                                  cId:[self requestCommendID]
+                                seqNo:seqNo];
+      [dataout directWriteBytes:[memberChange build].data];
+      [dataout writeDataCount];
+      return [dataout toByteArray];
+   };
+   return package;
 }
 @end

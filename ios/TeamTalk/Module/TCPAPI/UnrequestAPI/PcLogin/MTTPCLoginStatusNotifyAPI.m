@@ -12,7 +12,7 @@
 @implementation MTTPCLoginStatusNotifyAPI
 - (int)responseServiceID
 {
-    return SID_BUDDY_LIST;
+    return ServiceIDSidBuddyList;
 }
 
 /**
@@ -22,7 +22,7 @@
  */
 - (int)responseCommandID
 {
-    return IM_PC_LOGIN_STATUS_NOTIFY;
+    return BuddyListCmdIDCidBuddyListPcLoginStatusNotify;
 }
 
 /**

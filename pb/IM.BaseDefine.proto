@@ -37,12 +37,12 @@ enum LoginCmdID {
     CID_LOGIN_REQ_QUERY_PUSH_SHIELD = 0x010e; 	//
     CID_LOGIN_RES_QUERY_PUSH_SHIELD = 0x010f;
 
-    CID_LOGIN_REQ_MODIFY_PASS       = 0x0110;	// 修改密码
-    CID_LOGIN_RES_MODIFY_PASS       = 0x0111;
+    CID_LOGIN_REQ_MODIFY_PASS       = 0x0111;	// 修改密码
+    CID_LOGIN_RES_MODIFY_PASS       = 0x0112;
 
     // __TEAMTALK_REGIST__
-    CID_LOGIN_REQ_REGIST            = 0x0112;	// 注册
-    CID_LOGIN_RES_REGIST            = 0x0113;
+    CID_LOGIN_REQ_REGIST            = 0x0113;	// 注册
+    CID_LOGIN_RES_REGIST            = 0x0114;
 }
 
 // // __TEAMTALK_REGIST__
@@ -109,6 +109,7 @@ enum MessageCmdID {
 
 // command id for group message
 enum GroupCmdID {
+    
     CID_GROUP_NORMAL_LIST_REQUEST			= 0x0401;
     CID_GROUP_NORMAL_LIST_RESPONSE			= 0x0402;
     CID_GROUP_INFO_REQUEST          		= 0x0403;
@@ -138,10 +139,6 @@ enum FileCmdID {
     CID_FILE_HAS_OFFLINE_RES        = 0x050a;
     CID_FILE_ADD_OFFLINE_REQ        = 0x050b;
     CID_FILE_DEL_OFFLINE_REQ        = 0x050c;
-
-// __TEAMTALK_REGIST__
-    CID_FILE_REGIST_REQ             = 0x050d; // sender/receiver need to regist to
-    CID_FILE_REGIST_RES             = 0x050e; // regist success or failure
 }
 
 // command id for switch service
@@ -188,8 +185,6 @@ enum ResultType {
 	REFUSE_REASON_NO_ROUTE_SERVER	= 5;
 	REFUSE_REASON_DB_VALIDATE_FAILED= 6;
 	REFUSE_REASON_VERSION_TOO_OLD	= 7;
-
-	REFUSE_REASON_NO_REGIST_SERVER	= 8;	// __TEAMTALK_REGIST__
 }
 
 enum KickReasonType {
@@ -315,7 +310,7 @@ message IpAddr {
 message UserInfo {
 
 	required uint32 user_id 		= 1;
-	required uint32 user_gender 	= 2; 	// 用户性别,男：1 女：2 人妖/外星人：0
+	required uint32 user_gender 	= 2; 	// 用户性别, 保密:0 | 男:1 | 女:2 | 中性:3
 	required string user_nick_name 	= 3;	// 绰号
 	required string avatar_url 		= 4;
 	required uint32 department_id 	= 5;

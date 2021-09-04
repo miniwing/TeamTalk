@@ -277,7 +277,7 @@ static int const fontsize = 16;
     //子类去继承
     [super tapTheImageView:imageView];
 }
--(void)sendTextAgain:(MTTMessageEntity *)message
+- (void)sendTextAgain:(MTTMessageEntity *)message
 {
     message.state = DDMessageSending;
     [self showSending];
@@ -288,7 +288,7 @@ static int const fontsize = 16;
     }];
 }
 
--(void)clickTheDelete:(MenuImageView *)imageView
+- (void)clickTheDelete:(MenuImageView *)imageView
 {
     if (self.deleteIt)
     {
@@ -296,7 +296,7 @@ static int const fontsize = 16;
     }
 }
 
-//-(void)deleteMessage:(MTTMessageEntity *)message
+//- (void)deleteMessage:(MTTMessageEntity *)message
 //{
 //    [[ChattingMainViewController shareInstance] deleteTheMessage:message];
 //}

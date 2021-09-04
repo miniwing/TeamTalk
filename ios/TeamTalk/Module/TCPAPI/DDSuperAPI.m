@@ -17,9 +17,9 @@ static uint16_t theSeqNo = 0;
 - (void)requestWithObject:(id)object Completion:(RequestCompletion)completion {
    
    int                            nErr                                     = EFAULT;
-      
+   
    __TRY;
-
+   
    //seqNo
    theSeqNo++;
    _seqNo  = theSeqNo;
@@ -43,12 +43,12 @@ static uint16_t theSeqNo = 0;
    
    //数据打包
    Package package = [(id<DDAPIScheduleProtocol>)self packageRequestObject];
-   NSMutableData* requestData = package(object,_seqNo);
+   NSMutableData* requestData = package(object, _seqNo);
    
    //发送
    if (requestData) {
+      
       [[DDAPISchedule instance] sendData:requestData];
-      //        [[DDTcpClientManager instance] writeToSocket:requestData];
    }
    
    __CATCH(nErr);

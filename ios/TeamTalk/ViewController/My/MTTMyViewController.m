@@ -103,26 +103,26 @@
     [self.tableView reloadData];
 }
 
--(void)viewDidDisappear:(BOOL)animated{
+- (void)viewDidDisappear:(BOOL)animated{
     
     [super viewDidDisappear:animated];
     
     self.tableView.contentInset =UIEdgeInsetsMake(0,0,0,0);
 }
 
--(void)viewDidAppear:(BOOL)animated{
+- (void)viewDidAppear:(BOOL)animated{
 
     [super viewDidAppear:animated];
     
     self.tableView.contentInset =UIEdgeInsetsMake(64, 0, 49, 0);
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     return 16;
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
     if(section != 0){
         return 20;
@@ -243,7 +243,7 @@
         return cell;
     }
 }
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     [cell setSelected:NO];
@@ -261,7 +261,7 @@
     }
 }
 
--(void)clearCacheButtonPressed:(id)sender
+- (void)clearCacheButtonPressed:(id)sender
 {
     LCActionSheet *sheet = [[LCActionSheet alloc] initWithTitle:@"是否清理图片缓存?"
                                                    buttonTitles:@[@"确定"]
@@ -272,7 +272,7 @@
 }
 
 
--(void)logoutButtonPressed:(id)sender
+- (void)logoutButtonPressed:(id)sender
 {
     LCActionSheet *sheet = [[LCActionSheet alloc] initWithTitle:@"退出不会删除任何历史数据,TT等你归来!"
                                                    buttonTitles:@[@"退出登陆"]
@@ -303,20 +303,20 @@
     }
 }
 
--(void)gotoUpdatePage
+- (void)gotoUpdatePage
 {
     NSString *url = TheRuntime.updateInfo[@"url"];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
 }
 
--(void)goPersonalProfile
+- (void)goPersonalProfile
 {
     PublicProfileViewControll *public = [PublicProfileViewControll new] ;
     public.user = self.user;
     [self pushViewController:public animated:YES];
 }
 
--(void)gotoSelectBubble
+- (void)gotoSelectBubble
 {
     MTTBubbleShowViewControll *bubble = [MTTBubbleShowViewControll new] ;
     [self pushViewController:bubble animated:YES];

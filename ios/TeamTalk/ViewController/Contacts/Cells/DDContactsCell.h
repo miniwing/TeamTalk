@@ -12,6 +12,6 @@
 @interface DDContactsCell : UITableViewCell
 @property(strong)MTTAvatarImageView *avatar;
 @property(strong)UILabel *nameLabel;
--(void)setCellContent:(NSString *)avater Name:(NSString *)name;
--(void)setGroupAvatar:(MTTGroupEntity*)group;
+- (void)setCellContent:(NSString *)avater Name:(NSString *)name;
+- (void)setGroupAvatar:(MTTGroupEntity*)group;
 @end

@@ -19,7 +19,7 @@
 
 //@dynamic process;
 
--(instancetype)init{
+- (instancetype)init{
 
     if (self =[super init]) {
         [self setup];
@@ -35,12 +35,12 @@
     return self;
 }
 
--(void)setup{
+- (void)setup{
 
     _process =0;
 }
 
-//-(void)display{
+//- (void)display{
 //
 //    float process = [self.presentationLayer process];
 //    
@@ -85,7 +85,7 @@
 //}
 
 
--(void)setProcess:(float)process{
+- (void)setProcess:(float)process{
 
     _process =process;
     
@@ -123,7 +123,7 @@
 
 @implementation MTTLogoAnimateView
 
--(id)initWithFrame:(CGRect)frame{
+- (id)initWithFrame:(CGRect)frame{
 
     if (self =[super initWithFrame:frame]) {
         [self setup];
@@ -131,7 +131,7 @@
     return self;
 }
 
--(id)initWithImage:(UIImage *)image{
+- (id)initWithImage:(UIImage *)image{
 
     if (self =[super initWithImage:image]) {
         [self setup];
@@ -139,7 +139,7 @@
     return self;
 }
 
--(id)initWithCoder:(NSCoder *)aDecoder{
+- (id)initWithCoder:(NSCoder *)aDecoder{
 
     if (self =[super initWithCoder:aDecoder]) {
         
@@ -148,7 +148,7 @@
     return self;
 }
 
--(void)setup{
+- (void)setup{
 
     self.processTintColor =[UIColor whiteColor];
     
@@ -160,7 +160,7 @@
 }
 
 
--(void)setImage:(UIImage *)image{
+- (void)setImage:(UIImage *)image{
 
     self.orginImage =image;
     
@@ -170,7 +170,7 @@
 }
 
 
--(void)layoutSubviews{
+- (void)layoutSubviews{
 
     
     /*
@@ -204,7 +204,7 @@
     [super layoutSubviews];
 }
 
--(void)setProcess:(float)process{
+- (void)setProcess:(float)process{
 
 //    if (process <0) {
 //        process =0;
@@ -219,18 +219,18 @@
     
 }
 
--(void)showAnimation{
+- (void)showAnimation{
 
     [self.activityIndicatorView startAnimating];
 }
 
--(void)hideAnimation{
+- (void)hideAnimation{
     [self.activityIndicatorView stopAnimating];
 }
 
 #pragma mark -
 
--(UIImage *)convertWithImage:(UIImage *)image color:(UIColor *)color{
+- (UIImage *)convertWithImage:(UIImage *)image color:(UIColor *)color{
     
     CGSize size = [image size];
     

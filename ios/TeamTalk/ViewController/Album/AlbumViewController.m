@@ -23,7 +23,7 @@
     }
     return self;
 }
--(void)viewWillAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
 }
@@ -100,7 +100,7 @@
 {
     return 60;
 }
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     DDAlbumDetailsViewControll *details = [DDAlbumDetailsViewControll new];

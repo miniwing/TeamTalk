@@ -140,15 +140,6 @@ void CHttpQuery::DispatchQuery(std::string &url, std::string &post_data, CHttpCo
     {
         _QueryChangeMember(strAppKey, value, pHttpConn);
     }
-#if __TTIM_HTTP_REGIST__
-    if (strcmp(url.c_str(), "/api/regist") == 0)
-    {
-        string szUserName = value["name"].asString();
-        string szPassword = value["password"].asString();
-
-        _ApiRegist(szUserName, szPassword, pHttpConn);
-    }
-#endif /* __TTIM_HTTP_REGIST__ */
     else
     {
         log("url not support ");
@@ -360,30 +351,3 @@ HTTP_ERROR_CODE CHttpQuery::_CheckPermission(const string &strAppKey, uint8_t nT
     return HTTP_ERROR_SUCCESS;
 }
 
-#if __TTIM_HTTP_REGIST__
-void CHttpQuery::_ApiRegist(const string &strName, const string &strPassword, CHttpConn *aHttpConn)
-{
-    HTTP::CDBServConn *pDBConn = HTTP::get_db_serv_conn();
-
-    if (!pDBConn)
-    {
-        log("no db server");
-        TTIM_PRINTF(("no db server"));
-
-        aHttpConn->Close();
-    }
-
-    IM::Login::IMRegistReq cRegistReq;
-    cRegistReq.set_user_name(strName);
-    cRegistReq.set_password(strPassword);
-
-    CImPdu cIMPDU;
-    cIMPDU.SetPBMsg(&cRegistReq);
-    cIMPDU.SetServiceId(IM::BaseDefine::SID_MSG);
-    cIMPDU.SetCommandId(IM::BaseDefine::CID_LOGIN_REQ_REGIST);
-    pDBConn->SendPdu(&cIMPDU);
-    aHttpConn->Close();
-
-    return;
-}
-#endif /* __TTIM_HTTP_REGIST__ */

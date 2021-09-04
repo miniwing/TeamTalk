@@ -32,7 +32,7 @@
  */
 - (int)requestServiceID {
    
-   return SID_LOGIN;
+   return ServiceIDSidLogin;
 }
 
 /**
@@ -42,7 +42,7 @@
  */
 - (int)responseServiceID {
    
-   return SID_LOGIN;
+   return ServiceIDSidLogin;
 }
 
 /**
@@ -52,7 +52,7 @@
  */
 - (int)requestCommendID {
    
-   return IM_LOGIN_REQ;
+   return LoginCmdIDCidLoginReqUserlogin;
 }
 
 /**
@@ -62,7 +62,7 @@
  */
 - (int)responseCommendID {
    
-   return IM_LOGIN_RES;
+   return LoginCmdIDCidLoginResUserlogin;
 }
 
 /**
@@ -114,8 +114,8 @@
       NSString * strMsg = object[1];
       DDDataOutputStream *dataout = [[DDDataOutputStream alloc] init];
       [dataout writeInt:0];
-      [dataout writeTcpProtocolHeader:SID_LOGIN
-                                  cId:IM_LOGIN_REQ
+      [dataout writeTcpProtocolHeader:[self responseServiceID]
+                                  cId:[self requestCommendID]
                                 seqNo:seqNo];
       
       IMLoginReqBuilder *login = [IMLoginReq builder];

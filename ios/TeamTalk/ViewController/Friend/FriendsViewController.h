@@ -8,6 +8,7 @@
 
 #import "MTTPullScrollViewController.h"
 #import "MTTSessionEntity.h"
+
 @interface FriendsViewController : MTTPullScrollViewController<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate,UISearchDisplayDelegate,UIScrollViewDelegate>
 // 搜索关键字
 @property(nonatomic,strong)NSString *searchKey;

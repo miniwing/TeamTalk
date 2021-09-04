@@ -38,7 +38,7 @@
  *
  *  @param userID 要删除的用户的id
  */
--(void)removePersonFromGroup:(NSArray *)userIDs Block:(void(^)(BOOL success))block
+- (void)removePersonFromGroup:(NSArray *)userIDs Block:(void(^)(BOOL success))block
 {
     
 }

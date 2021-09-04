@@ -21,14 +21,13 @@
 
 @interface MTTLoginViewController ()<UITextFieldDelegate>
 
-@property (nonatomic, assign)       CGPoint       defaultCenter;
-@property (nonatomic, strong)       UIButton    * registerButton;
-@property (nonatomic, assign)BOOL   isRelogin;
+@property (nonatomic, assign)          CGPoint       defaultCenter;
+@property (nonatomic, assign)          BOOL          isRelogin;
 
-@property (nonatomic, weak)IBOutlet UITextField * userNameTextField;
-@property (nonatomic, weak)IBOutlet UITextField * userPassTextField;
-@property (nonatomic, weak)IBOutlet UIButton    * userLoginBtn;
-@property (nonatomic, weak)IBOutlet UIButton    * serverButton;
+@property (nonatomic, weak)   IBOutlet UITextField * userNameTextField;
+@property (nonatomic, weak)   IBOutlet UITextField * userPassTextField;
+@property (nonatomic, weak)   IBOutlet UIButton    * userLoginBtn;
+@property (nonatomic, weak)   IBOutlet UIButton    * registButton;
 
 @end
 
@@ -99,28 +98,16 @@
    [self.userPassTextField.layer setCornerRadius:4];
    
    [self.userLoginBtn.layer setCornerRadius:4];
-   [self.serverButton.layer setCornerRadius:4];
-   [self.serverButton setHidden:YES];
+   [self.registButton.layer setCornerRadius:4];
    
    // 设置用户名
    [self.view setBackgroundColor:[UIColor whiteColor]];
-   
-   _registerButton = [ UIButton new];
-   [_registerButton setBackgroundColor:UIColorFromRGB(0x00abee, 1.0)];
-   [_registerButton setTitle:@"注册" forState:UIControlStateNormal];
-   [_registerButton addTarget:self action:@selector(registerUser:) forControlEvents:UIControlEventTouchUpInside];
-   [self.view addSubview:_registerButton];
-   _registerButton.sd_layout
-   .rightSpaceToView(self.view, 20)
-   .widthIs(60)
-   .heightIs(44)
-   .topSpaceToView(self.userLoginBtn, 60);
-   
+      
 #if __Debug__
    [_userNameTextField setText:@"TEST"];
    [_userPassTextField setText:@"TEST"];
 #endif /* __Debug__ */
-   
+
    __CATCH(nErr);
    
    return;
@@ -266,26 +253,16 @@
    return;
 }
 
-- (IBAction)serverButtonPressed:(UIButton*)button {
+- (IBAction)registButtonPressed:(UIButton*)button {
    
    int                            nErr                                     = EFAULT;
    
-   ServerController              *stServerController                       = nil;
-      
+   MTTRegisterViewController     *stRegisterViewController                 = nil;
+   
    __TRY;
 
-   stServerController   = [[ServerController alloc] initWithNibName:@"ServerController" bundle:nil];
-   
-   [self popUp:stServerController animated:YES completion:^{
-
-   }];
-
-//   [self.navigationController pushViewController:stServerController
-//                                        animated:YES];
-//
-//   [self presentViewController:stServerController
-//                      animated:YES
-//                    completion:nil];
+   stRegisterViewController = [MTTRegisterViewController new];
+   [self.navigationController pushViewController:stRegisterViewController animated:YES];
 
    __CATCH(nErr);
    

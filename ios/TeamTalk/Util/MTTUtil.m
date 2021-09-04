@@ -50,7 +50,7 @@
 
 #pragma mark - loginOut
 
-+(void)loginOut{
++ (void)loginOut{
     
     
     TheRuntime.user =nil;
@@ -64,7 +64,7 @@
 
 #pragma mark - show alert
 
-+(void)showAlertWithTitle:(NSString *)title message:(NSString *)message
++ (void)showAlertWithTitle:(NSString *)title message:(NSString *)message
 {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
     [alert show];
@@ -98,14 +98,14 @@
     return [number boolValue];
 }
 
-+(void)useFunctionBubble{
++ (void)useFunctionBubble{
     
     [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:@"UseFunctionBubble"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 #pragma mark - fiexed top
-+(void)setFixedTop:(NSString *)sessionID{
++ (void)setFixedTop:(NSString *)sessionID{
     NSArray *allUser = [[NSUserDefaults standardUserDefaults] objectForKey:@"fixedTopUsers"];
     NSMutableArray *allUserTmp =[NSMutableArray arrayWithArray:allUser];
     [allUserTmp addObject:sessionID];
@@ -118,7 +118,7 @@
     return allUser;
 }
 
-+(void)removeFixedTop:(NSString *)sessionID{
++ (void)removeFixedTop:(NSString *)sessionID{
     NSArray *allUser = [[NSUserDefaults standardUserDefaults] objectForKey:@"fixedTopUsers"];
     NSMutableArray *allUserTmp =[NSMutableArray arrayWithArray:allUser];
     [allUserTmp removeObject:sessionID];
@@ -165,7 +165,7 @@
     return bubbleType;
 }
 
-+(void)setBubbleTypeLeft:(NSString *)bubbleType left:(BOOL)left
++ (void)setBubbleTypeLeft:(NSString *)bubbleType left:(BOOL)left
 {
     if(left){
         [[NSUserDefaults standardUserDefaults] setObject:bubbleType forKey:@"userLeftCustomerBubble"];
@@ -175,7 +175,7 @@
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-+(void)setLastPhotoTime:(NSDate *)date
++ (void)setLastPhotoTime:(NSDate *)date
 {
     [[NSUserDefaults standardUserDefaults] setObject:date forKey:@"preShowImageTime"];
     [[NSUserDefaults standardUserDefaults] synchronize];
@@ -192,7 +192,7 @@
     }
 }
 
-+(void)setLastShakeTime:(NSDate *)date
++ (void)setLastShakeTime:(NSDate *)date
 {
     [[NSUserDefaults standardUserDefaults] setObject:date forKey:@"shakePcTime"];
     [[NSUserDefaults standardUserDefaults] synchronize];
@@ -210,7 +210,7 @@
         return NO;
     }
 }
-+(void)setDBVersion:(NSInteger)version
++ (void)setDBVersion:(NSInteger)version
 {
     [[NSUserDefaults standardUserDefaults] setInteger:version forKey:@"dbVersion"];
     [[NSUserDefaults standardUserDefaults] synchronize];
@@ -219,7 +219,7 @@
 {
     return [[NSUserDefaults standardUserDefaults] integerForKey:@"dbVersion"];
 }
-+(void)setLastDBVersion:(NSInteger)version
++ (void)setLastDBVersion:(NSInteger)version
 {
     [[NSUserDefaults standardUserDefaults] setInteger:version forKey:@"lastDbVersion"];
     [[NSUserDefaults standardUserDefaults] synchronize];
@@ -228,7 +228,7 @@
 {
     return [[NSUserDefaults standardUserDefaults] integerForKey:@"lastDbVersion"];
 }
-+(void)setMsfsUrl:(NSString*)url
++ (void)setMsfsUrl:(NSString*)url
 {
     [[NSUserDefaults standardUserDefaults] setObject:url forKey:@"msfsurl"];
     [[NSUserDefaults standardUserDefaults] synchronize];

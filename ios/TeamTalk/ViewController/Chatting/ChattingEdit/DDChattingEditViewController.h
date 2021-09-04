@@ -21,6 +21,6 @@
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) UITableView *tableView;
 
--(void)refreshUsers:(NSMutableArray *)array;
+- (void)refreshUsers:(NSMutableArray *)array;
 
 @end

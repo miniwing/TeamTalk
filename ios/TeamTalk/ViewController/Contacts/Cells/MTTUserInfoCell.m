@@ -16,7 +16,7 @@
     // Initialization code
 }
 
--(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
@@ -58,7 +58,7 @@
     return self;
 }
 
--(void)setCellContent:(NSString *)avatar Name:(NSString *)name Cname:(NSString *)cname
+- (void)setCellContent:(NSString *)avatar Name:(NSString *)name Cname:(NSString *)cname
 {
     UIImage* placeholder = [UIImage imageNamed:@"user_placeholder"];
     [_avatar sd_setImageWithURL:[NSURL URLWithString:avatar] placeholderImage:placeholder];

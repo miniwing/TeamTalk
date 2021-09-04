@@ -23,9 +23,10 @@ CLock CProxyConn::s_list_lock;
 list<ResponsePdu_t*> CProxyConn::s_response_pdu_list;
 static CThreadPool g_thread_pool;
 
-void proxy_timer_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pParam)
-{
-	uint64_t cur_time = get_tick_count();
+void proxy_timer_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pParam) {
+
+	uint64_t     cur_time   = get_tick_count();
+
 	for (ConnMap_t::iterator it = g_proxy_conn_map.begin(); it != g_proxy_conn_map.end(); ) {
 		ConnMap_t::iterator it_old = it;
 		it++;
@@ -33,12 +34,16 @@ void proxy_timer_callback(void* callback_data, uint8_t msg, uint32_t handle, voi
 		CProxyConn* pConn = (CProxyConn*)it_old->second;
 		pConn->OnTimer(cur_time);
 	}
+
+    return;
 }
 
 //
-void proxy_loop_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pParam)
-{
+void proxy_loop_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pParam) {
+
 	CProxyConn::SendResponsePduList();
+
+    return;
 }
 
 /*
@@ -142,8 +147,8 @@ void CProxyConn::OnConnect(net_handle_t handle)
 }
 
 // 由于数据包是在另一个线程处理的，所以不能在主线程delete数据包，所以需要Override这个方法
-void CProxyConn::OnRead()
-{
+void CProxyConn::OnRead() {
+
 	for (;;) {
 		uint32_t free_buf_len = m_in_buf.GetAllocSize() - m_in_buf.GetWriteOffset();
 		if (free_buf_len < READ_BUF_SIZE)
@@ -196,22 +201,29 @@ void CProxyConn::OnTimer(uint64_t curr_tick)
 	}
 }
 
-void CProxyConn::HandlePduBuf(uchar_t* pdu_buf, uint32_t pdu_len)
-{
-    CImPdu* pPdu = NULL;
-    pPdu = CImPdu::ReadPdu(pdu_buf, pdu_len);
+void CProxyConn::HandlePduBuf(uchar_t* pdu_buf, uint32_t pdu_len) {
+
+    CImPdu  *pPdu   = CImPdu::ReadPdu(pdu_buf, pdu_len);
+
     if (pPdu->GetCommandId() == IM::BaseDefine::CID_OTHER_HEARTBEAT) {
+
         return;
     }
     
     pdu_handler_t handler = s_handler_map->GetHandler(pPdu->GetCommandId());
     
     if (handler) {
+
         CTask* pTask = new CProxyTask(m_uuid, handler, pPdu);
+
         g_thread_pool.AddTask(pTask);
-    } else {
+    }
+    else {
+
         log("no handler for packet type: %d", pPdu->GetCommandId());
     }
+
+    return;
 }
 
 /*
@@ -220,20 +232,23 @@ void CProxyConn::HandlePduBuf(uchar_t* pdu_buf, uint32_t pdu_len)
  * if pPdu == NULL, it means you want to close connection with conn_uuid
  * e.g. parse packet failed
  */
-void CProxyConn::AddResponsePdu(uint32_t conn_uuid, CImPdu* pPdu)
-{
-	ResponsePdu_t* pResp = new ResponsePdu_t;
-	pResp->conn_uuid = conn_uuid;
-	pResp->pPdu = pPdu;
+void CProxyConn::AddResponsePdu(uint32_t conn_uuid, CImPdu* pPdu) {
+
+	ResponsePdu_t   *pResp  = new ResponsePdu_t;
+	pResp->conn_uuid    = conn_uuid;
+	pResp->pPdu         = pPdu;
 
 	s_list_lock.lock();
 	s_response_pdu_list.push_back(pResp);
 	s_list_lock.unlock();
+
+    return;
 }
 
-void CProxyConn::SendResponsePduList()
-{
+void CProxyConn::SendResponsePduList() {
+
 	s_list_lock.lock();
+
 	while (!s_response_pdu_list.empty()) {
 		ResponsePdu_t* pResp = s_response_pdu_list.front();
 		s_response_pdu_list.pop_front();
@@ -241,9 +256,12 @@ void CProxyConn::SendResponsePduList()
 
 		CProxyConn* pConn = get_proxy_conn_by_uuid(pResp->conn_uuid);
 		if (pConn) {
+
 			if (pResp->pPdu) {
+                
 				pConn->SendPdu(pResp->pPdu);
-			} else {
+			} 
+            else {
 				log("close connection uuid=%d by parse pdu error\b", pResp->conn_uuid);
 				pConn->Close();
 			}

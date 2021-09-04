@@ -7,7 +7,10 @@
 //
 
 #import "DDReceiveMessageACKAPI.h"
+
+#import "IMBaseDefine.pb.h"
 #import "IMMessage.pb.h"
+
 @implementation DDReceiveMessageACKAPI
 
 - (int)requestTimeOutTimeInterval
@@ -17,22 +20,22 @@
 
 - (int)requestServiceID
 {
-    return SID_MSG;
+    return ServiceIDSidMsg;
 }
 
 - (int)responseServiceID
 {
-    return SID_MSG;
+    return ServiceIDSidMsg;
 }
 
 - (int)requestCommendID
 {
-    return IM_MSG_DATA_ACK;
+    return MessageCmdIDCidMsgDataAck;
 }
 
 - (int)responseCommendID
 {
-    return IM_MSG_DATA_ACK;
+    return MessageCmdIDCidMsgDataAck;
 }
 
 - (Analysis)analysisReturnData
@@ -62,7 +65,9 @@
         [dataAck setSessionType:[object[3] integerValue]];
 
         [dataout writeInt:0];
-        [dataout writeTcpProtocolHeader:SID_MSG cId:IM_MSG_DATA_ACK seqNo:seqNo];
+        [dataout writeTcpProtocolHeader:[self responseServiceID]
+                                    cId:[self requestCommendID]
+                                  seqNo:seqNo];
         [dataout directWriteBytes:[dataAck build].data];
         [dataout writeDataCount];
         return   [dataout toByteArray];

@@ -10,5 +10,5 @@
 @interface ChatUtilityViewController : MTTBaseViewController<UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 @property(nonatomic,strong) UIImagePickerController *imagePicker;
 @property(nonatomic) NSInteger userId;
--(void)setShakeHidden;
+- (void)setShakeHidden;
 @end

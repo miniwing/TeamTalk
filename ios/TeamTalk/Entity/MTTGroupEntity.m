@@ -30,7 +30,7 @@
     }];
 }
 
--(void)copyContent:(MTTGroupEntity*)entity
+- (void)copyContent:(MTTGroupEntity*)entity
 {
     self.groupType = entity.groupType;
     self.lastUpdateTime = entity.lastUpdateTime;
@@ -101,11 +101,11 @@
     group.lastUpdateTime=[[dic safeObjectForKey:@"lastUpdateTime"] longValue];
     return group;
 }
--(BOOL)theVersionIsChanged
+- (BOOL)theVersionIsChanged
 {
     return YES;
 }
--(void)updateGroupInfo
+- (void)updateGroupInfo
 {
     
 }

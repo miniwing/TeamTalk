@@ -122,7 +122,7 @@
     }
 }
 
--(void)addSearchTableView{
+- (void)addSearchTableView{
     self.searchTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 109, SCREEN_WIDTH, SCREEN_HEIGHT-109)];
     [self.view addSubview:self.searchTableView];
     [self.searchTableView setHidden:YES];
@@ -176,7 +176,7 @@
     return YES;
 }
 
--(void)searchDisplayControllerDidEndSearch:(UISearchDisplayController *)controller
+- (void)searchDisplayControllerDidEndSearch:(UISearchDisplayController *)controller
 {
 }
 

@@ -62,7 +62,7 @@
     }
 }
 
--(UIImage *)getAvatar:(NSString *)avatarUrl
+- (UIImage *)getAvatar:(NSString *)avatarUrl
 {
     UIImage* image = [[UIImage alloc] init];
     if (avatarUrl) {

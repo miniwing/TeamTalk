@@ -98,7 +98,7 @@
     }
     
 }
--(void)sendTextAgain:(MTTMessageEntity *)message
+- (void)sendTextAgain:(MTTMessageEntity *)message
 {
     message.state = DDMessageSending;
     [self showSending];

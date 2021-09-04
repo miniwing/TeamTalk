@@ -44,8 +44,8 @@ NSString *const kDDReachabilityChangedNotification = @"kDDReachabilityChangedNot
 
 @property (nonatomic, strong) id reachabilityObject;
 
--(void)reachabilityChanged:(SCNetworkReachabilityFlags)flags;
--(BOOL)isReachableWithFlags:(SCNetworkReachabilityFlags)flags;
+- (void)reachabilityChanged:(SCNetworkReachabilityFlags)flags;
+- (BOOL)isReachableWithFlags:(SCNetworkReachabilityFlags)flags;
 
 @end
 
@@ -165,7 +165,7 @@ static void TMReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkRea
 
 // Initialization methods
 
--(DDReachability *)initWithReachabilityRef:(SCNetworkReachabilityRef)ref 
+- (DDReachability *)initWithReachabilityRef:(SCNetworkReachabilityRef)ref 
 {
     self = [super init];
     if (self != nil) 
@@ -177,7 +177,7 @@ static void TMReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkRea
     return self;    
 }
 
--(void)dealloc
+- (void)dealloc
 {
     [self stopNotifier];
 
@@ -204,7 +204,7 @@ static void TMReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkRea
 // - In other words DO NOT DO ANY UI UPDATES IN THE BLOCKS.
 //   INSTEAD USE dispatch_async(dispatch_get_main_queue(), ^{UISTUFF}) (or dispatch_sync if you want)
 
--(BOOL)startNotifier
+- (BOOL)startNotifier
 {
     SCNetworkReachabilityContext    context = { 0, NULL, NULL, NULL, NULL };
     
@@ -277,7 +277,7 @@ static void TMReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkRea
     return YES;
 }
 
--(void)stopNotifier
+- (void)stopNotifier
 {
     // First stop, any callbacks!
     SCNetworkReachabilitySetCallback(self.reachabilityRef, NULL, NULL);
@@ -308,7 +308,7 @@ static void TMReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkRea
 
 #define testcase (kSCNetworkReachabilityFlagsConnectionRequired | kSCNetworkReachabilityFlagsTransientConnection)
 
--(BOOL)isReachableWithFlags:(SCNetworkReachabilityFlags)flags
+- (BOOL)isReachableWithFlags:(SCNetworkReachabilityFlags)flags
 {
     BOOL connectionUP = YES;
     
@@ -333,7 +333,7 @@ static void TMReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkRea
     return connectionUP;
 }
 
--(BOOL)isReachable
+- (BOOL)isReachable
 {
     SCNetworkReachabilityFlags flags;  
     
@@ -343,7 +343,7 @@ static void TMReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkRea
     return [self isReachableWithFlags:flags];
 }
 
--(BOOL)isReachableViaWWAN 
+- (BOOL)isReachableViaWWAN 
 {
 #if	TARGET_OS_IPHONE
 
@@ -366,7 +366,7 @@ static void TMReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkRea
     return NO;
 }
 
--(BOOL)isReachableViaWiFi 
+- (BOOL)isReachableViaWiFi 
 {
     SCNetworkReachabilityFlags flags = 0;
     
@@ -392,12 +392,12 @@ static void TMReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkRea
 
 // WWAN may be available, but not active until a connection has been established.
 // WiFi may require a connection for VPN on Demand.
--(BOOL)isConnectionRequired
+- (BOOL)isConnectionRequired
 {
     return [self connectionRequired];
 }
 
--(BOOL)connectionRequired
+- (BOOL)connectionRequired
 {
     SCNetworkReachabilityFlags flags;
 	
@@ -410,7 +410,7 @@ static void TMReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkRea
 }
 
 // Dynamic, on demand connection?
--(BOOL)isConnectionOnDemand
+- (BOOL)isConnectionOnDemand
 {
 	SCNetworkReachabilityFlags flags;
 	
@@ -424,7 +424,7 @@ static void TMReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkRea
 }
 
 // Is user intervention required?
--(BOOL)isInterventionRequired
+- (BOOL)isInterventionRequired
 {
     SCNetworkReachabilityFlags flags;
 	
@@ -440,7 +440,7 @@ static void TMReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkRea
 
 #pragma mark - reachability status stuff
 
--(NetworkStatus)currentReachabilityStatus
+- (NetworkStatus)currentReachabilityStatus
 {
     if([self isReachable])
     {
@@ -455,7 +455,7 @@ static void TMReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkRea
     return NotReachable;
 }
 
--(SCNetworkReachabilityFlags)reachabilityFlags
+- (SCNetworkReachabilityFlags)reachabilityFlags
 {
     SCNetworkReachabilityFlags flags = 0;
     
@@ -467,7 +467,7 @@ static void TMReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkRea
     return 0;
 }
 
--(NSString*)currentReachabilityString
+- (NSString*)currentReachabilityString
 {
 	NetworkStatus temp = [self currentReachabilityStatus];
 	
@@ -484,14 +484,14 @@ static void TMReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkRea
 	return NSLocalizedString(@"No Connection", @"");
 }
 
--(NSString*)currentReachabilityFlags
+- (NSString*)currentReachabilityFlags
 {
     return reachabilityFlags([self reachabilityFlags]);
 }
 
 #pragma mark - Callback function calls this method
 
--(void)reachabilityChanged:(SCNetworkReachabilityFlags)flags
+- (void)reachabilityChanged:(SCNetworkReachabilityFlags)flags
 {
     if([self isReachableWithFlags:flags])
     {

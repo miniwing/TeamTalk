@@ -6,6 +6,6 @@
  *
  *	@param 	oldImageView 	头像所在的imageView
  */
-+(void)showImage:(UIImageView*)avatarImageView;
++ (void)showImage:(UIImageView*)avatarImageView;
 
 @end

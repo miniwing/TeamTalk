@@ -160,14 +160,14 @@ typedef void(^InsertsRecentContactsCOmplection)(NSError* error);
 - (void)updateRecentSession:(MTTSessionEntity *)session completion:(InsertsRecentContactsCOmplection)completion;
 - (void)loadGroupsCompletion:(LoadRecentContactsComplection)completion;
 - (void)loadSessionsCompletion:(LoadAllSessionsComplection)completion;
--(void)removeSession:(NSString *)sessionID;
+- (void)removeSession:(NSString *)sessionID;
 - (void)deleteMesages:(MTTMessageEntity * )message completion:(DeleteSessionCompletion)completion;
 - (void)loadGroupByIDCompletion:(NSString *)groupID Block:(LoadRecentContactsComplection)completion;
 
 #pragma mark - Friend
 - (void)insertAllFriend:(NSArray*)users completion:(InsertsRecentContactsCOmplection)completion;
 
--(void)removeAllFriend;
+- (void)removeAllFriend;
 
 - (void)getAllFriends:(LoadAllContactsComplection )completion;
 

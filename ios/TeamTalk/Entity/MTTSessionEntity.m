@@ -70,7 +70,7 @@
     }
     return name;
 }
--(void)setSessionName:(NSString *)theName
+- (void)setSessionName:(NSString *)theName
 {
     name = theName;
 }
@@ -127,7 +127,7 @@
     }];
         
   }
--(NSArray*)sessionUsers
+- (NSArray*)sessionUsers
 {
     if(SessionTypeSessionTypeGroup == self.sessionType)
     {
@@ -137,11 +137,11 @@
     
     return  nil;
 }
--(NSString *)getSessionGroupID
+- (NSString *)getSessionGroupID
 {
     return _sessionID;
 }
--(BOOL)isGroup
+- (BOOL)isGroup
 {
     if(SessionTypeSessionTypeGroup == self.sessionType)
     {

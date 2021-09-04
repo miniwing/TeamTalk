@@ -12,5 +12,5 @@
 @property(assign)long lastUpdateTime;
 @property(copy)NSString *objID;
 @property(assign)NSInteger objectVersion;
--(NSUInteger)getOriginalID;
+- (NSUInteger)getOriginalID;
 @end

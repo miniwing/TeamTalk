@@ -38,7 +38,7 @@
     }
     return self;
 }
--(void)showPreview:(NSMutableArray *)photos index:(NSInteger)index
+- (void)showPreview:(NSMutableArray *)photos index:(NSInteger)index
 {
     [self.photos removeAllObjects];
     
@@ -215,7 +215,7 @@
     }
 }
 
--(void)clickTheDelete:(MenuImageView *)imageView
+- (void)clickTheDelete:(MenuImageView *)imageView
 {
     if (self.deleteIt)
     {
@@ -301,7 +301,7 @@
     }
 }
 
-//-(void)deleteMessage:(MTTMessageEntity *)message
+//- (void)deleteMessage:(MTTMessageEntity *)message
 //{
 //    [[ChattingMainViewController shareInstance] deleteTheMessage:message];
 //}

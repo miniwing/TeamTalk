@@ -12,6 +12,6 @@
 #  define __Debug__                                (0)
 #endif
 
-#define __TTIM_HTTP_REGIST__                       (__ON__)
+#define __TEAMTALK_REGIST__                        (__ON__)
 
 #endif /* __TTIM_CONFIG_H__ */

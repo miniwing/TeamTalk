@@ -49,7 +49,7 @@ typedef NS_ENUM(NSUInteger, DDPullToRefreshState) {
 
 @implementation MTTRefreshView
 
--(void)removeKOV{
+- (void)removeKOV{
     [self.scrollView removeObserver:self forKeyPath:@"contentOffset"];
     [self.scrollView removeObserver:self forKeyPath:@"contentSize"];
 }
@@ -268,7 +268,7 @@ typedef NS_ENUM(NSUInteger, DDPullToRefreshState) {
     }
 }
 
--(void)setLoadedComplete{
+- (void)setLoadedComplete{
     
     if (self.pullToRefreshHandler) {
 
@@ -337,17 +337,17 @@ static char *UIScollViewIsLoadMore ="UIScollViewlIsLoadMore";
     self.loadMoreView = pullToLoadMoreView;
 }
 
--(void)setRefreshLogo:(UIImage *)logo{
+- (void)setRefreshLogo:(UIImage *)logo{
 
     self.refreshView.imageLogo =logo;
 }
 
--(void)setRefreshTitle:(NSString *)title{
+- (void)setRefreshTitle:(NSString *)title{
 
     self.refreshView.titleLabel.text =title;
 }
 
--(void)setLoadMoreTitle:(NSString *)title{
+- (void)setLoadMoreTitle:(NSString *)title{
 
     self.loadMoreView.titleLabel.text =title;
 }
@@ -357,7 +357,7 @@ static char *UIScollViewIsLoadMore ="UIScollViewlIsLoadMore";
     [self.refreshView refreshFinished];
 }
 
--(void)loadMoreFinished{
+- (void)loadMoreFinished{
     
     [self.loadMoreView refreshFinished];
 }
@@ -365,7 +365,7 @@ static char *UIScollViewIsLoadMore ="UIScollViewlIsLoadMore";
 #pragma mark -getter & setter
 
 
--(CGPoint)theBeiginContentOffset{
+- (CGPoint)theBeiginContentOffset{
     
     CGPoint point =CGPointZero;
     
@@ -378,18 +378,18 @@ static char *UIScollViewIsLoadMore ="UIScollViewlIsLoadMore";
     return point;
 }
 
--(NSUInteger)pageNumber{
+- (NSUInteger)pageNumber{
     NSNumber *n =objc_getAssociatedObject(self, "TablePageNumber");
     return [n unsignedIntegerValue];
 }
 
--(void)setPageNumber:(NSUInteger)number{
+- (void)setPageNumber:(NSUInteger)number{
     NSNumber *n =[NSNumber numberWithUnsignedInteger:number];
     objc_setAssociatedObject(self, "TablePageNumber", n, OBJC_ASSOCIATION_RETAIN);
 }
 
 
--(BOOL)noMore{
+- (BOOL)noMore{
     
     NSNumber *n =objc_getAssociatedObject(self, &UIScrollViewNoMore);
     if (n ==nil || ![n isKindOfClass:[NSNumber class]]) {
@@ -399,21 +399,21 @@ static char *UIScollViewIsLoadMore ="UIScollViewlIsLoadMore";
     return [n boolValue];
 }
 
--(void)setNoMore:(BOOL)noMore{
+- (void)setNoMore:(BOOL)noMore{
     
     objc_setAssociatedObject(self, &UIScrollViewNoMore,
                              [NSNumber numberWithBool:noMore],
                              OBJC_ASSOCIATION_RETAIN);
 }
 
--(void)setRefresh:(BOOL)isRefresh{
+- (void)setRefresh:(BOOL)isRefresh{
     
     objc_setAssociatedObject(self, &UIScollViewIsRefresh,
                              [NSNumber numberWithBool:isRefresh],
                              OBJC_ASSOCIATION_RETAIN);
 }
 
--(BOOL)isRefresh{
+- (BOOL)isRefresh{
     
     NSNumber *n =objc_getAssociatedObject(self, &UIScollViewIsRefresh);
     if (n ==nil || ![n isKindOfClass:[NSNumber class]]) {
@@ -422,14 +422,14 @@ static char *UIScollViewIsLoadMore ="UIScollViewlIsLoadMore";
     return [n boolValue];
 }
 
--(void)setLoadMore:(BOOL)isLoadMore{
+- (void)setLoadMore:(BOOL)isLoadMore{
     
     objc_setAssociatedObject(self, &UIScollViewIsLoadMore,
                              [NSNumber numberWithBool:isLoadMore],
                              OBJC_ASSOCIATION_RETAIN);
 }
 
--(BOOL)isLoadMore{
+- (BOOL)isLoadMore{
     
     NSNumber *n =objc_getAssociatedObject(self, &UIScollViewIsLoadMore);
     if (n ==nil || ![n isKindOfClass:[NSNumber class]]) {

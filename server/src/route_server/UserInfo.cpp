@@ -12,10 +12,12 @@
 #include "IM.BaseDefine.pb.h"
 using namespace IM::BaseDefine;
 CUserInfo::CUserInfo()
-{}
+{
+}
 
 CUserInfo::~CUserInfo()
-{}
+{
+}
 
 void CUserInfo::AddClientType(uint32_t client_type)
 {
@@ -50,7 +52,7 @@ void CUserInfo::RemoveClientType(uint32_t client_type)
 
 bool CUserInfo::FindRouteConn(CRouteConn *pConn)
 {
-    set<CRouteConn*>::iterator it = m_RouteConnSet.find(pConn);
+    set<CRouteConn *>::iterator it = m_RouteConnSet.find(pConn);
     if (it != m_RouteConnSet.end())
     {
         return true;
@@ -64,7 +66,8 @@ bool CUserInfo::FindRouteConn(CRouteConn *pConn)
 uint32_t CUserInfo::GetCountByClientType(uint32_t client_type)
 {
     map<uint32_t, uint32_t>::iterator it = m_ClientTypeList.find(client_type);
-    if (it != m_ClientTypeList.end()) {
+    if (it != m_ClientTypeList.end())
+    {
         return it->second;
     }
     else
@@ -75,7 +78,8 @@ uint32_t CUserInfo::GetCountByClientType(uint32_t client_type)
 
 bool CUserInfo::IsMsgConnNULL()
 {
-    if (m_ClientTypeList.size() == 0) {
+    if (m_ClientTypeList.size() == 0)
+    {
         return true;
     }
     else

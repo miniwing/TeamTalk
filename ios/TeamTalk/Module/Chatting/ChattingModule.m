@@ -55,7 +55,7 @@ static NSUInteger const showPromptGap = 300;
     self.showingMessages = nil;
     self.showingMessages = [[NSMutableArray alloc] init];
 }
--(void)getNewMsg:(DDChatLoadMoreHistoryCompletion)completion
+- (void)getNewMsg:(DDChatLoadMoreHistoryCompletion)completion
 {
     [[DDMessageModule shareInstance] getMessageFromServer:0 currentSession:self.MTTSessionEntity count:20 Block:^(NSMutableArray *response, NSError *error) {
         //[self p_addHistoryMessages:response Completion:completion];
@@ -86,7 +86,7 @@ static NSUInteger const showPromptGap = 300;
         
     }];
 }
-//-(void)loadHisToryMessageFromServer:(NSUInteger)FromMsgID loadCount:(NSUInteger)count Completion:(DDChatLoadMoreHistoryCompletion)completion
+//- (void)loadHisToryMessageFromServer:(NSUInteger)FromMsgID loadCount:(NSUInteger)count Completion:(DDChatLoadMoreHistoryCompletion)completion
 //{
 //    if (self.MTTSessionEntity) {
 //        if (FromMsgID !=1) {
@@ -122,7 +122,7 @@ static NSUInteger const showPromptGap = 300;
 //        
 //    }
 //}
-//-(void)loadHostoryMessageFromServer:(NSUInteger)FromMsgID Completion:(DDChatLoadMoreHistoryCompletion)completion{
+//- (void)loadHostoryMessageFromServer:(NSUInteger)FromMsgID Completion:(DDChatLoadMoreHistoryCompletion)completion{
 //    [self loadHisToryMessageFromServer:FromMsgID loadCount:19 Completion:completion];
 //}
 
@@ -178,7 +178,7 @@ static NSUInteger const showPromptGap = 300;
         [self p_addHistoryMessages:messages Completion:completion];
     }];
 }
--(NSUInteger )getMiniMsgId
+- (NSUInteger )getMiniMsgId
 {
     if ([self.showingMessages count] == 0) {
         return self.MTTSessionEntity.lastMsgID;
@@ -271,7 +271,7 @@ static NSUInteger const showPromptGap = 300;
     
     [[self mutableArrayValueForKeyPath:@"showingMessages"] addObjectsFromArray:messages];
 }
--(void)getCurrentUser:(void(^)(MTTUserEntity *))block
+- (void)getCurrentUser:(void(^)(MTTUserEntity *))block
 {
     [[DDUserModule shareInstance] getUserForUserID:self.MTTSessionEntity.sessionID  Block:^(MTTUserEntity *user) {
         block(user);
@@ -416,7 +416,7 @@ static NSUInteger const showPromptGap = 300;
     return messageContentArray;
     
 }
--(NSInteger)getMaxMsgId:(NSArray *)array
+- (NSInteger)getMaxMsgId:(NSArray *)array
 {
     __block NSInteger maxMsgID =0;
     [array enumerateObjectsUsingBlock:^(MTTMessageEntity * obj, NSUInteger idx, BOOL *stop) {
@@ -453,7 +453,7 @@ static NSUInteger const showPromptGap = 300;
     return NO;
 }
 
-//-(void)checkMsgList:(DDChatLoadMoreHistoryCompletion)completion
+//- (void)checkMsgList:(DDChatLoadMoreHistoryCompletion)completion
 //{
 //    NSMutableArray *tmp = [NSMutableArray arrayWithArray:self.showingMessages];
 //    [tmp enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {

@@ -21,8 +21,8 @@
 - (BOOL) isEmail;
 - (BOOL) isEmpty;
 - (NSString *) MD5;
--(NSString *)trim;
+- (NSString *)trim;
 
--(BOOL) isOlderVersionThan:(NSString*)otherVersion;
--(BOOL) isNewerVersionThan:(NSString*)otherVersion;
+- (BOOL) isOlderVersionThan:(NSString*)otherVersion;
+- (BOOL) isNewerVersionThan:(NSString*)otherVersion;
 @end

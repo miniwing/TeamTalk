@@ -23,7 +23,7 @@
 #import "MTTAvatarImageView.h"
 @implementation RecentUserCell
 
--(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if(self){
@@ -244,7 +244,7 @@
 }
 
 
--(void)setShowSession:(MTTSessionEntity *)session
+- (void)setShowSession:(MTTSessionEntity *)session
 {
     [self setName:session.name];
     if ([session.lastMsg isKindOfClass:[NSString class]]) {
@@ -311,7 +311,7 @@
     }
 }
 
--(void)loadGroupIcon:(MTTSessionEntity *)session
+- (void)loadGroupIcon:(MTTSessionEntity *)session
 {
     [[DDGroupModule instance] getGroupInfogroupID:session.sessionID completion:^(MTTGroupEntity *group) {
         [self setName:group.name];
@@ -342,7 +342,7 @@
     }];
 }
 
--(UIImage *)getImageFromView:(UIView *)orgView{
+- (UIImage *)getImageFromView:(UIView *)orgView{
     CGSize s = orgView.bounds.size;
     UIGraphicsBeginImageContextWithOptions(s, NO, [UIScreen mainScreen].scale);
     [orgView.layer renderInContext:UIGraphicsGetCurrentContext()];

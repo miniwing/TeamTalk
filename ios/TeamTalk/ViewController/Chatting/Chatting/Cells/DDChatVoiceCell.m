@@ -311,7 +311,7 @@
 //    }
 //}
 //
-//-(void)sendVoiceAgain:(MTTMessageEntity *)message
+//- (void)sendVoiceAgain:(MTTMessageEntity *)message
 //{
 //    [self showSending];
 //    NSDictionary* dic = [NSDictionary initWithJsonString:message.msgContent];
@@ -394,7 +394,7 @@
 ////    }];
 //}
 //
-//-(void)clickTheDelete:(MenuImageView *)imageView
+//- (void)clickTheDelete:(MenuImageView *)imageView
 //{
 //    if (self.deleteIt)
 //    {
@@ -702,7 +702,7 @@ static float const minCellLength = 50;
     }
 }
 
--(void)sendVoiceAgain:(MTTMessageEntity *)message
+- (void)sendVoiceAgain:(MTTMessageEntity *)message
 {
     [self showSending];
     NSString* filePath = message.msgContent;

@@ -10,5 +10,5 @@
 
 @class MTTMessageEntity;
 @interface DDEmotionCell : DDChatImageCell<DDChatCellProtocol>
--(void)sendTextAgain:(MTTMessageEntity *)msg;
+- (void)sendTextAgain:(MTTMessageEntity *)msg;
 @end

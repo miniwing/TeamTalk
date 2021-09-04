@@ -28,12 +28,12 @@
 
 @implementation MapCheckViewController
 
--(void)dealloc
+- (void)dealloc
 {
     [SVProgressHUD dismiss];
 }
 
--(void)viewWillAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
@@ -41,7 +41,7 @@
     _mapView.delegate=self;
     _locService.delegate = self;
 }
--(void)viewWillDisappear:(BOOL)animated
+- (void)viewWillDisappear:(BOOL)animated
 {
     [_mapView viewWillDisappear];
     _mapView.delegate = nil; //不用时，置nil
@@ -55,7 +55,7 @@
     [self initUI];
 }
 
--(void)initUI
+- (void)initUI
 {
     UIButton *backButton = [UIButton new];
     backButton.left = 10;
@@ -82,12 +82,12 @@
     }
 }
 
--(void)back:(id)sender
+- (void)back:(id)sender
 {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
--(void)initLocationService
+- (void)initLocationService
 {
     if (_locService==nil) {
         
@@ -102,7 +102,7 @@
     
 }
 
--(void)initMap
+- (void)initMap
 {
     [self.view setBackgroundColor:UIColorFromRGB(0xffffff, 1.0)];
     if (_mapView==nil) {
@@ -168,7 +168,7 @@
     [navButton addTarget:self action:@selector(startNav) forControlEvents:UIControlEventTouchUpInside];
 }
 
--(void)startNav
+- (void)startNav
 {
     
     if (currentUserLocation) {
@@ -218,7 +218,7 @@
     
 }
 
--(void)openApple
+- (void)openApple
 {
     NSDictionary *addressDict = @{
                                   (__bridge NSString *) kABPersonAddressStreetKey : currentUserLocation.title
@@ -235,7 +235,7 @@
                    launchOptions:@{MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving,MKLaunchOptionsShowsTrafficKey: [NSNumber numberWithBool:YES]}];
 }
 
--(void)openBaidu
+- (void)openBaidu
 {
     BMKNaviPara* para = [[BMKNaviPara alloc]init];
     BMKPlanNode* start = [[BMKPlanNode alloc]init];
@@ -250,7 +250,7 @@
     [BMKNavigation openBaiduMapNavigation:para];
 }
 
--(void)openGaode
+- (void)openGaode
 {
     CLLocationCoordinate2D gaode = [self GCJ02FromBD09:self._pt];
     NSString *urlString = [[NSString stringWithFormat:@"iosamap://navi?sourceApplication=%@&backScheme=%@&lat=%f&lon=%f&dev=0&style=2",@"1500米", @"happychat://", gaode.latitude, gaode.longitude] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
@@ -258,7 +258,7 @@
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
 }
 
--(void)openGoogle
+- (void)openGoogle
 {
     CLLocationCoordinate2D gaode = [self GCJ02FromBD09:self._pt];
     NSString *urlString = [[NSString stringWithFormat:@"comgooglemaps://?x-source=%@&x-success=%@&saddr=&daddr=%f,%f&directionsmode=driving", @"1500米", @"happychat://", gaode.latitude, gaode.longitude] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];

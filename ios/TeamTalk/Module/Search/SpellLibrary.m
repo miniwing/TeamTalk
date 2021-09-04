@@ -43,7 +43,7 @@
 {
     
 }
--(BOOL)isEmpty
+- (BOOL)isEmpty
 {
     return ![[_spellLibrary allKeys] count];
 }
@@ -91,7 +91,7 @@
         }
     }
 }
--(void)clearSpellById:(NSString *)objctid
+- (void)clearSpellById:(NSString *)objctid
 {
     [_spellLibrary removeObjectForKey:objctid];
 }

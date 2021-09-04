@@ -83,27 +83,27 @@ typedef void (^NetworkUnreachable)(DDReachability * reachability);
 +(DDReachability*)reachabilityWithAddress:(const struct sockaddr_in*)hostAddress;
 +(DDReachability*)reachabilityForLocalWiFi;
 
--(DDReachability *)initWithReachabilityRef:(SCNetworkReachabilityRef)ref;
+- (DDReachability *)initWithReachabilityRef:(SCNetworkReachabilityRef)ref;
 
--(BOOL)startNotifier;
--(void)stopNotifier;
+- (BOOL)startNotifier;
+- (void)stopNotifier;
 
--(BOOL)isReachable;
--(BOOL)isReachableViaWWAN;
--(BOOL)isReachableViaWiFi;
+- (BOOL)isReachable;
+- (BOOL)isReachableViaWWAN;
+- (BOOL)isReachableViaWiFi;
 
 // WWAN may be available, but not active until a connection has been established.
 // WiFi may require a connection for VPN on Demand.
--(BOOL)isConnectionRequired; // Identical DDG variant.
--(BOOL)connectionRequired; // Apple's routine.
+- (BOOL)isConnectionRequired; // Identical DDG variant.
+- (BOOL)connectionRequired; // Apple's routine.
 // Dynamic, on demand connection?
--(BOOL)isConnectionOnDemand;
+- (BOOL)isConnectionOnDemand;
 // Is user intervention required?
--(BOOL)isInterventionRequired;
+- (BOOL)isInterventionRequired;
 
--(NetworkStatus)currentReachabilityStatus;
--(SCNetworkReachabilityFlags)reachabilityFlags;
--(NSString*)currentReachabilityString;
--(NSString*)currentReachabilityFlags;
+- (NetworkStatus)currentReachabilityStatus;
+- (SCNetworkReachabilityFlags)reachabilityFlags;
+- (NSString*)currentReachabilityString;
+- (NSString*)currentReachabilityFlags;
 
 @end

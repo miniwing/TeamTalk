@@ -126,13 +126,13 @@
     return user;
 
 }
--(void)sendEmail
+- (void)sendEmail
 {
     NSString *stringURL =[NSString stringWithFormat:@"mailto:%@",self.email];
     NSURL *url = [NSURL URLWithString:stringURL];
     [[UIApplication sharedApplication] openURL:url];
 }
--(void)callPhoneNum
+- (void)callPhoneNum
 {
     NSString *string = [NSString stringWithFormat:@"tel:%@",self.telphone];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:string]];
@@ -183,7 +183,7 @@
     return [[userid substringFromIndex:[USER_PRE length]] integerValue];
 }
 
--(id)initWithPB:(UserInfo *)pbUser
+- (id)initWithPB:(UserInfo *)pbUser
 {
     self = [super init];
     if (self) {
@@ -204,15 +204,15 @@
     return self;
 }
 
--(NSString *)getAvatarUrl
+- (NSString *)getAvatarUrl
 {
     return [NSString stringWithFormat:@"%@_100x100.jpg",self.avatar];
 }
--(NSString *)get300AvatarUrl
+- (NSString *)get300AvatarUrl
 {
     return [NSString stringWithFormat:@"%@_310x310.jpg",self.avatar];
 }
--(NSString *)getAvatarPreImageUrl
+- (NSString *)getAvatarPreImageUrl
 {
     return [NSString stringWithFormat:@"%@_640×999.jpg",self.avatar];
 }

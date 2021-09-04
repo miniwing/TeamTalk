@@ -43,7 +43,7 @@ static void AudioPlayerAQInputCallback(void *input, AudioQueueRef inQ, AudioQueu
     [emptyAudioQueueBufferIndexs removeAllObjects];
 }
 
--(void)startPlay {
+- (void)startPlay {
     [self initAudio];
     [self prepare];
     OSStatus status = AudioQueueStart(audioQueue, NULL);
@@ -60,13 +60,13 @@ static void AudioPlayerAQInputCallback(void *input, AudioQueueRef inQ, AudioQueu
      */
 }
 
--(void)stopPlay {
+- (void)stopPlay {
     AudioQueueStop(audioQueue, YES);
     AudioQueueDispose(audioQueue, YES);
 }
 
 
--(void)initAudio {
+- (void)initAudio {
     ///设置音频参数
     audioDescription.mSampleRate = 8000;//采样率
     audioDescription.mFormatID = kAudioFormatLinearPCM;
@@ -109,7 +109,7 @@ static void AudioPlayerAQInputCallback(void *input, AudioQueueRef inQ, AudioQueu
     }
 }
 
--(void)readPCMAndPlay:(AudioQueueRef)outQ buffer:(AudioQueueBufferRef)outQB
+- (void)readPCMAndPlay:(AudioQueueRef)outQ buffer:(AudioQueueBufferRef)outQB
 {
     [synlock lock];
     
@@ -169,7 +169,7 @@ static void AudioPlayerAQInputCallback(void *input, AudioQueueRef inQ, AudioQueu
     }
 }
 
--(int)checkUsedQueueBuffer:(AudioQueueBufferRef) qbuf {
+- (int)checkUsedQueueBuffer:(AudioQueueBufferRef) qbuf {
     int bufferIndex = 0;
     if(qbuf == audioQueueBuffers[0]) {
         bufferIndex = 0;

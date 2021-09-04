@@ -16,7 +16,7 @@
  */
 - (int)requestTimeOutTimeInterval
 {
-    return TimeOutTimeInterval;
+   return TimeOutTimeInterval;
 }
 
 /**
@@ -26,7 +26,7 @@
  */
 - (int)requestServiceID
 {
-    return SID_LOGIN;
+   return ServiceIDSidLogin;
 }
 
 /**
@@ -36,7 +36,7 @@
  */
 - (int)responseServiceID
 {
-    return SID_LOGIN;
+   return ServiceIDSidLogin;
 }
 
 /**
@@ -46,7 +46,7 @@
  */
 - (int)requestCommendID
 {
-    return IM_PUSH_SHIELD_REQ;
+   return LoginCmdIDCidLoginReqPushShield;
 }
 
 /**
@@ -56,7 +56,7 @@
  */
 - (int)responseCommendID
 {
-    return IM_PUSH_SHIELD_RES;
+   return LoginCmdIDCidLoginResPushShield;
 }
 
 /**
@@ -66,14 +66,14 @@
  */
 - (Analysis)analysisReturnData
 {
-    Analysis analysis = (id)^(NSData* data)
-    {
-        IMPushShieldRsp *queryPush = [IMPushShieldRsp parseFromData:data];
-        NSMutableArray *array = [NSMutableArray new];
-        [array addObject:@(queryPush.shieldStatus)];
-        return array;
-    };
-    return analysis;
+   Analysis analysis = (id)^(NSData* data)
+   {
+      IMPushShieldRsp *queryPush = [IMPushShieldRsp parseFromData:data];
+      NSMutableArray *array = [NSMutableArray new];
+      [array addObject:@(queryPush.shieldStatus)];
+      return array;
+   };
+   return analysis;
 }
 
 /**
@@ -83,23 +83,23 @@
  */
 - (Package)packageRequestObject
 {
-    Package package = (id)^(id object,uint16_t seqNo)
-    {
-        IMPushShieldReqBuilder *queryPush = [IMPushShieldReq builder];
-        NSArray* array = (NSArray*)object;
-        uint32_t isShield = [array[0] intValue];
-        [queryPush setUserId:0];
-        [queryPush setShieldStatus:isShield];
-        
-        DDDataOutputStream *dataout = [[DDDataOutputStream alloc] init];
-        [dataout writeInt:0];
-        [dataout writeTcpProtocolHeader:SID_LOGIN
-                                    cId:IM_PUSH_SHIELD_REQ
-                                  seqNo:seqNo];
-        [dataout directWriteBytes:[queryPush build].data];
-        [dataout writeDataCount];
-        return [dataout toByteArray];
-    };
-    return package;
+   Package package = (id)^(id object,uint16_t seqNo)
+   {
+      IMPushShieldReqBuilder *queryPush = [IMPushShieldReq builder];
+      NSArray* array = (NSArray*)object;
+      uint32_t isShield = [array[0] intValue];
+      [queryPush setUserId:0];
+      [queryPush setShieldStatus:isShield];
+      
+      DDDataOutputStream *dataout = [[DDDataOutputStream alloc] init];
+      [dataout writeInt:0];
+      [dataout writeTcpProtocolHeader:[self responseServiceID]
+                                  cId:[self requestCommendID]
+                                seqNo:seqNo];
+      [dataout directWriteBytes:[queryPush build].data];
+      [dataout writeDataCount];
+      return [dataout toByteArray];
+   };
+   return package;
 }
 @end

@@ -126,10 +126,10 @@ bool LoginCmdID_IsValid(int value) {
     case 269:
     case 270:
     case 271:
-    case 272:
     case 273:
     case 274:
     case 275:
+    case 276:
       return true;
     default:
       return false;
@@ -223,8 +223,6 @@ bool FileCmdID_IsValid(int value) {
     case 1290:
     case 1291:
     case 1292:
-    case 1293:
-    case 1294:
       return true;
     default:
       return false;
@@ -279,7 +277,6 @@ bool ResultType_IsValid(int value) {
     case 5:
     case 6:
     case 7:
-    case 8:
       return true;
     default:
       return false;

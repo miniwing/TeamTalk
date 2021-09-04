@@ -19,10 +19,10 @@ typedef void(^ChangeSwitch)(BOOL on);
 
 @property(nonatomic,copy)ChangeSwitch changeSwitch;
 
--(void)showSwitch;
--(void)opSwitch:(BOOL)status;
--(void)showTopBorder;
--(void)showBottomBorder;
--(void)setDetail:(NSString *)detail;
+- (void)showSwitch;
+- (void)opSwitch:(BOOL)status;
+- (void)showTopBorder;
+- (void)showBottomBorder;
+- (void)setDetail:(NSString *)detail;
 
 @end

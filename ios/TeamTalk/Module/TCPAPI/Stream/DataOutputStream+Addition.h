@@ -9,5 +9,5 @@
 #import "DDDataOutputStream.h"
 
 @interface DDDataOutputStream (Addition)
--(void)writeTcpProtocolHeader:(int16_t)sId cId:(int16_t)cId seqNo:(uint16_t)seqNo;
+- (void)writeTcpProtocolHeader:(int16_t)sId cId:(int16_t)cId seqNo:(uint16_t)seqNo;
 @end

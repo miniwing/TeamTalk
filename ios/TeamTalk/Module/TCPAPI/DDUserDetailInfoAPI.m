@@ -7,9 +7,12 @@
 //
 
 #import "DDUserDetailInfoAPI.h"
-#import "IMBuddy.pb.h"
 #import "RuntimeStatus.h"
 #import "MTTUserEntity.h"
+
+#import "IMBaseDefine.pb.h"
+#import "IMBuddy.pb.h"
+
 @implementation DDUserDetailInfoAPI
 /**
  *  请求超时时间
@@ -18,8 +21,8 @@
  */
 - (int)requestTimeOutTimeInterval
 {
-    
-    return TimeOutTimeInterval;
+   
+   return TimeOutTimeInterval;
 }
 
 /**
@@ -29,7 +32,7 @@
  */
 - (int)requestServiceID
 {
-    return SID_BUDDY_LIST;
+   return ServiceIDSidBuddyList;
 }
 
 /**
@@ -39,7 +42,7 @@
  */
 - (int)responseServiceID
 {
-    return SID_BUDDY_LIST;
+   return ServiceIDSidBuddyList;
 }
 
 /**
@@ -49,7 +52,7 @@
  */
 - (int)requestCommendID
 {
-    return IM_USERS_INFO_REQ;
+   return BuddyListCmdIDCidBuddyListUserInfoRequest;
 }
 
 /**
@@ -59,7 +62,7 @@
  */
 - (int)responseCommendID
 {
-    return IM_USERS_INFO_RES;
+   return BuddyListCmdIDCidBuddyListUserInfoResponse;
 }
 
 /**
@@ -69,17 +72,17 @@
  */
 - (Analysis)analysisReturnData
 {
-    Analysis analysis = (id)^(NSData* data)
-    {
-        IMUsersInfoRsp *rsp = [IMUsersInfoRsp parseFromData:data];
-        NSMutableArray* userList = [[NSMutableArray alloc] init];
-        for (UserInfo *userInfo in [rsp userInfoList]) {
-            MTTUserEntity *user = [[MTTUserEntity alloc] initWithPB:userInfo];
-            [userList addObject:user];
-        }
-        return userList;
-    };
-    return analysis;
+   Analysis analysis = (id)^(NSData* data)
+   {
+      IMUsersInfoRsp *rsp = [IMUsersInfoRsp parseFromData:data];
+      NSMutableArray* userList = [[NSMutableArray alloc] init];
+      for (UserInfo *userInfo in [rsp userInfoList]) {
+         MTTUserEntity *user = [[MTTUserEntity alloc] initWithPB:userInfo];
+         [userList addObject:user];
+      }
+      return userList;
+   };
+   return analysis;
 }
 
 /**
@@ -89,24 +92,24 @@
  */
 - (Package)packageRequestObject
 {
-    Package package = (id)^(id object,uint16_t seqNo)
-    {        
-        NSArray* users = (NSArray*)object;
-        IMUsersInfoReqBuilder *userInfo = [IMUsersInfoReq builder];
-        [userInfo setUserId:0];
-        [userInfo setUserIdListArray:users];
-        
-        DDDataOutputStream *dataout = [[DDDataOutputStream alloc] init];
-        [dataout writeInt:0];
-        [dataout writeTcpProtocolHeader:SID_BUDDY_LIST
-                                    cId:IM_USERS_INFO_REQ
-                                  seqNo:seqNo];
-        [dataout directWriteBytes:[userInfo build].data];
-        [dataout writeDataCount];
-        return [dataout toByteArray];
-        
-        
-    };
-    return package;
+   Package package = (id)^(id object,uint16_t seqNo)
+   {
+      NSArray* users = (NSArray*)object;
+      IMUsersInfoReqBuilder *userInfo = [IMUsersInfoReq builder];
+      [userInfo setUserId:0];
+      [userInfo setUserIdListArray:users];
+      
+      DDDataOutputStream *dataout = [[DDDataOutputStream alloc] init];
+      [dataout writeInt:0];
+      [dataout writeTcpProtocolHeader:[self responseServiceID]
+                                  cId:[self requestCommendID]
+                                seqNo:seqNo];
+      [dataout directWriteBytes:[userInfo build].data];
+      [dataout writeDataCount];
+      return [dataout toByteArray];
+      
+      
+   };
+   return package;
 }
 @end

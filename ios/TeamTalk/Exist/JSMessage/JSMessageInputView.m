@@ -253,7 +253,7 @@
     [self.textView setHidden:NO];
     [self.recordButton setHidden:YES];
 }
--(void)setDefaultHeight
+- (void)setDefaultHeight
 {
     
 }

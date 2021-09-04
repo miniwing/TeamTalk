@@ -9,9 +9,9 @@
 #import "ReceiveKickoffAPI.h"
 #import "IMLogin.pb.h"
 @implementation ReceiveKickoffAPI
-- (int)responseServiceID
-{
-    return SID_LOGIN;
+- (int)responseServiceID {
+   
+   return ServiceIDSidLogin;
 }
 
 /**
@@ -19,9 +19,10 @@
  *
  *  @return commandID
  */
-- (int)responseCommandID
-{
-    return IM_KICK_USER;
+- (int)responseCommandID {
+   
+//   return IM_KICK_USER;
+   return LoginCmdIDCidLoginKickUser;
 }
 
 /**
@@ -29,14 +30,14 @@
  *
  *  @return 解析数据包的block
  */
-- (UnrequestAPIAnalysis)unrequestAnalysis
-{
-    UnrequestAPIAnalysis analysis = (id)^(NSData* data)
-    {
-        IMKickUser *res = [IMKickUser parseFromData:data];
-        return @(res.kickReason);
-    };
-    return analysis;
+- (UnrequestAPIAnalysis)unrequestAnalysis {
+   
+   UnrequestAPIAnalysis analysis = (id)^(NSData* data) {
+      
+      IMKickUser *res = [IMKickUser parseFromData:data];
+      return @(res.kickReason);
+   };
+   return analysis;
 }
 
 @end

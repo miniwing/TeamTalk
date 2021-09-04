@@ -28,7 +28,7 @@
 @property(strong)NSString *lastMsg;
 @property(assign)NSInteger lastMsgID;
 @property(strong)NSString *avatar;
--(NSArray*)sessionUsers;
+- (NSArray*)sessionUsers;
 /**
  *  创建一个session，只需赋值sessionID和Type即可
  *
@@ -42,9 +42,9 @@
 - (id)initWithSessionIDByUser:(MTTUserEntity*)user;
 - (id)initWithSessionIDByGroup:(MTTGroupEntity*)group;
 - (void)updateUpdateTime:(NSUInteger)date;
--(NSString *)getSessionGroupID;
--(void)setSessionName:(NSString *)theName;
--(BOOL)isGroup;
--(id)dicToGroup:(NSDictionary *)dic;
--(void)setSessionUser:(NSArray *)array;
+- (NSString *)getSessionGroupID;
+- (void)setSessionName:(NSString *)theName;
+- (BOOL)isGroup;
+- (id)dicToGroup:(NSDictionary *)dic;
+- (void)setSessionUser:(NSArray *)array;
 @end

@@ -16,5 +16,5 @@ typedef void(^ButtonSelectBlock)(int buttonIndex) ;
 @property(strong)MTTUserEntity *user;
 @property(copy)ButtonSelectBlock block;
 @property(assign)BOOL isShow;
--(void)hiddenSelf;
+- (void)hiddenSelf;
 @end

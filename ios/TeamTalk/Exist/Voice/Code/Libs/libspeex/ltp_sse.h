@@ -86,7 +86,7 @@ void pitch_xcorr(const float *_x, const float *_y, float *corr, int len, int nb_
          }
          sum = _mm_add_ps(sum, _mm_movehl_ps(sum, sum));
          sum = _mm_add_ss(sum, _mm_shuffle_ps(sum, sum, 0x55));
-         _mm_store_ss(corr+nb_pitch-1-(i<<2)-offset, sum);
+         _mm_store_ss(corr+nb_pitch-1- (i<<2)-offset, sum);
       }
    }
 }

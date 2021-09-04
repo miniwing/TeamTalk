@@ -1,7 +1,7 @@
 #import "SJAvatarBrowser.h"
 static CGRect oldframe;
 @implementation SJAvatarBrowser
-+(void)showImage:(UIImageView *)avatarImageView{
++ (void)showImage:(UIImageView *)avatarImageView{
     UIImage *image=avatarImageView.image;
     UIWindow *window=[UIApplication sharedApplication].keyWindow;
     UIView *backgroundView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
@@ -25,7 +25,7 @@ static CGRect oldframe;
     }];
 }
 
-+(void)hideImage:(UITapGestureRecognizer*)tap{
++ (void)hideImage:(UITapGestureRecognizer*)tap{
     UIView *backgroundView=tap.view;
     UIImageView *imageView=(UIImageView*)[tap.view viewWithTag:1];
     [UIView animateWithDuration:0.3 animations:^{

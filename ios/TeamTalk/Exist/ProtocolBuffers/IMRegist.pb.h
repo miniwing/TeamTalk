@@ -41,6 +41,21 @@
 @class UserTokenInfoBuilder;
 
 
+typedef NS_ENUM(SInt32, RegistResult) {
+  RegistResultRegistResultNoError = 0,
+  RegistResultRegistResultErrorGeneric = 1,
+  RegistResultRegistResultErrorAlreadyExist = 2,
+  RegistResultRegistResultErrorNoDbServer = 3,
+  RegistResultRegistResultErrorNoLoginServer = 4,
+  RegistResultRegistResultErrorNoRouteServer = 5,
+  RegistResultRegistResultErrorNoMsgServer = 6,
+  RegistResultRegistResultErrorDbValidateFailed = 7,
+  RegistResultRegistResultErrorVersionTooOld = 8,
+};
+
+BOOL RegistResultIsValidValue(RegistResult value);
+NSString *NSStringFromRegistResult(RegistResult value);
+
 
 @interface ImregistRoot : NSObject {
 }
@@ -50,32 +65,32 @@
 
 #define IMRegistReq_user_name @"userName"
 #define IMRegistReq_password @"password"
-#define IMRegistReq_online_status @"onlineStatus"
 #define IMRegistReq_client_type @"clientType"
 #define IMRegistReq_client_version @"clientVersion"
+#define IMRegistReq_attach_data @"attachData"
 @interface IMRegistReq : PBGeneratedMessage<GeneratedMessageProtocol> {
 @private
   BOOL hasUserName_:1;
   BOOL hasPassword_:1;
   BOOL hasClientVersion_:1;
-  BOOL hasOnlineStatus_:1;
+  BOOL hasAttachData_:1;
   BOOL hasClientType_:1;
   NSString* userName;
   NSString* password;
   NSString* clientVersion;
-  UserStatType onlineStatus;
+  NSData* attachData;
   ClientType clientType;
 }
 - (BOOL) hasUserName;
 - (BOOL) hasPassword;
-- (BOOL) hasOnlineStatus;
 - (BOOL) hasClientType;
 - (BOOL) hasClientVersion;
+- (BOOL) hasAttachData;
 @property (readonly, strong) NSString* userName;
 @property (readonly, strong) NSString* password;
-@property (readonly) UserStatType onlineStatus;
 @property (readonly) ClientType clientType;
 @property (readonly, strong) NSString* clientVersion;
+@property (readonly, strong) NSData* attachData;
 
 + (instancetype) defaultInstance;
 - (instancetype) defaultInstance;
@@ -122,11 +137,6 @@
 - (IMRegistReqBuilder*) setPassword:(NSString*) value;
 - (IMRegistReqBuilder*) clearPassword;
 
-- (BOOL) hasOnlineStatus;
-- (UserStatType) onlineStatus;
-- (IMRegistReqBuilder*) setOnlineStatus:(UserStatType) value;
-- (IMRegistReqBuilder*) clearOnlineStatus;
-
 - (BOOL) hasClientType;
 - (ClientType) clientType;
 - (IMRegistReqBuilder*) setClientType:(ClientType) value;
@@ -136,36 +146,41 @@
 - (NSString*) clientVersion;
 - (IMRegistReqBuilder*) setClientVersion:(NSString*) value;
 - (IMRegistReqBuilder*) clearClientVersion;
+
+- (BOOL) hasAttachData;
+- (NSData*) attachData;
+- (IMRegistReqBuilder*) setAttachData:(NSData*) value;
+- (IMRegistReqBuilder*) clearAttachData;
 @end
 
 #define IMRegistRes_server_time @"serverTime"
+#define IMRegistRes_user_name @"userName"
 #define IMRegistRes_result_code @"resultCode"
 #define IMRegistRes_result_string @"resultString"
-#define IMRegistRes_online_status @"onlineStatus"
-#define IMRegistRes_user_info @"userInfo"
+#define IMRegistRes_attach_data @"attachData"
 @interface IMRegistRes : PBGeneratedMessage<GeneratedMessageProtocol> {
 @private
+  BOOL hasUserName_:1;
   BOOL hasResultString_:1;
-  BOOL hasUserInfo_:1;
+  BOOL hasAttachData_:1;
   BOOL hasServerTime_:1;
   BOOL hasResultCode_:1;
-  BOOL hasOnlineStatus_:1;
+  NSString* userName;
   NSString* resultString;
-  UserInfo* userInfo;
+  NSData* attachData;
   UInt32 serverTime;
-  ResultType resultCode;
-  UserStatType onlineStatus;
+  RegistResult resultCode;
 }
 - (BOOL) hasServerTime;
+- (BOOL) hasUserName;
 - (BOOL) hasResultCode;
 - (BOOL) hasResultString;
-- (BOOL) hasOnlineStatus;
-- (BOOL) hasUserInfo;
+- (BOOL) hasAttachData;
 @property (readonly) UInt32 serverTime;
-@property (readonly) ResultType resultCode;
+@property (readonly, strong) NSString* userName;
+@property (readonly) RegistResult resultCode;
 @property (readonly, strong) NSString* resultString;
-@property (readonly) UserStatType onlineStatus;
-@property (readonly, strong) UserInfo* userInfo;
+@property (readonly, strong) NSData* attachData;
 
 + (instancetype) defaultInstance;
 - (instancetype) defaultInstance;
@@ -207,9 +222,14 @@
 - (IMRegistResBuilder*) setServerTime:(UInt32) value;
 - (IMRegistResBuilder*) clearServerTime;
 
+- (BOOL) hasUserName;
+- (NSString*) userName;
+- (IMRegistResBuilder*) setUserName:(NSString*) value;
+- (IMRegistResBuilder*) clearUserName;
+
 - (BOOL) hasResultCode;
-- (ResultType) resultCode;
-- (IMRegistResBuilder*) setResultCode:(ResultType) value;
+- (RegistResult) resultCode;
+- (IMRegistResBuilder*) setResultCode:(RegistResult) value;
 - (IMRegistResBuilder*) clearResultCode;
 
 - (BOOL) hasResultString;
@@ -217,17 +237,10 @@
 - (IMRegistResBuilder*) setResultString:(NSString*) value;
 - (IMRegistResBuilder*) clearResultString;
 
-- (BOOL) hasOnlineStatus;
-- (UserStatType) onlineStatus;
-- (IMRegistResBuilder*) setOnlineStatus:(UserStatType) value;
-- (IMRegistResBuilder*) clearOnlineStatus;
-
-- (BOOL) hasUserInfo;
-- (UserInfo*) userInfo;
-- (IMRegistResBuilder*) setUserInfo:(UserInfo*) value;
-- (IMRegistResBuilder*) setUserInfoBuilder:(UserInfoBuilder*) builderForValue;
-- (IMRegistResBuilder*) mergeUserInfo:(UserInfo*) value;
-- (IMRegistResBuilder*) clearUserInfo;
+- (BOOL) hasAttachData;
+- (NSData*) attachData;
+- (IMRegistResBuilder*) setAttachData:(NSData*) value;
+- (IMRegistResBuilder*) clearAttachData;
 @end
 
 

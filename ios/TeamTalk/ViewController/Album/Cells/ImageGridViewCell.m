@@ -58,7 +58,7 @@
 
 	return self ;
 }
--(void)setCellIsToHighlight:(BOOL)isHighlight
+- (void)setCellIsToHighlight:(BOOL)isHighlight
 {
     [self.selectImage setHighlighted:isHighlight];
 }

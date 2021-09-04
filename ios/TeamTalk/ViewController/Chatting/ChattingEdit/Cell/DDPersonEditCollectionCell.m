@@ -55,7 +55,7 @@
     }
     return self;
 }
--(void)setContent:(NSString *)name AvatarImage:(NSString *)urlString
+- (void)setContent:(NSString *)name AvatarImage:(NSString *)urlString
 {
     [self.name setText:name];
     if ([urlString isEqualToString:@"tt_group_manager_add_user_100x100.jpg"]) {

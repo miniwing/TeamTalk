@@ -79,7 +79,7 @@
     [label setTextAlignment:NSTextAlignmentCenter];
 }
 
--(void)animation1
+- (void)animation1
 {
     CGFloat width = 0.8*SCREEN_WIDTH;
     CGFloat height = width;
@@ -102,12 +102,12 @@
     }
     
 }
--(void)viewWillDisappear:(BOOL)animated
+- (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     [timer setFireDate:[NSDate distantFuture]];
 }
--(void)viewWillAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
     [timer setFireDate:[NSDate distantPast]];
     [_session startRunning];    
@@ -173,7 +173,7 @@
     }
     
 }
--(void)showScanResult:(NSString *)scanResult
+- (void)showScanResult:(NSString *)scanResult
 {
     self.scanResult = scanResult;
     // 判断结果是不是url
@@ -196,7 +196,7 @@
     [sheet show];
 }
 #pragma mark - LCActionSheetDelegate
--(void)actionSheet:(LCActionSheet *)actionSheet didClickedBlankPlace:(NSInteger)buttonIndex
+- (void)actionSheet:(LCActionSheet *)actionSheet didClickedBlankPlace:(NSInteger)buttonIndex
 {
     [timer setFireDate:[NSDate distantPast]];
     [_session startRunning];
@@ -219,7 +219,7 @@
     [timer setFireDate:[NSDate distantPast]];
     [_session startRunning];
 }
--(NSString *)showResult:(NSString *)codeSources
+- (NSString *)showResult:(NSString *)codeSources
 {
     [self showScanResult:codeSources];
     return nil;

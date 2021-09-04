@@ -18,5 +18,5 @@
  *  @param success 连接成功执行的block
  *  @param failure 连接失败执行的block
  */
--(void)checkUserID:(NSString*)userID Pwd:(NSString *)password token:(NSString*)token success:(void(^)(id object))success failure:(void(^)(id object))failure;
+- (void)checkUserID:(NSString*)userID Pwd:(NSString *)password token:(NSString*)token success:(void(^)(id object))success failure:(void(^)(id object))failure;
 @end

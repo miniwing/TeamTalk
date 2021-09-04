@@ -10,6 +10,10 @@
 #import "DDGroupModule.h"
 #import "RuntimeStatus.h"
 #import "MTTGroupEntity.h"
+
+#import "IMBaseDefine.pb.h"
+#import "IMGroup.pb.h"
+
 @implementation DDReceiveGroupAddMemberAPI
 /**
  *  数据包中的serviceID
@@ -18,7 +22,7 @@
  */
 - (int)responseServiceID
 {
-    return SID_GROUP;
+   return ServiceIDSidGroup;
 }
 
 /**
@@ -28,7 +32,7 @@
  */
 - (int)responseCommandID
 {
-    return IM_GROUP_CHANGE_MEMBER_REQ;
+   return GroupCmdIDCidGroupChangeMemberRequest;
 }
 
 /**
@@ -38,37 +42,37 @@
  */
 - (UnrequestAPIAnalysis)unrequestAnalysis
 {
-    UnrequestAPIAnalysis analysis = (id)^(NSData* data)
-    {
-        DDDataInputStream* bodyData = [DDDataInputStream dataInputStreamWithData:data];
-        uint32_t result = [bodyData readInt];
-        MTTGroupEntity* MTTGroupEntity = nil;
-        if (result != 0)
-        {
-           // log4CInfo(@"change group member failure");
-            return MTTGroupEntity;
-        }
-        NSString *groupId = [bodyData readUTF];
-        uint32_t userCnt = [bodyData readInt];
-        MTTGroupEntity =  [[DDGroupModule instance] getGroupByGId:groupId];
-//        if (!MTTGroupEntity)
-//        {
-//            [groupModule tcpGetUnkownGroupInfo:groupId];
-//        }
-        if (MTTGroupEntity) {
-            for (uint32_t i = 0; i < userCnt; i++) {
-                NSString* userId = [bodyData readUTF];
-                if (![MTTGroupEntity.groupUserIds containsObject:userId]) {
-                    [MTTGroupEntity.groupUserIds addObject:userId];
-                    [MTTGroupEntity addFixOrderGroupUserIDS:userId];
-                }
-                //log4CInfo(@"group add member success,member userID:%@",userId);
+   UnrequestAPIAnalysis analysis = (id)^(NSData* data)
+   {
+      DDDataInputStream* bodyData = [DDDataInputStream dataInputStreamWithData:data];
+      uint32_t result = [bodyData readInt];
+      MTTGroupEntity* MTTGroupEntity = nil;
+      if (result != 0)
+      {
+         // log4CInfo(@"change group member failure");
+         return MTTGroupEntity;
+      }
+      NSString *groupId = [bodyData readUTF];
+      uint32_t userCnt = [bodyData readInt];
+      MTTGroupEntity =  [[DDGroupModule instance] getGroupByGId:groupId];
+      //        if (!MTTGroupEntity)
+      //        {
+      //            [groupModule tcpGetUnkownGroupInfo:groupId];
+      //        }
+      if (MTTGroupEntity) {
+         for (uint32_t i = 0; i < userCnt; i++) {
+            NSString* userId = [bodyData readUTF];
+            if (![MTTGroupEntity.groupUserIds containsObject:userId]) {
+               [MTTGroupEntity.groupUserIds addObject:userId];
+               [MTTGroupEntity addFixOrderGroupUserIDS:userId];
             }
-        }
-        
-        NSLog(@"result: %d, goupId: %@", result, groupId);
-        return MTTGroupEntity;
-    };
-    return analysis;
+            //log4CInfo(@"group add member success,member userID:%@",userId);
+         }
+      }
+      
+      NSLog(@"result: %d, goupId: %@", result, groupId);
+      return MTTGroupEntity;
+   };
+   return analysis;
 }
 @end

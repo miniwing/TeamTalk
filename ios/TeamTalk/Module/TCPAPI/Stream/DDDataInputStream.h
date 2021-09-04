@@ -36,11 +36,11 @@
 - (NSString *)readUTF;
 
 //取得可读的长度
--(NSUInteger)getAvailabledLen;
+- (NSUInteger)getAvailabledLen;
 
--(NSData *)readDataWithLength:(int)len;
+- (NSData *)readDataWithLength:(int)len;
 
 //取得剩下的数据
--(NSData *)readLeftData;
+- (NSData *)readLeftData;
 
 @end

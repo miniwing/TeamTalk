@@ -11,5 +11,5 @@
 
 @class DDMenuLabel;
 @interface DDChatTextCell : DDChatBaseCell<DDChatCellProtocol,TTTAttributedLabelDelegate>
--(void)sendTextAgain:(MTTMessageEntity *)message;
+- (void)sendTextAgain:(MTTMessageEntity *)message;
 @end

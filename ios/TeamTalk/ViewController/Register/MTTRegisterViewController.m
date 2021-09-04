@@ -44,7 +44,7 @@
    return;
 }
 
--(void)initUi {
+- (void)initUi {
    
    int                            nErr                                     = EFAULT;
       
@@ -101,15 +101,20 @@
    .topSpaceToView(_passTextField, 60)
    .centerXEqualToView(self.view);
    
+#if __Debug__
+   [self.accountTextField setText:@"AAAA"];
+   [self.passTextField setText:@"AAAA"];
+#endif /* __Debug__ */
+   
    __CATCH(nErr);
    
    return;
 }
 
--(void)login {
+- (void)login {
    
-   NSString *account = _accountTextField.text;
-   NSString *password = _passTextField.text;
+   NSString *account    = _accountTextField.text;
+   NSString *password   = _passTextField.text;
    if (!(account.trim.length > 0) || !(password.trim.length > 0)) {
       [OHAlertView showAlertWithTitle:@"提示" message:@"" dismissButton:@"好的"];
       return;
@@ -131,6 +136,7 @@
       [OHAlertView showAlertWithTitle:@"提示" message:message dismissButton:@"好的"];
    }];
 }
+
 
 - (void)regist {
    
@@ -156,14 +162,26 @@
       break;
    }
    
+   MBProgressHUD *HUD   = [[MBProgressHUD alloc] initWithView:self.view];
+   [self.view addSubview:HUD];
+   [HUD show:YES];
+   HUD.dimBackground    = YES;
+   HUD.labelText = @"正在注册";
+
    [[RegistModule instance] registWithUsername:szAccount
                                       password:szPassword
                                        success:^(MTTUserEntity *aUser) {
       
+      [HUD removeFromSuperview];
+
       LogDebug((@"-[MTTRegisterViewController ]regist"));
    }
                                        failure:^(NSString *aError) {
       
+      [HUD removeFromSuperview];
+      
+      [OHAlertView showAlertWithTitle:@"提示" message:aError dismissButton:@"好的"];
+
    }];
    
    __CATCH(nErr);

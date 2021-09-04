@@ -23,6 +23,6 @@
                   success:(void(^)(id respone))success
                   failure:(void(^)(id error))failure;
 
--(void)getMsgIp:(void(^)(NSDictionary *dic))block failure:(void(^)(NSString* error))failure;
+- (void)getMsgIp:(void(^)(NSDictionary *dic))block failure:(void(^)(NSString* error))failure;
 
 @end

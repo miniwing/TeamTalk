@@ -143,12 +143,12 @@
     }
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     return 16;
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
     if(section == 1){
         return 15;
@@ -157,7 +157,7 @@
     }
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
     return 44;
 }
@@ -238,7 +238,7 @@
     return 1;
 }
 
--(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     return [self.items count];
 }
@@ -247,7 +247,7 @@
     return 5;
 }
 
--(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     DDPersonEditCollectionCell *cell =[collectionView dequeueReusableCellWithReuseIdentifier:@"PersonCollectionCell" forIndexPath:indexPath];
     MTTUserEntity *user = [self.items objectAtIndex:indexPath.row];
@@ -315,7 +315,7 @@
     }
 }
 
--(UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
     UICollectionReusableView *reusableView =nil;
     
@@ -336,7 +336,7 @@
 
 #pragma mark - data
 
--(void)loadGroupUsers
+- (void)loadGroupUsers
 {
     
     if([self.items count] > 2)
@@ -366,7 +366,7 @@
     [self.tableView reloadData];
 }
 
--(void)loadUserToView:(NSArray *)users
+- (void)loadUserToView:(NSArray *)users
 {
     NSMutableArray *tmpArray = [[NSMutableArray alloc]initWithArray:users];
     // 对users排序.群主第一个!
@@ -388,7 +388,7 @@
     }
 }
 
--(void)addHiddenDelete
+- (void)addHiddenDelete
 {
     UITapGestureRecognizer *hiddenDelete = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hiddenAlldelete)];
     UIView *bgview = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.collectionView.contentSize.width, self.collectionView.contentSize.height)];
@@ -397,13 +397,13 @@
     
 }
 
--(void)hiddenAlldelete
+- (void)hiddenAlldelete
 {
     self.isShowEdit=NO;
     [self.collectionView reloadData];
 }
 
--(void)refreshUsers:(NSMutableArray *)array
+- (void)refreshUsers:(NSMutableArray *)array
 {
     
     [self.items removeAllObjects];
@@ -413,7 +413,7 @@
     [self.tableView reloadData];
 }
 
--(void)clickDeleteUser:(id)sender
+- (void)clickDeleteUser:(id)sender
 {
     [self.hud show:YES];
     UIButton *btn = (UIButton *)sender;
@@ -437,7 +437,7 @@
     }];
 }
 
--(void)switchIsAddShielding:(BOOL)on
+- (void)switchIsAddShielding:(BOOL)on
 {
     ShieldGroupMessageAPI *request = [ShieldGroupMessageAPI new];
     NSMutableArray *array = [NSMutableArray new];
@@ -462,7 +462,7 @@
 }
 
 
--(void)viewWillAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     MTTUserEntity *user = [self.items lastObject];

@@ -48,7 +48,7 @@
     return 40;
 }
 
--(UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+- (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *headView = [[UIView alloc]init];
     [headView setBackgroundColor:TTBG];
@@ -98,7 +98,7 @@
     return resultCell;
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     MTTMessageEntity *msg = [self.searchResult objectAtIndex:indexPath.row];
     [[ChattingMainViewController shareInstance] loadChattingContentFromSearch:self.session message:msg];

@@ -16,7 +16,7 @@
  */
 - (int)requestTimeOutTimeInterval
 {
-    return 0;
+   return 0;
 }
 
 /**
@@ -26,7 +26,7 @@
  */
 - (int)requestServiceID
 {
-    return SID_MSG;
+   return ServiceIDSidMsg;
 }
 
 /**
@@ -36,7 +36,7 @@
  */
 - (int)responseServiceID
 {
-    return 0;
+   return 0;
 }
 
 /**
@@ -44,9 +44,11 @@
  *
  *  @return 对应的commendID
  */
-- (int)requestCommendID
-{
-    return IM_MSG_DATA_READ_ACK;
+- (int)requestCommendID {
+   
+//   return IM_MSG_DATA_READ_ACK;
+//   return IM_MSG_DATA_READ_ACK;
+   return MessageCmdIDCidMsgReadAck;
 }
 
 /**
@@ -56,7 +58,7 @@
  */
 - (int)responseCommendID
 {
-    return 0;
+   return 0;
 }
 
 /**
@@ -66,11 +68,11 @@
  */
 - (Analysis)analysisReturnData
 {
-    Analysis analysis = (id)^(NSData* data)
-    {
-        
-    };
-    return analysis;
+   Analysis analysis = (id)^(NSData* data)
+   {
+      
+   };
+   return analysis;
 }
 
 /**
@@ -80,20 +82,20 @@
  */
 - (Package)packageRequestObject
 {
-    Package package = (id)^(id object,uint16_t seqNo)
-    {
-        IMMsgDataReadAckBuilder *readAck = [IMMsgDataReadAck builder];
-        [readAck setUserId:0];
-        [readAck setSessionId:[MTTUtil changeIDToOriginal:object[0]]];
-        [readAck setMsgId:[object[1] integerValue]];
-        [readAck setSessionType:[object[2] integerValue]];
-        DDDataOutputStream *dataout = [[DDDataOutputStream alloc] init];
-        [dataout writeInt:0];
-        [dataout writeTcpProtocolHeader:SID_MSG cId:IM_MSG_DATA_READ_ACK seqNo:seqNo];
-        [dataout directWriteBytes:[readAck build].data];
-        [dataout writeDataCount];
-        return [dataout toByteArray];
-    };
-    return package;
+   Package package = (id)^(id object,uint16_t seqNo)
+   {
+      IMMsgDataReadAckBuilder *readAck = [IMMsgDataReadAck builder];
+      [readAck setUserId:0];
+      [readAck setSessionId:[MTTUtil changeIDToOriginal:object[0]]];
+      [readAck setMsgId:[object[1] integerValue]];
+      [readAck setSessionType:[object[2] integerValue]];
+      DDDataOutputStream *dataout = [[DDDataOutputStream alloc] init];
+      [dataout writeInt:0];
+      [dataout writeTcpProtocolHeader:[self requestServiceID] cId:[self requestCommendID] seqNo:seqNo];
+      [dataout directWriteBytes:[readAck build].data];
+      [dataout writeDataCount];
+      return [dataout toByteArray];
+   };
+   return package;
 }
 @end

@@ -25,7 +25,7 @@ typedef NS_ENUM(int, MTTViewLifecycleState){
 
 @property (nonatomic,assign) MTTViewLifecycleState viewLifecycleState;
 
--(void)setup;
+- (void)setup;
 
 - (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated;
 

@@ -1,7 +1,5 @@
 package IM.Login;
-
 import "IM.BaseDefine.proto";
-
 option java_package = "com.mogujie.tt.protobuf";
 //option java_outer_classname = "MOGUJIEIMMessage";
 option optimize_for = LITE_RUNTIME;
@@ -26,8 +24,16 @@ message IMRegistReq {
     // cmd id:      0x0112
     required string user_name       = 1;
     required string password        = 2;
-    required IM.BaseDefine.ClientType client_type   = 3;
-    optional string client_version  = 4;
+    // required string sex             = 3;
+    // required string domain          = 4;
+    // required string nick            = 5;
+    // required string salt            = 6;
+    // required string phone           = 7;
+    // required string email           = 8;
+    // required string departId        = 9;
+    // required string sign_info       = 10;
+    optional string client_version  = 11;
+    required IM.BaseDefine.ClientType client_type   = 12;
 
     optional bytes attach_data      = 20;            // 服务端用，客户端不用设置
 }
@@ -40,7 +46,6 @@ message IMRegistRes {
     required string user_name       = 2;
     required IM.Login.RegistResult result_code  = 3;
     optional string result_string   = 4;
-    optional IM.BaseDefine.UserInfo user_info   = 5;
 
     optional bytes attach_data      = 20;            // 服务端用，客户端不用设置
 }

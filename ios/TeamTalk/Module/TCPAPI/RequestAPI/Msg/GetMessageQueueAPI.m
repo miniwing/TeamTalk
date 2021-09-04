@@ -18,7 +18,7 @@
  */
 - (int)requestTimeOutTimeInterval
 {
-    return 20;
+   return 20;
 }
 
 /**
@@ -28,7 +28,7 @@
  */
 - (int)requestServiceID
 {
-    return SID_MSG;
+   return ServiceIDSidMsg;
 }
 
 /**
@@ -38,7 +38,7 @@
  */
 - (int)responseServiceID
 {
-    return SID_MSG;
+   return ServiceIDSidMsg;
 }
 
 /**
@@ -48,7 +48,7 @@
  */
 - (int)requestCommendID
 {
-    return IM_GET_MSG_LIST_REQ;
+   return MessageCmdIDCidMsgListRequest;
 }
 
 /**
@@ -58,7 +58,7 @@
  */
 - (int)responseCommendID
 {
-    return IM_GET_MSG_LIST_RSP;
+   return MessageCmdIDCidMsgListResponse;
 }
 
 /**
@@ -69,24 +69,24 @@
 - (Analysis)analysisReturnData
 {
    
-    Analysis analysis = (id)^(NSData* data)
-    {
-        IMGetMsgListRsp *rsp =[IMGetMsgListRsp parseFromData:data];
-        SessionType sessionType = rsp.sessionType;
-        NSString *sessionID = [MTTUtil changeOriginalToLocalID:rsp.sessionId SessionType:sessionType];
-        NSUInteger begin = rsp.msgIdBegin;
-         NSMutableArray *msgArray = [NSMutableArray new];
-        for (MsgInfo *msgInfo in [rsp msgList]) {
-            MTTMessageEntity *msg = [MTTMessageEntity makeMessageFromPB:msgInfo SessionType:sessionType];
-            msg.sessionId=sessionID;
-            msg.state=DDmessageSendSuccess;
-            [msgArray addObject:msg];
-        }
-        
-        
-        return msgArray;
-    };
-    return analysis;
+   Analysis analysis = (id)^(NSData* data)
+   {
+      IMGetMsgListRsp *rsp =[IMGetMsgListRsp parseFromData:data];
+      SessionType sessionType = rsp.sessionType;
+      NSString *sessionID = [MTTUtil changeOriginalToLocalID:rsp.sessionId SessionType:sessionType];
+      NSUInteger begin = rsp.msgIdBegin;
+      NSMutableArray *msgArray = [NSMutableArray new];
+      for (MsgInfo *msgInfo in [rsp msgList]) {
+         MTTMessageEntity *msg = [MTTMessageEntity makeMessageFromPB:msgInfo SessionType:sessionType];
+         msg.sessionId=sessionID;
+         msg.state=DDmessageSendSuccess;
+         [msgArray addObject:msg];
+      }
+      
+      
+      return msgArray;
+   };
+   return analysis;
 }
 
 /**
@@ -96,23 +96,25 @@
  */
 - (Package)packageRequestObject
 {
-    Package package = (id)^(id object,uint16_t seqNo)
-    {
-        NSArray* array = (NSArray*)object;
-        IMGetMsgListReqBuilder *getMsgListReq = [IMGetMsgListReq builder];
-        [getMsgListReq setMsgIdBegin:[array[0] integerValue]];
-        [getMsgListReq setUserId:0];
-        [getMsgListReq setMsgCnt:[array[1] integerValue]];
-        [getMsgListReq setSessionType: [array[2] integerValue]];
-        [getMsgListReq setSessionId:[MTTUtil changeIDToOriginal:array[3]]];
-        DDDataOutputStream *dataout = [[DDDataOutputStream alloc] init];
-        [dataout writeInt:0];
-        [dataout writeTcpProtocolHeader:SID_MSG cId:IM_GET_MSG_LIST_REQ seqNo:seqNo];
-        [dataout directWriteBytes:[getMsgListReq build].data];
-        [dataout writeDataCount];
-        return [dataout toByteArray];
-    };
-    return package;
+   Package package = (id)^(id object,uint16_t seqNo)
+   {
+      NSArray* array = (NSArray*)object;
+      IMGetMsgListReqBuilder *getMsgListReq = [IMGetMsgListReq builder];
+      [getMsgListReq setMsgIdBegin:[array[0] integerValue]];
+      [getMsgListReq setUserId:0];
+      [getMsgListReq setMsgCnt:[array[1] integerValue]];
+      [getMsgListReq setSessionType: [array[2] integerValue]];
+      [getMsgListReq setSessionId:[MTTUtil changeIDToOriginal:array[3]]];
+      DDDataOutputStream *dataout = [[DDDataOutputStream alloc] init];
+      [dataout writeInt:0];
+      [dataout writeTcpProtocolHeader:[self responseServiceID]
+                                  cId:[self requestCommendID]
+                                seqNo:seqNo];
+      [dataout directWriteBytes:[getMsgListReq build].data];
+      [dataout writeDataCount];
+      return [dataout toByteArray];
+   };
+   return package;
 }
 
 @end

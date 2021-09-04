@@ -10,7 +10,6 @@
 #include "HttpQuery.h"
 
 // HARRY
-#include "TTIMConfig.h"
 #include "TTIMLog.h"
 
 static HttpConnMap_t g_http_conn_map;
@@ -187,30 +186,20 @@ void CHttpConn::OnRead()
 	m_HttpParser.ParseHttpContent(in_buf, buf_len);
 
 	if (m_HttpParser.IsReadAll()) {
-
-		string   szURL  =  m_HttpParser.GetUrl();
-        TTIM_PRINTF(("http_msg_server::CHttpConn::OnRead : URL : %s\n", szURL.c_str()));
-
-		if (strncmp(szURL.c_str(), "/query/", 7) == 0) {
-
+		string url =  m_HttpParser.GetUrl();
+		if (strncmp(url.c_str(), "/query/", 7) == 0) {
 			string content = m_HttpParser.GetBodyContent();
 			CHttpQuery* pQueryInstance = CHttpQuery::GetInstance();
-			pQueryInstance->DispatchQuery(szURL, content, this);
+			pQueryInstance->DispatchQuery(url, content, this);
 		}
-#if __TTIM_HTTP_REGIST__
-		else if (strncmp(szURL.c_str(), "/api/", 5) == 0) {
-
-			string       szContent      = m_HttpParser.GetBodyContent();
-			CHttpQuery  *pQueryInstance = CHttpQuery::GetInstance();
-
-            TTIM_PRINTF(("http_msg_server::CHttpConn::OnRead : Content : %s\n", szContent.c_str()));
-
-			pQueryInstance->DispatchQuery(szURL, szContent, this);
-		}
-#endif /* __TTIM_HTTP_REGIST__ */
-		else {
+		else if (strncmp(url.c_str(), "/api/", 7) == 0) {
             
-			log("URL unknown, URL=%s ", szURL.c_str());
+			string content = m_HttpParser.GetBodyContent();
+			CHttpQuery* pQueryInstance = CHttpQuery::GetInstance();
+			pQueryInstance->DispatchQuery(url, content, this);
+		}
+		else {
+			log("url unknown, url=%s ", url.c_str());
 			Close();
 		}
 	}

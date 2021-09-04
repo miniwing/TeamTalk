@@ -16,7 +16,7 @@
  */
 - (int)requestTimeOutTimeInterval
 {
-    return TimeOutTimeInterval;
+   return TimeOutTimeInterval;
 }
 
 /**
@@ -26,7 +26,7 @@
  */
 - (int)requestServiceID
 {
-    return SID_BUDDY_LIST;
+   return ServiceIDSidBuddyList;
 }
 
 /**
@@ -36,7 +36,7 @@
  */
 - (int)responseServiceID
 {
-    return SID_BUDDY_LIST;
+   return ServiceIDSidBuddyList;
 }
 
 /**
@@ -46,7 +46,7 @@
  */
 - (int)requestCommendID
 {
-    return SID_BUDDY_LIST;
+   return ServiceIDSidBuddyList;
 }
 
 /**
@@ -56,7 +56,8 @@
  */
 - (int)responseCommendID
 {
-    return IM_REMOVE_SESSION_RES;
+//   return IM_REMOVE_SESSION_RES;
+   return BuddyListCmdIDCidBuddyListRemoveSessionRes;
 }
 
 /**
@@ -66,11 +67,11 @@
  */
 - (Analysis)analysisReturnData
 {
-    Analysis analysis = (id)^(NSData* data)
-    {
-        return nil;
-    };
-    return analysis;
+   Analysis analysis = (id)^(NSData* data)
+   {
+      return nil;
+   };
+   return analysis;
 }
 
 /**
@@ -80,24 +81,24 @@
  */
 - (Package)packageRequestObject
 {
-    Package package = (id)^(id object,uint16_t seqNo)
-    {
-        NSArray* array = (NSArray*)object;
-        NSString* sessionid= array[0];
-        SessionType sessionType = [array[1] intValue];
-        IMRemoveSessionReqBuilder *removeSession = [IMRemoveSessionReq builder];
-        [removeSession setUserId:0];
-        [removeSession setSessionId:[MTTUtil changeIDToOriginal:sessionid]];
-        [removeSession setSessionType:sessionType];
-        DDDataOutputStream *dataout = [[DDDataOutputStream alloc] init];
-        [dataout writeInt:0];
-        [dataout writeTcpProtocolHeader:SID_BUDDY_LIST
-                                    cId:IM_REMOVE_SESSION_RES
-                                  seqNo:seqNo];
-        [dataout directWriteBytes:[removeSession build].data];
-        [dataout writeDataCount];
-        return [dataout toByteArray];
-    };
-    return package;
+   Package package = (id)^(id object,uint16_t seqNo)
+   {
+      NSArray* array = (NSArray*)object;
+      NSString* sessionid= array[0];
+      SessionType sessionType = [array[1] intValue];
+      IMRemoveSessionReqBuilder *removeSession = [IMRemoveSessionReq builder];
+      [removeSession setUserId:0];
+      [removeSession setSessionId:[MTTUtil changeIDToOriginal:sessionid]];
+      [removeSession setSessionType:sessionType];
+      DDDataOutputStream *dataout = [[DDDataOutputStream alloc] init];
+      [dataout writeInt:0];
+      [dataout writeTcpProtocolHeader:[self requestServiceID]
+                                  cId:[self requestCommendID]
+                                seqNo:seqNo];
+      [dataout directWriteBytes:[removeSession build].data];
+      [dataout writeDataCount];
+      return [dataout toByteArray];
+   };
+   return package;
 }
 @end

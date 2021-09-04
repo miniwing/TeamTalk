@@ -598,7 +598,7 @@
     }
 }
 
-+(void)saveCache:(NSData *)data pathName:(NSString *)pathName
++ (void)saveCache:(NSData *)data pathName:(NSString *)pathName
 {
     [data writeToFile:[Tool returnDataFilePath:[NSString stringWithFormat:@"%@", pathName]] atomically:YES];
 }

@@ -19,12 +19,12 @@
 
 @implementation UIAlertView (Block)
 
--(void)setSelectBlock:(void (^)(NSInteger index))select{
+- (void)setSelectBlock:(void (^)(NSInteger index))select{
     
     objc_setAssociatedObject(self, SelectBlock, select, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
--(void (^)(NSInteger index))selectBlock{
+- (void (^)(NSInteger index))selectBlock{
     
     return objc_getAssociatedObject(self, SelectBlock);
 }

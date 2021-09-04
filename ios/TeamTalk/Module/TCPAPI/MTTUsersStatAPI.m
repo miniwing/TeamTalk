@@ -17,7 +17,7 @@
  */
 - (int)requestTimeOutTimeInterval
 {
-    return TimeOutTimeInterval;
+   return TimeOutTimeInterval;
 }
 
 /**
@@ -27,7 +27,7 @@
  */
 - (int)requestServiceID
 {
-    return SID_BUDDY_LIST;
+   return ServiceIDSidBuddyList;
 }
 
 /**
@@ -37,7 +37,7 @@
  */
 - (int)responseServiceID
 {
-    return SID_BUDDY_LIST;
+   return ServiceIDSidBuddyList;
 }
 
 /**
@@ -47,7 +47,7 @@
  */
 - (int)requestCommendID
 {
-    return IM_USERS_STAT_REQ;
+   return BuddyListCmdIDCidBuddyListUsersStatusRequest;
 }
 
 /**
@@ -57,7 +57,7 @@
  */
 - (int)responseCommendID
 {
-    return IM_USERS_STAT_RSP;
+   return BuddyListCmdIDCidBuddyListUsersStatusResponse;
 }
 
 /**
@@ -67,19 +67,19 @@
  */
 - (Analysis)analysisReturnData
 {
-    Analysis analysis = (id)^(NSData* data)
-    {
-        IMUsersStatRsp *allUsersStatRsp = [IMUsersStatRsp parseFromData:data];
-        NSMutableArray *array = [NSMutableArray new];
-        NSMutableArray *userList = [[NSMutableArray alloc] init];
-        for (UserStat *userStat in [allUsersStatRsp userStatList]) {
-            [userList addObject:@(userStat.userId)];
-            [userList addObject:@(userStat.status)];
-        }
-        [array addObject:userList];
-        return array;
-    };
-    return analysis;
+   Analysis analysis = (id)^(NSData* data)
+   {
+      IMUsersStatRsp *allUsersStatRsp = [IMUsersStatRsp parseFromData:data];
+      NSMutableArray *array = [NSMutableArray new];
+      NSMutableArray *userList = [[NSMutableArray alloc] init];
+      for (UserStat *userStat in [allUsersStatRsp userStatList]) {
+         [userList addObject:@(userStat.userId)];
+         [userList addObject:@(userStat.status)];
+      }
+      [array addObject:userList];
+      return array;
+   };
+   return analysis;
 }
 
 /**
@@ -89,23 +89,23 @@
  */
 - (Package)packageRequestObject
 {
-    Package package = (id)^(id object,uint16_t seqNo)
-    {
-        IMUsersStatReqBuilder *queryPush = [IMUsersStatReq builder];
-        NSArray* array = (NSArray*)object;
-        [queryPush setUserId:0];
-        [queryPush setUserIdListArray:array];
-        
-        DDDataOutputStream *dataout = [[DDDataOutputStream alloc] init];
-        [dataout writeInt:0];
-        [dataout writeTcpProtocolHeader:SID_BUDDY_LIST
-                                    cId:IM_USERS_STAT_REQ
-                                  seqNo:seqNo];
-        [dataout directWriteBytes:[queryPush build].data];
-        [dataout writeDataCount];
-        return [dataout toByteArray];
-    };
-    return package;
+   Package package = (id)^(id object,uint16_t seqNo)
+   {
+      IMUsersStatReqBuilder *queryPush = [IMUsersStatReq builder];
+      NSArray* array = (NSArray*)object;
+      [queryPush setUserId:0];
+      [queryPush setUserIdListArray:array];
+      
+      DDDataOutputStream *dataout = [[DDDataOutputStream alloc] init];
+      [dataout writeInt:0];
+      [dataout writeTcpProtocolHeader:[self requestServiceID]
+                                  cId:[self requestCommendID]
+                                seqNo:seqNo];
+      [dataout directWriteBytes:[queryPush build].data];
+      [dataout writeDataCount];
+      return [dataout toByteArray];
+   };
+   return package;
 }
 
 @end

@@ -18,7 +18,7 @@
 
 @implementation AddressDetailCell
 
--(void)setPlace:(Place *)place
+- (void)setPlace:(Place *)place
 {
 
     self.name.text=place.name;

@@ -7,6 +7,7 @@
 //
 
 #import "DDSuperAPI.h"
+
 @interface LoginAPI : DDSuperAPI<DDAPIScheduleProtocol>
 
 @end

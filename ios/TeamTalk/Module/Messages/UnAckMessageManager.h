@@ -10,9 +10,9 @@
 #import "MTTMessageEntity.h"
 @interface UnAckMessageManager : NSObject
 + (instancetype)instance;
--(void)removeMessageFromUnAckQueue:(MTTMessageEntity *)message;
--(void)addMessageToUnAckQueue:(MTTMessageEntity *)message;
--(BOOL)isInUnAckQueue:(MTTMessageEntity *)message;
+- (void)removeMessageFromUnAckQueue:(MTTMessageEntity *)message;
+- (void)addMessageToUnAckQueue:(MTTMessageEntity *)message;
+- (BOOL)isInUnAckQueue:(MTTMessageEntity *)message;
 @end
 
 

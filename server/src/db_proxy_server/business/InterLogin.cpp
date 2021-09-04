@@ -12,24 +12,36 @@
 #include "../DBPool.h"
 #include "EncDec.h"
 
-bool CInterLoginStrategy::doLogin(const std::string &strName, const std::string &strPass, IM::BaseDefine::UserInfo& user)
+bool CInterLoginStrategy::doLogin(const std::string &strName, const std::string &strPass, IM::BaseDefine::UserInfo &user)
 {
-    bool bRet = false;
-    CDBManager* pDBManger = CDBManager::getInstance();
-    CDBConn* pDBConn = pDBManger->GetDBConn("teamtalk_slave");
-    if (pDBConn) {
-        string strSql = "select * from IMUser where name='" + strName + "' and status=0";
-        CResultSet* pResultSet = pDBConn->ExecuteQuery(strSql.c_str());
-        if(pResultSet)
+    bool         bRet       = false;
+    CDBManager  *pDBManger  = CDBManager::getInstance();
+    CDBConn     *pDBConn    = pDBManger->GetDBConn("teamtalk_slave");
+
+    TTIM_PRINTF(("db_proxy_server::CInterLoginStrategy::doLogin : pDBConn : 0x%08x", (size_t)pDBConn));
+
+    if (pDBConn)
+    {
+        string       strSql     = "select * from IMUser where name='" + strName + "' and status=0";
+        TTIM_PRINTF(("db_proxy_server::CInterLoginStrategy::doLogin : strSql : %s", strSql.c_str()));
+
+        CResultSet  *pResultSet = pDBConn->ExecuteQuery(strSql.c_str());
+
+        if (pResultSet)
         {
-            string strResult, strSalt;
-            uint32_t nId, nGender, nDeptId, nStatus;
-            string strNick, strAvatar, strEmail, strRealName, strTel, strDomain,strSignInfo;
-            while (pResultSet->Next()) {
+            string   strResult;
+            string   strSalt;
+            uint32_t nId;
+            uint32_t nGender;
+            uint32_t nDeptId;
+            uint32_t nStatus;
+            string strNick, strAvatar, strEmail, strRealName, strTel, strDomain, strSignInfo;
+            while (pResultSet->Next())
+            {
                 nId = pResultSet->GetInt("id");
                 strResult = pResultSet->GetString("password");
                 strSalt = pResultSet->GetString("salt");
-                
+
                 strNick = pResultSet->GetString("nick");
                 nGender = pResultSet->GetInt("sex");
                 strRealName = pResultSet->GetString("name");
@@ -40,15 +52,20 @@ bool CInterLoginStrategy::doLogin(const std::string &strName, const std::string 
                 nDeptId = pResultSet->GetInt("departId");
                 nStatus = pResultSet->GetInt("status");
                 strSignInfo = pResultSet->GetString("sign_info");
-
             }
 
             string strInPass = strPass + strSalt;
             char szMd5[33];
             CMd5::MD5_Calculate(strInPass.c_str(), strInPass.length(), szMd5);
             string strOutPass(szMd5);
-            if(strOutPass == strResult)
+
+            TTIM_PRINTF(("db_proxy_server::CInterLoginStrategy::doLogin::strInPass :: %s", strInPass.c_str()));
+            TTIM_PRINTF(("db_proxy_server::CInterLoginStrategy::doLogin::strOutPass :: %s", strOutPass.c_str()));
+
+            if (strOutPass == strResult)
             {
+                TTIM_PRINTF(("db_proxy_server::CInterLoginStrategy::doLogin : (strOutPass == strResult)"));
+
                 bRet = true;
                 user.set_user_id(nId);
                 user.set_user_nick_name(strNick);
@@ -60,10 +77,9 @@ bool CInterLoginStrategy::doLogin(const std::string &strName, const std::string 
                 user.set_avatar_url(strAvatar);
                 user.set_department_id(nDeptId);
                 user.set_status(nStatus);
-  	        user.set_sign_info(strSignInfo);
-
+                user.set_sign_info(strSignInfo);
             }
-            delete  pResultSet;
+            delete pResultSet;
         }
         pDBManger->RelDBConn(pDBConn);
     }

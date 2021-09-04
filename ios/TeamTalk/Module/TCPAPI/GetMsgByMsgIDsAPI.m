@@ -7,11 +7,15 @@
 //
 
 #import "GetMsgByMsgIDsAPI.h"
+
+#import "IMBaseDefine.pb.h"
 #import "IMMessage.pb.h"
+
 @implementation GetMsgByMsgIDsAPI
+
 - (int)requestTimeOutTimeInterval
 {
-    return TimeOutTimeInterval;
+   return TimeOutTimeInterval;
 }
 
 /**
@@ -21,7 +25,7 @@
  */
 - (int)requestServiceID
 {
-    return SID_MSG;
+   return ServiceIDSidMsg;
 }
 
 /**
@@ -31,7 +35,7 @@
  */
 - (int)responseServiceID
 {
-    return SID_MSG;
+   return ServiceIDSidMsg;
 }
 
 /**
@@ -41,7 +45,7 @@
  */
 - (int)requestCommendID
 {
-    return IM_GET_MSG_BY_ID_REQ;
+   return MessageCmdIDCidMsgGetByMsgIdReq;
 }
 
 /**
@@ -51,7 +55,7 @@
  */
 - (int)responseCommendID
 {
-    return IM_GET_MSG_BY_ID_RES;
+   return MessageCmdIDCidMsgGetByMsgIdRes;
 }
 
 /**
@@ -61,12 +65,12 @@
  */
 - (Analysis)analysisReturnData
 {
-    Analysis analysis = (id)^(NSData* data)
-    {
-        IMGetMsgByIdRsp *lstMsgs = [IMGetMsgByIdRsp parseFromData:data];
-        return [lstMsgs msgList];
-    };
-    return analysis;
+   Analysis analysis = (id)^(NSData* data)
+   {
+      IMGetMsgByIdRsp *lstMsgs = [IMGetMsgByIdRsp parseFromData:data];
+      return [lstMsgs msgList];
+   };
+   return analysis;
 }
 
 /**
@@ -76,25 +80,25 @@
  */
 - (Package)packageRequestObject
 {
-    Package package = (id)^(id object,uint16_t seqNo)
-    {
-        SessionType type = (SessionType)[object[0] integerValue];
-        NSInteger sessionID = [MTTUtil changeIDToOriginal:object[1]];
-        NSArray *ids = object[2];
-        IMGetMsgByIdReqBuilder *req = [IMGetMsgByIdReq builder];
-        [req setUserId:0];
-        [req setSessionType:type];
-        [req setSessionId:sessionID];
-        [req addMsgIdList:ids];
-        DDDataOutputStream *dataout = [[DDDataOutputStream alloc] init];
-        [dataout writeInt:0];
-        [dataout writeTcpProtocolHeader:SID_MSG
-                                    cId:IM_GET_MSG_BY_ID_REQ
-                                  seqNo:seqNo];
-        [dataout directWriteBytes:[req build].data];
-        [dataout writeDataCount];
-        return [dataout toByteArray];
-    };
-    return package;
+   Package package = (id)^(id object,uint16_t seqNo)
+   {
+      SessionType type = (SessionType)[object[0] integerValue];
+      NSInteger sessionID = [MTTUtil changeIDToOriginal:object[1]];
+      NSArray *ids = object[2];
+      IMGetMsgByIdReqBuilder *req = [IMGetMsgByIdReq builder];
+      [req setUserId:0];
+      [req setSessionType:type];
+      [req setSessionId:sessionID];
+      [req addMsgIdList:ids];
+      DDDataOutputStream *dataout = [[DDDataOutputStream alloc] init];
+      [dataout writeInt:0];
+      [dataout writeTcpProtocolHeader:[self responseServiceID]
+                                  cId:[self requestCommendID]
+                                seqNo:seqNo];
+      [dataout directWriteBytes:[req build].data];
+      [dataout writeDataCount];
+      return [dataout toByteArray];
+   };
+   return package;
 }
 @end

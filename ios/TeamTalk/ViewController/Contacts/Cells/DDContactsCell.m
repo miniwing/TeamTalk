@@ -70,7 +70,7 @@
 
     // Configure the view for the selected state
 }
--(void)setCellContent:(NSString *)avatar Name:(NSString *)name
+- (void)setCellContent:(NSString *)avatar Name:(NSString *)name
 {
     [self.avatar setBackgroundColor:[UIColor clearColor]];
     self.nameLabel.text=name;

@@ -23,8 +23,8 @@
 
 @property (nonatomic,strong) UIActivityIndicatorView *activityIndicatorView;
 
--(void)showAnimation;
+- (void)showAnimation;
 
--(void)hideAnimation;
+- (void)hideAnimation;
 
 @end

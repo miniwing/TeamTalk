@@ -388,7 +388,7 @@
 		if ( numIndices != 0 )
 		{
 			// set the item's index offset
-			item.offset = -((NSInteger)numIndices);
+			item.offset = - ((NSInteger)numIndices);
 		}
 	}
 	
@@ -401,7 +401,7 @@
 		NSUInteger numIndices = [_deletedIndices countOfIndexesInRange: range];
 		if ( numIndices != 0 )
 		{
-			item.offset = -((NSInteger)numIndices);
+			item.offset = - ((NSInteger)numIndices);
 		}
 	}
 	

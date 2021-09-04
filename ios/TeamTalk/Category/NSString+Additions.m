@@ -119,17 +119,17 @@
     
 	return output;
 }
--(NSString *)trim{
+- (NSString *)trim{
     return  [self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 }
 
 
--(BOOL) isOlderVersionThan:(NSString*)otherVersion
+- (BOOL) isOlderVersionThan:(NSString*)otherVersion
 {
 	return ([self compare:otherVersion options:NSNumericSearch] == NSOrderedAscending);
 }
 
--(BOOL) isNewerVersionThan:(NSString*)otherVersion
+- (BOOL) isNewerVersionThan:(NSString*)otherVersion
 {
 	return ([self compare:otherVersion options:NSNumericSearch] == NSOrderedDescending);
 }

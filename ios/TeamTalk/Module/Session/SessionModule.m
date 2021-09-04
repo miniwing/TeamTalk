@@ -59,19 +59,19 @@
     }
     return self;
 }
--(MTTSessionEntity *)getSessionById:(NSString *)sessionID
+- (MTTSessionEntity *)getSessionById:(NSString *)sessionID
 {
     return [self.sessions safeObjectForKey:sessionID];
 }
--(void)removeSessionById:(NSString *)sessionID
+- (void)removeSessionById:(NSString *)sessionID
 {
     [self.sessions removeObjectForKey:sessionID];
 }
--(void)addToSessionModel:(MTTSessionEntity *)session
+- (void)addToSessionModel:(MTTSessionEntity *)session
 {
     [self.sessions safeSetObject:session forKey:session.sessionID];
 }
--(NSUInteger)getAllUnreadMessageCount
+- (NSUInteger)getAllUnreadMessageCount
 {
     NSArray *allSession = [self getAllSessions];
     __block NSUInteger count = 0;
@@ -92,13 +92,13 @@
     return count;
 //    return [[[self getAllSessions] valueForKeyPath:@"@sum.unReadMsgCount"] integerValue];
 }
--(void)addSessionsToSessionModel:(NSArray *)sessionArray
+- (void)addSessionsToSessionModel:(NSArray *)sessionArray
 {
     [sessionArray enumerateObjectsUsingBlock:^(MTTSessionEntity *session, NSUInteger idx, BOOL *stop) {
         [self.sessions safeSetObject:session forKey:session.sessionID];
     }];
 }
--(void)getHadUnreadMessageSession:(void(^)(NSUInteger count))block
+- (void)getHadUnreadMessageSession:(void(^)(NSUInteger count))block
 {
     GetUnreadMessagesAPI *getUnreadMessage = [GetUnreadMessagesAPI new];
     [getUnreadMessage requestWithObject:TheRuntime.user.objID Completion:^(NSDictionary *dic, NSError *error) {
@@ -130,7 +130,7 @@
     }];
 }
 
--(NSUInteger )getMaxTime
+- (NSUInteger )getMaxTime
 {
     NSArray *array =[self getAllSessions];
     NSUInteger maxTime = [[array valueForKeyPath:@"@max.timeInterval"] integerValue];
@@ -139,7 +139,7 @@
     }
     return 0;
 }
--(void)getRecentSession:(void(^)(NSUInteger count))block
+- (void)getRecentSession:(void(^)(NSUInteger count))block
 {
     GetRecentSession *getRecentSession = [[GetRecentSession alloc] init];
     NSInteger localMaxTime = [self getMaxTime];
@@ -164,7 +164,7 @@
     }];
 }
 
--(NSArray *)getAllSessions
+- (NSArray *)getAllSessions
 {
     NSArray *sessions = [self.sessions allValues];
     [sessions enumerateObjectsUsingBlock:^(MTTSessionEntity *obj, NSUInteger idx, BOOL *stop) {
@@ -174,7 +174,7 @@
     }];
     return [self.sessions allValues];
 }
--(void)removeSessionByServer:(MTTSessionEntity *)session
+- (void)removeSessionByServer:(MTTSessionEntity *)session
 {
     [self.sessions removeObjectForKey:session.sessionID];
     [[MTTDatabaseUtil instance] removeSession:session.sessionID];
@@ -185,11 +185,11 @@
     }];
 }
 
--(void)clearSession{
+- (void)clearSession{
     [self.sessions removeAllObjects];
 }
 
--(void)getMessageReadACK:(NSNotification *)notification
+- (void)getMessageReadACK:(NSNotification *)notification
 {
       MTTMessageEntity* message = [notification object];
     if ([[self.sessions allKeys] containsObject:message.sessionId]) {
@@ -285,12 +285,12 @@
     }
     
 }
--(void)updateToDatabase:(MTTSessionEntity *)session{
+- (void)updateToDatabase:(MTTSessionEntity *)session{
     [[MTTDatabaseUtil instance] updateRecentSession:session completion:^(NSError *error) {
         
     }];
 }
--(void)sentMessageSuccessfull:(NSNotification*)notification
+- (void)sentMessageSuccessfull:(NSNotification*)notification
 {
     MTTSessionEntity* session = [notification object];
     [self addSessionsToSessionModel:@[session]];
@@ -299,7 +299,7 @@
     }
      [self updateToDatabase:session];
 }
--(void)loadLocalSession:(void(^)(bool isok))block
+- (void)loadLocalSession:(void(^)(bool isok))block
 {
     [[MTTDatabaseUtil instance] loadSessionsCompletion:^(NSArray *session, NSError *error) {
         [self addSessionsToSessionModel:session];
@@ -309,7 +309,7 @@
     }];
 
 }
--(void)cleanMessageFromNotifi:(NSUInteger)messageID  SessionID:(NSString *)sessionid Session:(SessionType)type
+- (void)cleanMessageFromNotifi:(NSUInteger)messageID  SessionID:(NSString *)sessionid Session:(SessionType)type
 {
     if(![sessionid isEqualToString:TheRuntime.user.objID]){
         MTTSessionEntity *session = [self getSessionById:sessionid];

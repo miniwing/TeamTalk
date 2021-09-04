@@ -13,23 +13,27 @@
 
 IpParser::IpParser()
 {
+    return;
 }
 
 IpParser::~IpParser()
 {
-    
+    return;
 }
 
 bool IpParser::isTelcome(const char *pIp)
 {
-    if(!pIp)
+    if (!pIp)
     {
         return false;
     }
-    CStrExplode strExp((char*)pIp,'.');
-    if(strExp.GetItemCnt() != 4)
+
+    CStrExplode strExp((char *)pIp, '.');
+
+    if (strExp.GetItemCnt() != 4)
     {
         return false;
     }
+
     return true;
 }

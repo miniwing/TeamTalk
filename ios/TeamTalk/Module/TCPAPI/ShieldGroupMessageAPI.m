@@ -7,7 +7,10 @@
 //
 
 #import "ShieldGroupMessageAPI.h"
+
+#import "IMBaseDefine.pb.h"
 #import "IMGroup.pb.h"
+
 @implementation ShieldGroupMessageAPI
 /**
  *  请求超时时间
@@ -16,7 +19,7 @@
  */
 - (int)requestTimeOutTimeInterval
 {
-    return TimeOutTimeInterval;
+   return TimeOutTimeInterval;
 }
 
 /**
@@ -26,7 +29,7 @@
  */
 - (int)requestServiceID
 {
-    return SID_GROUP;
+   return ServiceIDSidGroup;
 }
 
 /**
@@ -36,7 +39,7 @@
  */
 - (int)responseServiceID
 {
-    return SID_GROUP;
+   return ServiceIDSidGroup;
 }
 
 /**
@@ -46,7 +49,8 @@
  */
 - (int)requestCommendID
 {
-    return IM_GROU_SHIELD_REQ;
+//   return IM_GROU_SHIELD_REQ;
+   return GroupCmdIDCidGroupShieldGroupRequest;
 }
 
 /**
@@ -56,7 +60,8 @@
  */
 - (int)responseCommendID
 {
-    return IM_GROU_SHIELD_RES;
+//   return IM_GROU_SHIELD_RES;
+   return GroupCmdIDCidGroupShieldGroupResponse;
 }
 
 /**
@@ -66,12 +71,12 @@
  */
 - (Analysis)analysisReturnData
 {
-    Analysis analysis = (id)^(NSData* data)
-    {
-        IMGroupShieldRsp *groupShieldRsp = [IMGroupShieldRsp parseFromData:data];
-        return groupShieldRsp.resultCode;
-    };
-    return analysis;
+   Analysis analysis = (id)^(NSData* data)
+   {
+      IMGroupShieldRsp *groupShieldRsp = [IMGroupShieldRsp parseFromData:data];
+      return groupShieldRsp.resultCode;
+   };
+   return analysis;
 }
 
 /**
@@ -81,25 +86,25 @@
  */
 - (Package)packageRequestObject
 {
-    Package package = (id)^(id object,uint16_t seqNo)
-    {
-        NSArray* array = (NSArray*)object;
-        UInt32 groupID =[MTTUtil changeIDToOriginal:array[0]];
-        uint32_t isShield = [array[1] intValue];
-        IMGroupShieldReqBuilder *groupShield = [IMGroupShieldReq builder];
-        [groupShield setUserId:0];
-        [groupShield setGroupId:groupID];
-        [groupShield setShieldStatus:isShield];
-        
-        DDDataOutputStream *dataout = [[DDDataOutputStream alloc] init];
-        [dataout writeInt:0];
-        [dataout writeTcpProtocolHeader:SID_GROUP
-                                    cId:IM_GROU_SHIELD_REQ
-                                  seqNo:seqNo];
-        [dataout directWriteBytes:[groupShield build].data];
-        [dataout writeDataCount];
-        return [dataout toByteArray];
-    };
-    return package;
+   Package package = (id)^(id object,uint16_t seqNo)
+   {
+      NSArray* array = (NSArray*)object;
+      UInt32 groupID =[MTTUtil changeIDToOriginal:array[0]];
+      uint32_t isShield = [array[1] intValue];
+      IMGroupShieldReqBuilder *groupShield = [IMGroupShieldReq builder];
+      [groupShield setUserId:0];
+      [groupShield setGroupId:groupID];
+      [groupShield setShieldStatus:isShield];
+      
+      DDDataOutputStream *dataout = [[DDDataOutputStream alloc] init];
+      [dataout writeInt:0];
+      [dataout writeTcpProtocolHeader:[self requestServiceID]
+                                  cId:[self requestCommendID]
+                                seqNo:seqNo];
+      [dataout directWriteBytes:[groupShield build].data];
+      [dataout writeDataCount];
+      return [dataout toByteArray];
+   };
+   return package;
 }
 @end

@@ -25,6 +25,6 @@
 
 + (instancetype)instance;
 
--(void)updateData;
+- (void)updateData;
 
 @end

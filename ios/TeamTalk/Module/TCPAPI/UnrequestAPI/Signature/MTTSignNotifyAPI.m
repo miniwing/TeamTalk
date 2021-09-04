@@ -11,7 +11,7 @@
 @implementation MTTSignNotifyAPI
 - (int)responseServiceID
 {
-    return SID_BUDDY_LIST;
+   return ServiceIDSidBuddyList;
 }
 
 /**
@@ -21,7 +21,7 @@
  */
 - (int)responseCommandID
 {
-    return IM_SIGN_INFO_CHANGED_NOTIFY;
+   return BuddyListCmdIDCidBuddyListSignInfoChangedNotify;
 }
 
 /**
@@ -31,15 +31,15 @@
  */
 - (UnrequestAPIAnalysis)unrequestAnalysis
 {
-    UnrequestAPIAnalysis analysis = (id)^(NSData* data)
-    {
-        IMSignInfoChangedNotify *res = [IMSignInfoChangedNotify parseFromData:data];
-        NSMutableDictionary *dic = [NSMutableDictionary new];
-        [dic setObject:[NSString stringWithFormat:@"%d",res.changedUserId] forKey:@"uid"];
-        [dic setObject:res.signInfo forKey:@"sign"];
-        return dic;
-    };
-    return analysis;
+   UnrequestAPIAnalysis analysis = (id)^(NSData* data)
+   {
+      IMSignInfoChangedNotify *res = [IMSignInfoChangedNotify parseFromData:data];
+      NSMutableDictionary *dic = [NSMutableDictionary new];
+      [dic setObject:[NSString stringWithFormat:@"%d",res.changedUserId] forKey:@"uid"];
+      [dic setObject:res.signInfo forKey:@"sign"];
+      return dic;
+   };
+   return analysis;
 }
 
 @end

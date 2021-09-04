@@ -14,7 +14,7 @@
 
 @implementation MTTBaseViewController
 
--(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
 
     if (self =[super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
 
@@ -23,7 +23,7 @@
     return self;
 }
 
--(id)initWithCoder:(NSCoder *)aDecoder{
+- (id)initWithCoder:(NSCoder *)aDecoder{
 
     if (self =[super initWithCoder:aDecoder]) {
         
@@ -32,7 +32,7 @@
     return self;
 }
 
--(void)setup{
+- (void)setup{
 
 }
 
@@ -54,7 +54,7 @@
     self.navigationItem.backBarButtonItem = backButton;
 }
 
--(void)viewWillAppear:(BOOL)animated{
+- (void)viewWillAppear:(BOOL)animated{
 
     [super viewWillAppear:animated];
     
@@ -65,7 +65,7 @@
     }
 }
 
--(void)viewDidAppear:(BOOL)animated{
+- (void)viewDidAppear:(BOOL)animated{
 
     [super viewDidAppear:animated];
     
@@ -78,21 +78,21 @@
 //    }
 }
 
--(void)viewWillDisappear:(BOOL)animated{
+- (void)viewWillDisappear:(BOOL)animated{
 
     [super viewWillDisappear:animated];
     
     _viewLifecycleState =MTTViewLifecycleWillDisAppear;
 }
 
--(void)viewDidDisappear:(BOOL)animated{
+- (void)viewDidDisappear:(BOOL)animated{
     
     [super viewDidDisappear:animated];
     
     _viewLifecycleState =MTTViewLifecycleDidDisAppear;
 }
 
--(void)setTitle:(NSString *)title{
+- (void)setTitle:(NSString *)title{
 
     [super setTitle:title];
     
@@ -101,7 +101,7 @@
     self.navigationItem.titleView =nil;
 }
 
--(UINavigationItem*)navigationItem{
+- (UINavigationItem*)navigationItem{
 
     if (self.tabBarController) {
         return [self.tabBarController navigationItem];
@@ -109,7 +109,7 @@
     return [super navigationItem];
 }
 
--(void)p_popViewController
+- (void)p_popViewController
 {
     [self.navigationController popViewControllerAnimated:YES];
     

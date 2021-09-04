@@ -594,7 +594,7 @@ static void update_filter(SpeexResamplerState *st)
          spx_int32_t j;
          for (j=0;j<st->filt_len;j++)
          {
-            st->sinc_table[i*st->filt_len+j] = sinc(st->cutoff,((j-(spx_int32_t)st->filt_len/2+1)-((float)i)/st->den_rate), st->filt_len, quality_map[st->quality].window_func);
+            st->sinc_table[i*st->filt_len+j] = sinc(st->cutoff,((j- (spx_int32_t)st->filt_len/2+1)- ((float)i)/st->den_rate), st->filt_len, quality_map[st->quality].window_func);
          }
       }
 #ifdef FIXED_POINT

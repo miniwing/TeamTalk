@@ -173,7 +173,7 @@
     
 }
 
--(void)clickTheDelete:(MenuImageView *)imageView
+- (void)clickTheDelete:(MenuImageView *)imageView
 {
     debugLog(@"ddd");
     if (self.deleteIt)
@@ -182,7 +182,7 @@
     }
 }
 
-//-(void)deleteMessage:(MTTMessageEntity *)message
+//- (void)deleteMessage:(MTTMessageEntity *)message
 //{
 //    debugLog(@"dd");
 //    [[ChattingMainViewController shareInstance] deleteTheMessage:message];

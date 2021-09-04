@@ -47,16 +47,16 @@
     }
     return self;
 }
--(void)setSendButtonTitle:(int)num
+- (void)setSendButtonTitle:(int)num
 {
     [self.send setTitle:[NSString stringWithFormat:@"%@(%d)",@"发送",num] forState:UIControlStateNormal];
     [self.send setTitle:[NSString stringWithFormat:@"%@(%d)",@"发送",num] forState:UIControlStateHighlighted];
 }
--(IBAction)previewPicture:(id)sender
+- (IBAction)previewPicture:(id)sender
 {
     self.Block(0);
 }
--(IBAction)sendPicture:(id)sender
+- (IBAction)sendPicture:(id)sender
 {
     self.Block(1);
 }

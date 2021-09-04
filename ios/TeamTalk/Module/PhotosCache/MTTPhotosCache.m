@@ -26,7 +26,7 @@
 @implementation MTTPhotosCache
 
 
-+(void)calculatePhotoSizeWithCompletionBlock:(void (^)(NSUInteger fileCount, NSUInteger totalSize))completionBlock
++ (void)calculatePhotoSizeWithCompletionBlock:(void (^)(NSUInteger fileCount, NSUInteger totalSize))completionBlock
 {
     NSURL *diskCacheURL = [NSURL fileURLWithPath:PhotosMessageDir isDirectory:YES];
     [ [MTTSundriesCenter instance] pushTaskToSerialQueue:^{
@@ -53,7 +53,7 @@
     }];
     
 }
--(NSData *)photoFromDiskCacheForKey:(NSString *)key
+- (NSData *)photoFromDiskCacheForKey:(NSString *)key
 {
     NSData *photoData = [self photoFromMemoryCacheForKey:key];
     if (photoData) {
@@ -228,7 +228,7 @@
     }
     return nil;
 }
--(NSString *)getKeyName
+- (NSString *)getKeyName
 {
     NSDateFormatter * formatter = [[NSDateFormatter alloc ] init];
     [formatter setDateFormat:@"YYYYMMddhhmmssSSS"];
@@ -236,7 +236,7 @@
     NSString *timeLocal = [[NSString alloc] initWithFormat:@"%@", date];
     return [NSString stringWithFormat:@"%@_send",timeLocal];
 }
--(NSMutableArray *)getAllImageCache
+- (NSMutableArray *)getAllImageCache
 {
     __block NSMutableArray *array = [NSMutableArray new];
     dispatch_sync(self.ioQueue, ^{
@@ -249,7 +249,7 @@
     });
     return array;
 }
--(void)clearAllCache:(void(^)(bool isfinish))block;
+- (void)clearAllCache:(void(^)(bool isfinish))block;
 {
     [self.memCache removeAllObjects];
     NSArray *allimage = [self getAllImageCache];

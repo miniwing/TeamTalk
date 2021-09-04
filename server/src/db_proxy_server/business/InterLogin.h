@@ -14,6 +14,9 @@
 
 #include "LoginStrategy.h"
 
+#include "TTIMConfig.h"
+#include "TTIMLog.h"
+
 class CInterLoginStrategy :public CLoginStrategy
 {
 public:

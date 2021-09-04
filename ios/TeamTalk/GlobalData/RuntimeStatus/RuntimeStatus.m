@@ -27,29 +27,29 @@
 
 @implementation RuntimeStatus
 
-+ (instancetype)instance
-{
-    static RuntimeStatus* g_runtimeState;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        g_runtimeState = [[RuntimeStatus alloc] init];
-        
-    });
-    return g_runtimeState;
++ (instancetype)instance {
+   
+   static RuntimeStatus* g_runtimeState;
+   static dispatch_once_t onceToken;
+   dispatch_once(&onceToken, ^{
+      g_runtimeState = [[RuntimeStatus alloc] init];
+      
+   });
+   return g_runtimeState;
 }
 
-- (instancetype)init
-{
-    self = [super init];
-    if (self) {
-        self.user = [MTTUserEntity new];
-        [self registerAPI];
+- (instancetype)init {
+   
+   self = [super init];
+   if (self) {
+      self.user = [MTTUserEntity new];
+      [self registerAPI];
 //        [self checkUpdateVersion];
-    }
-    return self;
+   }
+   return self;
 }
 
-//-(void)checkUpdateVersion
+//- (void)checkUpdateVersion
 //{
 //    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
 //    
@@ -73,30 +73,31 @@
 //    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 //    } ];
 //}
--(void)registerAPI
-{
-    //接收踢出
-    ReceiveKickoffAPI *receiveKick = [ReceiveKickoffAPI new];
-    [receiveKick registerAPIInAPIScheduleReceiveData:^(id object, NSError *error) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:DDNotificationUserKickouted object:object];
-    }];
-    //接收签名改变通知
-    MTTSignNotifyAPI *receiveSignNotify = [MTTSignNotifyAPI new];
-    [receiveSignNotify registerAPIInAPIScheduleReceiveData:^(id object, NSError *error) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:DDNotificationUserSignChanged object:object];
-    }];
-    //接收pc端登陆状态变化通知
-    MTTPCLoginStatusNotifyAPI *receivePCLoginNotify = [MTTPCLoginStatusNotifyAPI new];
-    [receivePCLoginNotify registerAPIInAPIScheduleReceiveData:^(id object, NSError *error) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:DDNotificationPCLoginStatusChanged object:object];
-    }];
+
+- (void)registerAPI {
+   
+   //接收踢出
+   ReceiveKickoffAPI *receiveKick = [ReceiveKickoffAPI new];
+   [receiveKick registerAPIInAPIScheduleReceiveData:^(id object, NSError *error) {
+      [[NSNotificationCenter defaultCenter] postNotificationName:DDNotificationUserKickouted object:object];
+   }];
+   //接收签名改变通知
+   MTTSignNotifyAPI *receiveSignNotify = [MTTSignNotifyAPI new];
+   [receiveSignNotify registerAPIInAPIScheduleReceiveData:^(id object, NSError *error) {
+      [[NSNotificationCenter defaultCenter] postNotificationName:DDNotificationUserSignChanged object:object];
+   }];
+   //接收pc端登陆状态变化通知
+   MTTPCLoginStatusNotifyAPI *receivePCLoginNotify = [MTTPCLoginStatusNotifyAPI new];
+   [receivePCLoginNotify registerAPIInAPIScheduleReceiveData:^(id object, NSError *error) {
+      [[NSNotificationCenter defaultCenter] postNotificationName:DDNotificationPCLoginStatusChanged object:object];
+   }];
 }
 
--(void)updateData
-{
-    [DDMessageModule shareInstance];
-    [DDClientStateMaintenanceManager shareInstance];
-    [DDGroupModule instance];
+- (void)updateData {
+   
+   [DDMessageModule shareInstance];
+   [DDClientStateMaintenanceManager shareInstance];
+   [DDGroupModule instance];
 }
 
 

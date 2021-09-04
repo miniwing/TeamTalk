@@ -97,7 +97,7 @@
     self.tableView.sectionIndexColor=RGB(102, 102, 102);
     self.tableView.separatorStyle = 0;
 }
--(NSMutableDictionary *)sortByContactFirstLetter:(NSArray *)users
+- (NSMutableDictionary *)sortByContactFirstLetter:(NSArray *)users
 {
     NSMutableDictionary *dic = [NSMutableDictionary new];
     for (MTTUserEntity * user in [[DDUserModule shareInstance] getAllFriendUser]) {
@@ -113,19 +113,19 @@
     }
     return dic;
 }
--(void)viewWillDisappear:(BOOL)animated
+- (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     [self.tabBarController.tabBar setHidden:YES];
     [self.editArray removeAllObjects];
 }
--(void)viewWillAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
 
 
 }
--(void)saveSelectItems
+- (void)saveSelectItems
 {
     if (self.isCreat) {
         [self createGroup];
@@ -140,7 +140,7 @@
         
     }
 }
--(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
     if ([searchString isEqualToString:@""]) {
         return NO;
     }
@@ -211,7 +211,7 @@
     return sectionHeadView;
 }
 
--(NSArray*)sectionIndexTitlesForTableView:(UITableView *)tableView{
+- (NSArray*)sectionIndexTitlesForTableView:(UITableView *)tableView{
         NSMutableArray *arr = [NSMutableArray new];
         [[self allKeys] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
 //            char firstLetter = getFirstChar((NSString *)obj);
@@ -221,7 +221,7 @@
         return arr;
 }
 
--(NSArray*)allKeys{
+- (NSArray*)allKeys{
     return [[self.items allKeys] sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
         char char1 = [MTTUtil getFirstChar:obj1];
         NSString *fl1 = [[NSString stringWithFormat:@"%c",char1] uppercaseString];
@@ -236,7 +236,7 @@
         return [fl1 compare:fl2];
     }];
 }
--(CGFloat )tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+- (CGFloat )tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 55.0;
 }
@@ -284,7 +284,7 @@
     }
     
 }
--(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     EditContactsCell *oneCell =(EditContactsCell *) [tableView cellForRowAtIndexPath: indexPath];
     NSString *keyStr = [[self allKeys] objectAtIndex:indexPath.section];
@@ -302,7 +302,7 @@
         [oneCell setCellToSelected:NO];
     }
 }
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
         MTTUserEntity *user;
         NSString *keyStr = [[self allKeys] objectAtIndex:indexPath.section];
@@ -329,7 +329,7 @@
     
 }
 
--(void)addUsersToGroup:(NSMutableArray *)users
+- (void)addUsersToGroup:(NSMutableArray *)users
 {
     DDAddMemberToGroupAPI *addMember = [[DDAddMemberToGroupAPI alloc] init];
     __block NSMutableArray *userIDs = [NSMutableArray new];
@@ -409,7 +409,7 @@
         
     }
 }
--(void)createGroup
+- (void)createGroup
 {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"创建讨论组" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
     alert.alertViewStyle=UIAlertViewStylePlainTextInput;
@@ -417,13 +417,13 @@
    
 }
 
--(void)showAlert:(NSString *)string
+- (void)showAlert:(NSString *)string
 {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:string delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
     [alert show];
 }
 
--(NSString *)creatGroupName
+- (NSString *)creatGroupName
 {
     NSMutableString *string= [NSMutableString new];
     [self.editArray enumerateObjectsUsingBlock:^(MTTUserEntity *obj, NSUInteger idx, BOOL *stop) {

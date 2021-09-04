@@ -34,7 +34,7 @@
     }
     return self;
 }
--(void)showDeleteActionView
+- (void)showDeleteActionView
 {
 //    if (self.button.alpha==1.0) {
 //        [UIView animateWithDuration:0.5 animations:^{

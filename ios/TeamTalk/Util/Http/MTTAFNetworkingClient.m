@@ -13,7 +13,7 @@
 
 static NSString* const DD_URL_BASE = @"http://www.mogujie.com/";
 
-+(void) handleRequest:(id)result
++ (void) handleRequest:(id)result
               success:(void (^)(id))success
               failure:(void (^)(NSError *))failure
 {
@@ -47,7 +47,7 @@ static NSString* const DD_URL_BASE = @"http://www.mogujie.com/";
     
     
 }
-+(void) jsonFormRequest:(NSString *)url param:(NSDictionary *)param fromBlock:(void (^)(id <AFMultipartFormData> formData))block success:(void (^)(id))success failure:(void (^)(NSError *))failure
++ (void) jsonFormRequest:(NSString *)url param:(NSDictionary *)param fromBlock:(void (^)(id <AFMultipartFormData> formData))block success:(void (^)(id))success failure:(void (^)(NSError *))failure
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager GET:url parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -63,7 +63,7 @@ static NSString* const DD_URL_BASE = @"http://www.mogujie.com/";
         BLOCK_SAFE_RUN(failure,error);
     }];
 }
-+(void) jsonFormPOSTRequest:(NSString *)url param:(NSDictionary *)param success:(void (^)(id))success failure:(void (^)(NSError *))failure{
++ (void) jsonFormPOSTRequest:(NSString *)url param:(NSDictionary *)param success:(void (^)(id))success failure:(void (^)(NSError *))failure{
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];

@@ -20,7 +20,7 @@ typedef NS_ENUM(NSUInteger, MTTSearchType)
     MTTSearchChatHistory    = 3,
     MTTSearchAll            = 10
 };
--(void)searchTextDidChanged:(NSString *)searchText Block:(void(^)(bool done)) block;
+- (void)searchTextDidChanged:(NSString *)searchText Block:(void(^)(bool done)) block;
 @property(nonatomic,strong)MTTBaseViewController *viewController;
 @property(nonatomic)NSInteger searchType;
 @property(nonatomic,strong)NSString *searchKey;

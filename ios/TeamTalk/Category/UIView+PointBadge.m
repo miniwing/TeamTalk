@@ -26,7 +26,7 @@ static char *UIViewPointBadge ="UIViewPointBadge";
 }
 
 
--(void)showPointBadge:(BOOL)animated{
+- (void)showPointBadge:(BOOL)animated{
 
     UIView *pointBadgeView =[self pointBadgeView];
     
@@ -59,7 +59,7 @@ static char *UIViewPointBadge ="UIViewPointBadge";
     }
 }
 
--(void)removePointBadge:(BOOL)animated{
+- (void)removePointBadge:(BOOL)animated{
 
     UIView *pointBadgeView =[self pointBadgeView];
     

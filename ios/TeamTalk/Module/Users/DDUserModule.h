@@ -21,12 +21,12 @@ typedef void(^DDLoadRecentUsersCompletion)();
 - (void )getUserForUserID:(NSString*)userID Block:(void(^)(MTTUserEntity *user))block;
 - (void)addRecentUser:(MTTUserEntity*)user;
 - (void)loadAllRecentUsers:(DDLoadRecentUsersCompletion)completion;
--(void)clearRecentUser;
--(NSArray *)getAllMaintanceUser;
--(NSArray *)getAllUsersNick;
--(MTTUserEntity *)getUserByNick:(NSString*)nickName;
+- (void)clearRecentUser;
+- (NSArray *)getAllMaintanceUser;
+- (NSArray *)getAllUsersNick;
+- (MTTUserEntity *)getUserByNick:(NSString*)nickName;
 
 - (void)addFriendUser:(MTTUserEntity*)user;
--(NSArray *)getAllFriendUser;
+- (NSArray *)getAllFriendUser;
 
 @end

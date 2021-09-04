@@ -11,11 +11,11 @@
 @interface ContactsModule : NSObject
 @property(strong)NSMutableArray *groups;
 @property(assign)int contactsCount;
--(NSMutableDictionary *)sortByContactPy;
--(NSMutableDictionary *)sortByDepartment;
--(NSMutableDictionary *)sortByFriendPy;
-+(void)favContact:(MTTUserEntity *)user;
+- (NSMutableDictionary *)sortByContactPy;
+- (NSMutableDictionary *)sortByDepartment;
+- (NSMutableDictionary *)sortByFriendPy;
++ (void)favContact:(MTTUserEntity *)user;
 +(NSArray *)getFavContact;
--(BOOL)isInFavContactList:(MTTUserEntity *)user;
-+(void)getDepartmentData:(void(^)(id response))block;
+- (BOOL)isInFavContactList:(MTTUserEntity *)user;
++ (void)getDepartmentData:(void(^)(id response))block;
 @end
