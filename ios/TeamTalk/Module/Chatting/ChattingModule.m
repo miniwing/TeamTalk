@@ -178,7 +178,7 @@ static NSUInteger const showPromptGap = 300;
         [self p_addHistoryMessages:messages Completion:completion];
     }];
 }
--(NSUInteger )getMiniMsgId
+- (NSUInteger )getMiniMsgId
 {
     if ([self.showingMessages count] == 0) {
         return self.MTTSessionEntity.lastMsgID;
@@ -416,7 +416,7 @@ static NSUInteger const showPromptGap = 300;
     return messageContentArray;
     
 }
--(NSInteger)getMaxMsgId:(NSArray *)array
+- (NSInteger)getMaxMsgId:(NSArray *)array
 {
     __block NSInteger maxMsgID =0;
     [array enumerateObjectsUsingBlock:^(MTTMessageEntity * obj, NSUInteger idx, BOOL *stop) {

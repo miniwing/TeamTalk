@@ -29,7 +29,7 @@ typedef void(^cacheblock)(BOOL isFinished);
 - (int)getDiskCount;
 - (void)removePhotoFromNSCacheForKey:(NSString *)key;
 - (NSOperation *)queryDiskCacheForKey:(NSString *)key done:(void (^)(NSData *voice))doneBlock;
--(NSString *)getKeyName;
+- (NSString *)getKeyName;
 - (void)clearAllCache:(void(^)(bool isfinish))block;;
--(NSMutableArray *)getAllImageCache;
+- (NSMutableArray *)getAllImageCache;
 @end

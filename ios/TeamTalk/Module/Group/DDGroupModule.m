@@ -75,11 +75,11 @@
     [_allGroups setObject:group forKey:group.objID];
     newGroup = nil;
 }
--(NSArray*)getAllGroups
+- (NSArray*)getAllGroups
 {
     return [_allGroups allValues];
 }
--(MTTGroupEntity*)getGroupByGId:(NSString*)gId
+- (MTTGroupEntity*)getGroupByGId:(NSString*)gId
 {
     
     MTTGroupEntity *entity= [_allGroups safeObjectForKey:gId];
@@ -115,7 +115,7 @@
     
 }
 
--(BOOL)isContainGroup:(NSString*)gId
+- (BOOL)isContainGroup:(NSString*)gId
 {
     return ([_allGroups valueForKey:gId] != nil);
 }

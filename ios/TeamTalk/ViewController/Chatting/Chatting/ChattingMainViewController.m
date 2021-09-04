@@ -631,7 +631,7 @@ typedef NS_ENUM(NSUInteger, PanelStatus)
     [self.titleBtn setTitle:title forState:UIControlStateNormal];
     [self queryUserStat];
 }
--(IBAction)Edit:(id)sender
+- (IBAction)Edit:(id)sender
 {
     DDChattingEditViewController *chattingedit = [DDChattingEditViewController new];
     chattingedit.session=self.module.MTTSessionEntity;
@@ -681,7 +681,7 @@ typedef NS_ENUM(NSUInteger, PanelStatus)
 
 #pragma mark -
 #pragma mark ActionMethods  发送sendAction 音频 voiceChange  显示表情 disFaceKeyboard
--(IBAction)sendAction:(id)sender{
+- (IBAction)sendAction:(id)sender{
     if (self.chatInputView.textView.text.length>0) {
         NSLog(@"点击发送");
         [self.chatInputView.textView setText:@""];
@@ -1653,7 +1653,7 @@ typedef NS_ENUM(NSUInteger, PanelStatus)
     [self addObserver:self forKeyPath:@"_inputViewY" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
 }
 
--(IBAction)showUtilitys:(id)sender
+- (IBAction)showUtilitys:(id)sender
 {
     [_recordButton setImage:[UIImage imageNamed:@"dd_record_normal"] forState:UIControlStateNormal];
     _recordButton.tag = DDVoiceInput;
@@ -1788,7 +1788,7 @@ typedef NS_ENUM(NSUInteger, PanelStatus)
     [_preShow removeFromSuperview];
 }
 
--(IBAction)showEmotions:(id)sender
+- (IBAction)showEmotions:(id)sender
 {
     [_recordButton setImage:[UIImage imageNamed:@"dd_record_normal"] forState:UIControlStateNormal];
     _recordButton.tag = DDVoiceInput;
@@ -1881,7 +1881,7 @@ typedef NS_ENUM(NSUInteger, PanelStatus)
     }
 }
 
--(IBAction)titleTap:(id)sender
+- (IBAction)titleTap:(id)sender
 {
     if ([self.module.MTTSessionEntity isGroup]) {
         return;

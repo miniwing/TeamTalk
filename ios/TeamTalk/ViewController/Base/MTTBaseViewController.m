@@ -14,7 +14,7 @@
 
 @implementation MTTBaseViewController
 
--(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
 
     if (self =[super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
 
@@ -23,7 +23,7 @@
     return self;
 }
 
--(id)initWithCoder:(NSCoder *)aDecoder{
+- (id)initWithCoder:(NSCoder *)aDecoder{
 
     if (self =[super initWithCoder:aDecoder]) {
         
@@ -101,7 +101,7 @@
     self.navigationItem.titleView =nil;
 }
 
--(UINavigationItem*)navigationItem{
+- (UINavigationItem*)navigationItem{
 
     if (self.tabBarController) {
         return [self.tabBarController navigationItem];

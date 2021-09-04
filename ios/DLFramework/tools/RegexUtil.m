@@ -28,7 +28,7 @@
 
 +(BOOL)isMobileNo:(NSString *)mobile
 {
-    NSString *regex = @"^(((86|\\+86|0|)1[3458][0-9]{9})|(\\d{3,4}-(\\d{7,8})))$";
+    NSString *regex = @"^(((86|\\+86|0|)1[3458][0-9]{9})|(\\d{3,4}- (\\d{7,8})))$";
     NSString *target = [mobile stringByMatching:regex];
     if ([target length] !=0) {
         return YES;

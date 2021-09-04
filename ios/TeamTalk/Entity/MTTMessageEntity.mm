@@ -166,7 +166,7 @@
     [module updateSessionUpdateTime:message.msgTime];
     return message;
 }
--(BOOL)isGroupMessage
+- (BOOL)isGroupMessage
 {
     if (self.msgType == MsgTypeMsgTypeGroupAudio || self.msgType == MsgTypeMsgTypeGroupText || self.msgType == MsgTypeMsgTypeGroupImage || self.msgType == MsgTypeMsgTypeGroupLocation || self.msgType == MsgTypeMsgTypeGroupVideo || self.msgType == MsgTypeMsgTypeGroupUrl || self.msgType == MsgTypeMsgTypeGroupFile || self.msgType == MsgTypeMsgTypeGroupEmotion) {
         return YES;
@@ -174,40 +174,40 @@
     return NO;
 }
 
--(SessionType)getMessageSessionType
+- (SessionType)getMessageSessionType
 {
     return (![self isGroupMessage]?SessionTypeSessionTypeSingle:SessionTypeSessionTypeGroup);
 }
 
--(BOOL)isGroupVoiceMessage
+- (BOOL)isGroupVoiceMessage
 {
     if (self.msgType == MsgTypeMsgTypeGroupAudio) {
         return YES;
     }
     return NO;
 }
--(BOOL)isLocationMessage
+- (BOOL)isLocationMessage
 {
     if (self.msgContentType == DDMEssageTypeLocation) {
         return YES;
     }
     return NO;
 }
--(BOOL)isVoiceMessage
+- (BOOL)isVoiceMessage
 {
     if (self.msgType == MsgTypeMsgTypeGroupAudio || self.msgType == MsgTypeMsgTypeSingleAudio) {
         return YES;
     }
     return NO;
 }
--(BOOL)isImageMessage
+- (BOOL)isImageMessage
 {
     if (self.msgContentType == DDMessageTypeImage) {
         return YES;
     }
     return NO;
 }
--(BOOL)isSendBySelf
+- (BOOL)isSendBySelf
 {
     if ([self.senderId isEqualToString:TheRuntime.user.objID]) {
         return YES;

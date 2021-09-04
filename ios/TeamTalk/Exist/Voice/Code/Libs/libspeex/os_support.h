@@ -92,13 +92,13 @@ static inline void speex_free_scratch (void *ptr)
 
 /** Copy n bytes of memory from src to dst. The 0* term provides compile-time type checking  */
 #ifndef OVERRIDE_SPEEX_COPY
-#define SPEEX_COPY(dst, src, n) (memcpy((dst), (src), (n)*sizeof(*(dst)) + 0*((dst)-(src)) ))
+#define SPEEX_COPY(dst, src, n) (memcpy((dst), (src), (n)*sizeof(*(dst)) + 0*((dst)- (src)) ))
 #endif
 
 /** Copy n bytes of memory from src to dst, allowing overlapping regions. The 0* term 
     provides compile-time type checking */
 #ifndef OVERRIDE_SPEEX_MOVE
-#define SPEEX_MOVE(dst, src, n) (memmove((dst), (src), (n)*sizeof(*(dst)) + 0*((dst)-(src)) ))
+#define SPEEX_MOVE(dst, src, n) (memmove((dst), (src), (n)*sizeof(*(dst)) + 0*((dst)- (src)) ))
 #endif
 
 /** Set n bytes of memory to value of c, starting at address s */

@@ -183,7 +183,7 @@
     return [[userid substringFromIndex:[USER_PRE length]] integerValue];
 }
 
--(id)initWithPB:(UserInfo *)pbUser
+- (id)initWithPB:(UserInfo *)pbUser
 {
     self = [super init];
     if (self) {
@@ -204,15 +204,15 @@
     return self;
 }
 
--(NSString *)getAvatarUrl
+- (NSString *)getAvatarUrl
 {
     return [NSString stringWithFormat:@"%@_100x100.jpg",self.avatar];
 }
--(NSString *)get300AvatarUrl
+- (NSString *)get300AvatarUrl
 {
     return [NSString stringWithFormat:@"%@_310x310.jpg",self.avatar];
 }
--(NSString *)getAvatarPreImageUrl
+- (NSString *)getAvatarPreImageUrl
 {
     return [NSString stringWithFormat:@"%@_640×999.jpg",self.avatar];
 }

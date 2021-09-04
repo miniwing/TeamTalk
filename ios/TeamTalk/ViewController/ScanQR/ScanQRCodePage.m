@@ -219,7 +219,7 @@
     [timer setFireDate:[NSDate distantPast]];
     [_session startRunning];
 }
--(NSString *)showResult:(NSString *)codeSources
+- (NSString *)showResult:(NSString *)codeSources
 {
     [self showScanResult:codeSources];
     return nil;

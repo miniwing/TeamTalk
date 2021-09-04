@@ -42,7 +42,7 @@
 }
 
 //"反馈"关心的功能
--(BOOL)canPerformAction:(SEL)action withSender:(id)sender
+- (BOOL)canPerformAction:(SEL)action withSender:(id)sender
 {
     if ((_showMenu & DDShowEarphonePlay) && action == @selector(earphonePlay:))
     {

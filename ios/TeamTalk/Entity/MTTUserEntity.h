@@ -34,10 +34,10 @@
 +(NSMutableDictionary *)userToDic:(MTTUserEntity *)user;
 - (void)sendEmail;
 - (void)callPhoneNum;
--(NSString *)getAvatarUrl;
--(NSString *)get300AvatarUrl;
--(NSString *)getAvatarPreImageUrl;
--(id)initWithPB:(UserInfo *)pbUser;
+- (NSString *)getAvatarUrl;
+- (NSString *)get300AvatarUrl;
+- (NSString *)getAvatarPreImageUrl;
+- (id)initWithPB:(UserInfo *)pbUser;
 +(UInt32)localIDTopb:(NSString *)userid;
 +(NSString *)pbUserIdToLocalID:(NSUInteger)userID;
 - (void)updateLastUpdateTimeToDB;

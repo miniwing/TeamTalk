@@ -27,13 +27,13 @@ typedef enum
 
 + (instancetype)instance;
 
--(NSArray *)getAllSessions;
+- (NSArray *)getAllSessions;
 
 - (void)addToSessionModel:(MTTSessionEntity *)session;
 
 - (void)addSessionsToSessionModel:(NSArray *)sessionArray;
 
--(MTTSessionEntity *)getSessionById:(NSString *)sessionID;
+- (MTTSessionEntity *)getSessionById:(NSString *)sessionID;
 
 - (void)getRecentSession:(void(^)(NSUInteger count))block;
 
@@ -45,7 +45,7 @@ typedef enum
 
 - (void)getHadUnreadMessageSession:(void(^)(NSUInteger count))block;
 
--(NSUInteger)getAllUnreadMessageCount;
+- (NSUInteger)getAllUnreadMessageCount;
 
 
 @end

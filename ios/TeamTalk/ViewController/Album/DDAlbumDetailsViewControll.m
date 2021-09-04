@@ -274,7 +274,7 @@
 {
     return CGSizeMake(75, 80);
 }
--(IBAction)sendPhotos:(id)sender
+- (IBAction)sendPhotos:(id)sender
 {
     UIButton *button =(UIButton *)sender;
     [button setEnabled:NO];

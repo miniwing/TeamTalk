@@ -19,7 +19,7 @@
 
 //@dynamic process;
 
--(instancetype)init{
+- (instancetype)init{
 
     if (self =[super init]) {
         [self setup];
@@ -123,7 +123,7 @@
 
 @implementation MTTLogoAnimateView
 
--(id)initWithFrame:(CGRect)frame{
+- (id)initWithFrame:(CGRect)frame{
 
     if (self =[super initWithFrame:frame]) {
         [self setup];
@@ -131,7 +131,7 @@
     return self;
 }
 
--(id)initWithImage:(UIImage *)image{
+- (id)initWithImage:(UIImage *)image{
 
     if (self =[super initWithImage:image]) {
         [self setup];
@@ -139,7 +139,7 @@
     return self;
 }
 
--(id)initWithCoder:(NSCoder *)aDecoder{
+- (id)initWithCoder:(NSCoder *)aDecoder{
 
     if (self =[super initWithCoder:aDecoder]) {
         
@@ -230,7 +230,7 @@
 
 #pragma mark -
 
--(UIImage *)convertWithImage:(UIImage *)image color:(UIColor *)color{
+- (UIImage *)convertWithImage:(UIImage *)image color:(UIColor *)color{
     
     CGSize size = [image size];
     

@@ -35,7 +35,7 @@
     }
     return self;
 }
--(BOOL)isInUnAckQueue:(MTTMessageEntity *)message
+- (BOOL)isInUnAckQueue:(MTTMessageEntity *)message
 {
     if ([[self.msgDic allKeys] containsObject:@(message.msgID)]) {
         return YES;

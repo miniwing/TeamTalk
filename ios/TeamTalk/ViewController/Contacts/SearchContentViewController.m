@@ -316,7 +316,7 @@ NSInteger const MAX_LINE_LENGTH = 15;
     }
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if(self.searchType != MTTSearchAll){
         return 55;
     }

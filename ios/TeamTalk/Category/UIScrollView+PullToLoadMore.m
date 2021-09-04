@@ -365,7 +365,7 @@ static char *UIScollViewIsLoadMore ="UIScollViewlIsLoadMore";
 #pragma mark -getter & setter
 
 
--(CGPoint)theBeiginContentOffset{
+- (CGPoint)theBeiginContentOffset{
     
     CGPoint point =CGPointZero;
     
@@ -378,7 +378,7 @@ static char *UIScollViewIsLoadMore ="UIScollViewlIsLoadMore";
     return point;
 }
 
--(NSUInteger)pageNumber{
+- (NSUInteger)pageNumber{
     NSNumber *n =objc_getAssociatedObject(self, "TablePageNumber");
     return [n unsignedIntegerValue];
 }
@@ -389,7 +389,7 @@ static char *UIScollViewIsLoadMore ="UIScollViewlIsLoadMore";
 }
 
 
--(BOOL)noMore{
+- (BOOL)noMore{
     
     NSNumber *n =objc_getAssociatedObject(self, &UIScrollViewNoMore);
     if (n ==nil || ![n isKindOfClass:[NSNumber class]]) {
@@ -413,7 +413,7 @@ static char *UIScollViewIsLoadMore ="UIScollViewlIsLoadMore";
                              OBJC_ASSOCIATION_RETAIN);
 }
 
--(BOOL)isRefresh{
+- (BOOL)isRefresh{
     
     NSNumber *n =objc_getAssociatedObject(self, &UIScollViewIsRefresh);
     if (n ==nil || ![n isKindOfClass:[NSNumber class]]) {
@@ -429,7 +429,7 @@ static char *UIScollViewIsLoadMore ="UIScollViewlIsLoadMore";
                              OBJC_ASSOCIATION_RETAIN);
 }
 
--(BOOL)isLoadMore{
+- (BOOL)isLoadMore{
     
     NSNumber *n =objc_getAssociatedObject(self, &UIScollViewIsLoadMore);
     if (n ==nil || ![n isKindOfClass:[NSNumber class]]) {

@@ -82,7 +82,7 @@
     
 }
 
--(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
     NSString *temp = [textView.text stringByReplacingCharactersInRange:range withString:text];
     if (temp.length > 30) {
         textView.text = [temp substringToIndex:30];

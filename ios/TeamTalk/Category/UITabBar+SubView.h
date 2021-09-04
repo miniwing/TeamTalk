@@ -10,8 +10,8 @@
 
 @interface UITabBar (SubView)
 
--(UIView *)barButtonWithTitle:(NSString *)title;
+- (UIView *)barButtonWithTitle:(NSString *)title;
 
--(UIImageView *)tabBarButtonImageViewWithTitle:(NSString *)title;
+- (UIImageView *)tabBarButtonImageViewWithTitle:(NSString *)title;
 
 @end

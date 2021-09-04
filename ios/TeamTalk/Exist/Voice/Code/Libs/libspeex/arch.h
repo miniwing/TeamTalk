@@ -80,11 +80,11 @@
 
 #include "../config.h"
 
-#define ABS(x) ((x) < 0 ? (-(x)) : (x))      /**< Absolute integer value. */
-#define ABS16(x) ((x) < 0 ? (-(x)) : (x))    /**< Absolute 16-bit value.  */
+#define ABS(x) ((x) < 0 ? (- (x)) : (x))      /**< Absolute integer value. */
+#define ABS16(x) ((x) < 0 ? (- (x)) : (x))    /**< Absolute 16-bit value.  */
 #define MIN16(a,b) ((a) < (b) ? (a) : (b))   /**< Maximum 16-bit value.   */
 #define MAX16(a,b) ((a) > (b) ? (a) : (b))   /**< Maximum 16-bit value.   */
-#define ABS32(x) ((x) < 0 ? (-(x)) : (x))    /**< Absolute 32-bit value.  */
+#define ABS32(x) ((x) < 0 ? (- (x)) : (x))    /**< Absolute 32-bit value.  */
 #define MIN32(a,b) ((a) < (b) ? (a) : (b))   /**< Maximum 32-bit value.   */
 #define MAX32(a,b) ((a) > (b) ? (a) : (b))   /**< Maximum 32-bit value.   */
 
@@ -160,8 +160,8 @@ typedef float spx_word32_t;
 #define QCONST16(x,bits) (x)
 #define QCONST32(x,bits) (x)
 
-#define NEG16(x) (-(x))
-#define NEG32(x) (-(x))
+#define NEG16(x) (- (x))
+#define NEG32(x) (- (x))
 #define EXTRACT16(x) (x)
 #define EXTEND32(x) (x)
 #define SHR16(a,shift) (a)
@@ -180,9 +180,9 @@ typedef float spx_word32_t;
 #define SATURATE(x,a) (x)
 
 #define ADD16(a,b) ((a)+(b))
-#define SUB16(a,b) ((a)-(b))
+#define SUB16(a,b) ((a)- (b))
 #define ADD32(a,b) ((a)+(b))
-#define SUB32(a,b) ((a)-(b))
+#define SUB32(a,b) ((a)- (b))
 #define MULT16_16_16(a,b)     ((a)*(b))
 #define MULT16_16(a,b)     ((spx_word32_t)(a)*(spx_word32_t)(b))
 #define MAC16_16(c,a,b)     ((c)+(spx_word32_t)(a)*(spx_word32_t)(b))

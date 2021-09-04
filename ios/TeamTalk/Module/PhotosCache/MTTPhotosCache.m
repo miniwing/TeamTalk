@@ -53,7 +53,7 @@
     }];
     
 }
--(NSData *)photoFromDiskCacheForKey:(NSString *)key
+- (NSData *)photoFromDiskCacheForKey:(NSString *)key
 {
     NSData *photoData = [self photoFromMemoryCacheForKey:key];
     if (photoData) {
@@ -228,7 +228,7 @@
     }
     return nil;
 }
--(NSString *)getKeyName
+- (NSString *)getKeyName
 {
     NSDateFormatter * formatter = [[NSDateFormatter alloc ] init];
     [formatter setDateFormat:@"YYYYMMddhhmmssSSS"];
@@ -236,7 +236,7 @@
     NSString *timeLocal = [[NSString alloc] initWithFormat:@"%@", date];
     return [NSString stringWithFormat:@"%@_send",timeLocal];
 }
--(NSMutableArray *)getAllImageCache
+- (NSMutableArray *)getAllImageCache
 {
     __block NSMutableArray *array = [NSMutableArray new];
     dispatch_sync(self.ioQueue, ^{

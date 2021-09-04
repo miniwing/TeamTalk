@@ -57,12 +57,12 @@
 
 - (void)loadMoreFinished;
 
--(CGPoint)theBeiginContentOffset;
+- (CGPoint)theBeiginContentOffset;
 
 @end
 
 @protocol UIScrollPullToRefreshViewDelegate <UIScrollViewDelegate,NSObject>
 
--(CGPoint)scrollViewBeginContentOffset:(UIScrollView *)scrollView;
+- (CGPoint)scrollViewBeginContentOffset:(UIScrollView *)scrollView;
 
 @end

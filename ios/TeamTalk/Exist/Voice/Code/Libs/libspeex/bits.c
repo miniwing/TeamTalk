@@ -169,7 +169,7 @@ EXPORT void speex_bits_read_whole_bytes(SpeexBits *bits, char *chars, int nbytes
             bits->buf_size=(bits->nbBits>>LOG2_BITS_PER_CHAR)+nchars+1;
             bits->chars=tmp;
          } else {
-            nchars=bits->buf_size-(bits->nbBits>>LOG2_BITS_PER_CHAR)-1;
+            nchars=bits->buf_size- (bits->nbBits>>LOG2_BITS_PER_CHAR)-1;
             speex_warning("Could not resize input buffer: truncating oversize input");
          }
       } else {
@@ -355,7 +355,7 @@ EXPORT int speex_bits_remaining(SpeexBits *bits)
    if (bits->overflow)
       return -1;
    else
-      return bits->nbBits-((bits->charPtr<<LOG2_BITS_PER_CHAR)+bits->bitPtr);
+      return bits->nbBits- ((bits->charPtr<<LOG2_BITS_PER_CHAR)+bits->bitPtr);
 }
 
 EXPORT int speex_bits_nbytes(SpeexBits *bits)

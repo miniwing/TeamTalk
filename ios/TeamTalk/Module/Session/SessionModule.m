@@ -59,7 +59,7 @@
     }
     return self;
 }
--(MTTSessionEntity *)getSessionById:(NSString *)sessionID
+- (MTTSessionEntity *)getSessionById:(NSString *)sessionID
 {
     return [self.sessions safeObjectForKey:sessionID];
 }
@@ -71,7 +71,7 @@
 {
     [self.sessions safeSetObject:session forKey:session.sessionID];
 }
--(NSUInteger)getAllUnreadMessageCount
+- (NSUInteger)getAllUnreadMessageCount
 {
     NSArray *allSession = [self getAllSessions];
     __block NSUInteger count = 0;
@@ -130,7 +130,7 @@
     }];
 }
 
--(NSUInteger )getMaxTime
+- (NSUInteger )getMaxTime
 {
     NSArray *array =[self getAllSessions];
     NSUInteger maxTime = [[array valueForKeyPath:@"@max.timeInterval"] integerValue];
@@ -164,7 +164,7 @@
     }];
 }
 
--(NSArray *)getAllSessions
+- (NSArray *)getAllSessions
 {
     NSArray *sessions = [self.sessions allValues];
     [sessions enumerateObjectsUsingBlock:^(MTTSessionEntity *obj, NSUInteger idx, BOOL *stop) {

@@ -679,7 +679,7 @@ L105:
   t2=ido-1;
   for(k=0;k<l1;k++){
     ch[t1]=cc[t2]+cc[t2];
-    ch[t1+t0]=-(cc[t2+1]+cc[t2+1]);
+    ch[t1+t0]=- (cc[t2+1]+cc[t2+1]);
     t1+=ido;
     t2+=ido<<1;
   }

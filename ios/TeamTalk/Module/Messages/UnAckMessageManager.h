@@ -12,7 +12,7 @@
 + (instancetype)instance;
 - (void)removeMessageFromUnAckQueue:(MTTMessageEntity *)message;
 - (void)addMessageToUnAckQueue:(MTTMessageEntity *)message;
--(BOOL)isInUnAckQueue:(MTTMessageEntity *)message;
+- (BOOL)isInUnAckQueue:(MTTMessageEntity *)message;
 @end
 
 

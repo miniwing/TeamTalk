@@ -47,6 +47,7 @@ static uint16_t theSeqNo = 0;
    
    //发送
    if (requestData) {
+      
       [[DDAPISchedule instance] sendData:requestData];
    }
    

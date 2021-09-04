@@ -43,7 +43,7 @@
     return self;
 }
 
--(NSString *)encrypt:(NSString *)content {
+- (NSString *)encrypt:(NSString *)content {
     
     char* pOut;
     uint32_t nOutLen;
@@ -55,7 +55,7 @@
     return data;
 }
 
--(NSString *)decrypt:(NSString *)content {
+- (NSString *)decrypt:(NSString *)content {
     
     char* pOut;
     uint32_t nOutLen;
@@ -66,7 +66,7 @@
     return data;
 }
 
--(NSDictionary *)decryptToDic:(NSString *)content {
+- (NSDictionary *)decryptToDic:(NSString *)content {
     
     char* pOut;
     uint32_t nOutLen;

@@ -169,7 +169,7 @@ static void AudioPlayerAQInputCallback(void *input, AudioQueueRef inQ, AudioQueu
     }
 }
 
--(int)checkUsedQueueBuffer:(AudioQueueBufferRef) qbuf {
+- (int)checkUsedQueueBuffer:(AudioQueueBufferRef) qbuf {
     int bufferIndex = 0;
     if(qbuf == audioQueueBuffers[0]) {
         bufferIndex = 0;

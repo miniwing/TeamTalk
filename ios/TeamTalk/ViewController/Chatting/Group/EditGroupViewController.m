@@ -97,7 +97,7 @@
     self.tableView.sectionIndexColor=RGB(102, 102, 102);
     self.tableView.separatorStyle = 0;
 }
--(NSMutableDictionary *)sortByContactFirstLetter:(NSArray *)users
+- (NSMutableDictionary *)sortByContactFirstLetter:(NSArray *)users
 {
     NSMutableDictionary *dic = [NSMutableDictionary new];
     for (MTTUserEntity * user in [[DDUserModule shareInstance] getAllFriendUser]) {
@@ -140,7 +140,7 @@
         
     }
 }
--(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
     if ([searchString isEqualToString:@""]) {
         return NO;
     }
@@ -211,7 +211,7 @@
     return sectionHeadView;
 }
 
--(NSArray*)sectionIndexTitlesForTableView:(UITableView *)tableView{
+- (NSArray*)sectionIndexTitlesForTableView:(UITableView *)tableView{
         NSMutableArray *arr = [NSMutableArray new];
         [[self allKeys] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
 //            char firstLetter = getFirstChar((NSString *)obj);
@@ -221,7 +221,7 @@
         return arr;
 }
 
--(NSArray*)allKeys{
+- (NSArray*)allKeys{
     return [[self.items allKeys] sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
         char char1 = [MTTUtil getFirstChar:obj1];
         NSString *fl1 = [[NSString stringWithFormat:@"%c",char1] uppercaseString];
@@ -236,7 +236,7 @@
         return [fl1 compare:fl2];
     }];
 }
--(CGFloat )tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+- (CGFloat )tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 55.0;
 }
@@ -423,7 +423,7 @@
     [alert show];
 }
 
--(NSString *)creatGroupName
+- (NSString *)creatGroupName
 {
     NSMutableString *string= [NSMutableString new];
     [self.editArray enumerateObjectsUsingBlock:^(MTTUserEntity *obj, NSUInteger idx, BOOL *stop) {

@@ -9,7 +9,7 @@
 #import "MTTBaseEntity.h"
 
 @implementation MTTBaseEntity
--(NSUInteger)getOriginalID
+- (NSUInteger)getOriginalID
 {
     NSArray *array = [self.objID componentsSeparatedByString:@"_"];
     if (array[1]) {

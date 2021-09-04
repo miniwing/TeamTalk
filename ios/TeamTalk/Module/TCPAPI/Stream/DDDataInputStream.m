@@ -34,7 +34,7 @@
     return dataInputStream ;
 }
 
--(NSUInteger)getAvailabledLen{
+- (NSUInteger)getAvailabledLen{
     return [data length];
 }
 
@@ -98,14 +98,14 @@
     return str;
 }
 
--(NSData *)readDataWithLength:(int)len{
+- (NSData *)readDataWithLength:(int)len{
     DDLog(@"================>>>> lenght: %ld len:%d",(long)length,len);
     NSData *d =[data subdataWithRange:NSMakeRange(length, len)];
     length = length +len;
     return d;
 }
 
--(NSData *)readLeftData{
+- (NSData *)readLeftData{
     DDLog(@"=====>>> length %ld data's length %ld",(long)length,(unsigned long)[data length]);
     if ([data length]>length) {
         NSData *d =[data subdataWithRange:NSMakeRange(length, [data length])];

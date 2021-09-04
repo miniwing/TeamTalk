@@ -163,7 +163,7 @@
     return dbPath;
 }
 
--(BOOL)createTable:(NSString *)sql          //创建表
+- (BOOL)createTable:(NSString *)sql          //创建表
 {
     BOOL result = NO;
     [_database setShouldCacheStatements:YES];
@@ -174,7 +174,7 @@
     
     return result;
 }
--(BOOL)clearTable:(NSString *)tableName
+- (BOOL)clearTable:(NSString *)tableName
 {
     BOOL result = NO;
     [_database setShouldCacheStatements:YES];
@@ -351,7 +351,7 @@
     return user;
 }
 
--(MTTGroupEntity *)groupFromResult:(FMResultSet *)resultSet
+- (MTTGroupEntity *)groupFromResult:(FMResultSet *)resultSet
 {
     NSMutableDictionary *dic = [NSMutableDictionary new];
     [dic safeSetObject:[resultSet stringForColumn:@"Name"] forKey:@"name"];
@@ -1311,7 +1311,7 @@
     }];
 }
 
--(MTTSessionEntity *)sessionFromResult:(FMResultSet *)resultSet
+- (MTTSessionEntity *)sessionFromResult:(FMResultSet *)resultSet
 {
     /*
      ID text UNIQUE,Avatar text, Type integer, Name text,updated real,isshield integer,Users Text

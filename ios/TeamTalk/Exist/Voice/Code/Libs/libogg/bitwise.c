@@ -273,7 +273,7 @@ long oggpack_look(oggpack_buffer *b,int bits){
 
   if(b->endbyte >= b->storage-4){
     /* not the main path */
-    if(b->endbyte > b->storage-((bits+7)>>3)) return -1;
+    if(b->endbyte > b->storage- ((bits+7)>>3)) return -1;
     /* special case to avoid reading b->ptr[0], which might be past the end of
         the buffer; also skips some useless accounting */
     else if(!bits)return(0L);
@@ -304,7 +304,7 @@ long oggpackB_look(oggpack_buffer *b,int bits){
 
   if(b->endbyte >= b->storage-4){
     /* not the main path */
-    if(b->endbyte > b->storage-((bits+7)>>3)) return -1;
+    if(b->endbyte > b->storage- ((bits+7)>>3)) return -1;
     /* special case to avoid reading b->ptr[0], which might be past the end of
         the buffer; also skips some useless accounting */
     else if(!bits)return(0L);
@@ -338,7 +338,7 @@ long oggpackB_look1(oggpack_buffer *b){
 void oggpack_adv(oggpack_buffer *b,int bits){
   bits+=b->endbit;
 
-  if(b->endbyte > b->storage-((bits+7)>>3)) goto overflow;
+  if(b->endbyte > b->storage- ((bits+7)>>3)) goto overflow;
 
   b->ptr+=bits/8;
   b->endbyte+=bits/8;
@@ -378,7 +378,7 @@ long oggpack_read(oggpack_buffer *b,int bits){
 
   if(b->endbyte >= b->storage-4){
     /* not the main path */
-    if(b->endbyte > b->storage-((bits+7)>>3)) goto overflow;
+    if(b->endbyte > b->storage- ((bits+7)>>3)) goto overflow;
     /* special case to avoid reading b->ptr[0], which might be past the end of
         the buffer; also skips some useless accounting */
     else if(!bits)return(0L);
@@ -421,7 +421,7 @@ long oggpackB_read(oggpack_buffer *b,int bits){
 
   if(b->endbyte+4>=b->storage){
     /* not the main path */
-    if(b->endbyte > b->storage-((bits+7)>>3)) goto overflow;
+    if(b->endbyte > b->storage- ((bits+7)>>3)) goto overflow;
     /* special case to avoid reading b->ptr[0], which might be past the end of
         the buffer; also skips some useless accounting */
     else if(!bits)return(0L);

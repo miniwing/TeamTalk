@@ -128,7 +128,7 @@
       [dataout writeTcpProtocolHeader:[self responseServiceID]
                                   cId:[self requestCommendID]
                                 seqNo:seqNo];
-      [dataout directWriteBytes:imnormal.build.data];
+      [dataout directWriteBytes:[imnormal build].data];
       [dataout writeDataCount];
       return [dataout toByteArray];
    };

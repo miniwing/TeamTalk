@@ -43,7 +43,7 @@
 {
     
 }
--(BOOL)isEmpty
+- (BOOL)isEmpty
 {
     return ![[_spellLibrary allKeys] count];
 }

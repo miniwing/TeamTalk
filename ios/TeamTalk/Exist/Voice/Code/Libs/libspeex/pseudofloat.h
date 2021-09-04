@@ -103,12 +103,12 @@ static inline spx_float_t FLOAT_ADD(spx_float_t a, spx_float_t b)
       return a;
    if ((a).e > (b).e) 
    {
-      r.m = ((a).m>>1) + ((b).m>>MIN(15,(a).e-(b).e+1));
+      r.m = ((a).m>>1) + ((b).m>>MIN(15,(a).e- (b).e+1));
       r.e = (a).e+1;
    }
    else 
    {
-      r.m = ((b).m>>1) + ((a).m>>MIN(15,(b).e-(a).e+1));
+      r.m = ((b).m>>1) + ((a).m>>MIN(15,(b).e- (a).e+1));
       r.e = (b).e+1;
    }
    if (r.m>0)
@@ -138,12 +138,12 @@ static inline spx_float_t FLOAT_SUB(spx_float_t a, spx_float_t b)
       return a;
    if ((a).e > (b).e)
    {
-      r.m = ((a).m>>1) - ((b).m>>MIN(15,(a).e-(b).e+1));
+      r.m = ((a).m>>1) - ((b).m>>MIN(15,(a).e- (b).e+1));
       r.e = (a).e+1;
    }
    else 
    {
-      r.m = ((a).m>>MIN(15,(b).e-(a).e+1)) - ((b).m>>1);
+      r.m = ((a).m>>MIN(15,(b).e- (a).e+1)) - ((b).m>>1);
       r.e = (b).e+1;
    }
    if (r.m>0)
@@ -171,9 +171,9 @@ static inline int FLOAT_LT(spx_float_t a, spx_float_t b)
    else if (b.m==0)
       return a.m<0;   
    if ((a).e > (b).e)
-      return ((a).m>>1) < ((b).m>>MIN(15,(a).e-(b).e+1));
+      return ((a).m>>1) < ((b).m>>MIN(15,(a).e- (b).e+1));
    else 
-      return ((b).m>>1) > ((a).m>>MIN(15,(b).e-(a).e+1));
+      return ((b).m>>1) > ((a).m>>MIN(15,(b).e- (a).e+1));
 
 }
 
@@ -364,7 +364,7 @@ static inline spx_float_t FLOAT_SQRT(spx_float_t a)
 #define FLOAT_EXTRACT16(a) (a)
 #define FLOAT_EXTRACT32(a) (a)
 #define FLOAT_ADD(a,b) ((a)+(b))
-#define FLOAT_SUB(a,b) ((a)-(b))
+#define FLOAT_SUB(a,b) ((a)- (b))
 #define REALFLOAT(x) (x)
 #define FLOAT_DIV32_FLOAT(a,b) ((a)/(b))
 #define FLOAT_MUL32U(a,b) ((a)*(b))

@@ -10,7 +10,7 @@
 
 @implementation UITabBar (SubView)
 
--(UIView *)barButtonWithTitle:(NSString *)title{
+- (UIView *)barButtonWithTitle:(NSString *)title{
 
     UIView *tabBarButton =nil;
     
@@ -36,7 +36,7 @@
     return tabBarButton;
 }
 
--(UIImageView *)tabBarButtonImageViewWithTitle:(NSString *)title{
+- (UIImageView *)tabBarButtonImageViewWithTitle:(NSString *)title{
 
     UIView *tabBarButton =[self barButtonWithTitle:title];
     

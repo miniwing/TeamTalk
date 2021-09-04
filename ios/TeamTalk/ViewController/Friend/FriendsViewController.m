@@ -44,7 +44,7 @@
 @implementation FriendsViewController
 
 
--(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     if (self == [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
     }
@@ -307,7 +307,7 @@
     //self.items = [self.model sortByDepartment];
     [self.tableView reloadData];
 }
--(NSArray*)sectionIndexTitlesForTableView:(UITableView *)tableView{
+- (NSArray*)sectionIndexTitlesForTableView:(UITableView *)tableView{
     NSMutableArray* array = [[NSMutableArray alloc] init];
     
         NSArray* allKeys = [self allKeys];
@@ -324,7 +324,7 @@
 }
 
 #pragma mark - Table view data source
--(NSArray*)allKeys{
+- (NSArray*)allKeys{
     if ([self.allIndexes count]) {
         return self.allIndexes;
     }else{
@@ -438,7 +438,7 @@
     return cell;
 }
 
--(IBAction)showActions:(id)sender
+- (IBAction)showActions:(id)sender
 {
 }
 
@@ -515,7 +515,7 @@
     }
     
 }
--(CGFloat )tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+- (CGFloat )tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 55;
 }

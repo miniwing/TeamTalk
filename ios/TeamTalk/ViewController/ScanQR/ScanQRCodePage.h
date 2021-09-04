@@ -23,6 +23,6 @@
 @property (nonatomic, retain) UIImageView * line;
 @property (nonatomic, retain) NSString *scanResult;
 @property (weak) IBOutlet UIView *scanView;
--(IBAction)scanAgain:(id)sender;
+- (IBAction)scanAgain:(id)sender;
 @end
 

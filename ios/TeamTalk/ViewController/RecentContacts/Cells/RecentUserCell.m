@@ -23,7 +23,7 @@
 #import "MTTAvatarImageView.h"
 @implementation RecentUserCell
 
--(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if(self){
@@ -342,7 +342,7 @@
     }];
 }
 
--(UIImage *)getImageFromView:(UIView *)orgView{
+- (UIImage *)getImageFromView:(UIView *)orgView{
     CGSize s = orgView.bounds.size;
     UIGraphicsBeginImageContextWithOptions(s, NO, [UIScreen mainScreen].scale);
     [orgView.layer renderInContext:UIGraphicsGetCurrentContext()];

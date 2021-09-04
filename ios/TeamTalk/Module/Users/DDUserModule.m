@@ -71,16 +71,16 @@
     [_allUsersNick setValue:user forKey:user.nick];
     
 }
--(NSArray *)getAllUsersNick
+- (NSArray *)getAllUsersNick
 {
     return [_allUsersNick allKeys];
 }
--(MTTUserEntity *)getUserByNick:(NSString *)nickName
+- (MTTUserEntity *)getUserByNick:(NSString *)nickName
 {
 //    NSInteger index = [[self getAllUsersNick] indexOfObject:nickName];
     return [_allUsersNick objectForKey:nickName];
 }
--(NSArray *)getAllMaintanceUser
+- (NSArray *)getAllMaintanceUser
 {
     return [_allUsers allValues];
 }
@@ -105,7 +105,7 @@
     
 }
 
--(NSArray *)getAllFriendUser
+- (NSArray *)getAllFriendUser
 {
     return [_friendUsers allValues];
 }

@@ -116,7 +116,7 @@ void vbr_init(VBRState *vbr)
 
   -Decrease bit-rate for males (low pitch)?
 
-  -(wideband only) less bits in the high-band when signal is very 
+  - (wideband only) less bits in the high-band when signal is very 
   non-stationary (harder to notice high-frequency noise)???
 
 */

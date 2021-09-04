@@ -78,7 +78,7 @@
    
 }
 
--(IBAction)clickItem:(id)sender
+- (IBAction)clickItem:(id)sender
 {
     UIButton *button =(UIButton *)sender;
     CGRect rect=button.frame;

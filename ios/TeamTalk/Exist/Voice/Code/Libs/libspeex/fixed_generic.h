@@ -38,8 +38,8 @@
 #define QCONST16(x,bits) ((spx_word16_t)(.5+(x)*(((spx_word32_t)1)<<(bits))))
 #define QCONST32(x,bits) ((spx_word32_t)(.5+(x)*(((spx_word32_t)1)<<(bits))))
 
-#define NEG16(x) (-(x))
-#define NEG32(x) (-(x))
+#define NEG16(x) (- (x))
+#define NEG32(x) (- (x))
 #define EXTRACT16(x) ((spx_word16_t)(x))
 #define EXTEND32(x) ((spx_word32_t)(x))
 #define SHR16(a,shift) ((a) >> (shift))
@@ -48,20 +48,20 @@
 #define SHL32(a,shift) ((a) << (shift))
 #define PSHR16(a,shift) (SHR16((a)+((1<<((shift))>>1)),shift))
 #define PSHR32(a,shift) (SHR32((a)+((EXTEND32(1)<<((shift))>>1)),shift))
-#define VSHR32(a, shift) (((shift)>0) ? SHR32(a, shift) : SHL32(a, -(shift)))
-#define SATURATE16(x,a) (((x)>(a) ? (a) : (x)<-(a) ? -(a) : (x)))
-#define SATURATE32(x,a) (((x)>(a) ? (a) : (x)<-(a) ? -(a) : (x)))
+#define VSHR32(a, shift) (((shift)>0) ? SHR32(a, shift) : SHL32(a, - (shift)))
+#define SATURATE16(x,a) (((x)>(a) ? (a) : (x)<- (a) ? - (a) : (x)))
+#define SATURATE32(x,a) (((x)>(a) ? (a) : (x)<- (a) ? - (a) : (x)))
 
 #define SHR(a,shift) ((a) >> (shift))
 #define SHL(a,shift) ((spx_word32_t)(a) << (shift))
 #define PSHR(a,shift) (SHR((a)+((EXTEND32(1)<<((shift))>>1)),shift))
-#define SATURATE(x,a) (((x)>(a) ? (a) : (x)<-(a) ? -(a) : (x)))
+#define SATURATE(x,a) (((x)>(a) ? (a) : (x)<- (a) ? - (a) : (x)))
 
 
 #define ADD16(a,b) ((spx_word16_t)((spx_word16_t)(a)+(spx_word16_t)(b)))
-#define SUB16(a,b) ((spx_word16_t)(a)-(spx_word16_t)(b))
+#define SUB16(a,b) ((spx_word16_t)(a)- (spx_word16_t)(b))
 #define ADD32(a,b) ((spx_word32_t)(a)+(spx_word32_t)(b))
-#define SUB32(a,b) ((spx_word32_t)(a)-(spx_word32_t)(b))
+#define SUB32(a,b) ((spx_word32_t)(a)- (spx_word32_t)(b))
 
 
 /* result fits in 16 bits */

@@ -66,14 +66,14 @@ TODO:
 
 #define SPEEX_JITTER_MAX_BUFFER_SIZE 200   /**< Maximum number of packets in jitter buffer */
 
-#define TSUB(a,b) ((spx_int32_t)((a)-(b)))
+#define TSUB(a,b) ((spx_int32_t)((a)- (b)))
 
-#define GT32(a,b) (((spx_int32_t)((a)-(b)))>0)
-#define GE32(a,b) (((spx_int32_t)((a)-(b)))>=0)
-#define LT32(a,b) (((spx_int32_t)((a)-(b)))<0)
-#define LE32(a,b) (((spx_int32_t)((a)-(b)))<=0)
+#define GT32(a,b) (((spx_int32_t)((a)- (b)))>0)
+#define GE32(a,b) (((spx_int32_t)((a)- (b)))>=0)
+#define LT32(a,b) (((spx_int32_t)((a)- (b)))<0)
+#define LE32(a,b) (((spx_int32_t)((a)- (b)))<=0)
 
-#define ROUND_DOWN(x, step) ((x)<0 ? ((x)-(step)+1)/(step)*(step) : (x)/(step)*(step)) 
+#define ROUND_DOWN(x, step) ((x)<0 ? ((x)- (step)+1)/(step)*(step) : (x)/(step)*(step)) 
 
 #define MAX_TIMINGS 40
 #define MAX_BUFFERS 3
@@ -610,7 +610,7 @@ EXPORT int jitter_buffer_get(JitterBuffer *jitter, JitterBufferPacket *packet, s
       }
       jitter->packets[i].data = NULL;
       /* Set timestamp and span (if requested) */
-      offset = (spx_int32_t)jitter->packets[i].timestamp-(spx_int32_t)jitter->pointer_timestamp;
+      offset = (spx_int32_t)jitter->packets[i].timestamp- (spx_int32_t)jitter->pointer_timestamp;
       if (start_offset != NULL)
          *start_offset = offset;
       else if (offset != 0)

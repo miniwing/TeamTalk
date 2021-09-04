@@ -740,7 +740,7 @@ long ogg_sync_pageseek(ogg_sync_state *oy,ogg_page *og){
     next=oy->data+oy->fill;
 
   oy->returned=(int)(next-oy->data);
-  return((long)-(next-page));
+  return((long)- (next-page));
 }
 
 /* sync the stream and get a page.  Keep trying until we find a page.

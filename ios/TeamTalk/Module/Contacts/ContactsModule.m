@@ -38,8 +38,8 @@
  *
  *  @return 返回界面需要的字典类型
  */
--(NSMutableDictionary *)sortByContactPy 
-{
+- (NSMutableDictionary *)sortByContactPy  {
+   
     NSMutableDictionary *dic = [NSMutableDictionary new];
     for (MTTUserEntity * user in [[DDUserModule shareInstance] getAllMaintanceUser]) {
 
@@ -47,8 +47,8 @@
         if ([dic safeObjectForKey:fl]) {
             NSMutableArray *arr = [dic safeObjectForKey:fl];
             [arr addObject:user];
-        }else
-        {
+        }
+        else {
             NSMutableArray *arr = [[NSMutableArray alloc] initWithArray:@[user]];
             [dic setObject:arr forKey:fl];
         }
@@ -68,7 +68,7 @@
  *
  *  @return 返回界面需要的字典类型
  */
--(NSMutableDictionary *)sortByFriendPy
+- (NSMutableDictionary *)sortByFriendPy
 {
     NSMutableDictionary *dic = [NSMutableDictionary new];
     for (MTTUserEntity * user in [[DDUserModule shareInstance] getAllFriendUser]) {
@@ -97,7 +97,7 @@
  *
  *  @return 返回界面需要的字典类型
  */
--(NSMutableDictionary *)sortByDepartment
+- (NSMutableDictionary *)sortByDepartment
 {
     NSMutableDictionary *dic = [NSMutableDictionary new];
     for (MTTUserEntity * user in [[DDUserModule shareInstance] getAllMaintanceUser]) {
@@ -180,7 +180,7 @@
  *
  *  @return 返回yes表示在收藏的联系人里
  */
--(BOOL)isInFavContactList:(MTTUserEntity *)user
+- (BOOL)isInFavContactList:(MTTUserEntity *)user
 {
       NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSMutableArray *arr = [NSMutableArray arrayWithArray:[userDefaults objectForKey:@"favuser"]];

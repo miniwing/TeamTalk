@@ -640,10 +640,10 @@ int len
       {
          for (k=0;k<7;k++)
          {
-            tmp += MULT16_16(exc[i-(pitch-maxj+3)+k-3],shift_filt[maxi-1][k]);
+            tmp += MULT16_16(exc[i- (pitch-maxj+3)+k-3],shift_filt[maxi-1][k]);
          }
       } else {
-         tmp = SHL32(exc[i-(pitch-maxj+3)],15);
+         tmp = SHL32(exc[i- (pitch-maxj+3)],15);
       }
       interp[i] = PSHR32(tmp,15);
    }

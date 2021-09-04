@@ -101,7 +101,7 @@
     group.lastUpdateTime=[[dic safeObjectForKey:@"lastUpdateTime"] longValue];
     return group;
 }
--(BOOL)theVersionIsChanged
+- (BOOL)theVersionIsChanged
 {
     return YES;
 }
