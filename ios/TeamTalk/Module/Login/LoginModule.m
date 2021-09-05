@@ -34,35 +34,46 @@
 
 @implementation LoginModule
 {
-    NSString* _lastLoginUser;       //最后登录的用户ID
-    NSString* _lastLoginPassword;
-    NSString* _lastLoginUserName;
-    NSString* _dao;
-    NSString * _priorIP;
-    NSInteger _port;
-    BOOL _relogining;
-}
-+ (instancetype)instance
-{
-    static LoginModule *g_LoginManager;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        g_LoginManager = [[LoginModule alloc] init];
-    });
-    return g_LoginManager;
+   NSString* _lastLoginUser;       //最后登录的用户ID
+   NSString* _lastLoginPassword;
+   NSString* _lastLoginUserName;
+   NSString* _dao;
+   NSString * _priorIP;
+   NSInteger _port;
+   BOOL _relogining;
 }
 
-- (id)init
-{
-    self = [super init];
-    if (self)
-    {
-        _httpServer = [[DDHttpServer alloc] init];
-        _msgServer = [[DDMsgServer alloc] init];
-        _tcpServer = [[DDTcpServer alloc] init];
-        _relogining = NO;
-    }
-    return self;
++ (instancetype)instance {
+   
+   static LoginModule      *g_LoginManager;
+   static dispatch_once_t   onceToken;
+   
+   dispatch_once(&onceToken, ^{
+      
+      g_LoginManager = [[LoginModule alloc] init];
+   });
+   
+   return g_LoginManager;
+}
+
+- (id)init {
+   
+   int                            nErr                                     = EFAULT;
+   
+   __TRY;
+
+   self = [super init];
+   if (self) {
+      
+      _httpServer = [[DDHttpServer alloc] init];
+      _msgServer = [[DDMsgServer alloc] init];
+      _tcpServer = [[DDTcpServer alloc] init];
+      _relogining = NO;
+   }
+   
+   __CATCH(nErr);
+   
+   return self;
 }
 
 
@@ -71,260 +82,259 @@
                  password:(NSString*)password
                   success:(void(^)(MTTUserEntity* loginedUser))success
                   failure:(void(^)(NSString* error))failure {
-    
-    [_httpServer getMsgIp:^(NSDictionary *dic) {
-        
-        LogDebug((@"-[LoginModule loginWithUsername:password:success:failure:] : getMsgIp : %@", dic));
-        
-        NSInteger code  = [[dic objectForKey:@"code"] integerValue];
-        
-        if (code == 0) {
-            _priorIP = [dic objectForKey:@"priorIP"];
-            
+   
+   [_httpServer getMsgIp:^(NSDictionary *dic) {
+      
+      LogDebug((@"-[LoginModule loginWithUsername:password:success:failure:] : getMsgIp : %@", dic));
+      
+      NSInteger code  = [[dic objectForKey:@"code"] integerValue];
+      
+      if (code == 0) {
+         _priorIP = [dic objectForKey:@"priorIP"];
+         
 #if __TEAMTALK_HARRY__
-            if ([_priorIP isEqualToString:@"10.211.55.13"]) {
-                
-                _priorIP = __TEAMTALK_HOST__;
-                
-            } /* End if () */
+         if ([_priorIP isEqualToString:@"10.211.55.13"]) {
+            
+            _priorIP = __TEAMTALK_HOST__;
+            
+         } /* End if () */
 #endif /* __TEAMTALK_HARRY__ */
+         
+         _port    =  [[dic objectForKey:@"port"] integerValue];
+         
+         [MTTUtil setMsfsUrl:[dic objectForKey:@"msfsPrior"]];
+         
+         [_tcpServer loginTcpServerIP:_priorIP port:_port Success:^{
             
-            _port    =  [[dic objectForKey:@"port"] integerValue];
-            
-            [MTTUtil setMsfsUrl:[dic objectForKey:@"msfsPrior"]];
-            
-            [_tcpServer loginTcpServerIP:_priorIP port:_port Success:^{
-                
-                [_msgServer checkUserID:name Pwd:password token:@"" success:^(id object) {
-                    
-                    [[NSUserDefaults standardUserDefaults] setObject:password forKey:@"password"];
-                    [[NSUserDefaults standardUserDefaults] setObject:name forKey:@"username"];
-                    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"autologin"];
-                    [[NSUserDefaults standardUserDefaults] synchronize];
-                    
-                    _lastLoginPassword  = password;
-                    _lastLoginUserName  = name;
-                    DDClientState   * clientState = [DDClientState shareInstance];
-                    
-                    clientState.userState   = DDUserOnline;
-                    _relogining             = YES;
-                    MTTUserEntity   *user   = object[@"user"];
-                    TheRuntime.user=user;
-                    setUserID(user.objID);
-                    [[MTTDatabaseUtil instance] openCurrentUserDB];
-                    
-                    //加载所有人信息，创建检索拼音
-                    [self p_loadAllUsersCompletion:^{
-                        
-                        if ([[SpellLibrary instance] isEmpty]) {
-                            
-                            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                                [[[DDUserModule shareInstance] getAllMaintanceUser] enumerateObjectsUsingBlock:^(MTTUserEntity *obj, NSUInteger idx, BOOL *stop) {
-                                    [[SpellLibrary instance] addSpellForObject:obj];
-                                    [[SpellLibrary instance] addDeparmentSpellForObject:obj];
-                                    
-                                }];
-                                NSArray *array =  [[DDGroupModule instance] getAllGroups];
-                                [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                                    [[SpellLibrary instance] addSpellForObject:obj];
-                                }];
-                            });
-                        }
-                    }];
-                    
-                    [self p_loadAllFriendsCompletion:^{
-                        
-                        if ([[SpellLibrary instance] isEmpty]) {
-                            
-                            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                                [[[DDUserModule shareInstance] getAllFriendUser] enumerateObjectsUsingBlock:^(MTTUserEntity *obj, NSUInteger idx, BOOL *stop) {
-                                    [[SpellLibrary instance] addSpellForObject:obj];
-                                    [[SpellLibrary instance] addDeparmentSpellForObject:obj];
-                                    
-                                }];
-                                NSArray *array =  [[DDGroupModule instance] getAllGroups];
-                                [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                                    [[SpellLibrary instance] addSpellForObject:obj];
-                                }];
-                            });
-                        }
-                    }];
-                    
-                    //
-                    [[SessionModule instance] loadLocalSession:^(bool isok) {}];
-                    
-                    [MTTNotification postNotification:DDNotificationUserLoginSuccess userInfo:nil object:user];
-                    success(user);
-                    
-                }
-                                failure:^(NSError *object) {
-                    debugLog(@"%@", object.description);
-                    debugLog(@"login#登录验证失败");
-                    
-                    failure(object.domain);
-                }];
+            [_msgServer checkUserID:name Pwd:password token:@"" success:^(id object) {
+               
+               [[NSUserDefaults standardUserDefaults] setObject:password forKey:@"password"];
+               [[NSUserDefaults standardUserDefaults] setObject:name forKey:@"username"];
+               [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"autologin"];
+               [[NSUserDefaults standardUserDefaults] synchronize];
+               
+               _lastLoginPassword  = password;
+               _lastLoginUserName  = name;
+               DDClientState   * clientState = [DDClientState shareInstance];
+               
+               clientState.userState   = DDUserOnline;
+               _relogining             = YES;
+               MTTUserEntity   *user   = object[@"user"];
+               TheRuntime.user=user;
+               setUserID(user.objID);
+               [[MTTDatabaseUtil instance] openCurrentUserDB];
+               
+               //加载所有人信息，创建检索拼音
+               [self p_loadAllUsersCompletion:^{
+                  
+                  if ([[SpellLibrary instance] isEmpty]) {
+                     
+                     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                        [[[DDUserModule shareInstance] getAllMaintanceUser] enumerateObjectsUsingBlock:^(MTTUserEntity *obj, NSUInteger idx, BOOL *stop) {
+                           [[SpellLibrary instance] addSpellForObject:obj];
+                           [[SpellLibrary instance] addDeparmentSpellForObject:obj];
+                           
+                        }];
+                        NSArray *array =  [[DDGroupModule instance] getAllGroups];
+                        [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                           [[SpellLibrary instance] addSpellForObject:obj];
+                        }];
+                     });
+                  }
+               }];
+               
+               [self p_loadAllFriendsCompletion:^{
+                  
+                  if ([[SpellLibrary instance] isEmpty]) {
+                     
+                     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                        [[[DDUserModule shareInstance] getAllFriendUser] enumerateObjectsUsingBlock:^(MTTUserEntity *obj, NSUInteger idx, BOOL *stop) {
+                           [[SpellLibrary instance] addSpellForObject:obj];
+                           [[SpellLibrary instance] addDeparmentSpellForObject:obj];
+                           
+                        }];
+                        NSArray *array =  [[DDGroupModule instance] getAllGroups];
+                        [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                           [[SpellLibrary instance] addSpellForObject:obj];
+                        }];
+                     });
+                  }
+               }];
+               
+               //
+               [[SessionModule instance] loadLocalSession:^(bool isok) {}];
+               
+               [MTTNotification postNotification:DDNotificationUserLoginSuccess userInfo:nil object:user];
+               success(user);
+               
             }
-                                 failure:^{
-                debugLog(@"连接消息服务器失败");
-                failure(@"连接消息服务器失败");
+                            failure:^(NSError *object) {
+               debugLog(@"%@", object.description);
+               debugLog(@"login#登录验证失败");
+               
+               failure(object.domain);
             }];
-        }
-    }
-                  failure:^(NSString *error) {
-        debugLog(@"%@", error.description);
-        failure(@"连接消息服务器失败");
-    }];
-    
+         }
+                              failure:^{
+            debugLog(@"连接消息服务器失败");
+            failure(@"连接消息服务器失败");
+         }];
+      }
+   }
+                 failure:^(NSString *error) {
+      debugLog(@"%@", error.description);
+      failure(@"连接消息服务器失败");
+   }];
+   
 }
 
 - (void)autologinWithUsername:(NSString*)name password:(NSString*)password success:(void(^)(MTTUserEntity* loginedUser))success failure:(void(^)(NSString* error))failure {
-    
-    [[MTTDatabaseUtil instance] openCurrentUserDB];
-    
-    //加载所有人信息，创建检索拼音
-    [self b_loadAllUsersCompletion:^{
-        
-        if ([[SpellLibrary instance] isEmpty]) {
-            
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                [[[DDUserModule shareInstance] getAllMaintanceUser] enumerateObjectsUsingBlock:^(MTTUserEntity *obj, NSUInteger idx, BOOL *stop) {
-                    [[SpellLibrary instance] addSpellForObject:obj];
-                    [[SpellLibrary instance] addDeparmentSpellForObject:obj];
-                    
-                }];
-                NSArray *array =  [[DDGroupModule instance] getAllGroups];
-                [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                    [[SpellLibrary instance] addSpellForObject:obj];
-                }];
-            });
-        }
-    }];
-    
-    [self b_loadAllFriendsCompletion:^{
-        
-        if ([[SpellLibrary instance] isEmpty]) {
-            
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                [[[DDUserModule shareInstance] getAllFriendUser] enumerateObjectsUsingBlock:^(MTTUserEntity *obj, NSUInteger idx, BOOL *stop) {
-                    [[SpellLibrary instance] addSpellForObject:obj];
-                    [[SpellLibrary instance] addDeparmentSpellForObject:obj];
-                    
-                }];
-                NSArray *array =  [[DDGroupModule instance] getAllGroups];
-                [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                    [[SpellLibrary instance] addSpellForObject:obj];
-                }];
-            });
-        }
-    }];
-    
-    //
-    [[SessionModule instance] loadLocalSession:^(bool isok) {}];
-    
-    
-    
-    [_httpServer getMsgIp:^(NSDictionary *dic) {
-        NSInteger code  = [[dic objectForKey:@"code"] integerValue];
-        if (code == 0) {
-            _priorIP = [dic objectForKey:@"priorIP"];
-            _port    =  [[dic objectForKey:@"port"] integerValue];
-            [MTTUtil setMsfsUrl:[dic objectForKey:@"msfsPrior"]];
-            [_tcpServer loginTcpServerIP:_priorIP port:_port Success:^{
-                [_msgServer checkUserID:name Pwd:password token:@"" success:^(id object) {
-                    [[NSUserDefaults standardUserDefaults] setObject:password forKey:@"password"];
-                    [[NSUserDefaults standardUserDefaults] setObject:name forKey:@"username"];
-                    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"autologin"];
-                    [[NSUserDefaults standardUserDefaults] synchronize];
-                    
-                    _lastLoginPassword=password;
-                    _lastLoginUserName=name;
-                    DDClientState* clientState = [DDClientState shareInstance];
-                    clientState.userState=DDUserOnline;
-                    _relogining=YES;
-                    MTTUserEntity* user = object[@"user"];
-                    TheRuntime.user=user;
-                    setUserID(user.objID);
-                    //加载所有人信息，创建检索拼音
-                    [self p_loadAllUsersCompletion:^{
-                        
-                        if ([[SpellLibrary instance] isEmpty]) {
-                            
-                            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                                [[[DDUserModule shareInstance] getAllMaintanceUser] enumerateObjectsUsingBlock:^(MTTUserEntity *obj, NSUInteger idx, BOOL *stop) {
-                                    [[SpellLibrary instance] addSpellForObject:obj];
-                                    [[SpellLibrary instance] addDeparmentSpellForObject:obj];
-                                    
-                                }];
-                                NSArray *array =  [[DDGroupModule instance] getAllGroups];
-                                [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                                    [[SpellLibrary instance] addSpellForObject:obj];
-                                }];
-                            });
-                        }
-                    }];
-                    
-                    [self p_loadAllFriendsCompletion:^{
-                        
-                        if ([[SpellLibrary instance] isEmpty]) {
-                            
-                            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                                [[[DDUserModule shareInstance] getAllFriendUser] enumerateObjectsUsingBlock:^(MTTUserEntity *obj, NSUInteger idx, BOOL *stop) {
-                                    [[SpellLibrary instance] addSpellForObject:obj];
-                                    [[SpellLibrary instance] addDeparmentSpellForObject:obj];
-                                    
-                                }];
-                                NSArray *array =  [[DDGroupModule instance] getAllGroups];
-                                [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                                    [[SpellLibrary instance] addSpellForObject:obj];
-                                }];
-                            });
-                        }
-                    }];
-                    
-                    //
-                    [[SessionModule instance] loadLocalSession:^(bool isok) {}];
-                    
-                    [MTTNotification postNotification:DDNotificationUserLoginSuccess userInfo:nil object:user];
-                    success(user);
-                    
-                } failure:^(NSError *object) {
-                    debugLog(@"%@", object.description);
-                    debugLog(@"login#登录验证失败");
-                    
-                    failure(object.domain);
-                }];
-                
-            } failure:^{
-                debugLog(@"连接消息服务器失败");
-                failure(@"连接消息服务器失败");
+   
+   [[MTTDatabaseUtil instance] openCurrentUserDB];
+   
+   //加载所有人信息，创建检索拼音
+   [self b_loadAllUsersCompletion:^{
+      
+      if ([[SpellLibrary instance] isEmpty]) {
+         
+         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [[[DDUserModule shareInstance] getAllMaintanceUser] enumerateObjectsUsingBlock:^(MTTUserEntity *obj, NSUInteger idx, BOOL *stop) {
+               [[SpellLibrary instance] addSpellForObject:obj];
+               [[SpellLibrary instance] addDeparmentSpellForObject:obj];
+               
             }];
-        }
-    } failure:^(NSString *error) {
-        debugLog(@"%@", error.description);
-        failure(@"连接消息服务器失败");
-    }];
-    
+            NSArray *array =  [[DDGroupModule instance] getAllGroups];
+            [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+               [[SpellLibrary instance] addSpellForObject:obj];
+            }];
+         });
+      }
+   }];
+   
+   [self b_loadAllFriendsCompletion:^{
+      
+      if ([[SpellLibrary instance] isEmpty]) {
+         
+         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [[[DDUserModule shareInstance] getAllFriendUser] enumerateObjectsUsingBlock:^(MTTUserEntity *obj, NSUInteger idx, BOOL *stop) {
+               [[SpellLibrary instance] addSpellForObject:obj];
+               [[SpellLibrary instance] addDeparmentSpellForObject:obj];
+               
+            }];
+            NSArray *array =  [[DDGroupModule instance] getAllGroups];
+            [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+               [[SpellLibrary instance] addSpellForObject:obj];
+            }];
+         });
+      }
+   }];
+   
+   //
+   [[SessionModule instance] loadLocalSession:^(bool isok) {}];
+   
+   
+   [_httpServer getMsgIp:^(NSDictionary *dic) {
+      NSInteger code  = [[dic objectForKey:@"code"] integerValue];
+      if (code == 0) {
+         _priorIP = [dic objectForKey:@"priorIP"];
+         _port    =  [[dic objectForKey:@"port"] integerValue];
+         [MTTUtil setMsfsUrl:[dic objectForKey:@"msfsPrior"]];
+         [_tcpServer loginTcpServerIP:_priorIP port:_port Success:^{
+            [_msgServer checkUserID:name Pwd:password token:@"" success:^(id object) {
+               [[NSUserDefaults standardUserDefaults] setObject:password forKey:@"password"];
+               [[NSUserDefaults standardUserDefaults] setObject:name forKey:@"username"];
+               [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"autologin"];
+               [[NSUserDefaults standardUserDefaults] synchronize];
+               
+               _lastLoginPassword=password;
+               _lastLoginUserName=name;
+               DDClientState* clientState = [DDClientState shareInstance];
+               clientState.userState=DDUserOnline;
+               _relogining=YES;
+               MTTUserEntity* user = object[@"user"];
+               TheRuntime.user=user;
+               setUserID(user.objID);
+               //加载所有人信息，创建检索拼音
+               [self p_loadAllUsersCompletion:^{
+                  
+                  if ([[SpellLibrary instance] isEmpty]) {
+                     
+                     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                        [[[DDUserModule shareInstance] getAllMaintanceUser] enumerateObjectsUsingBlock:^(MTTUserEntity *obj, NSUInteger idx, BOOL *stop) {
+                           [[SpellLibrary instance] addSpellForObject:obj];
+                           [[SpellLibrary instance] addDeparmentSpellForObject:obj];
+                           
+                        }];
+                        NSArray *array =  [[DDGroupModule instance] getAllGroups];
+                        [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                           [[SpellLibrary instance] addSpellForObject:obj];
+                        }];
+                     });
+                  }
+               }];
+               
+               [self p_loadAllFriendsCompletion:^{
+                  
+                  if ([[SpellLibrary instance] isEmpty]) {
+                     
+                     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                        [[[DDUserModule shareInstance] getAllFriendUser] enumerateObjectsUsingBlock:^(MTTUserEntity *obj, NSUInteger idx, BOOL *stop) {
+                           [[SpellLibrary instance] addSpellForObject:obj];
+                           [[SpellLibrary instance] addDeparmentSpellForObject:obj];
+                           
+                        }];
+                        NSArray *array =  [[DDGroupModule instance] getAllGroups];
+                        [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                           [[SpellLibrary instance] addSpellForObject:obj];
+                        }];
+                     });
+                  }
+               }];
+               
+               //
+               [[SessionModule instance] loadLocalSession:^(bool isok) {}];
+               
+               [MTTNotification postNotification:DDNotificationUserLoginSuccess userInfo:nil object:user];
+               success(user);
+               
+            } failure:^(NSError *object) {
+               debugLog(@"%@", object.description);
+               debugLog(@"login#登录验证失败");
+               
+               failure(object.domain);
+            }];
+            
+         } failure:^{
+            debugLog(@"连接消息服务器失败");
+            failure(@"连接消息服务器失败");
+         }];
+      }
+   } failure:^(NSString *error) {
+      debugLog(@"%@", error.description);
+      failure(@"连接消息服务器失败");
+   }];
+   
 }
 
 
 - (void)reloginSuccess:(void(^)())success failure:(void(^)(NSString* error))failure
 {
-    DDLog(@"relogin fun");
-    if ([DDClientState shareInstance].userState == DDUserOffLine && _lastLoginPassword && _lastLoginUserName) {
-        
-        [self loginWithUsername:_lastLoginUserName password:_lastLoginPassword success:^(MTTUserEntity *user) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"ReloginSuccess" object:nil];
-            success(YES);
-        } failure:^(NSString *error) {
-            failure(@"重新登陆失败");
-        }];
-
-    }
+   DDLog(@"relogin fun");
+   if ([DDClientState shareInstance].userState == DDUserOffLine && _lastLoginPassword && _lastLoginUserName) {
+      
+      [self loginWithUsername:_lastLoginUserName password:_lastLoginPassword success:^(MTTUserEntity *user) {
+         [[NSNotificationCenter defaultCenter] postNotificationName:@"ReloginSuccess" object:nil];
+         success(YES);
+      } failure:^(NSString *error) {
+         failure(@"重新登陆失败");
+      }];
+      
+   }
 }
 
 - (void)offlineCompletion:(void(^)())completion
 {
-    completion();
+   completion();
 }
 
 
@@ -336,79 +346,99 @@
  */
 - (void)p_loadAllUsersCompletion:(void(^)())completion
 {
-    __block NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
-    __block NSInteger version = [[defaults objectForKey:@"alllastupdatetime"] integerValue];
-    [[MTTDatabaseUtil instance] getAllUsers:^(NSArray *contacts, NSError *error) {
-        if ([contacts count] !=0) {
-            [contacts enumerateObjectsUsingBlock:^(MTTUserEntity *obj, NSUInteger idx, BOOL *stop) {
-                [[DDUserModule shareInstance] addMaintanceUser:obj];
-            }];
-            if (completion !=nil) {
-                completion();
-            }
-        }else{
-            version=0;
-            DDAllUserAPI* api = [[DDAllUserAPI alloc] init];
-            [api requestWithObject:@[@(version)] Completion:^(id response, NSError *error) {
-                if (!error)
-                {
-                    NSUInteger responseVersion = [[response objectForKey:@"alllastupdatetime"] integerValue];
+   __block NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+   
+   __block NSInteger version = [[defaults objectForKey:@"alllastupdatetime"] integerValue];
+   
+   [[MTTDatabaseUtil instance] getAllUsers:^(NSArray *contacts, NSError *error) {
+      
+      if ([contacts count] !=0) {
+         
+         [contacts enumerateObjectsUsingBlock:^(MTTUserEntity *obj, NSUInteger idx, BOOL *stop) {
+            
+            [[DDUserModule shareInstance] addMaintanceUser:obj];
+         }];
+         
+         if (completion !=nil) {
+            completion();
+         }
+         
+      }
+      else {
+         
+         version  = 0;
+         
+         DDAllUserAPI   *api  = [[DDAllUserAPI alloc] init];
+         
+         [api requestWithObject:@[@(version)] Completion:^(id response, NSError *error) {
+            
+            if (!error) {
+               
+               NSUInteger responseVersion = [[response objectForKey:@"alllastupdatetime"] integerValue];
 //                    if (responseVersion == version && responseVersion !=0) {
-//                        
+//
 //                        return ;
-//                        
+//
 //                    }
-                    [defaults setObject:@(responseVersion) forKey:@"alllastupdatetime"];
-                    NSMutableArray *array = [response objectForKey:@"userlist"];
-                    [[MTTDatabaseUtil instance] insertAllUser:array completion:^(NSError *error) {
+               [defaults setObject:@(responseVersion) forKey:@"alllastupdatetime"];
+               NSMutableArray *array = [response objectForKey:@"userlist"];
+               [[MTTDatabaseUtil instance] insertAllUser:array completion:^(NSError *error) {
+                  
+               }];
+               
+               dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                  
+                  [array enumerateObjectsUsingBlock:^(MTTUserEntity *obj, NSUInteger idx, BOOL *stop) {
+                     
+                     [[DDUserModule shareInstance] addMaintanceUser:obj];
+                  }];
+                  
+                  dispatch_async(dispatch_get_main_queue(),^{
+                     
+                     if (completion !=nil) {
                         
-                    }];
-                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                        [array enumerateObjectsUsingBlock:^(MTTUserEntity *obj, NSUInteger idx, BOOL *stop) {
-                            [[DDUserModule shareInstance] addMaintanceUser:obj];
-                        }];
-                        
-                        dispatch_async(dispatch_get_main_queue(),^{
-                            if (completion !=nil) {
-                                completion();
-                            }
-                        });
-     
-                    });
-                    
-                    
-                }
-            }];
-        }
-    }];
-    
-    DDAllUserAPI* api = [[DDAllUserAPI alloc] init];
-    [api requestWithObject:@[@(0)] Completion:^(id response, NSError *error) {
-        if (!error)
-        {
-            NSUInteger responseVersion = [[response objectForKey:@"alllastupdatetime"] integerValue];
+                        completion();
+                     }
+                  });
+                  
+               });
+               
+               
+            }
+         }];
+      }
+   }];
+   
+   DDAllUserAPI* api = [[DDAllUserAPI alloc] init];
+   
+   [api requestWithObject:@[@(0)] Completion:^(id response, NSError *error) {
+      
+      if (!error) {
+         
+         NSUInteger responseVersion = [[response objectForKey:@"alllastupdatetime"] integerValue];
 //            if (responseVersion == version && responseVersion !=0) {
-//                
+//
 //                return ;
 //
 //            }
-            [[MTTDatabaseUtil instance] removeAllUser];
-            [defaults setObject:@(responseVersion) forKey:@"alllastupdatetime"];
-            NSMutableArray *array = [response objectForKey:@"userlist"];
-            [[MTTDatabaseUtil instance] insertAllUser:array completion:^(NSError *error) {
-                
+         [[MTTDatabaseUtil instance] removeAllUser];
+         [defaults setObject:@(responseVersion) forKey:@"alllastupdatetime"];
+         NSMutableArray *array = [response objectForKey:@"userlist"];
+         
+         [[MTTDatabaseUtil instance] insertAllUser:array completion:^(NSError *error) {
+            
+         }];
+         
+         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            
+            [array enumerateObjectsUsingBlock:^(MTTUserEntity *obj, NSUInteger idx, BOOL *stop) {
+               
+               [[DDUserModule shareInstance] addMaintanceUser:obj];
             }];
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                [array enumerateObjectsUsingBlock:^(MTTUserEntity *obj, NSUInteger idx, BOOL *stop) {
-                    [[DDUserModule shareInstance] addMaintanceUser:obj];
-                }];
-            });
-            
-            
-        }
-    }];
-    
+         });
+      }
+   }];
+   
 }
 
 /**
@@ -416,81 +446,93 @@
  *
  *  @param completion 异步执行的block
  */
-- (void)p_loadAllFriendsCompletion:(void(^)())completion
-{
-    __block NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
-    __block NSInteger version = [[defaults objectForKey:@"friendlastupdatetime"] integerValue];
-    [[MTTDatabaseUtil instance] getAllFriends:^(NSArray *contacts, NSError *error) {
-        if ([contacts count] !=0) {
-            [contacts enumerateObjectsUsingBlock:^(MTTUserEntity *obj, NSUInteger idx, BOOL *stop) {
-                [[DDUserModule shareInstance] addFriendUser:obj];
-            }];
-            if (completion !=nil) {
-                completion();
-            }
-        }else{
-            version=0;
-            DDAllFriendAPI* api = [[DDAllFriendAPI alloc] init];
-            [api requestWithObject:@[@(version)] Completion:^(id response, NSError *error) {
-                if (!error)
-                {
-                    NSUInteger responseVersion = [[response objectForKey:@"friendlastupdatetime"] integerValue];
+- (void)p_loadAllFriendsCompletion:(void(^)())completion {
+   
+   __block NSUserDefaults   *defaults  = [NSUserDefaults standardUserDefaults];
+   __block NSInteger        version    = [[defaults objectForKey:@"friendlastupdatetime"] integerValue];
+   
+   [[MTTDatabaseUtil instance] getAllFriends:^(NSArray *contacts, NSError *error) {
+      
+      if ([contacts count] !=0) {
+         
+         [contacts enumerateObjectsUsingBlock:^(MTTUserEntity *obj, NSUInteger idx, BOOL *stop) {
+            
+            [[DDUserModule shareInstance] addFriendUser:obj];
+         }];
+         
+         if (completion !=nil) {
+            completion();
+         }
+      }
+      else {
+         version=0;
+         DDAllFriendAPI* api = [[DDAllFriendAPI alloc] init];
+         [api requestWithObject:@[@(version)] Completion:^(id response, NSError *error) {
+            if (!error)
+            {
+               NSUInteger responseVersion = [[response objectForKey:@"friendlastupdatetime"] integerValue];
 //                    if (responseVersion == version && responseVersion !=0) {
-//                        
+//
 //                        return ;
-//                        
+//
 //                    }
-                    [defaults setObject:@(responseVersion) forKey:@"friendlastupdatetime"];
-                    NSMutableArray *array = [response objectForKey:@"userlist"];
-                    [[MTTDatabaseUtil instance] insertAllFriend:array completion:^(NSError *error) {
+               [defaults setObject:@(responseVersion) forKey:@"friendlastupdatetime"];
+               NSMutableArray *array = [response objectForKey:@"userlist"];
+               [[MTTDatabaseUtil instance] insertAllFriend:array completion:^(NSError *error) {
+                  
+               }];
+               
+               dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                  
+                  [array enumerateObjectsUsingBlock:^(MTTUserEntity *obj, NSUInteger idx, BOOL *stop) {
+                     
+                     [[DDUserModule shareInstance] addFriendUser:obj];
+                  }];
+                  
+                  dispatch_async(dispatch_get_main_queue(),^{
+                     
+                     if (completion !=nil) {
                         
-                    }];
-                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                        [array enumerateObjectsUsingBlock:^(MTTUserEntity *obj, NSUInteger idx, BOOL *stop) {
-                            [[DDUserModule shareInstance] addFriendUser:obj];
-                        }];
-                        
-                        dispatch_async(dispatch_get_main_queue(),^{
-                            if (completion !=nil) {
-                                completion();
-                            }
-                        });
-                        
-                    });
-                    
-                    
-                }
-            }];
-        }
-    }];
-    
-    DDAllFriendAPI* api = [[DDAllFriendAPI alloc] init];
-    [api requestWithObject:@[@(0)] Completion:^(id response, NSError *error) {
-        if (!error)
-        {
-            NSUInteger responseVersion = [[response objectForKey:@"friendlastupdatetime"] integerValue];
-            //            if (responseVersion == version && responseVersion !=0) {
-            //
-            //                return ;
-            //
-            //            }
-            [[MTTDatabaseUtil instance] removeAllFriend];
-            [defaults setObject:@(responseVersion) forKey:@"friendlastupdatetime"];
-            NSMutableArray *array = [response objectForKey:@"userlist"];
-            [[MTTDatabaseUtil instance] insertAllFriend:array completion:^(NSError *error) {
-                
-            }];
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                [array enumerateObjectsUsingBlock:^(MTTUserEntity *obj, NSUInteger idx, BOOL *stop) {
-                    [[DDUserModule shareInstance] addFriendUser:obj];
-                }];
-            });
+                        completion();
+                     }
+                  });
+               });
+            }
+         }];
+      }
+   }];
+   
+   DDAllFriendAPI *api  = [[DDAllFriendAPI alloc] init];
+   
+   [api requestWithObject:@[@(0)] Completion:^(id response, NSError *error) {
+      
+      if (!error) {
+         
+         NSUInteger responseVersion = [[response objectForKey:@"friendlastupdatetime"] integerValue];
+//            if (responseVersion == version && responseVersion !=0) {
+//
+//                return ;
+//
+//            }
+         [[MTTDatabaseUtil instance] removeAllFriend];
+         [defaults setObject:@(responseVersion) forKey:@"friendlastupdatetime"];
+         NSMutableArray *array = [response objectForKey:@"userlist"];
+         
+         [[MTTDatabaseUtil instance] insertAllFriend:array completion:^(NSError *error) {
             
+         }];
+         
+         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             
-        }
-    }];
-    
+            [array enumerateObjectsUsingBlock:^(MTTUserEntity *obj, NSUInteger idx, BOOL *stop) {
+               
+               [[DDUserModule shareInstance] addFriendUser:obj];
+            }];
+         });
+      }
+   }];
+
+   return;
 }
 
 
@@ -499,18 +541,23 @@
  *
  *  @param completion 异步执行的block
  */
-- (void)b_loadAllUsersCompletion:(void(^)())completion
-{
-    [[MTTDatabaseUtil instance] getAllUsers:^(NSArray *contacts, NSError *error) {
-        if ([contacts count] !=0) {
-            [contacts enumerateObjectsUsingBlock:^(MTTUserEntity *obj, NSUInteger idx, BOOL *stop) {
-                [[DDUserModule shareInstance] addMaintanceUser:obj];
-            }];
-            if (completion !=nil) {
-                completion();
-            }
-        }
-    }];
+- (void)b_loadAllUsersCompletion:(void(^)())completion {
+   
+   [[MTTDatabaseUtil instance] getAllUsers:^(NSArray *contacts, NSError *error) {
+      
+      if ([contacts count] !=0) {
+         
+         [contacts enumerateObjectsUsingBlock:^(MTTUserEntity *obj, NSUInteger idx, BOOL *stop) {
+            
+            [[DDUserModule shareInstance] addMaintanceUser:obj];
+         }];
+         
+         if (completion !=nil) {
+            
+            completion();
+         }
+      }
+   }];
 }
 
 /**
@@ -518,18 +565,23 @@
  *
  *  @param completion 异步执行的block
  */
-- (void)b_loadAllFriendsCompletion:(void(^)())completion
-{
-    [[MTTDatabaseUtil instance] getAllFriends:^(NSArray *contacts, NSError *error) {
-        if ([contacts count] !=0) {
-            [contacts enumerateObjectsUsingBlock:^(MTTUserEntity *obj, NSUInteger idx, BOOL *stop) {
-                [[DDUserModule shareInstance] addFriendUser:obj];
-            }];
-            if (completion !=nil) {
-                completion();
-            }
-        }
-    }];
+- (void)b_loadAllFriendsCompletion:(void(^)())completion {
+   
+   [[MTTDatabaseUtil instance] getAllFriends:^(NSArray *contacts, NSError *error) {
+      
+      if ([contacts count] !=0) {
+         
+         [contacts enumerateObjectsUsingBlock:^(MTTUserEntity *obj, NSUInteger idx, BOOL *stop) {
+            
+            [[DDUserModule shareInstance] addFriendUser:obj];
+         }];
+         
+         if (completion !=nil) {
+            
+            completion();
+         }
+      }
+   }];
 }
 
 @end

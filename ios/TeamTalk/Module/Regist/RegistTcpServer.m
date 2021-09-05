@@ -21,11 +21,11 @@ static NSInteger timeoutInterval = 10;
 @end
 
 @implementation RegistTcpServer {
-    
-    ClientSuccess  _success;
-    ClientFailure  _failure;
-    BOOL           _connecting;
-    NSUInteger     _connectTimes;
+   
+   ClientSuccess  _success;
+   ClientFailure  _failure;
+   BOOL           _connecting;
+   NSUInteger     _connectTimes;
 }
 
 - (id)init {
@@ -95,36 +95,54 @@ static NSInteger timeoutInterval = 10;
 }
 
 - (void)dealloc {
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:DDNotificationTcpLinkConnectComplete object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:DDNotificationTcpLinkConnectFailure object:nil];
-    
-    return;
+   
+   [[NSNotificationCenter defaultCenter] removeObserver:self name:DDNotificationTcpLinkConnectComplete object:nil];
+   [[NSNotificationCenter defaultCenter] removeObserver:self name:DDNotificationTcpLinkConnectFailure object:nil];
+   
+   __SUPER_DEALLOC;
+   
+   return;
 }
 
 #pragma mark - notification
 - (void)n_receiveTcpLinkConnectCompleteNotification:(NSNotification*)notification {
-    
-    if(_connecting) {
-        
-        _connecting = NO;
-        dispatch_async(dispatch_get_main_queue(), ^{
-            _success();
-        });
-    }
-    
-    return;
+   
+   int                            nErr                                     = EFAULT;
+   
+   __TRY;
+
+   if(_connecting) {
+      
+      _connecting = NO;
+      dispatch_async(dispatch_get_main_queue(), ^{
+         
+         _success();
+      });
+   }
+   
+   __CATCH(nErr);
+   
+   return;
 }
 
 - (void)n_receiveTcpLinkConnectFailureNotification:(NSNotification*)notification {
-    
-    if (_connecting) {
-        
-        _connecting = NO;
-        dispatch_async(dispatch_get_main_queue(), ^{
-            _failure(nil);
-        });
-    }
+   
+   int                            nErr                                     = EFAULT;
+   
+   __TRY;
+
+   if (_connecting) {
+      
+      _connecting = NO;
+      dispatch_async(dispatch_get_main_queue(), ^{
+         
+         _failure(nil);
+      });
+   }
+   
+   __CATCH(nErr);
+   
+   return;
 }
 
 @end
