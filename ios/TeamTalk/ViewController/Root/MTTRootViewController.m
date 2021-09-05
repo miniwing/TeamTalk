@@ -23,6 +23,7 @@
 #import "SendPushTokenAPI.h"
 
 #import "FinderViewController.h"
+#import "NSUserDefaults+DB.h"
 
 @interface MTTRootViewController ()<UITabBarControllerDelegate,UITabBarDelegate>
 @property(assign) NSUInteger clickCount;
@@ -46,10 +47,13 @@
    return self;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
+   
    [super viewDidLoad];
+   
+#if __TEAMTALK_AUTO_LOGIN__
    [self autoLogin];
+#endif /* __TEAMTALK_AUTO_LOGIN__ */
    
    RecentUsersViewController *recentVC= [RecentUsersViewController shareInstance];
    UIImage* conversationSelected = [[UIImage imageNamed:@"conversation_selected"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
@@ -139,8 +143,8 @@
 }
 
 #pragma mark - autologin
-- (void)autoLogin
-{
+- (void)autoLogin {
+   
    [[LoginModule instance] autologinWithUsername:getUserPhone password:getUserPassword success:^(MTTUserEntity *user) {
       
       if (user) {
@@ -148,10 +152,12 @@
          [TheRuntime updateData];
          
          if (TheRuntime.pushToken) {
-            //                SendPushTokenAPI *pushToken = [[SendPushTokenAPI alloc] init];
-            //                [pushToken requestWithObject:TheRuntime.pushToken Completion:^(id response, NSError *error) {
-            //                    debugLog(@"%@", error.description);
-            //                }];
+            
+//                SendPushTokenAPI *pushToken = [[SendPushTokenAPI alloc] init];
+//                [pushToken requestWithObject:TheRuntime.pushToken Completion:^(id response, NSError *error) {
+//                    debugLog(@"%@", error.description);
+//                }];
+            
             TheRuntime.clientId_gettui = getUserCode;
             if (TheRuntime.clientId_gettui) {
                [[ApiClient sharedInstance] updateUserPush:TheRuntime.clientId_gettui Success:^(id model) {
@@ -164,9 +170,16 @@
          setUserAvatar(user.avatar);
          setUserNickname(user.nick);
          setUserID(user.objID);
+         
+#if __TEAMTALK_AUTO_LOGIN__
          setIsLogin;
+#endif /* __TEAMTALK_AUTO_LOGIN__ */
+         
+         [NSUserDefaults saveUser:user];
+         
       }
-   } failure:^(NSString *error) {
+   }
+                                         failure:^(NSString *error) {
       //        setLogout;
       //        [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIFICATION_LOGINCHANGE object:@NO];
    }];
@@ -182,20 +195,26 @@
    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIFICATION_LOGINCHANGE object:@NO];
 }
 
-- (void)kickOffUserNotification:(NSNotification*)notification
-{
+- (void)kickOffUserNotification:(NSNotification*)notification {
+   
    DDClientState* clientState = [DDClientState shareInstance];
    clientState.userState = DDUserKickout;
    [[NSUserDefaults standardUserDefaults] setObject:@(false) forKey:@"autologin"];
    [MTTUtil loginOut];
    [self.navigationController popToRootViewControllerAnimated:YES];
-   UIAlertView *alert =[UIAlertView alertWithTitle:@"注意" message:@"你的账号在其他设备登陆了" buttonIndex:^(NSInteger index){
-   } cancelButtonTitle:@"确定" otherButtonTitles:nil];
+   
+   UIAlertView *alert =[UIAlertView alertWithTitle:@"注意" message:@"你的账号在其他设备登陆了" buttonIndex:^(NSInteger index) {
+      
+   }
+                                 cancelButtonTitle:@"确定" otherButtonTitles:nil];
+   
    [alert show];
+   
+   return;
 }
 
-- (void)signChangeNotification:(NSNotification*)notification
-{
+- (void)signChangeNotification:(NSNotification*)notification {
+   
    NSString *sign = [[notification object] objectForKey:@"sign"];
    NSString* uid = [[notification object] objectForKey:@"uid"];
    NSString* sessionId = [MTTUserEntity pbUserIdToLocalID:[uid integerValue]];

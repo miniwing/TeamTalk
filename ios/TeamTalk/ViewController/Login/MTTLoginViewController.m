@@ -18,6 +18,7 @@
 #import "MTTUserEntity.h"
 
 #import "ServerController.h"
+#import "NSUserDefaults+DB.h"
 
 @interface MTTLoginViewController ()<UITextFieldDelegate>
 
@@ -73,7 +74,7 @@
       if ([[NSUserDefaults standardUserDefaults] objectForKey:@"username"] && [[NSUserDefaults standardUserDefaults] objectForKey:@"password"]) {
          
          if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"autologin"] boolValue] == YES) {
-            //                [self loginButtonPressed:nil];
+            [self loginButtonPressed:nil];
          }
       }
    }
@@ -214,13 +215,21 @@
                }];
             }
          }
+         
          setUserID(user.objID);
          setUserNickname(user.nick);
          setUserAvatar(user.avatar);
          setUserPhone(userName);
          setUserPassword(password)
+
+#if __TEAMTALK_AUTO_LOGIN__
          setIsLogin;
+#endif /* __TEAMTALK_AUTO_LOGIN__ */
+
          [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIFICATION_LOGINCHANGE object:@YES];
+         
+         [NSUserDefaults saveUser:user];
+         
       }
    }
                                      failure:^(NSString *error) {
@@ -229,7 +238,6 @@
       [HUD removeFromSuperview];
       
       [OHAlertView showAlertWithTitle:@"提示" message:error dismissButton:@"好的"];
-      
       
 //        if([error isEqualToString:@"版本过低"]) {
 //
@@ -278,4 +286,5 @@
     
     return YES;
 }
+
 @end

@@ -25,6 +25,8 @@
 #import "DDGroupModule.h"
 #import "MTTUtil.h"
 
+#import "NSUserDefaults+DB.h"
+
 @interface LoginModule (privateAPI)
 
 - (void)p_loadAfterHttpServerWithToken:(NSString*)token userID:(NSString*)userID dao:(NSString*)dao password:(NSString*)password uname:(NSString*)uname success:(void(^)(MTTUserEntity* loginedUser))success failure:(void(^)(NSString* error))failure;
@@ -110,7 +112,12 @@
                
                [[NSUserDefaults standardUserDefaults] setObject:password forKey:@"password"];
                [[NSUserDefaults standardUserDefaults] setObject:name forKey:@"username"];
+               
+#if __TEAMTALK_AUTO_LOGIN__
                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"autologin"];
+#else
+               [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"autologin"];
+#endif /* __TEAMTALK_AUTO_LOGIN__ */
                [[NSUserDefaults standardUserDefaults] synchronize];
                
                _lastLoginPassword  = password;
@@ -316,16 +323,20 @@
    
 }
 
-
-- (void)reloginSuccess:(void(^)())success failure:(void(^)(NSString* error))failure
-{
+- (void)reloginSuccess:(void(^)())success failure:(void(^)(NSString* error))failure {
+   
    DDLog(@"relogin fun");
    if ([DDClientState shareInstance].userState == DDUserOffLine && _lastLoginPassword && _lastLoginUserName) {
       
       [self loginWithUsername:_lastLoginUserName password:_lastLoginPassword success:^(MTTUserEntity *user) {
+         
+         [NSUserDefaults saveUser:user];
+
          [[NSNotificationCenter defaultCenter] postNotificationName:@"ReloginSuccess" object:nil];
+         
          success(YES);
-      } failure:^(NSString *error) {
+      }
+                      failure:^(NSString *error) {
          failure(@"重新登陆失败");
       }];
       

@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "UIScrollView+XHkeyboardControl.h"
 #import "XHMessageTextView.h"
-#define WEAKSELF typeof(self) __weak weakSelf = self;
-#define STRONGSELF typeof(weakSelf) __strong strongSelf = weakSelf;
+#define WEAKSELF     typeof(self) __weak weakSelf = self;
+#define STRONGSELF   typeof(weakSelf) __strong strongSelf = weakSelf;
+
 typedef NS_ENUM(NSInteger, XHMessageInputViewStyle) {
     // iOS7样式的
     XHMessageInputViewStyleFlat

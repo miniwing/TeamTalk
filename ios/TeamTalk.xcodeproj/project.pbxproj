@@ -97,6 +97,7 @@
 		4A400E1E26D7782D00B28B59 /* libstdc++.6.0.9.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A400E1D26D7782D00B28B59 /* libstdc++.6.0.9.tbd */; };
 		4A400E2D26D7892900B28B59 /* libsecurity.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A400E2C26D7892000B28B59 /* libsecurity.a */; };
 		4AA8956826D880CD0092BA3B /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AA8956726D880CD0092BA3B /* CoreServices.framework */; };
+		4AB1844A26E4DD8C0009F6D4 /* NSUserDefaults+DB.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB1844926E4DD8C0009F6D4 /* NSUserDefaults+DB.m */; };
 		4ACEF0B626D777BC004BF91E /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ACEF0B526D777BC004BF91E /* libc++.tbd */; };
 		4AE81A7C26E07FF900F12AAA /* ServerController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4AE81A7B26E07FF900F12AAA /* ServerController.xib */; };
 		4AE81A8F26E08A4F00F12AAA /* ServerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE81A8726E08A4F00F12AAA /* ServerController.m */; };
@@ -661,6 +662,8 @@
 		4A400E2526D7870C00B28B59 /* libsecurity.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libsecurity.a; sourceTree = "<group>"; };
 		4A400E2726D7892000B28B59 /* security.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = security.xcodeproj; path = libsecurity/ios/security.xcodeproj; sourceTree = "<group>"; };
 		4AA8956726D880CD0092BA3B /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
+		4AB1844826E4DD8C0009F6D4 /* NSUserDefaults+DB.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSUserDefaults+DB.h"; sourceTree = "<group>"; };
+		4AB1844926E4DD8C0009F6D4 /* NSUserDefaults+DB.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSUserDefaults+DB.m"; sourceTree = "<group>"; };
 		4ACEF0B526D777BC004BF91E /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		4AE81A7B26E07FF900F12AAA /* ServerController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ServerController.xib; sourceTree = "<group>"; };
 		4AE81A8126E08A4F00F12AAA /* ServerController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ServerController.h; sourceTree = "<group>"; };
@@ -2217,6 +2220,8 @@
 				812CAA151B4270B80066983C /* UILabel+VerticalAlign.m */,
 				8176F80E1B462B39004E4775 /* UIImage+Rotate_Flip.h */,
 				8176F80F1B462B39004E4775 /* UIImage+Rotate_Flip.m */,
+				4AB1844826E4DD8C0009F6D4 /* NSUserDefaults+DB.h */,
+				4AB1844926E4DD8C0009F6D4 /* NSUserDefaults+DB.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -3469,6 +3474,7 @@
 				46C53DA81CDADD8700034CF5 /* IMServer.pb.m in Sources */,
 				C07E66761B3292E200A5102C /* DDDataOutputStream.m in Sources */,
 				C054ED131B3276DE00078809 /* framing.c in Sources */,
+				4AB1844A26E4DD8C0009F6D4 /* NSUserDefaults+DB.m in Sources */,
 				C054ED271B3276DE00078809 /* kiss_fftr.c in Sources */,
 				C07E665C1B328F1A00A5102C /* MsgReadNotify.m in Sources */,
 				C0AE39FF1B32C68200B67232 /* DDChatImageCell.m in Sources */,

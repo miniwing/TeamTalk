@@ -524,6 +524,7 @@ __END_DECLS
 
 #define __TEAMTALK_REGIST__                        (__ON__)
 #define __TEAMTALK_FRIEND__                        (__OFF__)
+#define __TEAMTALK_AUTO_LOGIN__                    (__OFF__)
 
 /******************************************************************************************************/
 

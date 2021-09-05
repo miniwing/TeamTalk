@@ -14,9 +14,9 @@
  *
  *  @return 超时时间
  */
-- (int)requestTimeOutTimeInterval
-{
-    return 10;
+- (int)requestTimeOutTimeInterval {
+   
+   return 10;
 }
 
 /**
@@ -24,9 +24,9 @@
  *
  *  @return 对应的serviceID
  */
-- (int)requestServiceID
-{
-    return ServiceIDSidMsg;
+- (int)requestServiceID {
+   
+   return ServiceIDSidMsg;
 }
 
 /**
@@ -34,9 +34,9 @@
  *
  *  @return 对应的serviceID
  */
-- (int)responseServiceID
-{
-    return ServiceIDSidMsg;
+- (int)responseServiceID {
+   
+   return ServiceIDSidMsg;
 }
 
 /**
@@ -44,9 +44,9 @@
  *
  *  @return 对应的commendID
  */
-- (int)requestCommendID
-{
-    return MessageCmdIDCidMsgData;
+- (int)requestCommendID {
+   
+   return MessageCmdIDCidMsgData;
 }
 
 /**
@@ -56,7 +56,7 @@
  */
 - (int)responseCommendID
 {
-    return MessageCmdIDCidMsgDataAck;
+   return MessageCmdIDCidMsgDataAck;
 }
 
 /**
@@ -64,14 +64,14 @@
  *
  *  @return 解析数据的block
  */
-- (Analysis)analysisReturnData
-{
-    Analysis analysis = (id)^(NSData* data)
-    {
-        IMMsgDataAck *msgDataAck = [IMMsgDataAck parseFromData:data];
-        return @[@(msgDataAck.msgId),@(msgDataAck.sessionId)];
-    };
-    return analysis;
+- (Analysis)analysisReturnData {
+   
+   Analysis analysis = (id)^(NSData* data) {
+      
+      IMMsgDataAck *msgDataAck = [IMMsgDataAck parseFromData:data];
+      return @[@(msgDataAck.msgId),@(msgDataAck.sessionId)];
+   };
+   return analysis;
 }
 
 /**
@@ -79,32 +79,34 @@
  *
  *  @return 打包数据的block
  */
-- (Package)packageRequestObject
-{
-    Package package = (id)^(id object,uint16_t seqNo)
-    {
-        
-        NSArray* array = (NSArray*)object;
-        NSString* fromId = array[0];
-        NSString* toId = array[1];
-        NSData* content = array[2];
-        MsgType type = [array[3] intValue];
-        IMMsgDataBuilder *msgdata = [IMMsgData builder];
-        [msgdata setFromUserId:0];
-        [msgdata setToSessionId:[MTTUtil changeIDToOriginal:toId]];
-        [msgdata setMsgData:content];
-        [msgdata setMsgType:type];
-        [msgdata setMsgId:0];
-        [msgdata setCreateTime:0];
-        DDDataOutputStream *dataout = [[DDDataOutputStream alloc] init];
-        [dataout writeInt:0];
-        [dataout writeTcpProtocolHeader:[self requestServiceID] cId:[self requestCommendID] seqNo:seqNo];
-        [dataout directWriteBytes:[msgdata build].data];
-        [dataout writeDataCount];
-        return [dataout toByteArray];
-
-    };
-    return package;
+- (Package)packageRequestObject {
+   
+   Package package = (id)^(id object,uint16_t seqNo) {
+      
+      NSArray  *array   = (NSArray*)object;
+      NSString *fromId  = array[0];
+      NSString *toId    = array[1];
+      NSData   *content = array[2];
+      
+      MsgType   type    = [array[3] intValue];
+      IMMsgDataBuilder *msgdata  = [IMMsgData builder];
+      [msgdata setFromUserId:0];
+      [msgdata setToSessionId:[MTTUtil changeIDToOriginal:toId]];
+      [msgdata setMsgData:content];
+      [msgdata setMsgType:type];
+      [msgdata setMsgId:0];
+      [msgdata setCreateTime:0];
+      
+      DDDataOutputStream *dataout = [[DDDataOutputStream alloc] init];
+      [dataout writeInt:0];
+      [dataout writeTcpProtocolHeader:[self requestServiceID] cId:[self requestCommendID] seqNo:seqNo];
+      [dataout directWriteBytes:[msgdata build].data];
+      [dataout writeDataCount];
+      
+      return [dataout toByteArray];
+      
+   };
+   return package;
 }
 
 @end
