@@ -50,13 +50,12 @@
 #include <fstream>
 #include <algorithm>
 
-
 #ifdef WIN32
 #include <io.h>
 #include <shlwapi.h>
 #include <process.h>
 #pragma comment(lib, "shlwapi")
-#pragma warning(disable:4996)
+#pragma warning(disable : 4996)
 
 #else
 #include <unistd.h>
@@ -64,7 +63,7 @@
 #include <arpa/inet.h>
 #include <sys/types.h>
 #include <sys/socket.h>
-#include<pthread.h>
+#include <pthread.h>
 #include <sys/time.h>
 #include <sys/stat.h>
 #include <dirent.h>
@@ -72,26 +71,23 @@
 #include <semaphore.h>
 #endif
 
-
 #ifdef __APPLE__
 #include <dispatch/dispatch.h>
 #include <libproc.h>
 #endif
 
-
-
 _ZSUMMER_BEGIN
 _ZSUMMER_LOG4Z_BEGIN
 
-static const char *const LOG_STRING[]=
+static const char *const LOG_STRING[] =
 {
-    "LOG_TRACE",
-    "LOG_DEBUG",
-    "LOG_INFO ",
-    "LOG_WARN ",
-    "LOG_ERROR",
-    "LOG_ALARM",
-    "LOG_FATAL",
+        "LOG_TRACE",
+        "LOG_DEBUG",
+        "LOG_INFO ",
+        "LOG_WARN ",
+        "LOG_ERROR",
+        "LOG_ALARM",
+        "LOG_FATAL",
 };
 
 #ifdef WIN32
@@ -102,17 +98,17 @@ const static WORD LOG_COLOR[LOG_LEVEL_FATAL + 1] = {
     FOREGROUND_GREEN | FOREGROUND_RED,
     FOREGROUND_RED,
     FOREGROUND_GREEN,
-    FOREGROUND_RED | FOREGROUND_BLUE };
+    FOREGROUND_RED | FOREGROUND_BLUE};
 #else
 
 const static char LOG_COLOR[LOG_LEVEL_FATAL + 1][50] = {
     "\e[0m",
     "\e[0m",
-    "\e[34m\e[1m",//hight blue
-    "\e[33m", //yellow
-    "\e[31m", //red
-    "\e[32m", //green
-    "\e[35m" };
+    "\e[34m\e[1m", //hight blue
+    "\e[33m",      //yellow
+    "\e[31m",      //red
+    "\e[32m",      //green
+    "\e[35m"};
 #endif
 
 //////////////////////////////////////////////////////////////////////////
@@ -121,20 +117,28 @@ const static char LOG_COLOR[LOG_LEVEL_FATAL + 1][50] = {
 class Log4zFileHandler
 {
 public:
-    Log4zFileHandler(){ _file = NULL; }
-    ~Log4zFileHandler(){ close(); }
-    inline bool isOpen(){ return _file != NULL; }
-    inline bool open(const char *path, const char * mod)
+    Log4zFileHandler() { _file = NULL; }
+    ~Log4zFileHandler() { close(); }
+    inline bool isOpen() { return _file != NULL; }
+    inline bool open(const char *path, const char *mod)
     {
-        if (_file != NULL){fclose(_file);_file = NULL;}
+        if (_file != NULL)
+        {
+            fclose(_file);
+            _file = NULL;
+        }
         _file = fopen(path, mod);
         return _file != NULL;
     }
     inline void close()
     {
-        if (_file != NULL){fclose(_file);_file = NULL;}
+        if (_file != NULL)
+        {
+            fclose(_file);
+            _file = NULL;
+        }
     }
-    inline void write(const char * data, size_t len)
+    inline void write(const char *data, size_t len)
     {
         if (_file && len > 0)
         {
@@ -144,11 +148,15 @@ public:
             }
         }
     }
-    inline void flush(){ if (_file) fflush(_file); }
-    
+    inline void flush()
+    {
+        if (_file)
+            fflush(_file);
+    }
+
     inline std::string readLine()
     {
-        char buf[500] = { 0 };
+        char buf[500] = {0};
         if (_file && fgets(buf, 500, _file) != NULL)
         {
             return std::string(buf);
@@ -156,10 +164,10 @@ public:
         return std::string();
     }
     inline const std::string readContent();
+
 public:
     FILE *_file;
 };
-
 
 //////////////////////////////////////////////////////////////////////////
 //! UTILITY
@@ -170,15 +178,12 @@ static bool isSameDay(time_t t1, time_t t2);
 
 static void fixPath(std::string &path);
 static void trimLogConfig(std::string &str, std::string extIgnore = std::string());
-static std::pair<std::string, std::string> splitPairString(const std::string & str, const std::string & delimiter);
-
+static std::pair<std::string, std::string> splitPairString(const std::string &str, const std::string &delimiter);
 
 static bool isDirectory(std::string path);
 static bool createRecursionDir(std::string path);
 static std::string getProcessID();
 static std::string getProcessName();
-
-
 
 //////////////////////////////////////////////////////////////////////////
 //! LockHelper
@@ -188,15 +193,16 @@ class LockHelper
 public:
     LockHelper();
     virtual ~LockHelper();
-    
+
 public:
     void lock();
     void unLock();
+
 private:
 #ifdef WIN32
     CRITICAL_SECTION _crit;
 #else
-    pthread_mutex_t  _crit;
+    pthread_mutex_t _crit;
 #endif
 };
 
@@ -206,10 +212,11 @@ private:
 class AutoLock
 {
 public:
-    explicit AutoLock(LockHelper & lk):_lock(lk){_lock.lock();}
-    ~AutoLock(){_lock.unLock();}
+    explicit AutoLock(LockHelper &lk) : _lock(lk) { _lock.lock(); }
+    ~AutoLock() { _lock.unLock(); }
+
 private:
-    LockHelper & _lock;
+    LockHelper &_lock;
 };
 
 //////////////////////////////////////////////////////////////////////////
@@ -220,10 +227,12 @@ class SemHelper
 public:
     SemHelper();
     virtual ~SemHelper();
+
 public:
     bool create(int initcount);
     bool wait(int timeout = 0);
     bool post();
+
 private:
 #ifdef WIN32
     HANDLE _hSem;
@@ -231,31 +240,30 @@ private:
     dispatch_semaphore_t _semid;
 #else
     sem_t _semid;
-    bool  _isCreate;
+    bool _isCreate;
 #endif
-    
 };
-
-
 
 //////////////////////////////////////////////////////////////////////////
 //! ThreadHelper
 //////////////////////////////////////////////////////////////////////////
 #ifdef WIN32
-static unsigned int WINAPI  threadProc(LPVOID lpParam);
+static unsigned int WINAPI threadProc(LPVOID lpParam);
 #else
-static void * threadProc(void * pParam);
+static void *threadProc(void *pParam);
 #endif
 
 class ThreadHelper
 {
 public:
-    ThreadHelper(){_hThreadID = 0;}
-    virtual ~ThreadHelper(){}
+    ThreadHelper() { _hThreadID = 0; }
+    virtual ~ThreadHelper() {}
+
 public:
     bool start();
     bool wait();
     virtual void run() = 0;
+
 private:
     unsigned long long _hThreadID;
 #ifndef WIN32
@@ -264,30 +272,29 @@ private:
 };
 
 #ifdef WIN32
-unsigned int WINAPI  threadProc(LPVOID lpParam)
+unsigned int WINAPI threadProc(LPVOID lpParam)
 {
-    ThreadHelper * p = (ThreadHelper *) lpParam;
+    ThreadHelper *p = (ThreadHelper *)lpParam;
     p->run();
     return 0;
 }
 #else
-void * threadProc(void * pParam)
+void *threadProc(void *pParam)
 {
-    ThreadHelper * p = (ThreadHelper *) pParam;
+    ThreadHelper *p = (ThreadHelper *)pParam;
     p->run();
     return NULL;
 }
 #endif
-
 
 //////////////////////////////////////////////////////////////////////////
 //! LogData
 //////////////////////////////////////////////////////////////////////////
 struct LogData
 {
-    LoggerId _id;		//dest logger id
-    int	_level;	//log level
-    time_t _time;		//create time
+    LoggerId _id;          //dest logger id
+    int _level;            //log level
+    time_t _time;          //create time
     unsigned int _precise; //create time
     int _contentLen;
     char _content[LOG4Z_LOG_BUF_SIZE]; //content
@@ -299,26 +306,26 @@ struct LogData
 struct LoggerInfo
 {
     //! attribute
-    std::string _key;   //logger key
-    std::string _name;	// one logger one name.
-    std::string _path;	//path for log file.
-    int  _level;		//filter level
-    bool _display;		//display to screen
-    bool _outfile;		//output to file
-    bool _monthdir;		//create directory per month
+    std::string _key;        //logger key
+    std::string _name;       // one logger one name.
+    std::string _path;       //path for log file.
+    int _level;              //filter level
+    bool _display;           //display to screen
+    bool _outfile;           //output to file
+    bool _monthdir;          //create directory per month
     unsigned int _limitsize; //limit file's size, unit Million byte.
-    bool _enable;		//logger is enable
-    bool _fileLine;		//enable/disable the log's suffix.(file name:line number)
-    
+    bool _enable;            //logger is enable
+    bool _fileLine;          //enable/disable the log's suffix.(file name:line number)
+
     //! runtime info
-    time_t _curFileCreateTime;	//file create time
+    time_t _curFileCreateTime;  //file create time
     unsigned int _curFileIndex; //rolling file index
     unsigned int _curWriteLen;  //current file length
-    Log4zFileHandler	_handle;		//file handle.
-    
+    Log4zFileHandler _handle;   //file handle.
+
     //! hot update name or path for the logger
     bool _hotChange;
-    
+
     LoggerInfo()
     {
         _enable = false;
@@ -326,19 +333,18 @@ struct LoggerInfo
         _level = LOG4Z_DEFAULT_LEVEL;
         _display = LOG4Z_DEFAULT_DISPLAY;
         _outfile = LOG4Z_DEFAULT_OUTFILE;
-        
+
         _monthdir = LOG4Z_DEFAULT_MONTHDIR;
         _limitsize = LOG4Z_DEFAULT_LIMITSIZE;
         _fileLine = LOG4Z_DEFAULT_SHOWSUFFIX;
-        
+
         _curFileCreateTime = 0;
         _curFileIndex = 0;
         _curWriteLen = 0;
-        
+
         _hotChange = false;
     }
 };
-
 
 //////////////////////////////////////////////////////////////////////////
 //! LogerManager
@@ -348,87 +354,84 @@ class LogerManager : public ThreadHelper, public ILog4zManager
 public:
     LogerManager();
     virtual ~LogerManager();
-    
+
     bool configFromStringImpl(std::string content, bool isUpdate);
     //! 读取配置文件并覆写
-    virtual bool config(const char* configPath);
-    virtual bool configFromString(const char* configContent);
-    
+    virtual bool config(const char *configPath);
+    virtual bool configFromString(const char *configContent);
+
     //! 覆写式创建
-    virtual LoggerId createLogger(const char* key);
+    virtual LoggerId createLogger(const char *key);
     virtual bool start();
     virtual bool stop();
     virtual bool prePushLog(LoggerId id, int level);
-    virtual bool pushLog(LoggerId id, int level, const char * log, const char * file, int line);
+    virtual bool pushLog(LoggerId id, int level, const char *log, const char *file, int line);
     //! 查找ID
-    virtual LoggerId findLogger(const char*  key);
-    
+    virtual LoggerId findLogger(const char *key);
+
     virtual bool enableLogger(LoggerId id, bool enable);
-    virtual bool setLoggerName(LoggerId id, const char * name);
-    virtual bool setLoggerPath(LoggerId id, const char * path);
+    virtual bool setLoggerName(LoggerId id, const char *name);
+    virtual bool setLoggerPath(LoggerId id, const char *path);
     virtual bool setLoggerLevel(LoggerId id, int nLevel);
     virtual bool setLoggerFileLine(LoggerId id, bool enable);
     virtual bool setLoggerDisplay(LoggerId id, bool enable);
     virtual bool setLoggerOutFile(LoggerId id, bool enable);
     virtual bool setLoggerLimitsize(LoggerId id, unsigned int limitsize);
     virtual bool setLoggerMonthdir(LoggerId id, bool enable);
-    
+
     virtual bool setAutoUpdate(int interval);
     virtual bool updateConfig();
     virtual bool isLoggerEnable(LoggerId id);
-    virtual unsigned long long getStatusTotalWriteCount(){return _ullStatusTotalWriteFileCount;}
-    virtual unsigned long long getStatusTotalWriteBytes(){return _ullStatusTotalWriteFileBytes;}
-    virtual unsigned long long getStatusWaitingCount(){return _ullStatusTotalPushLog - _ullStatusTotalPopLog;}
+    virtual unsigned long long getStatusTotalWriteCount() { return _ullStatusTotalWriteFileCount; }
+    virtual unsigned long long getStatusTotalWriteBytes() { return _ullStatusTotalWriteFileBytes; }
+    virtual unsigned long long getStatusWaitingCount() { return _ullStatusTotalPushLog - _ullStatusTotalPopLog; }
     virtual unsigned int getStatusActiveLoggers();
+
 protected:
     void showColorText(const char *text, int level = LOG_LEVEL_DEBUG);
-    bool openLogger(LogData * log);
+    bool openLogger(LogData *log);
     bool closeLogger(LoggerId id);
-    bool popLog(LogData *& log);
+    bool popLog(LogData *&log);
     virtual void run();
+
 private:
-    
     //! thread status.
-    bool		_runing;
+    bool _runing;
     //! wait thread started.
-    SemHelper		_semaphore;
-    
+    SemHelper _semaphore;
+
     //! hot change name or path for one logger
     LockHelper _hotLock;
     int _hotUpdateInterval;
-    
+
     //! the process info.
     std::string _pid;
     std::string _proName;
-    
+
     //! config file name
     std::string _configFile;
-    
+
     //! logger id manager, [logger name]:[logger id].
     std::map<std::string, LoggerId> _ids;
     // the last used id of _loggers
-    LoggerId	_lastId;
+    LoggerId _lastId;
     LoggerInfo _loggers[LOG4Z_LOGGER_MAX];
-    
+
     //! log queue
     std::list<LogData *> _logs;
-    LockHelper	_logLock;
-    
+    LockHelper _logLock;
+
     //show color lock
     LockHelper _scLock;
     //status statistics
     //write file
     unsigned long long _ullStatusTotalWriteFileCount;
     unsigned long long _ullStatusTotalWriteFileBytes;
-    
+
     //Log queue statistics
     unsigned long long _ullStatusTotalPushLog;
     unsigned long long _ullStatusTotalPopLog;
-    
 };
-
-
-
 
 //////////////////////////////////////////////////////////////////////////
 //! Log4zFileHandler
@@ -437,7 +440,7 @@ private:
 const std::string Log4zFileHandler::readContent()
 {
     std::string content;
-    
+
     if (!_file)
     {
         return content;
@@ -448,11 +451,11 @@ const std::string Log4zFileHandler::readContent()
     int endpos = ftell(_file);
     fseek(_file, 0, SEEK_SET);
     int filelen = endpos - beginpos;
-    if (filelen > 10*1024*1024 || filelen <= 0)
+    if (filelen > 10 * 1024 * 1024 || filelen <= 0)
     {
         return content;
     }
-    content.resize(filelen+10);
+    content.resize(filelen + 10);
     if (fread(&content[0], 1, filelen, _file) != (size_t)filelen)
     {
         content.clear();
@@ -462,20 +465,16 @@ const std::string Log4zFileHandler::readContent()
     return content;
 }
 
-
-
-
 //////////////////////////////////////////////////////////////////////////
 //! utility
 //////////////////////////////////////////////////////////////////////////
-
 
 void sleepMillisecond(unsigned int ms)
 {
 #ifdef WIN32
     ::Sleep(ms);
 #else
-    usleep(1000*ms);
+    usleep(1000 * ms);
 #endif
 }
 
@@ -483,14 +482,14 @@ struct tm timeToTm(time_t t)
 {
 #ifdef WIN32
 #if _MSC_VER < 1400 //VS2003
-    return * localtime(&t);
+    return *localtime(&t);
 #else //vs2005->vs2013->
-    struct tm tt = { 0 };
+    struct tm tt = {0};
     localtime_s(&tt, &t);
     return tt;
 #endif
 #else //linux
-    struct tm tt = { 0 };
+    struct tm tt = {0};
     localtime_r(&t, &tt);
     return tt;
 #endif
@@ -500,44 +499,51 @@ bool isSameDay(time_t t1, time_t t2)
 {
     tm tm1 = timeToTm(t1);
     tm tm2 = timeToTm(t2);
-    if ( tm1.tm_year == tm2.tm_year
-        && tm1.tm_yday == tm2.tm_yday)
+    if (tm1.tm_year == tm2.tm_year && tm1.tm_yday == tm2.tm_yday)
     {
         return true;
     }
     return false;
 }
 
-
 void fixPath(std::string &path)
 {
-    if (path.empty()){return;}
+    if (path.empty())
+    {
+        return;
+    }
     for (std::string::iterator iter = path.begin(); iter != path.end(); ++iter)
     {
-        if (*iter == '\\'){*iter = '/';}
+        if (*iter == '\\')
+        {
+            *iter = '/';
+        }
     }
-    if (path.at(path.length()-1) != '/'){path.append("/");}
+    if (path.at(path.length() - 1) != '/')
+    {
+        path.append("/");
+    }
 }
 
 static void trimLogConfig(std::string &str, std::string extIgnore)
 {
-    if (str.empty()){return;}
+    if (str.empty())
+    {
+        return;
+    }
     extIgnore += "\r\n\t ";
     int length = (int)str.length();
     int posBegin = 0;
     int posEnd = 0;
-    
+
     //trim utf8 file bom
-    if (str.length() >= 3
-        && (unsigned char)str[0] == 0xef
-        && (unsigned char)str[1] == 0xbb
-        && (unsigned char)str[2] == 0xbf)
+    if (str.length() >= 3 && (unsigned char)str[0] == 0xef && (unsigned char)str[1] == 0xbb && (unsigned char)str[2] == 0xbf)
     {
         posBegin = 3;
     }
-    
+
     //trim character
-    for (int i = posBegin; i<length; i++)
+    for (int i = posBegin; i < length; i++)
     {
         bool bCheck = false;
         for (int j = 0; j < (int)extIgnore.length(); j++)
@@ -561,7 +567,7 @@ static void trimLogConfig(std::string &str, std::string extIgnore)
     }
     if (posBegin < posEnd)
     {
-        str = str.substr(posBegin, posEnd-posBegin);
+        str = str.substr(posBegin, posEnd - posBegin);
     }
     else
     {
@@ -570,31 +576,31 @@ static void trimLogConfig(std::string &str, std::string extIgnore)
 }
 
 //split
-static std::pair<std::string, std::string> splitPairString(const std::string & str, const std::string & delimiter)
+static std::pair<std::string, std::string> splitPairString(const std::string &str, const std::string &delimiter)
 {
     std::string::size_type pos = str.find(delimiter.c_str());
     if (pos == std::string::npos)
     {
         return std::make_pair(str, "");
     }
-    return std::make_pair(str.substr(0, pos), str.substr(pos+delimiter.length()));
+    return std::make_pair(str.substr(0, pos), str.substr(pos + delimiter.length()));
 }
 
-static bool parseConfigLine(const std::string& line, int curLineNum, std::string & key, std::map<std::string, LoggerInfo> & outInfo)
+static bool parseConfigLine(const std::string &line, int curLineNum, std::string &key, std::map<std::string, LoggerInfo> &outInfo)
 {
     std::pair<std::string, std::string> kv = splitPairString(line, "=");
     if (kv.first.empty())
     {
         return false;
     }
-    
+
     trimLogConfig(kv.first);
     trimLogConfig(kv.second);
     if (kv.first.empty() || kv.first.at(0) == '#')
     {
         return true;
     }
-    
+
     if (kv.first.at(0) == '[')
     {
         trimLogConfig(kv.first, "[]");
@@ -618,7 +624,7 @@ static bool parseConfigLine(const std::string& line, int curLineNum, std::string
         }
         else
         {
-            std::cout << "log4z configure warning: duplicate logger key:["<< key << "] at line:" << curLineNum << std::endl;
+            std::cout << "log4z configure warning: duplicate logger key:[" << key << "] at line:" << curLineNum << std::endl;
         }
         return true;
     }
@@ -627,8 +633,8 @@ static bool parseConfigLine(const std::string& line, int curLineNum, std::string
     std::map<std::string, LoggerInfo>::iterator iter = outInfo.find(key);
     if (iter == outInfo.end())
     {
-        std::cout << "log4z configure warning: not found current logger name:["<< key << "] at line:" << curLineNum
-        << ", key=" << kv.first << ", value=" << kv.second << std::endl;
+        std::cout << "log4z configure warning: not found current logger name:[" << key << "] at line:" << curLineNum
+                  << ", key=" << kv.first << ", value=" << kv.second << std::endl;
         return true;
     }
     std::transform(kv.first.begin(), kv.first.end(), kv.first.begin(), ::tolower);
@@ -744,9 +750,9 @@ static bool parseConfigLine(const std::string& line, int curLineNum, std::string
     return true;
 }
 
-static bool parseConfigFromString(std::string content, std::map<std::string, LoggerInfo> & outInfo)
+static bool parseConfigFromString(std::string content, std::map<std::string, LoggerInfo> &outInfo)
 {
-    
+
     std::string key;
     int curLine = 1;
     std::string line;
@@ -770,27 +776,25 @@ static bool parseConfigFromString(std::string content, std::map<std::string, Log
         line = content.substr(curPos, pos - curPos);
         parseConfigLine(line, curLine, key, outInfo);
         curLine++;
-        
+
         if (pos == std::string::npos)
         {
             break;
         }
         else
         {
-            curPos = pos+1;
+            curPos = pos + 1;
         }
     } while (1);
     return true;
 }
-
-
 
 bool isDirectory(std::string path)
 {
 #ifdef WIN32
     return PathIsDirectoryA(path.c_str()) ? true : false;
 #else
-    DIR * pdir = opendir(path.c_str());
+    DIR *pdir = opendir(path.c_str());
     if (pdir == NULL)
     {
         return false;
@@ -804,34 +808,33 @@ bool isDirectory(std::string path)
 #endif
 }
 
-
-
 bool createRecursionDir(std::string path)
 {
-    if (path.length() == 0) return true;
+    if (path.length() == 0)
+        return true;
     std::string sub;
     fixPath(path);
-    
+
     std::string::size_type pos = path.find('/');
     while (pos != std::string::npos)
     {
-        std::string cur = path.substr(0, pos-0);
+        std::string cur = path.substr(0, pos - 0);
         if (cur.length() > 0 && !isDirectory(cur))
         {
             bool ret = false;
 #ifdef WIN32
             ret = CreateDirectoryA(cur.c_str(), NULL) ? true : false;
 #else
-            ret = (mkdir(cur.c_str(), S_IRWXU|S_IRWXG|S_IRWXO) == 0);
+            ret = (mkdir(cur.c_str(), S_IRWXU | S_IRWXG | S_IRWXO) == 0);
 #endif
             if (!ret)
             {
                 return false;
             }
         }
-        pos = path.find('/', pos+1);
+        pos = path.find('/', pos + 1);
     }
-    
+
     return true;
 }
 
@@ -850,7 +853,6 @@ std::string getProcessID()
     return pid;
 }
 
-
 std::string getProcessName()
 {
     std::string name = "MainLog";
@@ -863,19 +865,20 @@ std::string getProcessName()
     std::string::size_type pos = name.rfind("\\");
     if (pos != std::string::npos)
     {
-        name = name.substr(pos+1, std::string::npos);
+        name = name.substr(pos + 1, std::string::npos);
     }
     pos = name.rfind(".");
     if (pos != std::string::npos)
     {
-        name = name.substr(0, pos-0);
+        name = name.substr(0, pos - 0);
     }
-    
+
 #elif defined(__APPLE__)
-    
+
     proc_name(getpid(), buf, 260);
     name = buf;
-    return name;;
+    return name;
+    ;
 #else
     sprintf(buf, "/proc/%d/cmdline", (int)getpid());
     Log4zFileHandler i;
@@ -886,22 +889,16 @@ std::string getProcessName()
     }
     name = i.readLine();
     i.close();
-    
+
     std::string::size_type pos = name.rfind("/");
     if (pos != std::string::npos)
     {
-        name = name.substr(pos+1, std::string::npos);
+        name = name.substr(pos + 1, std::string::npos);
     }
 #endif
-    
-    
+
     return name;
 }
-
-
-
-
-
 
 //////////////////////////////////////////////////////////////////////////
 // LockHelper
@@ -956,7 +953,6 @@ SemHelper::SemHelper()
 #else
     _isCreate = false;
 #endif
-    
 }
 SemHelper::~SemHelper()
 {
@@ -979,7 +975,6 @@ SemHelper::~SemHelper()
         sem_destroy(&_semid);
     }
 #endif
-    
 }
 
 bool SemHelper::create(int initcount)
@@ -1011,7 +1006,7 @@ bool SemHelper::create(int initcount)
     }
     _isCreate = true;
 #endif
-    
+
     return true;
 }
 bool SemHelper::wait(int timeout)
@@ -1026,7 +1021,7 @@ bool SemHelper::wait(int timeout)
         return false;
     }
 #elif defined(__APPLE__)
-    if (dispatch_semaphore_wait(_semid, dispatch_time(DISPATCH_TIME_NOW, timeout*1000)) != 0)
+    if (dispatch_semaphore_wait(_semid, dispatch_time(DISPATCH_TIME_NOW, timeout * 1000)) != 0)
     {
         return false;
     }
@@ -1039,7 +1034,7 @@ bool SemHelper::wait(int timeout)
     {
         struct timeval tm;
         gettimeofday(&tm, NULL);
-        long long endtime = tm.tv_sec *1000 + tm.tv_usec/1000 + timeout;
+        long long endtime = tm.tv_sec * 1000 + tm.tv_usec / 1000 + timeout;
         do
         {
             sleepMillisecond(50);
@@ -1050,11 +1045,11 @@ bool SemHelper::wait(int timeout)
             }
             struct timeval tv_cur;
             gettimeofday(&tv_cur, NULL);
-            if (tv_cur.tv_sec*1000 + tv_cur.tv_usec/1000 > endtime)
+            if (tv_cur.tv_sec * 1000 + tv_cur.tv_usec / 1000 > endtime)
             {
                 return false;
             }
-            
+
             if (ret == -1 && errno == EAGAIN)
             {
                 continue;
@@ -1079,7 +1074,6 @@ bool SemHelper::post()
 #else
     return (sem_post(&_semid) == 0);
 #endif
-    
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -1088,19 +1082,21 @@ bool SemHelper::post()
 bool ThreadHelper::start()
 {
 #ifdef WIN32
-    unsigned long long ret = _beginthreadex(NULL, 0, threadProc, (void *) this, 0, NULL);
-    
+    unsigned long long ret = _beginthreadex(NULL, 0, threadProc, (void *)this, 0, NULL);
+
     if (ret == -1 || ret == 0)
     {
-        std::cout << "log4z: create log4z thread error! \r\n" <<std::endl;
+        std::cout << "log4z: create log4z thread error! \r\n"
+                  << std::endl;
         return false;
     }
     _hThreadID = ret;
 #else
-    int ret = pthread_create(&_phtreadID, NULL, threadProc, (void*)this);
+    int ret = pthread_create(&_phtreadID, NULL, threadProc, (void *)this);
     if (ret != 0)
     {
-        std::cout <<"log4z: create log4z thread error! \r\n" << std::endl;
+        std::cout << "log4z: create log4z thread error! \r\n"
+                  << std::endl;
         return false;
     }
 #endif
@@ -1131,27 +1127,23 @@ LogerManager::LogerManager()
     _runing = false;
     _lastId = LOG4Z_MAIN_LOGGER_ID;
     _hotUpdateInterval = 0;
-    
+
     _ullStatusTotalPushLog = 0;
     _ullStatusTotalPopLog = 0;
     _ullStatusTotalWriteFileCount = 0;
     _ullStatusTotalWriteFileBytes = 0;
-    
+
     _pid = getProcessID();
     _proName = getProcessName();
     _loggers[LOG4Z_MAIN_LOGGER_ID]._enable = true;
     _ids[LOG4Z_MAIN_LOGGER_KEY] = LOG4Z_MAIN_LOGGER_ID;
     _loggers[LOG4Z_MAIN_LOGGER_ID]._key = LOG4Z_MAIN_LOGGER_KEY;
     _loggers[LOG4Z_MAIN_LOGGER_ID]._name = _proName;
-    
 }
 LogerManager::~LogerManager()
 {
     stop();
 }
-
-
-
 
 void LogerManager::showColorText(const char *text, int level)
 {
@@ -1163,10 +1155,11 @@ void LogerManager::showColorText(const char *text, int level)
 #ifndef WIN32
     printf("%s%s\e[0m", LOG_COLOR[level], text);
 #else
-    
+
     AutoLock l(_scLock);
     HANDLE hStd = ::GetStdHandle(STD_OUTPUT_HANDLE);
-    if (hStd == INVALID_HANDLE_VALUE) return;
+    if (hStd == INVALID_HANDLE_VALUE)
+        return;
     CONSOLE_SCREEN_BUFFER_INFO oldInfo;
     if (!GetConsoleScreenBufferInfo(hStd, &oldInfo))
     {
@@ -1225,7 +1218,7 @@ bool LogerManager::configFromStringImpl(std::string content, bool isUpdate)
 }
 
 //! read configure and create with overwriting
-bool LogerManager::config(const char* configPath)
+bool LogerManager::config(const char *configPath)
 {
     if (!_configFile.empty())
     {
@@ -1235,7 +1228,7 @@ bool LogerManager::config(const char* configPath)
         return false;
     }
     _configFile = configPath;
-    
+
     Log4zFileHandler f;
     f.open(_configFile.c_str(), "r");
     if (!f.isOpen())
@@ -1249,22 +1242,22 @@ bool LogerManager::config(const char* configPath)
 }
 
 //! read configure and create with overwriting
-bool LogerManager::configFromString(const char* configContent)
+bool LogerManager::configFromString(const char *configContent)
 {
     return configFromStringImpl(configContent, false);
 }
 
 //! create with overwriting
-LoggerId LogerManager::createLogger(const char* key)
+LoggerId LogerManager::createLogger(const char *key)
 {
     if (key == NULL)
     {
         return LOG4Z_INVALID_LOGGER_ID;
     }
-    
+
     std::string copyKey = key;
     trimLogConfig(copyKey);
-    
+
     LoggerId newID = LOG4Z_INVALID_LOGGER_ID;
     {
         std::map<std::string, LoggerId>::iterator iter = _ids.find(copyKey);
@@ -1275,21 +1268,20 @@ LoggerId LogerManager::createLogger(const char* key)
     }
     if (newID == LOG4Z_INVALID_LOGGER_ID)
     {
-        if (_lastId +1 >= LOG4Z_LOGGER_MAX)
+        if (_lastId + 1 >= LOG4Z_LOGGER_MAX)
         {
             showColorText("log4z: CreateLogger can not create|writeover, because loggerid need < LOGGER_MAX! \r\n", LOG_LEVEL_FATAL);
             return LOG4Z_INVALID_LOGGER_ID;
         }
-        newID = ++ _lastId;
+        newID = ++_lastId;
         _ids[copyKey] = newID;
         _loggers[newID]._enable = true;
         _loggers[newID]._key = copyKey;
         _loggers[newID]._name = copyKey;
     }
-    
+
     return newID;
 }
-
 
 bool LogerManager::start()
 {
@@ -1323,25 +1315,25 @@ bool LogerManager::prePushLog(LoggerId id, int level)
     }
     return true;
 }
-bool LogerManager::pushLog(LoggerId id, int level, const char * log, const char * file, int line)
+bool LogerManager::pushLog(LoggerId id, int level, const char *log, const char *file, int line)
 {
     // discard log
     if (id < 0 || id > _lastId || !_runing || !_loggers[id]._enable)
     {
         return false;
     }
-    
+
     //filter log
     if (level < _loggers[id]._level)
     {
         return false;
     }
-    
+
     //create log data
-    LogData * pLog = new LogData;
-    pLog->_id =id;
+    LogData *pLog = new LogData;
+    pLog->_id = id;
     pLog->_level = level;
-    
+
     //append precise time to log
     {
 #ifdef WIN32
@@ -1350,19 +1342,19 @@ bool LogerManager::pushLog(LoggerId id, int level, const char * log, const char 
         unsigned long long now = ft.dwHighDateTime;
         now <<= 32;
         now |= ft.dwLowDateTime;
-        now /=10;
-        now -=11644473600000000ULL;
-        now /=1000;
-        pLog->_time = now/1000;
-        pLog->_precise = (unsigned int)(now%1000);
+        now /= 10;
+        now -= 11644473600000000ULL;
+        now /= 1000;
+        pLog->_time = now / 1000;
+        pLog->_precise = (unsigned int)(now % 1000);
 #else
         struct timeval tm;
         gettimeofday(&tm, NULL);
         pLog->_time = tm.tv_sec;
-        pLog->_precise = tm.tv_usec/1000;
+        pLog->_precise = tm.tv_usec / 1000;
 #endif
     }
-    
+
     //format log
     {
         tm tt = timeToTm(pLog->_time);
@@ -1387,23 +1379,29 @@ bool LogerManager::pushLog(LoggerId id, int level, const char * log, const char 
             }
             if (ret >= LOG4Z_LOG_BUF_SIZE)
             {
-                ret = LOG4Z_LOG_BUF_SIZE-1;
+                ret = LOG4Z_LOG_BUF_SIZE - 1;
             }
-            
+
             pLog->_contentLen = ret;
 #endif
         }
         else
         {
-            const char * pNameBegin = file+strlen(file);
+            const char *pNameBegin = file + strlen(file);
             do
             {
-                if (*pNameBegin == '\\' || *pNameBegin == '/'){ pNameBegin++; break;}
-                if (pNameBegin == file){break;}
+                if (*pNameBegin == '\\' || *pNameBegin == '/')
+                {
+                    pNameBegin++;
+                    break;
+                }
+                if (pNameBegin == file)
+                {
+                    break;
+                }
                 pNameBegin--;
             } while (true);
-            
-            
+
 #ifdef WIN32
             int ret = _snprintf_s(pLog->_content, LOG4Z_LOG_BUF_SIZE, _TRUNCATE, "%d-%02d-%02d %02d:%02d:%02d.%03d %s %s (%s):%d \r\n",
                                   tt.tm_year + 1900, tt.tm_mon + 1, tt.tm_mday, tt.tm_hour, tt.tm_min, tt.tm_sec, pLog->_precise,
@@ -1423,33 +1421,32 @@ bool LogerManager::pushLog(LoggerId id, int level, const char * log, const char 
             }
             if (ret >= LOG4Z_LOG_BUF_SIZE)
             {
-                ret = LOG4Z_LOG_BUF_SIZE-1;
+                ret = LOG4Z_LOG_BUF_SIZE - 1;
             }
-            
+
             pLog->_contentLen = ret;
 #endif
         }
-        
+
         if (pLog->_contentLen >= 2)
         {
             pLog->_content[pLog->_contentLen - 2] = '\r';
             pLog->_content[pLog->_contentLen - 1] = '\n';
         }
-        
     }
-    
+
     if (_loggers[pLog->_id]._display && LOG4Z_ALL_SYNCHRONOUS_OUTPUT)
     {
         showColorText(pLog->_content, pLog->_level);
     }
-    
+
     if (LOG4Z_ALL_DEBUGOUTPUT_DISPLAY && LOG4Z_ALL_SYNCHRONOUS_OUTPUT)
     {
 #ifdef WIN32
         OutputDebugStringA(pLog->_content);
 #endif
     }
-    
+
     if (_loggers[pLog->_id]._outfile && LOG4Z_ALL_SYNCHRONOUS_OUTPUT)
     {
         AutoLock l(_logLock);
@@ -1461,21 +1458,21 @@ bool LogerManager::pushLog(LoggerId id, int level, const char * log, const char 
             _ullStatusTotalWriteFileBytes += pLog->_contentLen;
         }
     }
-    
+
     if (LOG4Z_ALL_SYNCHRONOUS_OUTPUT)
     {
         delete pLog;
         return true;
     }
-    
+
     AutoLock l(_logLock);
     _logs.push_back(pLog);
-    _ullStatusTotalPushLog ++;
+    _ullStatusTotalPushLog++;
     return true;
 }
 
 //! 查找ID
-LoggerId LogerManager::findLogger(const char * key)
+LoggerId LogerManager::findLogger(const char *key)
 {
     std::map<std::string, LoggerId>::iterator iter;
     iter = _ids.find(key);
@@ -1487,7 +1484,8 @@ LoggerId LogerManager::findLogger(const char * key)
 }
 bool LogerManager::enableLogger(LoggerId id, bool enable)
 {
-    if (id <0 || id > _lastId) return false;
+    if (id < 0 || id > _lastId)
+        return false;
     _loggers[id]._enable = enable;
     if (enable)
     {
@@ -1497,48 +1495,59 @@ bool LogerManager::enableLogger(LoggerId id, bool enable)
 }
 bool LogerManager::setLoggerLevel(LoggerId id, int level)
 {
-    if (id <0 || id > _lastId || level < LOG_LEVEL_TRACE || level >LOG_LEVEL_FATAL) return false;
+    if (id < 0 || id > _lastId || level < LOG_LEVEL_TRACE || level > LOG_LEVEL_FATAL)
+        return false;
     _loggers[id]._level = level;
     return true;
 }
 bool LogerManager::setLoggerDisplay(LoggerId id, bool enable)
 {
-    if (id <0 || id > _lastId) return false;
+    if (id < 0 || id > _lastId)
+        return false;
     _loggers[id]._display = enable;
     return true;
 }
 bool LogerManager::setLoggerOutFile(LoggerId id, bool enable)
 {
-    if (id <0 || id > _lastId) return false;
+    if (id < 0 || id > _lastId)
+        return false;
     _loggers[id]._outfile = enable;
     return true;
 }
 bool LogerManager::setLoggerMonthdir(LoggerId id, bool enable)
 {
-    if (id <0 || id > _lastId) return false;
+    if (id < 0 || id > _lastId)
+        return false;
     _loggers[id]._monthdir = enable;
     return true;
 }
 bool LogerManager::setLoggerLimitsize(LoggerId id, unsigned int limitsize)
 {
-    if (id <0 || id > _lastId) return false;
-    if (limitsize == 0 ) {limitsize = (unsigned int)-1;}
+    if (id < 0 || id > _lastId)
+        return false;
+    if (limitsize == 0)
+    {
+        limitsize = (unsigned int)-1;
+    }
     _loggers[id]._limitsize = limitsize;
     return true;
 }
 bool LogerManager::setLoggerFileLine(LoggerId id, bool enable)
 {
-    if (id <0 || id > _lastId) return false;
+    if (id < 0 || id > _lastId)
+        return false;
     _loggers[id]._fileLine = enable;
     return true;
 }
 
-bool LogerManager::setLoggerName(LoggerId id, const char * name)
+bool LogerManager::setLoggerName(LoggerId id, const char *name)
 {
-    if (id <0 || id > _lastId) return false;
+    if (id < 0 || id > _lastId)
+        return false;
     //the name by main logger is the process name and it's can't change.
-    if (id == LOG4Z_MAIN_LOGGER_ID) return false;
-    
+    if (id == LOG4Z_MAIN_LOGGER_ID)
+        return false;
+
     if (name == NULL || strlen(name) == 0)
     {
         return false;
@@ -1552,9 +1561,10 @@ bool LogerManager::setLoggerName(LoggerId id, const char * name)
     return true;
 }
 
-bool LogerManager::setLoggerPath(LoggerId id, const char * path)
+bool LogerManager::setLoggerPath(LoggerId id, const char *path)
 {
-    if (id <0 || id > _lastId) return false;
+    if (id < 0 || id > _lastId)
+        return false;
     std::string copyPath;
     if (path == NULL || strlen(path) == 0)
     {
@@ -1564,7 +1574,7 @@ bool LogerManager::setLoggerPath(LoggerId id, const char * path)
     {
         copyPath = path;
     }
-    
+
     {
         char ch = copyPath.at(copyPath.length() - 1);
         if (ch != '\\' && ch != '/')
@@ -1572,7 +1582,7 @@ bool LogerManager::setLoggerPath(LoggerId id, const char * path)
             copyPath.append("/");
         }
     }
-    
+
     AutoLock l(_hotLock);
     if (copyPath != _loggers[id]._path)
     {
@@ -1607,39 +1617,39 @@ bool LogerManager::updateConfig()
 
 bool LogerManager::isLoggerEnable(LoggerId id)
 {
-    if (id <0 || id > _lastId) return false;
+    if (id < 0 || id > _lastId)
+        return false;
     return _loggers[id]._enable;
 }
 
 unsigned int LogerManager::getStatusActiveLoggers()
 {
     unsigned int actives = 0;
-    for (int i=0; i<= _lastId; i++)
+    for (int i = 0; i <= _lastId; i++)
     {
         if (_loggers[i]._enable)
         {
-            actives ++;
+            actives++;
         }
     }
     return actives;
 }
 
-
-bool LogerManager::openLogger(LogData * pLog)
+bool LogerManager::openLogger(LogData *pLog)
 {
     int id = pLog->_id;
-    if (id < 0 || id >_lastId)
+    if (id < 0 || id > _lastId)
     {
         showColorText("log4z: openLogger can not open, invalide logger id! \r\n", LOG_LEVEL_FATAL);
         return false;
     }
-    
-    LoggerInfo * pLogger = &_loggers[id];
+
+    LoggerInfo *pLogger = &_loggers[id];
     if (!pLogger->_enable || !pLogger->_outfile || pLog->_level < pLogger->_level)
     {
         return false;
     }
-    
+
     bool sameday = isSameDay(pLog->_time, pLogger->_curFileCreateTime);
     bool needChageFile = pLogger->_curWriteLen > pLogger->_limitsize * 1024 * 1024;
     if (!sameday || needChageFile || pLogger->_hotChange)
@@ -1661,7 +1671,7 @@ bool LogerManager::openLogger(LogData * pLog)
     {
         pLogger->_curFileCreateTime = pLog->_time;
         pLogger->_curWriteLen = 0;
-        
+
         tm t = timeToTm(pLogger->_curFileCreateTime);
         std::string name;
         std::string path;
@@ -1670,19 +1680,19 @@ bool LogerManager::openLogger(LogData * pLog)
         path = pLogger->_path;
         pLogger->_hotChange = false;
         _hotLock.unLock();
-        
-        char buf[100] = { 0 };
+
+        char buf[100] = {0};
         if (pLogger->_monthdir)
         {
             sprintf(buf, "%04d_%02d/", t.tm_year + 1900, t.tm_mon + 1);
             path += buf;
         }
-        
+
         if (!isDirectory(path))
         {
             createRecursionDir(path);
         }
-        
+
         sprintf(buf, "%s_%04d%02d%02d%02d%02d_%s_%03d.log",
                 name.c_str(), t.tm_year + 1900, t.tm_mon + 1, t.tm_mday,
                 t.tm_hour, t.tm_min, _pid.c_str(), pLogger->_curFileIndex);
@@ -1699,12 +1709,12 @@ bool LogerManager::openLogger(LogData * pLog)
 }
 bool LogerManager::closeLogger(LoggerId id)
 {
-    if (id < 0 || id >_lastId)
+    if (id < 0 || id > _lastId)
     {
         showColorText("log4z: closeLogger can not close, invalide logger id! \r\n", LOG_LEVEL_FATAL);
         return false;
     }
-    LoggerInfo * pLogger = &_loggers[id];
+    LoggerInfo *pLogger = &_loggers[id];
     if (pLogger->_handle.isOpen())
     {
         pLogger->_handle.close();
@@ -1712,7 +1722,7 @@ bool LogerManager::closeLogger(LoggerId id)
     }
     return false;
 }
-bool LogerManager::popLog(LogData *& log)
+bool LogerManager::popLog(LogData *&log)
 {
     AutoLock l(_logLock);
     if (_logs.empty())
@@ -1733,38 +1743,36 @@ void LogerManager::run()
         if (_loggers[i]._enable)
         {
             std::stringstream ss;
-            ss <<"logger id=" <<i 
-            <<" key=" <<_loggers[i]._key
-            <<" name=" <<_loggers[i]._name
-            <<" path=" <<_loggers[i]._path
-            <<" level=" << _loggers[i]._level
-            <<" display=" << _loggers[i]._display;
+            ss << "logger id=" << i
+               << " key=" << _loggers[i]._key
+               << " name=" << _loggers[i]._name
+               << " path=" << _loggers[i]._path
+               << " level=" << _loggers[i]._level
+               << " display=" << _loggers[i]._display;
             pushLog(0, LOG_LEVEL_ALARM, ss.str().c_str(), NULL, 0);
         }
     }
-    
+
     _semaphore.post();
-    
-    
-    LogData * pLog = NULL;
+
+    LogData *pLog = NULL;
     int needFlush[LOG4Z_LOGGER_MAX] = {0};
     time_t lastCheckUpdate = time(NULL);
     while (true)
     {
-        while(popLog(pLog))
+        while (popLog(pLog))
         {
             //
-            _ullStatusTotalPopLog ++;
+            _ullStatusTotalPopLog++;
             //discard
-            LoggerInfo & curLogger = _loggers[pLog->_id];
-            if (!curLogger._enable || pLog->_level <curLogger._level  )
+            LoggerInfo &curLogger = _loggers[pLog->_id];
+            if (!curLogger._enable || pLog->_level < curLogger._level)
             {
                 delete pLog;
                 pLog = NULL;
                 continue;
             }
-            
-            
+
             if (curLogger._display && !LOG4Z_ALL_SYNCHRONOUS_OUTPUT)
             {
                 showColorText(pLog->_content, pLog->_level);
@@ -1775,8 +1783,7 @@ void LogerManager::run()
                 OutputDebugStringA(pLog->_content);
 #endif
             }
-            
-            
+
             if (curLogger._outfile && !LOG4Z_ALL_SYNCHRONOUS_OUTPUT)
             {
                 if (!openLogger(pLog))
@@ -1785,10 +1792,10 @@ void LogerManager::run()
                     pLog = NULL;
                     continue;
                 }
-                
+
                 curLogger._handle.write(pLog->_content, pLog->_contentLen);
                 curLogger._curWriteLen += (unsigned int)pLog->_contentLen;
-                needFlush[pLog->_id] ++;
+                needFlush[pLog->_id]++;
                 _ullStatusTotalWriteFileCount++;
                 _ullStatusTotalWriteFileBytes += pLog->_contentLen;
             }
@@ -1797,44 +1804,41 @@ void LogerManager::run()
                 _ullStatusTotalWriteFileCount++;
                 _ullStatusTotalWriteFileBytes += pLog->_contentLen;
             }
-            
+
             delete pLog;
             pLog = NULL;
         }
-        
-        for (int i=0; i<=_lastId; i++)
+
+        for (int i = 0; i <= _lastId; i++)
         {
             if (_loggers[i]._enable && needFlush[i] > 0)
             {
                 _loggers[i]._handle.flush();
                 needFlush[i] = 0;
             }
-            if(!_loggers[i]._enable && _loggers[i]._handle.isOpen())
+            if (!_loggers[i]._enable && _loggers[i]._handle.isOpen())
             {
                 _loggers[i]._handle.close();
             }
         }
-        
-        //! delay. 
+
+        //! delay.
         sleepMillisecond(100);
-        
+
         //! quit
         if (!_runing && _logs.empty())
         {
             break;
         }
-        
+
         if (_hotUpdateInterval != 0 && time(NULL) - lastCheckUpdate > _hotUpdateInterval)
         {
             updateConfig();
             lastCheckUpdate = time(NULL);
         }
-        
-        
-        
     }
-    
-    for (int i=0; i <= _lastId; i++)
+
+    for (int i = 0; i <= _lastId; i++)
     {
         if (_loggers[i]._enable)
         {
@@ -1842,19 +1846,16 @@ void LogerManager::run()
             closeLogger(i);
         }
     }
-    
 }
 
 //////////////////////////////////////////////////////////////////////////
 //ILog4zManager::getInstance
 //////////////////////////////////////////////////////////////////////////
-ILog4zManager * ILog4zManager::getInstance()
+ILog4zManager *ILog4zManager::getInstance()
 {
     static LogerManager m;
     return &m;
 }
-
-
 
 _ZSUMMER_LOG4Z_END
 _ZSUMMER_END

@@ -228,9 +228,8 @@ void CFileHandler::HandleFileHasOfflineRes(CImPdu *pPdu)
     CDbAttachData attach((uchar_t *)msg.attach_data().c_str(), msg.attach_data().length());
     log("HandleFileHasOfflineRes, req_id=%u, file_cnt=%u ", req_user_id, file_cnt);
 
-    CMsgConn *pConn = CImUserManager::GetInstance()->GetMsgConnByHandle(req_user_id,
-                                                                        attach.GetHandle());
-    CFileServConn *pFileConn = get_random_file_serv_conn();
+    CMsgConn        *pConn      = CImUserManager::GetInstance()->GetMsgConnByHandle(req_user_id, attach.GetHandle());
+    CFileServConn   *pFileConn  = get_random_file_serv_conn();
     const list<IM::BaseDefine::IpAddr> *ip_list = NULL;
     if (pFileConn)
     {

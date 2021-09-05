@@ -11,9 +11,9 @@
 #include <assert.h>
 #include "Condition.h"
 
-CCondition::CCondition(CLock* pLock):m_pLock(pLock)
+CCondition::CCondition(CLock *pLock) : m_pLock(pLock)
 {
-    if(!pLock)
+    if (!pLock)
     {
         assert(false);
     }
@@ -40,7 +40,7 @@ bool CCondition::waitTime(uint64_t nWaitTime)
     uint64_t nNsec = nTime % (1000000000);
     sTime.tv_sec = time(NULL) + (uint32_t)nSec;
     sTime.tv_nsec = (uint32_t)nNsec;
-    if(ETIMEDOUT == pthread_cond_timedwait(&m_cond, &m_pLock->getMutex(), &sTime))
+    if (ETIMEDOUT == pthread_cond_timedwait(&m_cond, &m_pLock->getMutex(), &sTime))
     {
         return false;
     }

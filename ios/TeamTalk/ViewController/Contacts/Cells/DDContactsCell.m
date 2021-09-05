@@ -28,7 +28,7 @@
             make.centerY.equalTo(self.contentView);
             make.left.mas_equalTo(10);
         }];
-//        [self.avatar setContentMode:UIViewContentModeScaleAspectFill];
+        [self.avatar setContentMode:UIViewContentModeScaleAspectFill];
         [self.avatar setClipsToBounds:YES];
         [self.avatar.layer setCornerRadius:2.0];
         

@@ -350,4 +350,3 @@ HTTP_ERROR_CODE CHttpQuery::_CheckPermission(const string &strAppKey, uint8_t nT
     strMsg.clear();
     return HTTP_ERROR_SUCCESS;
 }
-

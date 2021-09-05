@@ -145,7 +145,7 @@ static uint32_t seqNo = 0;
         SendMessageAPI* sendVoiceMessageAPI = [[SendMessageAPI alloc] init];
         
         NSString* myUserID = [RuntimeStatus instance].user.objID;
-        NSArray* object = @[myUserID,sessionID,voice,@(msg.msgType),@(0)];
+        NSArray* object = @[myUserID, sessionID, voice,@(msg.msgType), @(0)];
         [sendVoiceMessageAPI requestWithObject:object Completion:^(id response, NSError *error) {
             if (!error)
             {

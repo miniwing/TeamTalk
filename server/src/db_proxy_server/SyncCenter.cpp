@@ -21,20 +21,20 @@
 #include "business/GroupModel.h"
 #include "business/SessionModel.h"
 
-static CLock* g_pLock = new CLock();
+static CLock *g_pLock = new CLock();
 static CRWLock *g_pRWDeptLock = new CRWLock();
 
-CSyncCenter* CSyncCenter::m_pInstance = NULL;
+CSyncCenter *CSyncCenter::m_pInstance = NULL;
 bool CSyncCenter::m_bSyncGroupChatRuning = false;
 /**
  *  单例
  *
  *  @return 返回CSyncCenter的单例指针
  */
-CSyncCenter* CSyncCenter::getInstance()
+CSyncCenter *CSyncCenter::getInstance()
 {
     CAutoLock autoLock(g_pLock);
-    if(m_pInstance == NULL)
+    if (m_pInstance == NULL)
     {
         m_pInstance = new CSyncCenter();
     }
@@ -45,10 +45,10 @@ CSyncCenter* CSyncCenter::getInstance()
  *  构造函数
  */
 CSyncCenter::CSyncCenter()
-:m_nGroupChatThreadId(0),
-m_nLastUpdateGroup(time(NULL)),
-m_bSyncGroupChatWaitting(true),
-m_pLockGroupChat(new CLock())
+    : m_nGroupChatThreadId(0),
+      m_nLastUpdateGroup(time(NULL)),
+      m_bSyncGroupChatWaitting(true),
+      m_pLockGroupChat(new CLock())
 //m_pLock(new CLock())
 {
     m_pCondGroupChat = new CCondition(m_pLockGroupChat);
@@ -59,20 +59,21 @@ m_pLockGroupChat(new CLock())
  */
 CSyncCenter::~CSyncCenter()
 {
-    if(m_pLockGroupChat != NULL)
+    if (m_pLockGroupChat != NULL)
     {
         delete m_pLockGroupChat;
     }
-    if(m_pCondGroupChat != NULL)
+    if (m_pCondGroupChat != NULL)
     {
         delete m_pCondGroupChat;
     }
 }
 
-void CSyncCenter::getDept(uint32_t nDeptId, DBDeptInfo_t** pDept)
+void CSyncCenter::getDept(uint32_t nDeptId, DBDeptInfo_t **pDept)
 {
     auto it = m_pDeptInfo->find(nDeptId);
-    if (it != m_pDeptInfo->end()) {
+    if (it != m_pDeptInfo->end())
+    {
         *pDept = it->second;
     }
 }
@@ -81,10 +82,12 @@ string CSyncCenter::getDeptName(uint32_t nDeptId)
 {
     CAutoRWLock autoLock(g_pRWDeptLock);
     string strDeptName;
-    DBDeptInfo_t* pDept = NULL;;
+    DBDeptInfo_t *pDept = NULL;
+    ;
     getDept(nDeptId, &pDept);
-    if (pDept != NULL) {
-        strDeptName =  pDept->strName;
+    if (pDept != NULL)
+    {
+        strDeptName = pDept->strName;
     }
     return strDeptName;
 }
@@ -107,7 +110,8 @@ void CSyncCenter::stopSync()
 {
     m_bSyncGroupChatWaitting = false;
     m_pCondGroupChat->notify();
-    while (m_bSyncGroupChatRuning ) {
+    while (m_bSyncGroupChatRuning)
+    {
         usleep(500);
     }
 }
@@ -118,16 +122,16 @@ void CSyncCenter::stopSync()
 void CSyncCenter::init()
 {
     // Load total update time
-    CacheManager* pCacheManager = CacheManager::getInstance();
+    CacheManager *pCacheManager = CacheManager::getInstance();
     // increase message count
-    CacheConn* pCacheConn = pCacheManager->GetCacheConn("unread");
+    CacheConn *pCacheConn = pCacheManager->GetCacheConn("unread");
     if (pCacheConn)
     {
         string strTotalUpdate = pCacheConn->get("total_user_updated");
 
         string strLastUpdateGroup = pCacheConn->get("last_update_group");
         pCacheManager->RelCacheConn(pCacheConn);
-	if(strTotalUpdate != "")
+        if (strTotalUpdate != "")
         {
             m_nLastUpdate = string2int(strTotalUpdate);
         }
@@ -135,7 +139,7 @@ void CSyncCenter::init()
         {
             updateTotalUpdate(time(NULL));
         }
-        if(strLastUpdateGroup.empty())
+        if (strLastUpdateGroup.empty())
         {
             m_nLastUpdateGroup = string2int(strLastUpdateGroup);
         }
@@ -157,9 +161,10 @@ void CSyncCenter::init()
 
 void CSyncCenter::updateTotalUpdate(uint32_t nUpdated)
 {
-    CacheManager* pCacheManager = CacheManager::getInstance();
-    CacheConn* pCacheConn = pCacheManager->GetCacheConn("unread");
-    if (pCacheConn) {
+    CacheManager *pCacheManager = CacheManager::getInstance();
+    CacheConn *pCacheConn = pCacheManager->GetCacheConn("unread");
+    if (pCacheConn)
+    {
         last_update_lock_.lock();
         m_nLastUpdate = nUpdated;
         last_update_lock_.unlock();
@@ -180,14 +185,15 @@ void CSyncCenter::updateTotalUpdate(uint32_t nUpdated)
  */
 void CSyncCenter::updateLastUpdateGroup(uint32_t nUpdated)
 {
-    CacheManager* pCacheManager = CacheManager::getInstance();
-    CacheConn* pCacheConn = pCacheManager->GetCacheConn("unread");
-    if (pCacheConn) {
+    CacheManager *pCacheManager = CacheManager::getInstance();
+    CacheConn *pCacheConn = pCacheManager->GetCacheConn("unread");
+    if (pCacheConn)
+    {
         last_update_lock_.lock();
         m_nLastUpdateGroup = nUpdated;
         string strUpdated = int2string(nUpdated);
         last_update_lock_.unlock();
-  
+
         pCacheConn->set("last_update_group", strUpdated);
         pCacheManager->RelCacheConn(pCacheConn);
     }
@@ -204,24 +210,26 @@ void CSyncCenter::updateLastUpdateGroup(uint32_t nUpdated)
  *
  *  @return NULL
  */
-void* CSyncCenter::doSyncGroupChat(void* arg)
+void *CSyncCenter::doSyncGroupChat(void *arg)
 {
     m_bSyncGroupChatRuning = true;
-    CDBManager* pDBManager = CDBManager::getInstance();
+    CDBManager *pDBManager = CDBManager::getInstance();
     map<uint32_t, uint32_t> mapChangedGroup;
-    do{
+    do
+    {
         mapChangedGroup.clear();
-        CDBConn* pDBConn = pDBManager->GetDBConn("teamtalk_slave");
-        if(pDBConn)
+        CDBConn *pDBConn = pDBManager->GetDBConn("teamtalk_slave");
+        if (pDBConn)
         {
             string strSql = "select id, lastChated from IMGroup where status=0 and lastChated >=" + int2string(m_pInstance->getLastUpdateGroup());
-            CResultSet* pResult = pDBConn->ExecuteQuery(strSql.c_str());
-            if(pResult)
+            CResultSet *pResult = pDBConn->ExecuteQuery(strSql.c_str());
+            if (pResult)
             {
-                while (pResult->Next()) {
+                while (pResult->Next())
+                {
                     uint32_t nGroupId = pResult->GetInt("id");
                     uint32_t nLastChat = pResult->GetInt("lastChated");
-                    if(nLastChat != 0)
+                    if (nLastChat != 0)
                     {
                         mapChangedGroup[nGroupId] = nLastChat;
                     }
@@ -235,18 +243,18 @@ void* CSyncCenter::doSyncGroupChat(void* arg)
             log("no db connection for teamtalk_slave");
         }
         m_pInstance->updateLastUpdateGroup(time(NULL));
-        for (auto it=mapChangedGroup.begin(); it!=mapChangedGroup.end(); ++it)
+        for (auto it = mapChangedGroup.begin(); it != mapChangedGroup.end(); ++it)
         {
-            uint32_t nGroupId =it->first;
+            uint32_t nGroupId = it->first;
             list<uint32_t> lsUsers;
             uint32_t nUpdate = it->second;
             CGroupModel::getInstance()->getGroupUser(nGroupId, lsUsers);
-            for (auto it1=lsUsers.begin(); it1!=lsUsers.end(); ++it1)
+            for (auto it1 = lsUsers.begin(); it1 != lsUsers.end(); ++it1)
             {
                 uint32_t nUserId = *it1;
                 uint32_t nSessionId = INVALID_VALUE;
                 nSessionId = CSessionModel::getInstance()->getSessionId(nUserId, nGroupId, IM::BaseDefine::SESSION_TYPE_GROUP, true);
-                if(nSessionId != INVALID_VALUE)
+                if (nSessionId != INVALID_VALUE)
                 {
                     CSessionModel::getInstance()->updateSession(nSessionId, nUpdate);
                 }
@@ -256,9 +264,9 @@ void* CSyncCenter::doSyncGroupChat(void* arg)
                 }
             }
         }
-//    } while (!m_pInstance->m_pCondSync->waitTime(5*1000));
-    } while (m_pInstance->m_bSyncGroupChatWaitting && !(m_pInstance->m_pCondGroupChat->waitTime(5*1000)));
-//    } while(m_pInstance->m_bSyncGroupChatWaitting);
+        //    } while (!m_pInstance->m_pCondSync->waitTime(5*1000));
+    } while (m_pInstance->m_bSyncGroupChatWaitting && !(m_pInstance->m_pCondGroupChat->waitTime(5 * 1000)));
+    //    } while(m_pInstance->m_bSyncGroupChatWaitting);
     m_bSyncGroupChatRuning = false;
     return NULL;
 }

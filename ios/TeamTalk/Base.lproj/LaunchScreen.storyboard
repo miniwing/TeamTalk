@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -42,18 +42,26 @@
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" text="TeamTalk+" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s0W-jR-KoO">
+                                <rect key="frame" x="97.333333333333329" y="463.33333333333331" width="180.33333333333337" height="48"/>
+                                <fontDescription key="fontDescription" type="italicSystem" pointSize="40"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="ery-ie-DCG" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="5cS-TY-unH"/>
                             <constraint firstItem="aeb-Uj-OvM" firstAttribute="width" secondItem="aeb-Uj-OvM" secondAttribute="height" multiplier="1242:498" id="6kf-mZ-YBF"/>
+                            <constraint firstItem="s0W-jR-KoO" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" multiplier="1.2:1" id="B1Z-qd-Whh"/>
                             <constraint firstItem="5xR-O2-QZb" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="width" multiplier="0.309017:1" id="HKS-67-Fr4"/>
                             <constraint firstItem="QCE-Ib-XTt" firstAttribute="top" secondItem="aeb-Uj-OvM" secondAttribute="bottom" id="NI1-KC-PGC"/>
                             <constraint firstAttribute="trailing" secondItem="ery-ie-DCG" secondAttribute="trailing" id="OcX-FV-PVp"/>
                             <constraint firstAttribute="bottom" secondItem="QCE-Ib-XTt" secondAttribute="bottom" constant="20" id="YLS-RG-9f6"/>
                             <constraint firstItem="5xR-O2-QZb" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="ZmA-jg-2ly"/>
                             <constraint firstAttribute="trailing" secondItem="QCE-Ib-XTt" secondAttribute="trailing" id="bdc-zQ-GfR"/>
+                            <constraint firstItem="s0W-jR-KoO" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="h5o-Fp-jV0"/>
                             <constraint firstItem="QCE-Ib-XTt" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="h6N-wP-Mj7"/>
                             <constraint firstAttribute="bottom" secondItem="ery-ie-DCG" secondAttribute="bottom" id="l58-Bm-4bu"/>
                             <constraint firstItem="5xR-O2-QZb" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" multiplier="0.618:1" id="owt-fy-Wcf"/>
@@ -71,6 +79,6 @@
     <resources>
         <image name="BOTTOM.png" width="1242" height="498"/>
         <image name="LAUNCH.png" width="2239" height="1206"/>
-        <image name="SPONSOR.png" width="1024" height="1024"/>
+        <image name="SPONSOR.png" width="512" height="512"/>
     </resources>
 </document>
