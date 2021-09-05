@@ -82,6 +82,7 @@
 - (void)loginStateChange:(NSNotification *)notification {
    
    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeBlack];
+   
    BOOL loginSuccess = [notification.object boolValue];
    
    if (isLogin || loginSuccess) {
@@ -105,31 +106,47 @@
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
+   
    // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
    // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
+   
    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
    
    if ([[SessionModule instance]getAllUnreadMessageCount] == 0) {
+      
       [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
-   }else{
+   }
+   else {
+      
       [[UIApplication sharedApplication] setApplicationIconBadgeNumber:[[SessionModule instance]getAllUnreadMessageCount]];
    }
+   
+   return;
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
+   
    // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+   
+   return;
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
+   
    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+
+   return;
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
+   
    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+
+   return;
 }
 
 //#ifdef __IPHONE_8_0
@@ -150,33 +167,47 @@
 //#endif
 
 - (void)application:(UIApplication *)app didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+   
    NSString *token = [NSString stringWithFormat:@"%@", deviceToken];
    NSString *dt = [token stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
    NSString *dn = [dt stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
    TheRuntime.pushToken= [dn stringByReplacingOccurrencesOfString:@" " withString:@""];
    [GeTuiSdk registerDeviceToken:TheRuntime.pushToken];
+
+   return;
 }
 
 - (void)application:(UIApplication *)app didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+   
    NSString *error_str = [NSString stringWithFormat: @"%@", error];
+
+   return;
 }
+
 // 处理推送消息
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo{
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+   
    UIApplicationState state =application.applicationState;
    if ( state != UIApplicationStateBackground) {
+      
       return;
    }
+   
    NSString *jsonString = [userInfo safeObjectForKey:@"custom"];
    NSData* infoData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
    NSDictionary* info = [NSJSONSerialization JSONObjectWithData:infoData options:0 error:nil];
    NSInteger from_id =[[info safeObjectForKey:@"from_id"] integerValue];
    SessionType type = (SessionType)[[info safeObjectForKey:@"msg_type"] integerValue];
    NSInteger group_id =[[info safeObjectForKey:@"group_id"] integerValue];
+   
    if (from_id) {
+      
       NSInteger sessionId = type==1?from_id:group_id;
       MTTSessionEntity *session = [[MTTSessionEntity alloc] initWithSessionID:[MTTUtil changeOriginalToLocalID:(UInt32)sessionId SessionType:(int)type] type:type] ;
       [[ChattingMainViewController shareInstance] showChattingContentForSession:session];
    }
+
+   return;
 }
 
 - (void)GeTuiSdkDidRegisterClient:(NSString *)clientId {
