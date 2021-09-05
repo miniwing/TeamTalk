@@ -8,11 +8,11 @@
 
 #include "session_manager.h"
 #include "push_define.h"
-#define TIMER_INDEX_CHECK_PUSHSESSION           1
+#define TIMER_INDEX_CHECK_PUSHSESSION 1
 
-#define TIME_CHECK_PUSHSESSION                  5000
+#define TIME_CHECK_PUSHSESSION 5000
 
-#define TIMEOUT_PUSHSESSION                     30 * 1000
+#define TIMEOUT_PUSHSESSION 30 * 1000
 CSessionManager::CSessionManager()
 {
 }
@@ -25,7 +25,7 @@ CSessionManager::~CSessionManager()
     ClearPushSession();
 }
 
-CSessionManager* CSessionManager::GetInstance()
+CSessionManager *CSessionManager::GetInstance()
 {
     static CSessionManager session_manager;
     return &session_manager;
@@ -33,13 +33,14 @@ CSessionManager* CSessionManager::GetInstance()
 
 void CSessionManager::TimerProc(int32_t nIndex, void *param)
 {
-    CSessionManager* pInstance = (CSessionManager*)param;
-    switch (nIndex) {
-        case TIMER_INDEX_CHECK_PUSHSESSION:
-            pInstance->CheckPushSessionTimeOut();
-            break;
-        default:
-            break;
+    CSessionManager *pInstance = (CSessionManager *)param;
+    switch (nIndex)
+    {
+    case TIMER_INDEX_CHECK_PUSHSESSION:
+        pInstance->CheckPushSessionTimeOut();
+        break;
+    default:
+        break;
     }
 }
 

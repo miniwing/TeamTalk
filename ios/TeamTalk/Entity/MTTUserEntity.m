@@ -37,7 +37,7 @@
 //    return _avatar;
 //}
 
-+(NSMutableDictionary *)userToDic:(MTTUserEntity *)user
++ (NSMutableDictionary *)userToDic:(MTTUserEntity *)user
 {
     NSMutableDictionary *dic = [NSMutableDictionary new];
     [dic safeSetObject:user.objID forKey:@"userId"];
@@ -105,7 +105,7 @@
 //@"updateTime":@(updateTime),
 //@"token":token,
 //@"userType":@(userType)
-+(id)dicToUserEntity:(NSDictionary *)dic
++ (id)dicToUserEntity:(NSDictionary *)dic
 {
     MTTUserEntity *user = [MTTUserEntity new];
     user.objID = [dic safeObjectForKey:@"userId"];
@@ -171,11 +171,11 @@
     
     return objIDHash^nameHash^nickHash^pynameHash;
 }
-+(NSString *)pbUserIdToLocalID:(NSUInteger)userID
++ (NSString *)pbUserIdToLocalID:(NSUInteger)userID
 {
     return [NSString stringWithFormat:@"%@%ld",USER_PRE,userID];
 }
-+(UInt32)localIDTopb:(NSString *)userid
++ (UInt32)localIDTopb:(NSString *)userid
 {
     if (![userid hasPrefix:USER_PRE]) {
         return 0;

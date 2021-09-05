@@ -13,9 +13,9 @@
 
 #pragma mark - 拼音
 
-+(char)pinyinFirstLetter:(unsigned short)hanzi;
++ (char)pinyinFirstLetter:(unsigned short)hanzi;
 
-+(char)getFirstChar:(const NSString *)str;
++ (char)getFirstChar:(const NSString *)str;
 
 #pragma mark - loginOut
 
@@ -27,48 +27,48 @@
 
 #pragma mark - OriginalID & sessionID
 
-+(UInt32)changeIDToOriginal:(NSString *)sessionID;
++ (UInt32)changeIDToOriginal:(NSString *)sessionID;
 
-+(NSString *)changeOriginalToLocalID:(UInt32)orignalID SessionType:(int)sessionType;
++ (NSString *)changeOriginalToLocalID:(UInt32)orignalID SessionType:(int)sessionType;
 
 #pragma mark - fiexed top
 
 // 设置置顶
 + (void)setFixedTop:(NSString *)sessionID;
 // 获取置顶
-+(NSArray *)getFixedTop;
++ (NSArray *)getFixedTop;
 // 移除置顶
 + (void)removeFixedTop:(NSString *)sessionID;
 // 检查置顶
-+(BOOL)checkFixedTop:(NSString *)sessionID;
++ (BOOL)checkFixedTop:(NSString *)sessionID;
 
 #pragma mark - new function
 
 //是否使用签名功能
-+(BOOL)isUseFunctionBubble;
++ (BOOL)isUseFunctionBubble;
 
 //使用签名功能
 + (void)useFunctionBubble;
 
 #pragma mark - image trans
 
-+(CGSize)sizeTrans:(CGSize)size;
++ (CGSize)sizeTrans:(CGSize)size;
 
 #pragma mark - 气泡功能
-+(NSString *)getBubbleTypeLeft:(BOOL)left;
++ (NSString *)getBubbleTypeLeft:(BOOL)left;
 + (void)setBubbleTypeLeft:(NSString *)bubbleType left:(BOOL)left;
 #pragma mark - 图片发送预览时间记载
 + (void)setLastPhotoTime:(NSDate *)date;
-+(NSDate *)getLastPhotoTime;
++ (NSDate *)getLastPhotoTime;
 #pragma mark - 抖动功能
 + (void)setLastShakeTime:(NSDate *)date;
-+(BOOL)ifCanShake;
++ (BOOL)ifCanShake;
 #pragma mark - dbversion
 + (void)setDBVersion:(NSInteger)version;
-+(NSInteger)getDBVersion;
++ (NSInteger)getDBVersion;
 + (void)setLastDBVersion:(NSInteger)version;
-+(NSInteger)getLastDBVersion;
++ (NSInteger)getLastDBVersion;
 #pragma mark - msfs
 + (void)setMsfsUrl:(NSString*)url;
-+(NSString*)getMsfsUrl;
++ (NSString*)getMsfsUrl;
 @end

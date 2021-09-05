@@ -80,7 +80,7 @@ _ZSUMMER_BEGIN
 _ZSUMMER_LOG4Z_BEGIN
 
 static const char *const LOG_STRING[] =
-{
+    {
         "LOG_TRACE",
         "LOG_DEBUG",
         "LOG_INFO ",

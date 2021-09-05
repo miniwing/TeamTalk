@@ -23,12 +23,10 @@ map<uint32_t, msg_serv_info_t *> g_msg_serv_info;
 
 void login_conn_timer_callback(void *callback_data, uint8_t msg, uint32_t handle, void *pParam)
 {
-
     uint64_t cur_time = get_tick_count();
 
     for (ConnMap_t::iterator it = g_client_conn_map.begin(); it != g_client_conn_map.end();)
     {
-
         ConnMap_t::iterator it_old = it;
         it++;
 
@@ -38,7 +36,6 @@ void login_conn_timer_callback(void *callback_data, uint8_t msg, uint32_t handle
 
     for (ConnMap_t::iterator it = g_msg_serv_conn_map.begin(); it != g_msg_serv_conn_map.end();)
     {
-
         ConnMap_t::iterator it_old = it;
         it++;
 
@@ -51,7 +48,6 @@ void login_conn_timer_callback(void *callback_data, uint8_t msg, uint32_t handle
 
 void init_login_conn()
 {
-
     netlib_register_timer(login_conn_timer_callback, NULL, 1000);
 
     return;
@@ -59,22 +55,18 @@ void init_login_conn()
 
 CLoginConn::CLoginConn()
 {
-
     return;
 }
 
 CLoginConn::~CLoginConn()
 {
-
     return;
 }
 
 void CLoginConn::Close()
 {
-
     if (m_handle != NETLIB_INVALID_HANDLE)
     {
-
         netlib_close(m_handle);
 
         if (m_conn_type == LOGIN_CONN_TYPE_CLIENT)
@@ -109,7 +101,6 @@ void CLoginConn::Close()
 
 void CLoginConn::OnConnect2(net_handle_t handle, int conn_type)
 {
-
     m_handle = handle;
     m_conn_type = conn_type;
 
@@ -132,7 +123,6 @@ void CLoginConn::OnConnect2(net_handle_t handle, int conn_type)
 
 void CLoginConn::OnClose()
 {
-
     Close();
 
     return;
@@ -140,10 +130,8 @@ void CLoginConn::OnClose()
 
 void CLoginConn::OnTimer(uint64_t curr_tick)
 {
-
     if (m_conn_type == LOGIN_CONN_TYPE_CLIENT)
     {
-
         if (curr_tick > m_last_recv_tick + CLIENT_TIMEOUT)
         {
             Close();
@@ -173,7 +161,6 @@ void CLoginConn::OnTimer(uint64_t curr_tick)
 
 void CLoginConn::HandlePdu(CImPdu *pPdu)
 {
-
     switch (pPdu->GetCommandId())
     {
     case CID_OTHER_HEARTBEAT:

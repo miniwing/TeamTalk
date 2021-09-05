@@ -127,14 +127,14 @@
         }                   \
     } while (0)
 
-#define PROXY_CONNECTION "proxy-connection"
-#define CONNECTION "connection"
-#define CONTENT_LENGTH "content-length"
-#define TRANSFER_ENCODING "transfer-encoding"
-#define UPGRADE "upgrade"
-#define CHUNKED "chunked"
-#define KEEP_ALIVE "keep-alive"
-#define CLOSE "close"
+#define PROXY_CONNECTION    "proxy-connection"
+#define CONNECTION          "connection"
+#define CONTENT_LENGTH      "content-length"
+#define TRANSFER_ENCODING   "transfer-encoding"
+#define UPGRADE             "upgrade"
+#define CHUNKED             "chunked"
+#define KEEP_ALIVE          "keep-alive"
+#define CLOSE               "close"
 
 static const char *method_strings[] =
     {

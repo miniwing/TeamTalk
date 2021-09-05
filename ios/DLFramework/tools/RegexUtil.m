@@ -10,7 +10,7 @@
 
 @implementation RegexUtil
 
-+(BOOL)isChineseName:(NSString *)chineseName
++ (BOOL)isChineseName:(NSString *)chineseName
 {
     NSString *regex = @"^[\u4e00-\u9fa5]+$";
     NSString *target = [chineseName stringByMatching:regex];
@@ -26,7 +26,7 @@
     return NO;
 }
 
-+(BOOL)isMobileNo:(NSString *)mobile
++ (BOOL)isMobileNo:(NSString *)mobile
 {
     NSString *regex = @"^(((86|\\+86|0|)1[3458][0-9]{9})|(\\d{3,4}- (\\d{7,8})))$";
     NSString *target = [mobile stringByMatching:regex];
@@ -36,7 +36,7 @@
     return NO;
 }
 
-+(BOOL)isEmail:(NSString *)email
++ (BOOL)isEmail:(NSString *)email
 {
     NSString *regex = @"\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*";
     NSString *target = [email stringByMatching:regex];
@@ -46,7 +46,7 @@
     return NO;
 }
 
-+(BOOL)isURL:(NSString *)url
++ (BOOL)isURL:(NSString *)url
 {
     NSString *regex = @"^[http|https]+[://]+[0-9A-Za-z:/[-]_#[?][=][.][&]]*";
     NSString *target = [url stringByMatching:regex];
@@ -56,7 +56,7 @@
     return NO;
 }
 
-+(BOOL)isQYLogo:(NSString *)url
++ (BOOL)isQYLogo:(NSString *)url
 {
     NSString *regex = @"http://pbwc.qiniudn.com/qun-logo/(.*)";
     NSString *target = [url stringByMatching:regex capture:1];
@@ -66,7 +66,7 @@
     return NO;
 }
 
-+(NSString *)isBook:(NSString *)url
++ (NSString *)isBook:(NSString *)url
 {
     NSString *bookRegex         = @".*\\/b\\/([0-9a-z]+)$";
     NSString *result = [url stringByMatching:bookRegex capture:1];

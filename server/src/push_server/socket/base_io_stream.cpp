@@ -4,12 +4,12 @@
 
 CSLog g_socketlog = CSLog(LOG_MODULE_SOCKET);
 
-CBaseIOStream::CBaseIOStream(CIOLoop* pio)
+CBaseIOStream::CBaseIOStream(CIOLoop *pio)
 {
-	m_socket = S_INVALID_SOCKET;
-	m_sock_id = CSockIDGenerator::GetInstance()->GetSocketID();
-	m_bCheckTcpConnected = FALSE;
-	m_pio = pio;
+    m_socket = S_INVALID_SOCKET;
+    m_sock_id = CSockIDGenerator::GetInstance()->GetSocketID();
+    m_bCheckTcpConnected = FALSE;
+    m_pio = pio;
 }
 
 CBaseIOStream::~CBaseIOStream(void)
@@ -17,23 +17,22 @@ CBaseIOStream::~CBaseIOStream(void)
     Close();
 }
 
-
 /**	@fn	BOOL CBaseIOStream::Bind(const char* szIP, uint32_t nPort)
 *	@brief 
 *	@param[in] szIP 
 *	@param[in] nPort 
 *	@return	
 */
-BOOL CBaseIOStream::Bind( const char* szIP, uint32_t nPort ) const
+BOOL CBaseIOStream::Bind(const char *szIP, uint32_t nPort) const
 {
-	if (S_Bind(m_socket, szIP, nPort) == 0)
-	{
-		return TRUE;
-	}
-	else
-	{
-		return FALSE;
-	}
+    if (S_Bind(m_socket, szIP, nPort) == 0)
+    {
+        return TRUE;
+    }
+    else
+    {
+        return FALSE;
+    }
 }
 
 void CBaseIOStream::Close()

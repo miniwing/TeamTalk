@@ -10,13 +10,13 @@
 
 @interface NSString (mogujieString)
 
-+(NSString *)documentPath;
-+(NSString *)cachePath;
-+(NSString *)formatCurDate;
-+(NSString *)formatCurDay;
-+(NSString *)getAppVer;
++ (NSString *)documentPath;
++ (NSString *)cachePath;
++ (NSString *)formatCurDate;
++ (NSString *)formatCurDay;
++ (NSString *)getAppVer;
 - (NSString*)removeAllSpace;
-+(NSString *)formatCurDayForVersion;
++ (NSString *)formatCurDayForVersion;
 - (NSURL *) toURL;
 - (BOOL) isEmail;
 - (BOOL) isEmpty;

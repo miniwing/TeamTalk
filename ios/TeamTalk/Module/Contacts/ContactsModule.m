@@ -124,7 +124,7 @@
  *
  *  @return 界面收藏联系人列表
  */
-+(NSArray *)getFavContact
++ (NSArray *)getFavContact
 {
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];

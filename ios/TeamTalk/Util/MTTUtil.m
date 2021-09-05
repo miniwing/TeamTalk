@@ -22,7 +22,7 @@
 
 #pragma mark - 拼音
 
-+(char)pinyinFirstLetter:(unsigned short)hanzi{
++ (char)pinyinFirstLetter:(unsigned short)hanzi{
     int index = hanzi - HANZI_START;
     if (index >= 0 && index <= HANZI_COUNT)
     {
@@ -34,7 +34,7 @@
     }
 }
 
-+(char)getFirstChar:(const NSString *)str{
++ (char)getFirstChar:(const NSString *)str{
     if (nil == str || 0 == [str length]) {
         return '#';
     }
@@ -72,7 +72,7 @@
 
 #pragma mark - OriginalID & sessionID
 
-+(UInt32)changeIDToOriginal:(NSString *)sessionID
++ (UInt32)changeIDToOriginal:(NSString *)sessionID
 {
     NSArray *array = [sessionID componentsSeparatedByString:@"_"];
     if (array[1]) {
@@ -81,7 +81,7 @@
     return 0;
 }
 
-+(NSString *)changeOriginalToLocalID:(UInt32)orignalID SessionType:(int)sessionType
++ (NSString *)changeOriginalToLocalID:(UInt32)orignalID SessionType:(int)sessionType
 {
     if(sessionType == SessionTypeSessionTypeSingle)
     {
@@ -92,7 +92,7 @@
 
 #pragma mark - new function
 
-+(BOOL)isUseFunctionBubble{
++ (BOOL)isUseFunctionBubble{
     
     NSNumber *number =[[NSUserDefaults standardUserDefaults] objectForKey:@"UseFunctionBubble"];
     return [number boolValue];
@@ -113,7 +113,7 @@
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-+(NSArray *)getFixedTop{
++ (NSArray *)getFixedTop{
     NSArray *allUser = [[NSUserDefaults standardUserDefaults] objectForKey:@"fixedTopUsers"];
     return allUser;
 }
@@ -126,12 +126,12 @@
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-+(BOOL)checkFixedTop:(NSString *)sessionID{
++ (BOOL)checkFixedTop:(NSString *)sessionID{
     NSArray *allUser = [[NSUserDefaults standardUserDefaults] objectForKey:@"fixedTopUsers"];
     return [allUser containsObject:sessionID];
 }
 
-+(CGSize)sizeTrans:(CGSize)size{
++ (CGSize)sizeTrans:(CGSize)size{
     float width;
     float height;
     float imgWidth = size.width;
@@ -148,7 +148,7 @@
 }
 
 #pragma mark - 气泡功能
-+(NSString *)getBubbleTypeLeft:(BOOL)left
++ (NSString *)getBubbleTypeLeft:(BOOL)left
 {
     NSString *bubbleType;
     if(left){
@@ -181,7 +181,7 @@
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-+(NSDate *)getLastPhotoTime
++ (NSDate *)getLastPhotoTime
 {
     NSDate *lastDate = [[NSDate alloc] initWithTimeInterval:-90 sinceDate:[NSDate date]];
     NSDate *date = [[NSUserDefaults standardUserDefaults] objectForKey:@"preShowImageTime"];
@@ -197,7 +197,7 @@
     [[NSUserDefaults standardUserDefaults] setObject:date forKey:@"shakePcTime"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
-+(BOOL)ifCanShake
++ (BOOL)ifCanShake
 {
     NSDate *date = [[NSDate alloc] initWithTimeInterval:-10 sinceDate:[NSDate date]];
     NSDate *preDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"shakePcTime"];
@@ -215,7 +215,7 @@
     [[NSUserDefaults standardUserDefaults] setInteger:version forKey:@"dbVersion"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
-+(NSInteger)getDBVersion
++ (NSInteger)getDBVersion
 {
     return [[NSUserDefaults standardUserDefaults] integerForKey:@"dbVersion"];
 }
@@ -224,7 +224,7 @@
     [[NSUserDefaults standardUserDefaults] setInteger:version forKey:@"lastDbVersion"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
-+(NSInteger)getLastDBVersion
++ (NSInteger)getLastDBVersion
 {
     return [[NSUserDefaults standardUserDefaults] integerForKey:@"lastDbVersion"];
 }
@@ -233,7 +233,7 @@
     [[NSUserDefaults standardUserDefaults] setObject:url forKey:@"msfsurl"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
-+(NSString*)getMsfsUrl
++ (NSString*)getMsfsUrl
 {
      return [[NSUserDefaults standardUserDefaults] objectForKey:@"msfsurl"];
 }

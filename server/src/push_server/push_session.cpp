@@ -8,7 +8,7 @@
 
 #include "push_session.h"
 #include "timer/Timer.hpp"
-CPushSession::CPushSession(CEpollIOLoop& io, S_SOCKET sock) : m_io(io)
+CPushSession::CPushSession(CEpollIOLoop &io, S_SOCKET sock) : m_io(io)
 {
     m_pSession = new CTCPSessionAsync(&m_io, sock);
     m_nLastHeartBeat = 0;
@@ -27,7 +27,7 @@ BOOL CPushSession::Start()
 {
     m_pSession->DoClose.connect(&m_handler, &CPushSessionHandler::OnClose);
     m_pSession->DoException.connect(&m_handler, &CPushSessionHandler::OnException);
-    m_pSession->DoRecv.connect((CBaseHandler*)&m_handler, &CPushSessionHandler::OnRecv);
+    m_pSession->DoRecv.connect((CBaseHandler *)&m_handler, &CPushSessionHandler::OnRecv);
     SetHeartBeat(S_GetTickCount());
     return TRUE;
 }

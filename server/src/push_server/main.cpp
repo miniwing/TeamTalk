@@ -1,4 +1,4 @@
-     //
+//
 //  main.cpp
 //  my_push_server
 //
@@ -18,11 +18,11 @@ void writePid()
 {
     uint32_t curPid;
 #ifdef _WIN32
-    curPid = (uint32_t) GetCurrentProcess();
+    curPid = (uint32_t)GetCurrentProcess();
 #else
-    curPid = (uint32_t) getpid();
+    curPid = (uint32_t)getpid();
 #endif
-    FILE* f = fopen("server.pid", "w");
+    FILE *f = fopen("server.pid", "w");
     assert(f);
     char szPid[32];
     snprintf(szPid, sizeof(szPid), "%d", curPid);
@@ -30,15 +30,15 @@ void writePid()
     fclose(f);
 }
 
-
-int main(int argc, const char * argv[]) {
+int main(int argc, const char *argv[])
+{
 
 #if __Debug__
-	for (int  H = 0; H < argc; H++) {
+    for (int H = 0; H < argc; H++)
+    {
+        TTIM_PRINTF(("push_server::main : %s\n", argv[H]));
 
-		TTIM_PRINTF(("push_server::main : %s\n", argv[H]));
-		
-	} /* End for () */
+    }  /* End for () */
 #endif /* __Debug__ */
 
     // insert code here...
@@ -47,7 +47,9 @@ int main(int argc, const char * argv[]) {
     CPushApp::GetInstance()->Init();
     CPushApp::GetInstance()->Start();
     writePid();
-    while (true) {
+    
+    while (true)
+    {
         S_Sleep(1000);
     }
     return 0;

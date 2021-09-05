@@ -27,7 +27,6 @@ static uint32_t g_conn_handle_generator = 0;
 
 CHttpConn *FindHttpConnByHandle(uint32_t conn_handle)
 {
-
     CHttpConn *pConn = NULL;
     HttpConnMap_t::iterator it = g_http_conn_map.find(conn_handle);
 
@@ -41,7 +40,6 @@ CHttpConn *FindHttpConnByHandle(uint32_t conn_handle)
 
 void httpconn_callback(void *callback_data, uint8_t msg, uint32_t handle, uint32_t uParam, void *pParam)
 {
-
     TTIM_PRINTF(("login_server::HttpConn::httpconn_callback : (0x%08x)\n", (size_t)callback_data));
 
     NOTUSED_ARG(uParam);
@@ -53,7 +51,6 @@ void httpconn_callback(void *callback_data, uint8_t msg, uint32_t handle, uint32
 
     if (!pConn)
     {
-
         return;
     }
 
@@ -80,7 +77,6 @@ void httpconn_callback(void *callback_data, uint8_t msg, uint32_t handle, uint32
 
 void http_conn_timer_callback(void *callback_data, uint8_t msg, uint32_t handle, void *pParam)
 {
-
     // TTIM_PRINTF(("login_server::HttpConn::http_conn_timer_callback\n"));
 
     CHttpConn *pConn = NULL;
@@ -90,7 +86,6 @@ void http_conn_timer_callback(void *callback_data, uint8_t msg, uint32_t handle,
 
     for (it = g_http_conn_map.begin(); it != g_http_conn_map.end();)
     {
-
         it_old = it;
         it++;
 
@@ -103,7 +98,6 @@ void http_conn_timer_callback(void *callback_data, uint8_t msg, uint32_t handle,
 
 void init_http_conn()
 {
-
     netlib_register_timer(http_conn_timer_callback, NULL, 1000);
 
     return;
@@ -142,7 +136,6 @@ int CHttpConn::Send(void *data, int len)
 
     if (m_busy)
     {
-
         m_out_buf.Write(data, len);
 
         return len;
@@ -156,14 +149,12 @@ int CHttpConn::Send(void *data, int len)
 
     if (ret < len)
     {
-
         m_out_buf.Write((char *)data + ret, len - ret);
         m_busy = true;
         //log("not send all, remain=%d\n", m_out_buf.GetWriteOffset());
     }
     else
     {
-
         OnWriteComlete();
     }
 
@@ -172,7 +163,6 @@ int CHttpConn::Send(void *data, int len)
 
 void CHttpConn::Close()
 {
-
     m_state = CONN_STATE_CLOSED;
 
     g_http_conn_map.erase(m_conn_handle);
@@ -185,7 +175,6 @@ void CHttpConn::Close()
 
 void CHttpConn::OnConnect(net_handle_t handle)
 {
-
     printf("OnConnect, handle=%d\n", handle);
     TTIM_PRINTF(("login_server::CHttpConn::OnConnect, handle=%d\n", handle));
 
@@ -202,10 +191,8 @@ void CHttpConn::OnConnect(net_handle_t handle)
 
 void CHttpConn::OnRead()
 {
-
     for (;;)
     {
-
         uint32_t free_buf_len = m_in_buf.GetAllocSize() - m_in_buf.GetWriteOffset();
 
         if (free_buf_len < READ_BUF_SIZE + 1)
@@ -217,7 +204,6 @@ void CHttpConn::OnRead()
 
         if (ret <= 0)
         {
-
             break;
 
         } /* End if () */
@@ -272,7 +258,6 @@ void CHttpConn::OnRead()
 
 void CHttpConn::OnWrite()
 {
-
     if (!m_busy)
     {
         return;
@@ -290,14 +275,12 @@ void CHttpConn::OnWrite()
 
     if (ret < out_buf_size)
     {
-
         m_busy = true;
         log("not send all, remain=%d ", m_out_buf.GetWriteOffset());
         TTIM_PRINTF(("not send all, remain=%d \n", m_out_buf.GetWriteOffset()));
     }
     else
     {
-
         OnWriteComlete();
         m_busy = false;
     }
@@ -313,10 +296,8 @@ void CHttpConn::OnClose()
 
 void CHttpConn::OnTimer(uint64_t curr_tick)
 {
-
     if (curr_tick > m_last_recv_tick + HTTP_CONN_TIMEOUT)
     {
-
         log("HttpConn timeout, handle=%d ", m_conn_handle);
         TTIM_PRINTF(("HttpConn timeout, handle=%d \n", m_conn_handle));
 

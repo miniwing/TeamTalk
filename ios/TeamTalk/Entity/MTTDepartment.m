@@ -24,7 +24,7 @@
     }
     return self;
 }
-+(id)departmentFromDic:(NSDictionary *)dic
++ (id)departmentFromDic:(NSDictionary *)dic
 {
     MTTDepartment *department = [MTTDepartment new];
     department.ID = [dic objectForKey:@"departID"];

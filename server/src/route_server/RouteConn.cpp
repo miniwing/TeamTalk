@@ -15,6 +15,10 @@
 #include "IM.Server.pb.h"
 #include "IM.SwitchService.pb.h"
 #include "public_define.h"
+
+#include "TTIMConfig.h"
+#include "TTIMLog.h"
+
 using namespace IM::BaseDefine;
 
 //typedef hash_map<uint32_t /* user_id */, UserStat_t> UserStatMap_t;
@@ -59,6 +63,7 @@ CRouteConn::CRouteConn()
 
 CRouteConn::~CRouteConn()
 {
+    return;
 }
 
 void CRouteConn::Close()
@@ -88,6 +93,8 @@ void CRouteConn::Close()
     }
 
     ReleaseRef();
+
+    return;
 }
 
 void CRouteConn::OnConnect(net_handle_t handle)
@@ -98,12 +105,18 @@ void CRouteConn::OnConnect(net_handle_t handle)
 
     netlib_option(handle, NETLIB_OPT_SET_CALLBACK, (void *)imconn_callback);
     netlib_option(handle, NETLIB_OPT_SET_CALLBACK_DATA, (void *)&g_route_conn_map);
+
+    return;
 }
 
 void CRouteConn::OnClose()
 {
     log("MsgServer onclose: handle=%d ", m_handle);
+    TTIM_PRINTF(("MsgServer onclose: handle=%d ", m_handle));
+
     Close();
+
+    return;
 }
 
 void CRouteConn::OnTimer(uint64_t curr_tick)
@@ -121,8 +134,12 @@ void CRouteConn::OnTimer(uint64_t curr_tick)
     if (curr_tick > m_last_recv_tick + SERVER_TIMEOUT)
     {
         log("message server timeout ");
+        TTIM_PRINTF(("message server timeout "));
+
         Close();
     }
+
+    return;
 }
 
 void CRouteConn::HandlePdu(CImPdu *pPdu)
@@ -159,6 +176,8 @@ void CRouteConn::HandlePdu(CImPdu *pPdu)
 
     default:
         log("CRouteConn::HandlePdu, wrong cmd id: %d ", pPdu->GetCommandId());
+        TTIM_PRINTF(("CRouteConn::HandlePdu, wrong cmd id: %d ", pPdu->GetCommandId()));
+        
         break;
     }
 }

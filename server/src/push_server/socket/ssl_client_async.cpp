@@ -12,7 +12,7 @@
 #include "../timer/Timer.hpp"
 #include <openssl/err.h>
 
-CSSLClientAsync::CSSLClientAsync(CIOLoop* pIO) : CTCPClientAsync(pIO)
+CSSLClientAsync::CSSLClientAsync(CIOLoop *pIO) : CTCPClientAsync(pIO)
 {
     m_ctx = NULL;
     m_ssl = NULL;
@@ -24,13 +24,13 @@ CSSLClientAsync::~CSSLClientAsync()
     ShutDown();
 }
 
-BOOL CSSLClientAsync::InitSSL(const char* cert_file, const char* key_file, const char* key_password)
+BOOL CSSLClientAsync::InitSSL(const char *cert_file, const char *key_file, const char *key_password)
 {
     BOOL bRet = FALSE;
     m_strCertFile = cert_file;
     m_strKeyFile = key_file;
     m_strKeyPassword = key_password;
-    
+
     m_ctx = SSL_CTX_new(SSLv23_client_method());
     if (m_ctx)
     {
@@ -44,8 +44,8 @@ BOOL CSSLClientAsync::InitSSL(const char* cert_file, const char* key_file, const
                 return bRet;
             }
         }
-        
-        SSL_CTX_set_default_passwd_cb_userdata(GetSSLCTX(), (void*)key_password);
+
+        SSL_CTX_set_default_passwd_cb_userdata(GetSSLCTX(), (void *)key_password);
 
         if (key_file)
         {
@@ -57,7 +57,6 @@ BOOL CSSLClientAsync::InitSSL(const char* cert_file, const char* key_file, const
                 return bRet;
             }
         }
-        
 
         if (!SSL_CTX_check_private_key(GetSSLCTX()))
         {
@@ -66,7 +65,7 @@ BOOL CSSLClientAsync::InitSSL(const char* cert_file, const char* key_file, const
             m_ctx = NULL;
             return bRet;
         }
-        
+
         if (NULL == m_ssl)
         {
             m_ssl = SSL_new(m_ctx);
@@ -96,7 +95,6 @@ void CSSLClientAsync::UnInitSSL()
         {
             int32_t nErrorCode = SSL_get_error(GetSSL(), nRet);
             SOCKET_IO_WARN("ssl shutdown not finished, errno: %d.", nErrorCode);
-
         }
         else if (nRet == 1)
         {
@@ -116,7 +114,7 @@ void CSSLClientAsync::UnInitSSL()
         m_ctx = NULL;
     }
 }
-    
+
 void CSSLClientAsync::OnConnect(BOOL bConnected)
 {
     //无论是否连接成功，都认为已经判断结束
@@ -194,11 +192,10 @@ void CSSLClientAsync::OnRecv()
     }
 }
 
-
 int32_t CSSLClientAsync::SSLConnect()
 {
     int32_t nErrorCode = SOCKET_IO_SSL_CONNECT_FAILED;
-    
+
     //阻塞的ssl_connect可能会有一个问题，服务端如果不对此处理，可能会一直卡在SSL_connect这个接口
     //此处采用非阻塞的ssl_connect
     int32_t nRet = SSL_connect(GetSSL());
@@ -248,9 +245,9 @@ int32_t CSSLClientAsync::ReConnectAsync()
 
 int32_t CSSLClientAsync::SendMsgAsync(const char *szBuf, int32_t nBufSize)
 {
-    CSimpleBuffer* pBufferLoop = new CSimpleBuffer();
+    CSimpleBuffer *pBufferLoop = new CSimpleBuffer();
     pBufferLoop->Write(szBuf, nBufSize);
-    
+
     m_sendqueuemutex.Lock();
     if (m_sendqueue.size() != 0)
     {
@@ -262,7 +259,8 @@ int32_t CSSLClientAsync::SendMsgAsync(const char *szBuf, int32_t nBufSize)
         }
         else
         {
-            if (m_sendqueue.size() >= MAX_SEND_QUEUE_SIZE) {
+            if (m_sendqueue.size() >= MAX_SEND_QUEUE_SIZE)
+            {
                 SOCKET_IO_WARN("send ssl data error, buffer is overload.");
                 delete pBufferLoop;
                 pBufferLoop = NULL;
@@ -278,9 +276,9 @@ int32_t CSSLClientAsync::SendMsgAsync(const char *szBuf, int32_t nBufSize)
         return SOCKET_IO_RESULT_OK;
     }
     m_sendqueuemutex.Unlock();
-    
-    int32_t nRet = SSL_write(GetSSL(), (void*)pBufferLoop->GetBuffer(), pBufferLoop->GetWriteOffset());
-    if ( nRet < 0)
+
+    int32_t nRet = SSL_write(GetSSL(), (void *)pBufferLoop->GetBuffer(), pBufferLoop->GetWriteOffset());
+    if (nRet < 0)
     {
         int32_t nError = SSL_get_error(GetSSL(), nRet);
         if (SSL_ERROR_WANT_WRITE == nError || SSL_ERROR_WANT_READ == nError)
@@ -358,10 +356,10 @@ int32_t CSSLClientAsync::SendBufferAsync()
         }
         return nErrorCode;
     }
-    CSimpleBuffer* pBufferLoop = m_sendqueue.front();
+    CSimpleBuffer *pBufferLoop = m_sendqueue.front();
     m_sendqueuemutex.Unlock();
-    int32_t nRet = SSL_write(GetSSL(), (void*)pBufferLoop->GetBuffer(), pBufferLoop->GetWriteOffset());
-    if ( nRet < 0)
+    int32_t nRet = SSL_write(GetSSL(), (void *)pBufferLoop->GetBuffer(), pBufferLoop->GetWriteOffset());
+    if (nRet < 0)
     {
         int32_t nError = SSL_get_error(GetSSL(), nRet);
         if (SSL_ERROR_WANT_WRITE == nError || SSL_ERROR_WANT_READ == nError)
@@ -413,7 +411,8 @@ void CSSLClientAsync::Close()
 {
     _SetWaitForClose(TRUE);
     m_sendqueuemutex.Lock();
-    if (m_sendqueue.size() == 0) {
+    if (m_sendqueue.size() == 0)
+    {
         _Close();
     }
     m_sendqueuemutex.Unlock();

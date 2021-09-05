@@ -9,10 +9,11 @@
 #include "pdu_msg.h"
 #include "byte_stream.h"
 
-#define CHECK_PACKET_PARSE if (is.GetPos() != (len - GetHeadLength()))\
-                    {\
-                        bRet = FALSE;\
-                    }\
+#define CHECK_PACKET_PARSE                      \
+    if (is.GetPos() != (len - GetHeadLength())) \
+    {                                           \
+        bRet = FALSE;                           \
+    }
 
 CPduMsg::CPduMsg()
 {
@@ -22,14 +23,15 @@ CPduMsg::CPduMsg()
 }
 
 CPduMsg::~CPduMsg()
-{}
+{
+}
 
 BOOL CPduMsg::CheckMsgAvailable()
 {
     BOOL bRet = FALSE;
     if (m_databuffer.GetWriteOffset() > GetHeadLength())
     {
-        CByteStream is((uchar_t*)m_databuffer.GetBuffer(), sizeof(ST_HEAD));
+        CByteStream is((uchar_t *)m_databuffer.GetBuffer(), sizeof(ST_HEAD));
         is >> m_sthead.length;
         is >> m_sthead.version;
         is >> m_sthead.flag;
@@ -48,8 +50,9 @@ BOOL CPduMsg::CheckMsgAvailable()
 BOOL CPduMsg::ReadHead()
 {
     BOOL bRet = FALSE;
-    if (m_databuffer.GetWriteOffset() >= GetHeadLength()) {
-        CByteStream is((uchar_t*)m_databuffer.GetBuffer(), sizeof(ST_HEAD));
+    if (m_databuffer.GetWriteOffset() >= GetHeadLength())
+    {
+        CByteStream is((uchar_t *)m_databuffer.GetBuffer(), sizeof(ST_HEAD));
         is >> m_sthead.length;
         is >> m_sthead.version;
         is >> m_sthead.flag;
@@ -92,16 +95,16 @@ BOOL CPduMsg::ParseFromArray(const char *buf, uint32_t len)
     return bRet;
 }
 
-BOOL CPduMsg::SerializeToArray(google::protobuf::MessageLite* msg)
+BOOL CPduMsg::SerializeToArray(google::protobuf::MessageLite *msg)
 {
     BOOL bRet = FALSE;
     if (m_databuffer.GetWriteOffset() != 0)
     {
         return bRet;
     }
-    
+
     uint32_t msg_size = msg->ByteSize();
-    uchar_t* szData = new uchar_t[msg_size];
+    uchar_t *szData = new uchar_t[msg_size];
     if (!msg->SerializeToArray(szData, msg_size))
     {
         PUSH_SERVER_WARN("pb msg miss required fields.");
@@ -112,12 +115,10 @@ BOOL CPduMsg::SerializeToArray(google::protobuf::MessageLite* msg)
         __SetTailLength(0);
         __SetBodyLength(msg_size);
         WriteHead();
-        Append((const char*)szData, msg_size);
+        Append((const char *)szData, msg_size);
         bRet = TRUE;
     }
-    
-    delete []szData;
+
+    delete[] szData;
     return bRet;
 }
-
-

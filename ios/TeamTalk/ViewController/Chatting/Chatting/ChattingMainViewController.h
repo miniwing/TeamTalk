@@ -47,7 +47,7 @@ typedef void(^TimeCellAddBlock)(bool isok);
 @property (assign)BOOL hadLoadHistory;
 // 去@页面
 @property (assign)BOOL isGotoAt;
-+(instancetype )shareInstance;
++ (instancetype )shareInstance;
 
 - (void)sendImageMessage:(MTTPhotoEnity *)photo Image:(UIImage *)image;
 - (void)sendPrompt:(NSString*)prompt;
@@ -65,6 +65,7 @@ typedef void(^TimeCellAddBlock)(bool isok);
 - (void)insertEmojiFace:(NSString *)string;
 - (void)deleteEmojiFace;
 - (void)p_popViewController;
+
 @end
 
 

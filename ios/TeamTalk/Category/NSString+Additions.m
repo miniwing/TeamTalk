@@ -14,7 +14,7 @@
 
 @implementation NSString (TTString)
 
-+(NSString *)documentPath {
++ (NSString *)documentPath {
     static NSString * path = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -24,7 +24,7 @@
     });
     return path;
 }
-+(BOOL)addSkipBackupAttributeToItemAtURL:(NSURL *)URL
++ (BOOL)addSkipBackupAttributeToItemAtURL:(NSURL *)URL
 {
     if (URL==nil) {
         return NO;
@@ -60,7 +60,7 @@
     }
     return YES;
 }
-+(NSString *)cachePath {
++ (NSString *)cachePath {
     static NSString * path = nil;
     if (!path) {
         path = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES)
@@ -69,28 +69,28 @@
     return path;
 }
 
-+(NSString *)formatCurDate {
++ (NSString *)formatCurDate {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     NSString *result = [dateFormatter stringFromDate:[NSDate date]];
     
     return result;
 }
-+(NSString *)formatCurDay {
++ (NSString *)formatCurDay {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
     NSString *result = [dateFormatter stringFromDate:[NSDate date]];
     
     return result;
 }
-+(NSString *)formatCurDayForVersion {
++ (NSString *)formatCurDayForVersion {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy.MM.dd"];
     NSString *result = [dateFormatter stringFromDate:[NSDate date]];
     
     return result;
 }
-+(NSString *)getAppVer {
++ (NSString *)getAppVer {
     return [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
 }
 - (NSURL *) toURL {

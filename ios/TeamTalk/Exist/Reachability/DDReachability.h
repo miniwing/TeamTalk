@@ -78,10 +78,10 @@ typedef void (^NetworkUnreachable)(DDReachability * reachability);
 
 @property (nonatomic, assign) BOOL reachableOnWWAN;
 
-+(DDReachability*)reachabilityWithHostname:(NSString*)hostname;
-+(DDReachability*)reachabilityForInternetConnection;
-+(DDReachability*)reachabilityWithAddress:(const struct sockaddr_in*)hostAddress;
-+(DDReachability*)reachabilityForLocalWiFi;
++ (DDReachability*)reachabilityWithHostname:(NSString*)hostname;
++ (DDReachability*)reachabilityForInternetConnection;
++ (DDReachability*)reachabilityWithAddress:(const struct sockaddr_in*)hostAddress;
++ (DDReachability*)reachabilityForLocalWiFi;
 
 - (DDReachability *)initWithReachabilityRef:(SCNetworkReachabilityRef)ref;
 

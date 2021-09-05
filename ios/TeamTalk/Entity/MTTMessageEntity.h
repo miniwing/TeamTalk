@@ -76,14 +76,14 @@ typedef NS_ENUM(NSUInteger, DDMessageState)
 //@property(nonatomic,assign) BOOL isSend;
 @property(nonatomic,assign) DDMessageState state;       //消息发送状态
 - (MTTMessageEntity*)initWithMsgID:(NSUInteger )ID msgType:(MsgType)msgType msgTime:(NSTimeInterval)msgTime sessionID:(NSString*)sessionID senderID:(NSString*)senderID msgContent:(NSString*)msgContent toUserID:(NSString*)toUserID;
-+(MTTMessageEntity *)makeMessage:(NSString *)content Module:(ChattingModule *)module MsgType:(DDMessageContentType )type;
-+(MTTMessageEntity *)makeMessageFromStream:(DDDataInputStream *)bodyData;
++ (MTTMessageEntity *)makeMessage:(NSString *)content Module:(ChattingModule *)module MsgType:(DDMessageContentType )type;
++ (MTTMessageEntity *)makeMessageFromStream:(DDDataInputStream *)bodyData;
 - (BOOL)isGroupMessage;
 - (SessionType)getMessageSessionType;
 - (BOOL)isImageMessage;
 - (BOOL)isVoiceMessage;
 - (BOOL)isLocationMessage;
 - (BOOL)isSendBySelf;
-+(MTTMessageEntity *)makeMessageFromPB:(MsgInfo *)info SessionType:(SessionType)sessionType;
-+(MTTMessageEntity *)makeMessageFromPBData:(IMMsgData *)data;
++ (MTTMessageEntity *)makeMessageFromPB:(MsgInfo *)info SessionType:(SessionType)sessionType;
++ (MTTMessageEntity *)makeMessageFromPBData:(IMMsgData *)data;
 @end

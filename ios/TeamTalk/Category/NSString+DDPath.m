@@ -9,20 +9,24 @@
 #import "NSString+DDPath.h"
 #import "DDUserModule.h"
 #import "RuntimeStatus.h"
+
 @implementation NSString (DDPath)
-+ (NSString*)userExclusiveDirection
-{
-    NSString* myName = getUserID;
-    
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    
-    NSString* directorPath = [documentsDirectory stringByAppendingPathComponent:myName];
-    NSFileManager* fileManager = [NSFileManager defaultManager];
-    if ([fileManager fileExistsAtPath:directorPath])
-    {
-        [fileManager createDirectoryAtPath:directorPath withIntermediateDirectories:YES attributes:nil error:nil];
-    }
-    return directorPath;
+
++ (NSString*)userExclusiveDirection {
+   
+   NSString* myName = getUserID;
+   
+   NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
+   NSString *documentsDirectory = [paths objectAtIndex:0];
+   
+   NSString* directorPath = [documentsDirectory stringByAppendingPathComponent:myName];
+   NSFileManager* fileManager = [NSFileManager defaultManager];
+   if ([fileManager fileExistsAtPath:directorPath]) {
+      
+      [fileManager createDirectoryAtPath:directorPath withIntermediateDirectories:YES attributes:nil error:nil];
+   }
+   
+   return directorPath;
 }
+
 @end

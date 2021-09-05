@@ -4,8 +4,8 @@ static NSString* const GROUP_PRE = @"group_";          //group id 前缀
 
 enum
 {
-    GROUP_TYPE_FIXED = 1,       //固定群
-    GROUP_TYPE_TEMPORARY,       //临时群
+   GROUP_TYPE_FIXED = 1,       //固定群
+   GROUP_TYPE_TEMPORARY,       //临时群
 };
 @class GroupInfo;
 
@@ -20,10 +20,10 @@ enum
 @property(strong)NSString *lastMsg;
 @property(assign)BOOL isShield;
 - (void)copyContent:(MTTGroupEntity*)entity;
-+(UInt32)localGroupIDTopb:(NSString *)groupID;
-+(NSString *)pbGroupIdToLocalID:(UInt32)groupID;
++ (UInt32)localGroupIDTopb:(NSString *)groupID;
++ (NSString *)pbGroupIdToLocalID:(UInt32)groupID;
 - (void)addFixOrderGroupUserIDS:(NSString*)ID;
-+(MTTGroupEntity *)dicToMTTGroupEntity:(NSDictionary *)dic;
-+(NSString *)getSessionId:(NSString *)groupId;
-+(MTTGroupEntity *)initMTTGroupEntityFromPBData:(GroupInfo *)groupInfo;
++ (MTTGroupEntity *)dicToMTTGroupEntity:(NSDictionary *)dic;
++ (NSString *)getSessionId:(NSString *)groupId;
++ (MTTGroupEntity *)initMTTGroupEntityFromPBData:(GroupInfo *)groupInfo;
 @end

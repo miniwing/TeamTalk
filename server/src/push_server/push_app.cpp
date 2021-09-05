@@ -22,9 +22,10 @@ CPushApp::CPushApp()
 }
 
 CPushApp::~CPushApp()
-{}
+{
+}
 
-CPushApp* CPushApp::GetInstance()
+CPushApp *CPushApp::GetInstance()
 {
     static CPushApp app;
     return &app;
@@ -32,14 +33,15 @@ CPushApp* CPushApp::GetInstance()
 
 BOOL CPushApp::Init()
 {
-    if (!m_bInit) {
+    if (!m_bInit)
+    {
         /* SSL 库初始化 */
         SSL_library_init();
         /* 载入所有 SSL 算法 */
         //OpenSSL_add_all_algorithms();
         /* 载入所有 SSL 错误消息 */
         SSL_load_error_strings();
-        
+
         m_bInit = TRUE;
         PUSH_SERVER_DEBUG("push app init successed.");
     }
@@ -47,7 +49,7 @@ BOOL CPushApp::Init()
     {
         PUSH_SERVER_WARN("warning: push app has inited.");
     }
-    
+
     return TRUE;
 }
 
@@ -72,12 +74,12 @@ BOOL CPushApp::Start()
     {
         string file_name = "pushserver.conf";
         CConfigFileReader config_file(file_name.c_str());
-        char* listen_ip = config_file.GetConfigName("ListenIP");
-        char* str_listen_port = config_file.GetConfigName("ListenPort");
-        char* cert_path = config_file.GetConfigName("CertPath");
-        char* key_path = config_file.GetConfigName("KeyPath");
-        char* key_password = config_file.GetConfigName("KeyPassword");
-        char* sand_box = config_file.GetConfigName("SandBox");
+        char *listen_ip = config_file.GetConfigName("ListenIP");
+        char *str_listen_port = config_file.GetConfigName("ListenPort");
+        char *cert_path = config_file.GetConfigName("CertPath");
+        char *key_path = config_file.GetConfigName("KeyPath");
+        char *key_password = config_file.GetConfigName("KeyPassword");
+        char *sand_box = config_file.GetConfigName("SandBox");
         if (!listen_ip || !str_listen_port || !cert_path || !key_path || !sand_box || !key_password)
         {
             PUSH_SERVER_ERROR("push app config file: %s not exist or miss required parameter obtained.", file_name.c_str());
@@ -95,12 +97,12 @@ BOOL CPushApp::Start()
         pAPNSClient->SetKeyPassword(key_password);
         pAPNSClient->SetSandBox((BOOL)atoi(sand_box));
         CSessionManager::GetInstance()->SetAPNSClient(pAPNSClient);
-        
+
         push_server_ptr pPushServer(new CPushServer(m_io));
         pPushServer->SetListenIP(listen_ip);
         pPushServer->SetPort(atoi(str_listen_port));
         CSessionManager::GetInstance()->SetPushServer(pPushServer);
-        
+
         m_io.Start();
         CSessionManager::GetInstance()->StartCheckPushSession();
         if (pAPNSClient)
@@ -123,7 +125,7 @@ BOOL CPushApp::Start()
     {
         PUSH_SERVER_WARN("push app not init before.");
     }
-    
+
     return TRUE;
 }
 
@@ -144,7 +146,7 @@ BOOL CPushApp::Stop()
             pPushServer->Stop();
         }
         CSessionManager::GetInstance()->StopAllPushSession();
-        
+
         CSessionManager::GetInstance()->RemoveAPNSClient();
         CSessionManager::GetInstance()->RemovePushServer();
         CSessionManager::GetInstance()->ClearPushSession();

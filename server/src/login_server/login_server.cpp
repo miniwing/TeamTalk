@@ -25,11 +25,14 @@ void client_callback(void *callback_data, uint8_t msg, uint32_t handle, void *pP
     {
         CLoginConn *pConn = new CLoginConn();
         pConn->OnConnect2(handle, LOGIN_CONN_TYPE_CLIENT);
-    }
+
+    } /* End if () */
     else
     {
         log("!!!error msg: %d ", msg);
-    }
+        TTIM_PRINTF(("!!!error msg: %d ", msg));
+
+    } /* End else */
 
     return;
 }
@@ -46,12 +49,14 @@ void msg_serv_callback(void *callback_data, uint8_t msg, uint32_t handle, void *
 
         CLoginConn *pConn = new CLoginConn();
         pConn->OnConnect2(handle, LOGIN_CONN_TYPE_MSG_SERV);
-    }
+
+    } /* End if () */
     else
     {
         log("!!!error msg: %d ", msg);
         TTIM_PRINTF(("!!!error msg: %d ", msg));
-    }
+
+    } /* End else */
 
     return;
 }

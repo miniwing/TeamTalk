@@ -16,8 +16,7 @@
 #endif
 #include "../type/base_type.h"
 
-typedef void* (*thread_func_cb)(void* param);
-
+typedef void *(*thread_func_cb)(void *param);
 
 /**
  *  thread class
@@ -25,26 +24,28 @@ typedef void* (*thread_func_cb)(void* param);
 class CBaseThread
 {
 public:
-	CBaseThread()
+    CBaseThread()
     {
         m_thread_id = 0;
     }
-	virtual ~CBaseThread()
+    virtual ~CBaseThread()
     {
 #ifdef _WIN32
-        if (m_thread_id != 0) {
+        if (m_thread_id != 0)
+        {
             CloseHandle(m_thread_id);
         }
 #endif
     }
-    
-	virtual BOOL Start(thread_func_cb func_cb, void* param)
+
+    virtual BOOL Start(thread_func_cb func_cb, void *param)
     {
         BOOL bRet = FALSE;
 #ifdef _WIN32
         DWORD dwThread;
         m_thread_id = CreateThread(NULL, 0, func_cb, param, 0, &dwThread);
-        if (m_thread_id != 0) {
+        if (m_thread_id != 0)
+        {
             bRet = TRUE;
         }
 #else
@@ -59,13 +60,14 @@ public:
 #endif
         return bRet;
     }
-    
+
     void Wait()
     {
 #ifdef _WIN32
         int32_t nRet = 0;
         nRet = WaitForSingleObject(m_thread_id, INFINITE);
-        if (m_thread_id != 0) {
+        if (m_thread_id != 0)
+        {
             CloseHandle(m_thread_id);
         }
 #else
@@ -73,23 +75,24 @@ public:
 #endif
         m_thread_id = 0;
     }
-    
+
     operator bool() const
     {
         bool bRet = false;
-        if (m_thread_id != 0) {
+        if (m_thread_id != 0)
+        {
             bRet = true;
         }
         return bRet;
     }
+
 protected:
 #ifdef _WIN32
-	HANDLE		m_thread_id;
+    HANDLE m_thread_id;
 #else
-	pthread_t	m_thread_id;
+    pthread_t m_thread_id;
 #endif
 };
-
 
 /**
  *  Mutex class
@@ -97,7 +100,7 @@ protected:
 class CBaseMutex
 {
 public:
-	CBaseMutex()
+    CBaseMutex()
     {
 #ifdef _WIN32
         InitializeCriticalSection(&m_critical_section);
@@ -107,8 +110,8 @@ public:
         pthread_mutex_init(&m_mutex, &m_mutexattr);
 #endif
     }
-    
-	~CBaseMutex()
+
+    ~CBaseMutex()
     {
 #ifdef _WIN32
         DeleteCriticalSection(&m_critical_section);
@@ -117,8 +120,8 @@ public:
         pthread_mutex_destroy(&m_mutex);
 #endif
     }
-    
-	void Lock(void)
+
+    void Lock(void)
     {
 #ifdef _WIN32
         EnterCriticalSection(&m_critical_section);
@@ -126,8 +129,8 @@ public:
         pthread_mutex_lock(&m_mutex);
 #endif
     }
-    
-	void Unlock(void)
+
+    void Unlock(void)
     {
 #ifdef _WIN32
         LeaveCriticalSection(&m_critical_section);
@@ -135,18 +138,15 @@ public:
         pthread_mutex_unlock(&m_mutex);
 #endif
     }
-    
-private:
-    
-#ifdef _WIN32
-	CRITICAL_SECTION	m_critical_section;
-#else
-	pthread_mutex_t 	m_mutex;
-	pthread_mutexattr_t	m_mutexattr;
-#endif
-    
-};
 
+private:
+#ifdef _WIN32
+    CRITICAL_SECTION m_critical_section;
+#else
+    pthread_mutex_t m_mutex;
+    pthread_mutexattr_t m_mutexattr;
+#endif
+};
 
 /**
  *  Guard class, bind with Mutex
@@ -154,19 +154,20 @@ private:
 class CBaseGuard
 {
 public:
-	CBaseGuard(CBaseMutex* lock)
-	{
-		m_lock = lock;
-		if (m_lock)
-			m_lock->Lock();
-	}
-    
-	~CBaseGuard()
-	{
-		if (m_lock)
-			m_lock->Unlock();
-	}
+    CBaseGuard(CBaseMutex *lock)
+    {
+        m_lock = lock;
+        if (m_lock)
+            m_lock->Lock();
+    }
+
+    ~CBaseGuard()
+    {
+        if (m_lock)
+            m_lock->Unlock();
+    }
+
 private:
-	CBaseMutex*	m_lock;
+    CBaseMutex *m_lock;
 };
 #endif

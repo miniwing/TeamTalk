@@ -38,10 +38,10 @@ void CAPNSFeedBackHandler::OnConnect(uint32_t nsockid)
 
 void CAPNSFeedBackHandler::OnSSLConnect(uint32_t nsockid)
 {
-    PUSH_SERVER_INFO("apns feedback ssl connect successed.");    
+    PUSH_SERVER_INFO("apns feedback ssl connect successed.");
 }
 
-void CAPNSFeedBackHandler::OnRecvData(const char* szBuf, int32_t nBufSize)
+void CAPNSFeedBackHandler::OnRecvData(const char *szBuf, int32_t nBufSize)
 {
     //TODO
     m_Msg.Append(szBuf, nBufSize);

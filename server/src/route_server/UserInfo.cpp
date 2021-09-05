@@ -10,6 +10,10 @@
 #include "ImPduBase.h"
 #include "public_define.h"
 #include "IM.BaseDefine.pb.h"
+
+#include "TTIMConfig.h"
+#include "TTIMLog.h"
+
 using namespace IM::BaseDefine;
 CUserInfo::CUserInfo()
 {

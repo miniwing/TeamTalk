@@ -126,7 +126,7 @@ typedef NS_ENUM(NSUInteger, PanelStatus)
    float _inputViewY;
    int _type;
 }
-+(instancetype )shareInstance
++ (instancetype )shareInstance
 {
    static dispatch_once_t onceToken;
    static ChattingMainViewController *_sharedManager = nil;

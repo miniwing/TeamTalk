@@ -19,14 +19,17 @@ CCondition::CCondition(CLock *pLock) : m_pLock(pLock)
     }
     pthread_cond_init(&m_cond, NULL);
 }
+
 CCondition::~CCondition()
 {
     pthread_cond_destroy(&m_cond);
 }
+
 void CCondition::wait()
 {
     pthread_cond_wait(&m_cond, &m_pLock->getMutex());
 }
+
 /*
  * nWaitTime ms
  * if recv a signal then return true;
@@ -46,10 +49,12 @@ bool CCondition::waitTime(uint64_t nWaitTime)
     }
     return true;
 }
+
 void CCondition::notify()
 {
     pthread_cond_signal(&m_cond);
 }
+
 void CCondition::notifyAll()
 {
     pthread_cond_broadcast(&m_cond);

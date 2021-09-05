@@ -91,7 +91,7 @@
     }
     return resultContent;
 }
-+(MTTMessageEntity *)makeMessage:(NSString *)content Module:(ChattingModule *)module MsgType:(DDMessageContentType )type
++ (MTTMessageEntity *)makeMessage:(NSString *)content Module:(ChattingModule *)module MsgType:(DDMessageContentType )type
 {
     double msgTime = [[NSDate date] timeIntervalSince1970];
     NSString* senderID = [RuntimeStatus instance].user.objID;
@@ -215,7 +215,7 @@
     return NO;
 }
 
-+(MTTMessageEntity *)makeMessageFromPB:(MsgInfo *)info SessionType:(SessionType)sessionType
++ (MTTMessageEntity *)makeMessageFromPB:(MsgInfo *)info SessionType:(SessionType)sessionType
 {
     MTTMessageEntity *msg = [MTTMessageEntity new];
    
@@ -296,7 +296,7 @@
     msg.info=msgInfo;
     return msg;
 }
-+(NSData *)hexStringToData:(NSString *)string
++ (NSData *)hexStringToData:(NSString *)string
 {
     NSString *command = string;
     command = [command stringByReplacingOccurrencesOfString:@" " withString:@""];
@@ -312,7 +312,7 @@
     }
     return commandToSend;
 }
-+(MTTMessageEntity *)makeMessageFromPBData:(IMMsgData *)data
++ (MTTMessageEntity *)makeMessageFromPBData:(IMMsgData *)data
 {
     MTTMessageEntity *msg = [MTTMessageEntity new];
     msg.msgType=data.msgType;
@@ -390,7 +390,7 @@
     msg.info=msgInfo;
     return msg;
 }
-+(BOOL)isEmotionMsg:(NSString *)content
++ (BOOL)isEmotionMsg:(NSString *)content
 {
     return  [[[EmotionsModule shareInstance].emotionUnicodeDic allKeys] containsObject:content];
 }

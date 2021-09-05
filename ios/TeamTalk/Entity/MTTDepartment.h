@@ -18,5 +18,5 @@
 @property(nonatomic ,assign)NSInteger status;
 @property(nonatomic ,assign)NSInteger count;
 
-+(id)departmentFromDic:(NSDictionary *)dic;
++ (id)departmentFromDic:(NSDictionary *)dic;
 @end

@@ -39,22 +39,22 @@
     self.groupUserIds = entity.groupUserIds;
 }
 
-+(NSString *)getSessionId:(NSString *)groupId
++ (NSString *)getSessionId:(NSString *)groupId
 {
      return groupId;
 }
-+(NSString *)pbGroupIdToLocalID:(UInt32)groupID
++ (NSString *)pbGroupIdToLocalID:(UInt32)groupID
 {
     return [NSString stringWithFormat:@"%@%ld",GROUP_PRE,groupID];
 }
-+(UInt32)localGroupIDTopb:(NSString *)groupID
++ (UInt32)localGroupIDTopb:(NSString *)groupID
 {
     if (![groupID hasPrefix:GROUP_PRE]) {
         return 0;
     }
     return [[groupID substringFromIndex:[GROUP_PRE length]] integerValue];
 }
-+(MTTGroupEntity *)initMTTGroupEntityFromPBData:(GroupInfo *)groupInfo
++ (MTTGroupEntity *)initMTTGroupEntityFromPBData:(GroupInfo *)groupInfo
 {
     MTTGroupEntity *group = [MTTGroupEntity new];
     group.objID=[self pbGroupIdToLocalID:groupInfo.groupId];
@@ -81,7 +81,7 @@
     [_fixGroupUserIds addObject:ID];
 }
 
-+(MTTGroupEntity *)dicToMTTGroupEntity:(NSDictionary *)dic
++ (MTTGroupEntity *)dicToMTTGroupEntity:(NSDictionary *)dic
 {
     MTTGroupEntity *group = [MTTGroupEntity new];
     group.groupCreatorId=[dic safeObjectForKey:@"creatID"];

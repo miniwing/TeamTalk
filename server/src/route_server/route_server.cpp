@@ -24,6 +24,7 @@ void route_serv_callback(void *callback_data, uint8_t msg, uint32_t handle, void
     else
     {
         log("!!!error msg: %d ", msg);
+        TTIM_PRINTF(("!!!error msg: %d ", msg));
     }
 
     return;
@@ -35,7 +36,6 @@ int main(int argc, char *argv[])
 #if __Debug__
     for (int H = 0; H < argc; H++)
     {
-
         TTIM_PRINTF(("push_server::main : %s\n", argv[H]));
 
     }  /* End for () */
@@ -45,6 +45,7 @@ int main(int argc, char *argv[])
     {
         printf("Server Version: RouteServer/%s\n", VERSION);
         printf("Server Build: %s %s\n", __DATE__, __TIME__);
+        
         return 0;
     }
 

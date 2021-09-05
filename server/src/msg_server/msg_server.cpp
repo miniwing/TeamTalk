@@ -75,6 +75,7 @@ int main(int argc, char *argv[])
     char *ip_addr2 = config_file.GetConfigName("IpAddr2"); // 网通IP
     char *str_max_conn_cnt = config_file.GetConfigName("MaxConnCnt");
     char *str_aes_key = config_file.GetConfigName("aesKey");
+
     uint32_t db_server_count = 0;
     serv_info_t *db_server_list = read_server_config(&config_file, "DBServerIP", "DBServerPort", db_server_count);
 
@@ -85,12 +86,10 @@ int main(int argc, char *argv[])
     serv_info_t *route_server_list = read_server_config(&config_file, "RouteServerIP", "RouteServerPort", route_server_count);
 
     uint32_t push_server_count = 0;
-    serv_info_t *push_server_list = read_server_config(&config_file, "PushServerIP",
-                                                       "PushServerPort", push_server_count);
+    serv_info_t *push_server_list = read_server_config(&config_file, "PushServerIP", "PushServerPort", push_server_count);
 
     uint32_t file_server_count = 0;
-    serv_info_t *file_server_list = read_server_config(&config_file, "FileServerIP",
-                                                       "FileServerPort", file_server_count);
+    serv_info_t *file_server_list = read_server_config(&config_file, "FileServerIP", "FileServerPort", file_server_count);
 
     if (!str_aes_key || strlen(str_aes_key) != 32)
     {
@@ -106,7 +105,6 @@ int main(int argc, char *argv[])
     // 建议配置4个实例，这样更新BusinessServer时，不会影响业务
     if (db_server_count < 2)
     {
-
         log("DBServerIP need 2 instance at lest ");
         TTIM_PRINTF(("DBServerIP need 2 instance at lest \n"));
 
@@ -132,7 +130,6 @@ int main(int argc, char *argv[])
 
     if (!listen_ip || !str_listen_port || !ip_addr1)
     {
-
         log("config file miss, exit... ");
         TTIM_PRINTF(("config file miss, exit... \n"));
 
@@ -160,7 +157,6 @@ int main(int argc, char *argv[])
 
     if (ret == NETLIB_ERROR)
     {
-
         return ret;
     }
 

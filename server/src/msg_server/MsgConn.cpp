@@ -515,8 +515,8 @@ void CMsgConn::_HandleLoginRequest(CImPdu *pPdu)
         online_status = IM::BaseDefine::USER_STATUS_ONLINE;
     }
 
-    m_client_version= msg.client_version();
-    m_client_type   = msg.client_type();
+    m_client_version = msg.client_version();
+    m_client_type = msg.client_type();
     m_online_status = online_status;
 
     log("HandleLoginReq, user_name=%s, status=%u, client_type=%u, client=%s, ", m_login_name.c_str(), online_status, m_client_type, m_client_version.c_str());

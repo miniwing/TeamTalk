@@ -164,7 +164,7 @@
     
     return session;
 }
-+(id)initWithDicToGroup:(NSDictionary *)dic
++ (id)initWithDicToGroup:(NSDictionary *)dic
 {
     MTTSessionEntity *session =[MTTSessionEntity new];
     return session;
