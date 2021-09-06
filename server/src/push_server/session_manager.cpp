@@ -15,6 +15,7 @@
 #define TIMEOUT_PUSHSESSION 30 * 1000
 CSessionManager::CSessionManager()
 {
+    return;
 }
 
 CSessionManager::~CSessionManager()
@@ -142,6 +143,9 @@ void CSessionManager::CheckPushSessionTimeOut()
         {
             PUSH_SERVER_WARN("push session time out, remote ip: %s, port: %d.", pSession->GetRemoteIP(),
                              pSession->GetRemotePort());
+            TTIM_PRINTF(("push session time out, remote ip: %s, port: %d.", pSession->GetRemoteIP(),
+                         pSession->GetRemotePort()));
+
             pSession->Stop();
         }
     }

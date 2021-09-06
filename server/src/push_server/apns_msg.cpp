@@ -12,6 +12,7 @@
 #include <string.h>
 #include <arpa/inet.h>
 #include "push_define.h"
+
 CAPNSGateWayMsg::CAPNSGateWayMsg()
 {
     memset(&m_stHead, 0, sizeof(ST_GATEWAY_HEAD));
@@ -22,10 +23,13 @@ CAPNSGateWayMsg::CAPNSGateWayMsg()
     m_bSound = TRUE;
     m_nBadge = 0;
     m_nNotificationID = 0;
+
+    return;
 }
 
 CAPNSGateWayMsg::~CAPNSGateWayMsg()
 {
+    return;
 }
 
 void CAPNSGateWayMsg::WriteHead()
@@ -33,6 +37,8 @@ void CAPNSGateWayMsg::WriteHead()
     m_stHead.frame_length = htonl(GetBodyLength());
     char *buf = m_databuffer.GetBuffer();
     memcpy(buf, &m_stHead, sizeof(ST_GATEWAY_HEAD));
+
+    return;
 }
 
 BOOL CAPNSGateWayMsg::SerializeToArray()
@@ -41,11 +47,15 @@ BOOL CAPNSGateWayMsg::SerializeToArray()
     if (m_databuffer.GetWriteOffset() != 0)
     {
         PUSH_SERVER_WARN("push msg serialize failed, databuffer offset: %d.", m_databuffer.GetWriteOffset());
+        TTIM_PRINTF(("push msg serialize failed, databuffer offset: %d.", m_databuffer.GetWriteOffset()));
+
         return bRet;
     }
     if (m_strDeviceToken.length() != APNS_DEVICE_TOKEN_HEX_LENGTH)
     {
         PUSH_SERVER_WARN("push msg serialize failed, device token length: %d, token: %s.", m_strDeviceToken.length(), m_strDeviceToken.c_str());
+        TTIM_PRINTF(("push msg serialize failed, device token length: %d, token: %s.", m_strDeviceToken.length(), m_strDeviceToken.c_str()));
+
         return bRet;
     }
 
@@ -53,6 +63,8 @@ BOOL CAPNSGateWayMsg::SerializeToArray()
     if (strPayload.length() > APNS_PAY_LOAD_MAX_LENGTH || strPayload.length() == 0)
     {
         PUSH_SERVER_WARN("push msg serialize failed, payload length: %d.", strPayload.length());
+        TTIM_PRINTF(("push msg serialize failed, payload length: %d.", strPayload.length()));
+
         return bRet;
     }
 
@@ -109,7 +121,10 @@ BOOL CAPNSGateWayMsg::SerializeToArray()
     __SetBodyLength(m_databuffer.GetWriteOffset() - GetHeadLength() - GetTailLength());
     WriteHead();
     bRet = TRUE;
+
     PUSH_SERVER_DEBUG("push msg buffer length: %d, payload length: %d.", GetDataBufferLength(), strPayload.length());
+    TTIM_PRINTF(("push msg buffer length: %d, payload length: %d.", GetDataBufferLength(), strPayload.length()));
+
     return bRet;
 }
 
@@ -169,6 +184,7 @@ string CAPNSGateWayMsg::_BuildPayload()
     payload_obj << "aps" << aps_obj;
     payload_obj << "custom" << GetCustomData();
     PUSH_SERVER_DEBUG("%s", payload_obj.json().c_str());
+
     return payload_obj.json();
 }
 
@@ -180,10 +196,13 @@ CAPNSGateWayResMsg::CAPNSGateWayResMsg()
     m_CommandID = 0;
     m_Status = 0;
     m_NotificationID = 0;
+
+    return;
 }
 
 CAPNSGateWayResMsg::~CAPNSGateWayResMsg()
 {
+    return;
 }
 
 BOOL CAPNSGateWayResMsg::CheckMsgAvailable()
@@ -193,6 +212,7 @@ BOOL CAPNSGateWayResMsg::CheckMsgAvailable()
     {
         bRet = TRUE;
     }
+
     return bRet;
 }
 
@@ -208,7 +228,8 @@ BOOL CAPNSGateWayResMsg::ParseFromArray(const char *buf, uint32_t len)
     {
         memcpy(&m_CommandID, (void *)buf, sizeof(m_CommandID));
         memcpy(&m_Status, (void *)(buf + sizeof(m_CommandID)), sizeof(m_Status));
-        memcpy(&m_NotificationID, (void *)(buf + sizeof(m_CommandID) + sizeof(m_Status)),
+        memcpy(&m_NotificationID,
+               (void *)(buf + sizeof(m_CommandID) + sizeof(m_Status)),
                sizeof(m_NotificationID));
         m_NotificationID = ntohl(m_NotificationID);
         bRet = TRUE;
@@ -223,10 +244,13 @@ CAPNSFeedBackResMsg::CAPNSFeedBackResMsg()
     __SetTailLength(0);
     m_Time = 0;
     m_TokenLength = 0;
+
+    return;
 }
 
 CAPNSFeedBackResMsg::~CAPNSFeedBackResMsg()
 {
+    return;
 }
 
 BOOL CAPNSFeedBackResMsg::CheckMsgAvailable()
@@ -239,7 +263,9 @@ BOOL CAPNSFeedBackResMsg::CheckMsgAvailable()
     else
     {
         PUSH_SERVER_INFO("CheckMsgAvailable error.");
+        TTIM_PRINTF(("CheckMsgAvailable error."));
     }
+
     return bRet;
 }
 
@@ -249,6 +275,8 @@ BOOL CAPNSFeedBackResMsg::ParseFromArray(const char *buf, uint32_t len)
     if (m_databuffer.GetWriteOffset() != 0)
     {
         PUSH_SERVER_INFO("ParseFromArray error, GetWriteOffset.");
+        TTIM_PRINTF(("ParseFromArray error, GetWriteOffset."));
+
         return bRet;
     }
     Append(buf, len);
@@ -274,6 +302,8 @@ BOOL CAPNSFeedBackResMsg::ParseFromArray(const char *buf, uint32_t len)
     else
     {
         PUSH_SERVER_INFO("CheckMsgAvailable error 2.0");
+        TTIM_PRINTF(("CheckMsgAvailable error 2.0"));
     }
+    
     return bRet;
 }

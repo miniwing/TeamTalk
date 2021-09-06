@@ -62,10 +62,12 @@
    [super viewDidLoad];
    
    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"username"]!=nil) {
+      
       _userNameTextField.text =[[NSUserDefaults standardUserDefaults] objectForKey:@"username"];
    }
    
    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"password"]!=nil) {
+      
       _userPassTextField.text=[[NSUserDefaults standardUserDefaults] objectForKey:@"password"];
    }
    
@@ -74,12 +76,13 @@
       if ([[NSUserDefaults standardUserDefaults] objectForKey:@"username"] && [[NSUserDefaults standardUserDefaults] objectForKey:@"password"]) {
          
          if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"autologin"] boolValue] == YES) {
+            
             [self loginButtonPressed:nil];
          }
       }
    }
    
-   self.defaultCenter=self.view.center;
+   self.defaultCenter   = self.view.center;
    self.userNameTextField.leftViewMode=UITextFieldViewModeAlways;
    self.userPassTextField.leftViewMode=UITextFieldViewModeAlways;
    

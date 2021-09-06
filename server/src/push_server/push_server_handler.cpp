@@ -22,6 +22,9 @@ void CPushServerHandler::OnAccept(uint32_t nsockid, S_SOCKET sock, const char *s
     push_server_ptr pServer = CSessionManager::GetInstance()->GetPushServer();
     push_session_ptr pSession(new CPushSession(pServer->GetIOLoop(), sock));
     CSessionManager::GetInstance()->AddPushSessionBySockID(pSession->GetSocketID(), pSession);
+    
     PUSH_SERVER_INFO("push server accept session, remote ip: %s, port: %u, sockid: %u, real socket: %u.", szIP, nPort, pSession->GetSocketID(), sock);
+    TTIM_PRINTF(("push server accept session, remote ip: %s, port: %u, sockid: %u, real socket: %u.", szIP, nPort, pSession->GetSocketID(), sock));
+
     pSession->Start();
 }

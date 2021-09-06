@@ -9,47 +9,55 @@
 #ifndef my_push_server_push_define_h
 #define my_push_server_push_define_h
 
+#include <stdarg.h>
+
 #include "slog_api.h"
-#define PDU_VERSION     1
 
-#define PUSH_TYPE_NORMAL        1
-#define PUSH_TYPE_SILENT        2
+// #include "TTIMConfig.h"
+// #include "TTIMLog.h"
 
-#define LOG_MODULE_PUSH         "PUSH"
+#define PDU_VERSION 1
+
+#define PUSH_TYPE_NORMAL 1
+#define PUSH_TYPE_SILENT 2
+
+#define LOG_MODULE_PUSH "PUSH"
 extern CSLog g_pushlog;
 
-#define __FILENAME__ (strrchr(__FILE__, '/') ? (strrchr(__FILE__, '/') + 1):__FILE__)
+#define __FILENAME__ (strrchr(__FILE__, '/') ? (strrchr(__FILE__, '/') + 1) : __FILE__)
 
-#define PUSH_SERVER_FATAL(fmt, ...) \
-{\
-    g_pushlog.Fatal("<%s>|<%d>|<%s>," fmt, __FILENAME__, __LINE__, __FUNCTION__, ##__VA_ARGS__);\
-}
+#define PUSH_SERVER_FATAL(fmt, ...)                                                                  \
+    {                                                                                                \
+        g_pushlog.Fatal("<%s>|<%d>|<%s>," fmt, __FILENAME__, __LINE__, __FUNCTION__, ##__VA_ARGS__); \
+    }
 
-#define PUSH_SERVER_ERROR(fmt, ...) \
-{\
-    g_pushlog.Error("<%s>|<%d>|<%s>," fmt, __FILENAME__, __LINE__, __FUNCTION__, ##__VA_ARGS__);\
-}
+#define PUSH_SERVER_ERROR(fmt, ...)                                                                  \
+    {                                                                                                \
+        g_pushlog.Error("<%s>|<%d>|<%s>," fmt, __FILENAME__, __LINE__, __FUNCTION__, ##__VA_ARGS__); \
+    }
 
-#define PUSH_SERVER_WARN(fmt, ...) \
-{\
-    g_pushlog.Warn("<%s>|<%d>|<%s>," fmt, __FILENAME__, __LINE__, __FUNCTION__, ##__VA_ARGS__);\
-}
+#define PUSH_SERVER_WARN(fmt, ...)                                                                  \
+    {                                                                                               \
+        g_pushlog.Warn("<%s>|<%d>|<%s>," fmt, __FILENAME__, __LINE__, __FUNCTION__, ##__VA_ARGS__); \
+    }
 
-#define PUSH_SERVER_INFO(fmt, ...) \
-{\
-    g_pushlog.Info("<%s>|<%d>|<%s>," fmt, __FILENAME__, __LINE__, __FUNCTION__, ##__VA_ARGS__);\
-}
+#define PUSH_SERVER_INFO(fmt, ...)                                                                  \
+    {                                                                                               \
+        g_pushlog.Info("<%s>|<%d>|<%s>," fmt, __FILENAME__, __LINE__, __FUNCTION__, ##__VA_ARGS__); \
+    }
 
-#define PUSH_SERVER_DEBUG(fmt, ...) \
-{\
-    g_pushlog.Debug("<%s>|<%d>|<%s>," fmt, __FILENAME__, __LINE__, __FUNCTION__, ##__VA_ARGS__);\
-}
+#define PUSH_SERVER_DEBUG(fmt, ...)                                                                  \
+    {                                                                                                \
+        g_pushlog.Debug("<%s>|<%d>|<%s>," fmt, __FILENAME__, __LINE__, __FUNCTION__, ##__VA_ARGS__); \
+    }
 
-#define PUSH_SERVER_TRACE(fmt, ...) \
-{\
-    g_pushlog.Trace("<%s>|<%d>|<%s>," fmt, __FILENAME__, __LINE__, __FUNCTION__, ##__VA_ARGS__);\
-}
+#define PUSH_SERVER_TRACE(fmt, ...)                                                                  \
+    {                                                                                                \
+        g_pushlog.Trace("<%s>|<%d>|<%s>," fmt, __FILENAME__, __LINE__, __FUNCTION__, ##__VA_ARGS__); \
+    }
 
+#define __ON__                                     (1)
+#define __OFF__                                    (0)
 
 #if (defined(DEBUG_CLIENT) && (DEBUG_CLIENT==1))
 #  define __AUTO__                                 (1)
@@ -60,10 +68,28 @@ extern CSLog g_pushlog;
 #endif
 
 #if __Debug__
-#	define TTIMLog(x)                              	PUSH_SERVER_DEBUG x
-#	define TTIM_PRINTF(x)									printf x
+#define LOG_BUG_SIZE                                            (1024 * 10 * 5)
+
+static __inline void __PRINTF(char *_Format, ...) {
+   
+   va_list      args;
+   static char s_MSG[LOG_BUG_SIZE]  = {0};
+   
+   bzero(s_MSG, sizeof(s_MSG));
+   
+   va_start (args, _Format);
+   vsnprintf(s_MSG, sizeof(s_MSG), _Format, args);
+   va_end (args);
+   
+   printf("%s\n", s_MSG);
+   
+   return;
+}
+#endif
+
+#if __Debug__
+#	define TTIM_PRINTF(x)                                       __PRINTF x
 #else
-#	define TTIMLog(x)
 #	define TTIM_PRINTF(x)
 #endif
 

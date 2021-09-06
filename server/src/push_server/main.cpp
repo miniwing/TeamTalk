@@ -12,7 +12,7 @@
 #include <sys/signal.h>
 
 // HARRY
-// #include "TTIMLog.h"
+#include "push_define.h"
 
 void writePid()
 {
@@ -43,6 +43,8 @@ int main(int argc, const char *argv[])
 
     // insert code here...
     printf("start push server...\n");
+    TTIM_PRINTF(("start push server...\n"));
+    
     signal(SIGPIPE, SIG_IGN);
     CPushApp::GetInstance()->Init();
     CPushApp::GetInstance()->Start();

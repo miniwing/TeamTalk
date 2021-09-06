@@ -127,6 +127,7 @@
                 <constraint firstItem="OJa-cj-8se" firstAttribute="top" secondItem="1na-rl-GvH" secondAttribute="bottom" constant="50" id="wTB-EF-V5O"/>
                 <constraint firstItem="1na-rl-GvH" firstAttribute="top" secondItem="RbW-G0-ptV" secondAttribute="top" constant="100" id="yhl-vh-kvX"/>
             </constraints>
+            <nil key="simulatedTopBarMetrics"/>
             <variation key="default">
                 <mask key="constraints">
                     <exclude reference="wTB-EF-V5O"/>

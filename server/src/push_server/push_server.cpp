@@ -8,6 +8,7 @@
 
 #include "push_server.h"
 #include "push_define.h"
+
 CPushServer::CPushServer(CEpollIOLoop &io) : m_io(io)
 {
     m_pServer = new CTCPServer(&m_io);
@@ -29,19 +30,21 @@ BOOL CPushServer::Start()
 
     if (m_pServer->Bind(GetListenIP().c_str(), GetPort()) == FALSE)
     {
-        PUSH_SERVER_ERROR("push server bind failed, ip: %s, port: %u.", GetListenIP().c_str(),
-                          GetPort());
+        PUSH_SERVER_ERROR("push server bind failed, ip: %s, port: %u.", GetListenIP().c_str(), GetPort());
+        TTIM_PRINTF(("push server bind failed, ip: %s, port: %u.", GetListenIP().c_str(), GetPort()));
         return FALSE;
     }
 
     m_pServer->Listen();
-    PUSH_SERVER_DEBUG("push server start successed, ip: %s, port: %u.", GetListenIP().c_str(),
-                      GetPort());
+    PUSH_SERVER_DEBUG("push server start successed, ip: %s, port: %u.", GetListenIP().c_str(), GetPort());
+    TTIM_PRINTF(("push server start successed, ip: %s, port: %u.", GetListenIP().c_str(), GetPort()));
+
     return TRUE;
 }
 
 BOOL CPushServer::Stop()
 {
     m_pServer->Close();
+    
     return TRUE;
 }

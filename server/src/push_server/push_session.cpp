@@ -8,6 +8,7 @@
 
 #include "push_session.h"
 #include "timer/Timer.hpp"
+
 CPushSession::CPushSession(CEpollIOLoop &io, S_SOCKET sock) : m_io(io)
 {
     m_pSession = new CTCPSessionAsync(&m_io, sock);

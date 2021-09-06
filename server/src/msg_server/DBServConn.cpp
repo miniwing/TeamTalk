@@ -467,6 +467,8 @@ void CDBServConn::_HandleValidateResponse(CImPdu *pPdu)
 
 void CDBServConn::_HandleRecentSessionResponse(CImPdu *pPdu)
 {
+    TTIM_PRINTF(("CDBServConn::_HandleRecentSessionResponse"));
+
     IM::Buddy::IMRecentContactSessionRsp msg;
     CHECK_PB_PARSE_MSG(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()));
     uint32_t user_id = msg.user_id();
@@ -475,6 +477,7 @@ void CDBServConn::_HandleRecentSessionResponse(CImPdu *pPdu)
     uint32_t handle = attach_data.GetHandle();
 
     log("HandleRecentSessionResponse, userId=%u, session_cnt=%u", user_id, session_cnt);
+    TTIM_PRINTF(("HandleRecentSessionResponse, userId=%u, session_cnt=%u", user_id, session_cnt));
 
     CMsgConn *pMsgConn = CImUserManager::GetInstance()->GetMsgConnByHandle(user_id, handle);
 

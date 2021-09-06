@@ -54,7 +54,7 @@ static __inline void __PRINTF(char *_Format, ...) {
 #endif
 
 #if __Debug__
-#	define TTIM_PRINTF(x)									    __PRINTF x
+#	define TTIM_PRINTF(x)                                       __PRINTF x
 #else
 #	define TTIM_PRINTF(x)
 #endif

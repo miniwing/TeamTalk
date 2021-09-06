@@ -1637,7 +1637,7 @@ typedef NS_ENUM(NSUInteger, PanelStatus)
    
    _touchDownGestureRecognizer = [[TouchDownGestureRecognizer alloc] initWithTarget:self action:nil];
    
-//   __weak ChattingMainViewController* weakSelf = self;
+   //   __weak ChattingMainViewController* weakSelf = self;
    typeof(self) __weak weakSelf = self;
    
    _touchDownGestureRecognizer.touchDown = ^{
@@ -1653,7 +1653,7 @@ typedef NS_ENUM(NSUInteger, PanelStatus)
    };
    
    _touchDownGestureRecognizer.moveOutside = ^{
-
+      
       typeof(weakSelf) __strong strongSelf = weakSelf;
       [strongSelf p_willCancelRecord:nil];
    };
@@ -1661,7 +1661,7 @@ typedef NS_ENUM(NSUInteger, PanelStatus)
    _touchDownGestureRecognizer.touchEnd = ^(BOOL inside) {
       
       typeof(weakSelf) __strong strongSelf = weakSelf;
-
+      
       if (inside) {
          
          [strongSelf p_sendRecord:nil];
@@ -2015,7 +2015,7 @@ typedef NS_ENUM(NSUInteger, PanelStatus)
 - (void)levelMeterChanged:(float)levelMeter {
    
    [_recordingView setVolume:levelMeter];
-
+   
    return;
 }
 

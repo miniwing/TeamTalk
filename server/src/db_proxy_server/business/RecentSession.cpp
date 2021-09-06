@@ -9,7 +9,6 @@
  *
  ================================================================*/
 
-
 #include <list>
 #include <vector>
 
@@ -24,33 +23,34 @@
 
 using namespace std;
 
-namespace DB_PROXY {
+namespace DB_PROXY
+{
     /**
      *  获取最近会话接口
      *
      *  @param pPdu      收到的packet包指针
      *  @param conn_uuid 该包过来的socket 描述符
      */
-    void getRecentSession(CImPdu* pPdu, uint32_t conn_uuid)
+    void getRecentSession(CImPdu *pPdu, uint32_t conn_uuid)
     {
-        
+
         IM::Buddy::IMRecentContactSessionReq msg;
         IM::Buddy::IMRecentContactSessionRsp msgResp;
-        if(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()))
+        if (msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()))
         {
-            CImPdu* pPduResp = new CImPdu;
-        
+            CImPdu *pPduResp = new CImPdu;
+
             uint32_t nUserId = msg.user_id();
             uint32_t nLastTime = msg.latest_update_time();
-            
+
             //获取最近联系人列表
             list<IM::BaseDefine::ContactSessionInfo> lsContactList;
             CSessionModel::getInstance()->getRecentSession(nUserId, nLastTime, lsContactList);
             msgResp.set_user_id(nUserId);
-            for(auto it=lsContactList.begin(); it!=lsContactList.end(); ++it)
+            for (auto it = lsContactList.begin(); it != lsContactList.end(); ++it)
             {
-                IM::BaseDefine::ContactSessionInfo* pContact = msgResp.add_contact_session_list();
-    //            *pContact = *it;
+                IM::BaseDefine::ContactSessionInfo *pContact = msgResp.add_contact_session_list();
+                //            *pContact = *it;
                 pContact->set_session_id(it->session_id());
                 pContact->set_session_type(it->session_type());
                 pContact->set_session_status(it->session_status());
@@ -60,9 +60,9 @@ namespace DB_PROXY {
                 pContact->set_latest_msg_type(it->latest_msg_type());
                 pContact->set_latest_msg_from_user_id(it->latest_msg_from_user_id());
             }
-            
+
             log("userId=%u, last_time=%u, count=%u", nUserId, nLastTime, msgResp.contact_session_list_size());
-            
+
             msgResp.set_attach_data(msg.attach_data());
             pPduResp->SetPBMsg(&msgResp);
             pPduResp->SetSeqNum(pPdu->GetSeqNum());
@@ -75,30 +75,31 @@ namespace DB_PROXY {
             log("parse pb failed");
         }
     }
-    
+
     /**
      *  删除会话接口
      *
      *  @param pPdu      收到的packet包指针
      *  @param conn_uuid 该包过来的socket 描述符
      */
-    void deleteRecentSession(CImPdu* pPdu, uint32_t conn_uuid)
+    void deleteRecentSession(CImPdu *pPdu, uint32_t conn_uuid)
     {
         IM::Buddy::IMRemoveSessionReq msg;
         IM::Buddy::IMRemoveSessionRsp msgResp;
-        
-        if(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()))
+
+        if (msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()))
         {
-            CImPdu* pPduResp = new CImPdu;
-            
+            CImPdu *pPduResp = new CImPdu;
+
             uint32_t nUserId = msg.user_id();
             uint32_t nPeerId = msg.session_id();
             IM::BaseDefine::SessionType nType = msg.session_type();
-            if(IM::BaseDefine::SessionType_IsValid(nType))
+            if (IM::BaseDefine::SessionType_IsValid(nType))
             {
                 bool bRet = false;
                 uint32_t nSessionId = CSessionModel::getInstance()->getSessionId(nUserId, nPeerId, nType, false);
-                if (nSessionId != INVALID_VALUE) {
+                if (nSessionId != INVALID_VALUE)
+                {
                     bRet = CSessionModel::getInstance()->removeSession(nSessionId);
                     // if remove session success, we need to clear the unread msg count
                     if (bRet)
@@ -106,13 +107,13 @@ namespace DB_PROXY {
                         CUserModel::getInstance()->clearUserCounter(nUserId, nPeerId, nType);
                     }
                 }
-                log("userId=%d, peerId=%d, result=%s", nUserId, nPeerId, bRet?"success":"failed");
-                
+                log("userId=%d, peerId=%d, result=%s", nUserId, nPeerId, bRet ? "success" : "failed");
+
                 msgResp.set_attach_data(msg.attach_data());
                 msgResp.set_user_id(nUserId);
                 msgResp.set_session_id(nPeerId);
                 msgResp.set_session_type(nType);
-                msgResp.set_result_code(bRet?0:1);
+                msgResp.set_result_code(bRet ? 0 : 1);
                 pPduResp->SetPBMsg(&msgResp);
                 pPduResp->SetSeqNum(pPdu->GetSeqNum());
                 pPduResp->SetServiceId(IM::BaseDefine::SID_BUDDY_LIST);
@@ -124,10 +125,10 @@ namespace DB_PROXY {
                 log("invalied session_type. userId=%u, peerId=%u, seseionType=%u", nUserId, nPeerId, nType);
             }
         }
-        else{
+        else
+        {
             log("parse pb failed");
         }
     }
-    
-};
 
+};

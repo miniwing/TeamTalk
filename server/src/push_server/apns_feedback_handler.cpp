@@ -52,11 +52,15 @@ void CAPNSFeedBackHandler::OnRecvData(const char *szBuf, int32_t nBufSize)
         {
             uint32_t time = msg.GetTime();
             string token = msg.GetToken();
+
             PUSH_SERVER_INFO("apns feedback client recv resp, token: %s.", token.c_str());
+            TTIM_PRINTF(("apns feedback client recv resp, token: %s.", token.c_str()));
         }
         else
         {
             PUSH_SERVER_ERROR("CAPNSFeedBackResMsg, msg parse failed.");
+            TTIM_PRINTF(("CAPNSFeedBackResMsg, msg parse failed."));
+
             apns_client_ptr pClient = CSessionManager::GetInstance()->GetAPNSClient();
             if (pClient)
             {
@@ -65,4 +69,6 @@ void CAPNSFeedBackHandler::OnRecvData(const char *szBuf, int32_t nBufSize)
         }
         m_Msg.Remove(m_Msg.GetDataLength());
     }
+
+    return;
 }

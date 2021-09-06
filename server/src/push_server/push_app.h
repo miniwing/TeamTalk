@@ -18,19 +18,19 @@ class CPushApp
 public:
     CPushApp();
     virtual ~CPushApp();
-    
-    static CPushApp* GetInstance();
-    
+
+    static CPushApp *GetInstance();
+
     BOOL Init();
     BOOL UnInit();
     BOOL Start();
     BOOL Stop();
-    
-    CEpollIOLoop& GetIOLoop() { return m_io; }
+
+    CEpollIOLoop &GetIOLoop() { return m_io; }
+
 private:
-    BOOL    m_bInit;
+    BOOL m_bInit;
     CEpollIOLoop m_io;
 };
-
 
 #endif /* defined(__my_push_server__push_app__) */
